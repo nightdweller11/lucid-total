@@ -222,9 +222,9 @@
 
 > Owner (2026-10-28): "The system must evolve with the company, in its function and in its reality, and in its codebase and complexity. Now we are two people in the company and we have direct focus, although already there are many tasks and things in the air; the more this moves, the higher the complexity, the more 'zoomed out' we should be, and more people will be involved."
 
-**UC-O1 · Two founders, direct focus.** With two people the home view is close-up: the current wave, the owner's decisions, the agents' lines; groupings are few (phase, wave, domain); most agents are off or at `suggest`; notifications are immediate. Requires: company stage `founders` defaults (`docs/02` §2.8).
+**UC-O1 · Two founders, direct focus.** With two people the home view is close-up: the current wave, the owner's decisions, the agents' lines; groupings are few (phase, wave, domain); most agents are off or at `suggest`; notifications are immediate. Requires: company scale `founders` defaults (`docs/02` §2.8).
 
-**UC-O2 · Growing: zoom out by default.** When people, domains and groupings pass thresholds (settings), Lucid Total proposes the next stage: the home map opens one level higher, programs appear as the unit of attention, briefings replace immediate notifications for most classes, more proactive agents turn on, delegation rules and approval thresholds become explicit. The owner confirms the stage change with a preview of what it changes. Requires: stage detection signals, stage change as a decision with preview, per-stage defaults.
+**UC-O2 · Growing: zoom out by default.** When people, domains and groupings pass thresholds (settings), Lucid Total proposes the next scale: the home map opens one level higher, programs appear as the unit of attention, briefings replace immediate notifications for most classes, more proactive agents turn on, delegation rules and approval thresholds become explicit. The owner confirms the scale change with a preview of what it changes. Requires: scale detection signals, scale change as a decision with preview, per-scale defaults.
 
 **UC-O3 · Complexity made visible.** A "shape of the company" view shows counts and depth (people, parties, domains, groupings, open items per person, decisions per week, asks per week, agents and their autonomy) and where structure is missing (items without a grouping, domains without a lead, asks without a route). Requires: structural metrics and gap detection.
 
@@ -254,6 +254,45 @@
 
 **UC-P9 · Security review before admitting externals.** Before any party is admitted, the cross-tenant and cross-compartment suites, the field-level encryption invariants and the audit integrity check pass; a pen-test precedes the first external payroll or board use. Requires: `docs/07` §9b gates; `docs/09` security suite.
 
+## Q. Seeing: the Stage, places, products, aspects (owner, 2026-10-28, T25)
+
+- **UC-Q1 The AI shows me what I need.** "Show me how marketing sees Europe", "just the money", "as a timeline": the Stage recomposes; every scene is also reachable by navigation and carries a back. Acceptance: the scene passes the attention budget; the person names its focal subject in two seconds.
+- **UC-Q2 A place I can recognise.** Every region of the world has a name, a subject, a glyph, a hue and a landmark; I know where I am without reading. Zooming into a place reveals the sub-places that were faintly there (`docs/13` §5.2).
+- **UC-Q3 The product is visible.** An item with a product shows it as its facade on the world and large on its page: the mock as the expectation, the screenshot or output as the result, compared visually; a finished product stays as a landmark of its place.
+- **UC-Q4 A done item shows its implications first.** Opening a done item shows the ripple: what it unblocked, which roads opened, which dates moved, which goal advanced, who was told, the lesson.
+- **UC-Q5 An aspect of the company.** Delivery, Customers, Money, People, Risk, Market, AI operations, System health as composed scenes; one tap from a metric into the places behind it; quiet by default.
+- **UC-Q6 An infographic for a story.** "Make the quarter's picture for the board": one screen, three to five visuals, one sentence each; shared inside the board compartment; re-rendered from live data when opened.
+- **UC-Q7 The grammar grows.** A request needs a visual the catalogue lacks; the composer proposes the component; it is built, reviewed, tested in all themes and both directions, installed, and used from then on.
+- **UC-Q8 Never overwhelmed.** On any screen, at most three things need me, few numbers, alarms only for failing or breached states; dense instruments are chosen, not default.
+
+## R. Deciding and simulating (owner, 2026-10-28, T25)
+
+- **UC-R1 The Fork.** A decision arrives as paths with drawn consequences; I choose by picking the path; the context is two sentences and one visual; cost and toil first; reversible until the mark; one at a time.
+- **UC-R2 Refocus.** "Focus on Europe": I move effort between places and watch the world re-forecast; the transparency strip says who and what moves; apply, save as a future, or discard.
+- **UC-R3 Futures.** A strategic decision shows three small worlds a month out with their confidence as haze; the prediction is kept and compared with what happened.
+- **UC-R4 Meeting at the Table.** Decisions spoken in a meeting become applied change on the shared Stage with undo; the minutes are a scene.
+- **UC-R5 The small change.** One date moved shows its one-line strip of consequences before it is applied.
+
+## S. The system runs itself (owner, 2026-10-28, T25; design in `docs/14`)
+
+- **UC-S1 The System place.** Lucid Total's own subsystems are places with health, cost, open issues and the items being built for them; the owner sees them like any other place.
+- **UC-S2 It notices.** A failing scene component, a slow query, a stuck agent, a cost spike, a retrieval miss, repeated corrections of its answers: each becomes an issue or an incident filed by the system, quietly, with its diagnosis.
+- **UC-S3 It repairs with oversight.** The repair runs as items through Claude Code in a worktree; tests, evals and walkthrough evidence are attached; the deploy is staged with rollback; the monitor that found the problem confirms it is gone; the owner sees one line. Security-sensitive repairs always wait for a person.
+- **UC-S4 It improves.** Evals, feedback, corrections and attention cost feed an improvement backlog of ordinary proposals; where it works well is shown as plainly as where it breaks.
+- **UC-S5 AI processes are orchestrated.** Agents are processes in a process table with model class, cost, age and owner item; validation of outputs, confirmation of results, follow-up and maintenance are built into every run.
+- **UC-S6 Models are configured decisions.** Enabling Fable, or any model, shows its capability, speed, cost, data terms and the data classes allowed to reach it; it is a reversible, logged decision.
+- **UC-S7 Autonomy grows by trust.** A (domain × action class) advances up the ladder when its trust score crosses the threshold, by proposal and confirmation with a preview; it regresses on incidents; the Trust map shows where the system runs alone.
+- **UC-S8 It builds its own subsystems.** "We need a Sankey of budget flows": a component task is briefed from the item, built by Claude Code, validated and installed; the same path builds Lucid Chat's features.
+
+## T. Where you already are (owner, 2026-10-28, T25; design in `docs/15`)
+
+- **UC-T1 A whole day in Lucid Chat.** The owner receives forks, glances and confirmations as Lucid Chat messages with reply options and answers them there; the world changes accordingly.
+- **UC-T2 Decide by email.** A fork as a mail with a reply-to-decide block; a verified reply applies a reversible class; irreversible classes open the app.
+- **UC-T3 The agent in Slack.** A member of the channels it is invited to: answers with citations, files commitments and asks from conversations as proposals shown back for confirmation, updates progress said in the channel, posts one quiet daily line; otherwise silent.
+- **UC-T4 A status by voice.** "Where are we on the beta?" on the phone; the answer is a sentence and a scene sized for the phone.
+- **UC-T5 Chief of staff.** Before a task starts, its context pack is ready; the first draft exists where it can; waits are chased; externals are reached; the loop is closed with evidence and one line.
+- **UC-T6 Nothing leaks.** Restricted and payroll classes and envelope contents never leave for a third-party channel; parties receive only their compartment; every outbound message is audited.
+
 ## M. What the owner's brief did not name, and we must still cover
 
 The lead adds these because a company operating system without them leaks work back into side tools:
@@ -280,7 +319,7 @@ The lead adds these because a company operating system without them leaks work b
 | **Dependency cycles and impossible plans** | Detect and show cycles and over-committed dates. | `docs/02` §4.4 |
 | **Time zones and working hours** | Reminders and briefings respect them. | `docs/02` §6 |
 | **Data export and portability** | UC-L4. | `docs/02` §12 |
-| **Asks, company stage and parties** | Added on the owner's 2026-10-28 instruction; see §N, §O, §P. | `docs/02` §2.8, §4.9, §4.10, §13 |
+| **Asks, company scale and parties** | Added on the owner's 2026-10-28 instruction; see §N, §O, §P. | `docs/02` §2.8, §4.9, §4.10, §13 |
 | **Field-level encryption and read audit for payroll-class data** | Externals and payroll through the same system raise the bar from access control to encryption and integrity. | `docs/07` §6b, §4 |
 | **Engagement terms and time-bound access** | Externals come and go; access must end when the engagement does. | `docs/02` §4.10 |
 | **A security review gate before admitting externals** | The first external with payroll or board access is a trust boundary move. | `docs/07` §9b, `docs/11` |

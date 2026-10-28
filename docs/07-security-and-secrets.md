@@ -26,6 +26,7 @@
 - **Google SSO (the first tracked task, LT-0001):** OpenID Connect through an adapter (`packages/adapters/sso`); allow-list of workspace domains and explicit invitations; JIT user creation with a default role; the owner secret retired for people; service accounts unchanged. Passkeys later.
 - **Guests:** invited by email to specific items; a magic link that creates a limited session; visibility scoped to those items.
 - **Agents:** service accounts with `kind`, rights, budgets and an "acts on behalf of" rule (the coordinator acts for the owner within the owner's rights intersected with its own).
+- **Channel identities (`docs/15` §3):** each person or party has verified handles per channel (email address, Lucid Chat identity, Slack user id, phone number), verified once on first use by a challenge; every channel carries an **assurance level** (A0 unverified · A1 verified handle · A2 signed token to that recipient · A3 device-bound app session) and the action registry's permission classes map to a minimum assurance (reversible needs A2; irreversible, spend and admin need A3, i.e. the app, or Lucid Chat once the device is bound); decision tokens are bound to one recipient and expire, so a forwarded mail cannot decide; inbound mail is checked for DMARC alignment; links never sign anyone in.
 
 ## 3. Rights model
 

@@ -14,7 +14,9 @@
 4. **The model never sees secrets.** Envelopes are ciphertext end to end; items and comments above a conversation's clearance are filtered before prompt assembly; the retrieval index excludes them. Field-level encrypted (payroll-class) fields are never decrypted for a model. A party's assistant is scoped to the party's compartment: the retrieval filter and the tool rights both carry the compartment, so an external cannot ask their way past it.
 5. **Quiet by default.** Proactive agents emit one card or line per finding, deduped, at the reader's cadence; outbound channels are off until enabled, each with a kill-switch.
 6. **Model and provider agnosticism inside a Claude-first reality.** The owner's Claude API token powers v1. All calls go through `packages/ai-gateway`; model classes (fast · standard · strongest · Fable) map to model ids in configuration; a second provider is an adapter, never a code path.
-7. **Measured autonomy.** Every playbook has an autonomy level and a quality record; levels rise on evidence (`docs/02` §2.7).
+7. **Measured autonomy.** Every playbook has an autonomy level and a quality record; levels rise on evidence by the trust mechanism (`docs/14` §8), per process and per (domain × action class).
+8. **Routing by task class.** Every run is routed by the table in `docs/14` §7 (fast → standard → strongest with escalation on validation failure); build sessions through Claude Code never run on the `standard` class (Lucid Chat's L363: never Sonnet for coding); `sensitive` data reaches zero-data-retention models only; `restricted` and `payroll` reach no model.
+9. **The composer is a run like any other.** Scenes (`docs/13` §8) are produced by routed runs, validated before rendering, recorded and evaluated.
 
 ## 2. The action registry as the tool surface
 
@@ -37,7 +39,7 @@ From this the build generates: JSON Schema for the Claude tools, OpenAPI for RES
   | `fable` | `claude-fable-5-1` | enabled per company by the owner; reserved for the hardest reasoning (strategy previews, architecture questions over the codebase); long turns | $10 / $50 |
 
   Classes are what the product shows; ids change in configuration (`docs/00` principle 12: never a model name in product code). A per-conversation choice overrides the default; proactive agents pin the smallest class that passes their eval (§7).
-- **Data terms.** Fable 5.1 requires 30-day data retention at the provider (it is not served under zero-data-retention unless Anthropic authorises it). Lucid Total handles company work data, not Lucid Chat's sealed message content, so this is acceptable for v1 **if the owner confirms** (open question in `docs/12`); Lucid Chat's own mediation stays on its ZDR path and is untouched. Sensitive items (`docs/07` §6) are excluded from prompts regardless of model.
+- **Data terms.** Each model's terms are part of its registry row and shown in Settings → Models (`docs/14` §7.3): Fable 5.1 requires 30-day data retention at the provider (it is not served under zero-data-retention unless Anthropic authorises it); the others run under the ZDR path. Enabling a model is a configured decision taken with those terms in view (T26); whatever the setting, `sensitive` data reaches ZDR models only and `restricted` and `payroll` reach no model (`docs/07` §6b). Lucid Chat's own mediation stays on its ZDR path and is untouched.
 - **Budgets and cost accounting**: per run (steps and dollars; soft wrap-up at 60 % of the run budget), per agent per day, per company per month; `usage` from every response accumulated into `agent_runs` and surfaced per thread, agent and day; cache read/write tokens tracked (a zero cache-read across repeated turns raises a diagnostic).
 - **Run recorder**: inputs, tool calls and results (pointers, not copies, for large content), events, cost, model and effort, for replay and evaluation (`docs/09`).
 - **Long work.** Chat turns are bounded (steps, budget, wall time); when a request needs long autonomous work (an import review, a quarterly retrospective draft), it becomes a scheduled agent run on the `ai` role, not a chat turn. Engineering work is handed to the Claude Code coordinator (UC-D8), which runs outside Lucid Total and reports through the API.
@@ -93,7 +95,7 @@ A playbook is data: name, trigger (schedule or event), autonomy level, allowed t
 | Import reviewer | after an import | suggest | Grades imported rows' evidence; creates "to verify" items |
 | Ask router | new ask | suggest (→ inform) | Summarises the ask, finds related items and duplicates, proposes the responsible role holder and a decision; aggregates support issues into product asks |
 | External correspondence | chore or ask addressed to a virtual party; inbound reply | suggest (→ confirm) | Drafts the email or message on the company's behalf inside the party's compartment; parses replies into answers, commitments and evidence; never sends without the process's autonomy level allowing it |
-| Stage watcher | weekly | suggest | Computes the company's structural signals and proposes a stage change with its preview (UC-O2) |
+| Scale watcher | weekly | suggest | Computes the company's structural signals and proposes a scale change with its preview (UC-O2) |
 
 Every finding links its evidence and is deduped by a stable key; the reader's cadence batches delivery; nothing is emailed until the email channel is enabled.
 

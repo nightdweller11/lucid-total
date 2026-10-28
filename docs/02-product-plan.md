@@ -64,22 +64,22 @@ Evidence on every item; reviews as evidence; retrospectives as `lesson` items li
 
 ### 2.7 The autonomy ladder (principle 14)
 
-Every process (each rhythm, each flow step, each agent playbook) carries an autonomy level: `observe` · `suggest` · `confirm` · `inform` · `run`. Defaults for Lucid: triage of inbound issues `suggest`; follow-ups and reminders `inform`; briefings `run`; priority re-ranking from a decision `confirm`; emails to customers `confirm`; spend `suggest`; merges `observe` (the coordinator merges). A dashboard shows each process's level, its measured quality (how often its suggestions were accepted unchanged) and the recommended next level.
+Every process (each rhythm, each flow step, each agent playbook) carries an autonomy level: `observe` · `suggest` · `confirm` · `inform` · `run`. Levels are held per **(domain × action class)** as well as per process; the effective level of a run is the lowest of the process level, the domain × action-class level, the channel ceiling (`docs/15` §3) and the model's allowance; levels advance only by the trust mechanism in `docs/14` §8 (proposal with preview, confirmation, automatic regression on incidents). Defaults for Lucid: triage of inbound issues `suggest`; follow-ups and reminders `inform`; briefings `run`; priority re-ranking from a decision `confirm`; emails to customers `confirm`; spend `suggest`; merges `observe` (the coordinator merges). A dashboard shows each process's level, its measured quality (how often its suggestions were accepted unchanged) and the recommended next level.
 
-### 2.8 Company stage: the system grows with the company (principle 17)
+### 2.8 Company scale: the system grows with the company (principle 17)
 
 (Order note: §2.7 precedes this section since the 2026-10-28 review.)
 
-A company of two founders and a company of forty need different defaults from the same model. **Company stage** is a setting with four values and explicit, previewable consequences:
+A company of two founders and a company of forty need different defaults from the same model. **Company scale** is a setting with four values and explicit, previewable consequences:
 
-| Stage | Signals (settings) | Home view | Structure shown | Agents | Cadence | Approvals |
+| Scale | Signals (settings) | Home view | Structure shown | Agents | Cadence | Approvals |
 |---|---|---|---|---|---|---|
 | **Founders** (Lucid today) | ≤ 3 people, ≤ 2 domains with leads | Z1–Z2 close-up: the current wave, the owner's decisions, agents' lines; the inbox on the phone | phase · wave · domain | follow-up, evidence check, sweeper at `suggest`; briefing at `run` | instant for decisions and blocks, daily digest for the rest | owner decides material; lead decides the rest |
 | **Small team** | 4–10 people, ≥ 3 domains | Z1 of the home domain with the goals horizon | + programs and epics | + triage, deadline, decision ageing at `inform` | hourly batches for most classes | domain leads decide within thresholds |
 | **Growing** | 11–40 people, parties engaged | Z0 with regions by work, flags and heat | + releases, campaigns, objectives, compartments | + workload, account renewal, asks routing at `inform`/`run` | daily briefings replace most notifications | thresholds per domain; proposals the norm |
 | **Scaled** | > 40 people, several tenants or business units | Z0 with sub-companies | + portfolios | playbooks largely at `run`, exceptions escalate | weekly for most, instant for incidents and material decisions | formal rights matrix, delegated budgets |
 
-The stage is **proposed** by Lucid Total when signals cross thresholds and **decided** by the owner with a preview of what changes (UC-O2); nothing switches silently. Stage defaults can be overridden per person. The "shape of the company" view (UC-O3) shows the structural metrics behind the proposal; the Lucid Total program shows its own complexity metrics (schema, registry, playbooks, code) so that growth of the system is a decision too (UC-O4).
+The scale is **proposed** by Lucid Total when signals cross thresholds and **decided** by the owner with a preview of what changes (UC-O2); nothing switches silently. Scale defaults can be overridden per person. The "shape of the company" view (UC-O3) shows the structural metrics behind the proposal; the Lucid Total program shows its own complexity metrics (schema, registry, playbooks, code) so that growth of the system is a decision too (UC-O4).
 
 ## 3. Personas and core scenarios
 
@@ -189,11 +189,18 @@ People: profile, roles (per domain), rights, perspective, channels (email, Lucid
 
 ## 5. Views
 
-All views are over the same model; each remembers its layout per person. Full interaction design in `docs/03`.
+All views are over the same model; each remembers its layout per person. The experience doctrine in `docs/13-experience.md` governs every view (attention budget, four modes, the Stage, products as facades, forks and Refocus, the phone); `docs/03` holds the world's interaction design. Views are of two kinds: **scenes** (composed by the AI or opened by a person: the Horizon, a place, a product view, a fork, Refocus, the Table, an aspect, an infographic) and **instruments** (board, list, timeline, graph, people, issues, parties, settings), opened from the dock's "More" when a task needs one, never the home.
 
-### 5.1 The map (home)
+### 5.0 The Stage, the Horizon and Talk
 
-The company as a zoomable, perspective-driven world (`docs/03`): domains as regions, programs and epics as areas, items as activity, goals as the horizon, dependencies as roads, risks as weather, decisions waiting as flags. Zoom levels: company → domain → program/epic → item → evidence. Re-centres on the viewer's perspective and on the active meeting. Overlapping groupings render once across regions.
+- **The Stage** is the single surface on which scenes render; one focal subject at a time; the world is ambient beneath or around it. The AI composes the scene for the viewer, the moment, the context and the request from the scene grammar (`docs/13` §8); a person can open any scene by navigation too, and every scene a person opens the AI can compose (principle 2).
+- **The Horizon** is the home in Glance mode: the world breathing beneath; at most three things that need the viewer, each with a visual; the goals as rings with forecast; the one-line "since you last looked". On the phone it is the home screen.
+- **Talk** is the shell: a command bar at the bottom centre with text, voice and slash commands; answers are scenes, actions with previews, or both; the AI changes the Stage on request ("show me how marketing sees Europe", "just the money", "as a timeline").
+- **The dock**: Horizon · World · Me · Talk · More; folded at the edge; no section rail.
+
+### 5.1 The world (the map)
+
+The company as terrain of **places with identity** (name, subject, glyph, hue, landmark illustration, stable position) that contain their own sub-maps, visible faintly before you zoom; items are **buildings** whose facades show the product (expected as a ghost, actual when built, criteria as a ring); goals are the horizon; dependencies are roads; risks are weather; decisions waiting are flags; people and agents are presence; parties are embassies at the coast. Zoom: company → domain → program/epic → building → evidence, continuous, revealing rather than replacing. Perspective and the meeting re-arrange and re-emphasise, never hide. Full design in `docs/13` §5 and `docs/03`.
 
 ### 5.2 Board and line view
 
@@ -223,9 +230,9 @@ The person's queue of things that need them: decisions (one at a time for the ow
 
 Full-text and structured search across items, comments, documents, decisions and code pointers; filters on every field; saved searches; natural-language search through the assistant ("open EU compliance tasks blocked on a decision").
 
-### 5.9 Item page
+### 5.9 Item page: the product view
 
-Header (glyph, id, title, state, priority with reason, assignees, groupings as chips with map placement, dates); tabs: Overview (brief and context), Expected vs Actual, Dependencies (both directions, graph), Comments and feedback, Evidence, Time, History; a right panel with the assistant scoped to this item ("summarise", "what's missing for done", "draft the follow-ups").
+An item opens as a **product view** (`docs/13` §6): the product large (actual facade, or the expected mock/spec visual; both as a comparison when both exist: side by side, slider or overlay with differences marked); the goal in one line and the done rule in one line with the criteria as a ring whose segments open their evidence; the context strip (parent goal, spawning decision or ask, who, where it stands, since when); the talk (comments and the assistant in one thread; "apply to the expectation" with a revision mark); the roads (both directions, critical thick); and, for done items, **the implications first**: unblocked buildings, opened roads, moved dates, goal rings advanced, who was informed, the lesson. Time, history and the full evidence list are one tap away. The assistant is scoped to the item ("what's missing for done", "draft the follow-ups", "compare expected and actual").
 
 ### 5.9b External view and party pages
 
@@ -233,11 +240,19 @@ The external view is the direct mode of a party (§4.10): the reduced rail, the 
 
 ### 5.10 Phone
 
-Phone-first layouts for: inbox, my work (line view), item page, chat, map (touch zoom and pan, simplified labels), approvals and envelope reveal. Read and comment with poor connectivity (queued writes). Installable PWA; later native via Lucid Chat.
+The phone has its own layouts (`docs/13` §10): the Horizon as home (three cards with visuals, goal rings, a strip of place tiles); one place at a time full-bleed (landmark header, sub-place tiles with rings, facade gallery, waits); the Fork as one screen per decision with swipeable paths; Refocus with sliders and the transparency strip; Talk as hold-to-talk on the dock; confirm by hold. Read and comment with poor connectivity (queued writes). Installable PWA; later native via Lucid Chat. The desktop map is never shrunk onto the phone.
 
 ### 5.11 Accessibility and i18n
 
 WCAG 2.2 AA; full keyboard operation (command bar `⌘K`, list navigation, shortcuts); screen reader names for every glyph; reduced motion; high contrast variant from the Lucid tokens; English and Hebrew with mirrored layouts; the map's labels and directional glyphs mirror in RTL; dates and numbers localised.
+
+### 5.12 Aspects and infographics
+
+**Aspects** (`docs/13` §8.6) are composed scenes about one way of looking at the company: Delivery, Customers, Money, People, Risk and compliance, Market and growth, AI operations, System health. Each is a page and a layer on the world, built from the scene grammar, composed per viewer and per company scale, quiet (trend and shape first, numbers on hover, alarms only for breached states), and one tap from any metric into the places and buildings behind it. **Infographics** (`docs/13` §8.5) are one-screen scenes that tell one story (a release, a quarter, a place, a decision, the board pack, a customer's issue), rendered to a shareable image and an accessible page, embedded in meetings and items, sent to parties inside their compartment. The Infographics view lists what exists for the viewer's places and takes a one-sentence request for a new one.
+
+### 5.13 Meetings: the Table
+
+The meeting's subject centred on the Stage; its open forks and risks; the agenda as a path; decisions captured as they are spoken and shown as applied change on the world with undo; the minutes as a scene when the meeting ends; attendees see the same Stage (shared perspective); a party attending sees it through their compartment.
 
 ## 6. Decisions, propagation and what-if
 
@@ -249,9 +264,11 @@ A decision has a question, context, options with consequences, a recommendation 
 
 Given a change (a decision, a date move, a scope change, a process change), compute the affected items and the derived changes through relations and rules: dependency shifts (successors move), priority re-ranking (§6.4), load changes per person and agent, goal forecast changes, SLA and deadline risks, notifications due. Output a **delta**: before/after per affected item, per person, per goal, with explanations.
 
-### 6.3 What-if mode
+### 6.3 The Fork and Refocus (decisions and simulation)
 
-A draft change set over the model (never applied) rendered as deltas on the map, timeline, board and people views (ghost positions, arrows, load bars). Compare two drafts. Apply, save for later, or discard. Every applied change set is a first-class record with its baseline, so the actual effect can be compared with the predicted one later (UC-K3).
+- **The Fork** (`docs/13` §7.1): a decision is composed as paths leaving a fork; each path shows its consequence drawn as the world would change (ghost buildings, dates on roads, rings advancing or receding, people's load, money moving); the recommendation is the lit path with citations; the first line is cost and toil; the reversible-until mark is a clock; one fork at a time. Strategic decisions show **futures**: small worlds side by side a month out, with the propagation engine's confidence as haze.
+- **Refocus** (`docs/13` §7.2): a direct manipulation over the world at domain depth: effort moved between places by slider or by drag, the world re-forecasting live (rings, dates, fronts, load) and the **transparency strip** stating in plain words what moves and who is affected. Apply makes a change set (propagated, announced, reversible until the mark); Save keeps a draft future; Discard leaves nothing. The same engine serves small changes with a one-line strip. Every simulation shows what it does not know and the assumptions it used, and the assumptions are settings editable in place.
+- Every applied change set keeps its baseline and its prediction, so the actual effect is compared with the predicted one later and shown on the decision's page (UC-K3).
 
 ### 6.4 Priority model
 
@@ -274,10 +291,11 @@ Parity (every action a tool), transparency (every AI action visible with its pre
 ### 7.2 The chat
 
 - Threads (per topic, per item, per meeting), streaming, markdown and tables, code blocks, attachments and screenshots, voice input on phone, slash commands (`/task`, `/decide`, `/remind`, `/email`, `/whatif`, `/envelope`), mentions of items and people, pinned threads, search of history.
-- **Tool previews and confirmations** as cards: the action's glyph and label, the permission class (read · reversible · irreversible · outbound · spend), the exact change set, Confirm / Edit / Cancel; results with Undo where reversible. Reversible actions at autonomy `inform` run without a tap and show the undo.
+- **Tool previews and confirmations** as cards: the action's glyph and label, the permission class (read · reversible · irreversible · outbound · spend · admin), the exact change set, Confirm / Edit / Cancel; results with Undo where reversible. Reversible actions at autonomy `inform` run without a tap and show the undo.
 - **Citations**: chips to items, documents (section), code (file and lines), decisions, commits, conversations; a side panel shows what the answer used.
 - **Scopes**: a thread can be scoped to an item, a grouping, a meeting or a person, which shapes retrieval and tools.
-- **Model choice** per thread by **class** (`fast` · `standard` · `strongest` · `fable`, the last enabled by the owner per company) with the running cost shown; the interface shows class names, never model ids (those live in settings, `docs/06` §3); a default per role; proactive agents use the smallest model that passes their evals (`docs/06`).
+- **Model choice** per thread by **class** (`fast` · `standard` · `strongest` · `fable`) with the running cost shown; the interface shows class names, never model ids (those live in settings, `docs/06` §3); a default per role; proactive agents and runs use the routing table in `docs/14` §6 (the smallest model that passes validation, escalating on failure). **Every model, Fable included, is a configured decision made with its meaning in view**: Settings → Models shows per model its capability, speed, cost per typical task, data terms (zero-data-retention or 30-day retention), the sensitivity classes allowed to reach it and where it is used by default; enabling a model is a decision item with that context, reversible, logged; restricted and payroll classes never reach a non-ZDR model.
+- **Scenes in the chat**: an answer may be a scene (a place, an aspect, a comparison, an infographic) rendered inline, with "open on the Stage"; the composer follows the attention budget in the chat as everywhere.
 - **Memory**: the assistant remembers per-person preferences (channels, cadence, phrasing) only through explicit "remember" actions; company facts live in the model, never in hidden memory.
 
 ### 7.3 Capabilities (tools), by family
@@ -303,6 +321,10 @@ Each agent has a record (§4.1 `agent`): kind, model policy, rights (a service a
 ### 7.8 Meeting mode
 
 Start from a meeting item or by saying "we are meeting about X": the map and inbox re-centre on X for attendees; the assistant listens (voice or typed), captures decisions and tasks as proposed cards, applies reversible ones at once and batches confirmations; at the end it produces the summary item with links (UC-C6, UC-E3).
+
+### 7.10 The composer and the scene grammar
+
+The composer is the embedded AI's capability to produce a **scene** (`docs/13` §8): given the viewer, the moment, the context and the request, it retrieves through read actions and emits a declarative composition from the component catalogue with data bindings, a focal subject and provenance. A validator checks schema, re-reads every number from its binding, rejects stale data, enforces the attention budget and filters by rights and compartments before the renderer draws it (desktop, phone, image for channels). The catalogue grows by proposal: when a request needs a visual the grammar cannot express, the composer proposes a component brief that becomes a coordinator task (`docs/14` §8); the built component is reviewed, tested in all themes and directions, versioned and installed. The composer is a model-class routed run like any other (`docs/14` §6) and its scenes are evaluated (`docs/09`).
 
 ### 7.9 Safety and limits
 
@@ -340,8 +362,8 @@ Sealed **envelopes**: created in a dedicated window (never the chat input), encr
 ## 12. Integrations, API, import and export (summary; design in `docs/08`)
 
 - **REST API** for every action and query; **webhooks** for events; **MCP server** exposing the tool registry to external agents; **service accounts** with rights and budgets.
-- **Connectors v1**: GitHub (commits/PRs by item id, merge events), Railway (deploy and failure events), email in/out, Lucid Chat (bot channel and report links), the Claude Code coordinator protocol.
-- **Later**: calendar, Slack-style channels, CRM, accounting, HR, analytics.
+- **Connectors v1**: GitHub (commits/PRs by item id, merge events), Railway (deploy and failure events), email in/out with reply-to-decide, Lucid Chat (the system as a contact), Slack and then the other messaging adapters (`docs/15`), the Claude Code coordinator protocol.
+- **Later**: calendar, CRM, accounting, HR, analytics.
 - **Import**: Lucid Chat's checklist, decision log, briefs, walkthroughs, ADRs, status/quality/cost data (`docs/10`); generic CSV/JSON.
 - **Export**: whole model as JSON and Markdown at any time; per-view CSV.
 
@@ -349,7 +371,7 @@ Sealed **envelopes**: created in a dedicated window (never the chat input), encr
 
 - **Identity**: bootstrap mode (owner account with a strong secret, agent service accounts) → Google SSO (the first tracked task) → more providers later; sessions with device list; API keys per service account. **Parties**: magic-link or SSO sign-in for direct externals, bound to their party and compartment; virtual parties have no sign-in; system parties have service accounts.
 - **Compartments** for parties and, where a company wants them, for internal roles (e.g. People and Finance for payroll-class data); enforced at the data layer; cross-compartment tests from day one.
-- **Company stage** (§2.8) as the master default for zoom, structure, agents, cadences and thresholds; proposed by the system, decided by the owner with a preview.
+- **Company scale** (§2.8) as the master default for zoom, structure, agents, cadences and thresholds; proposed by the system, decided by the owner with a preview.
 - **Rights**: roles per domain; decision kinds per role; permission classes for actions; visibility scopes (company, domain, item-level for guests); the AI inherits the acting person's rights.
 - **Autonomy levels** per process and playbook; a dashboard with measured quality and recommendations.
 - **Tenancy**: one company per instance in v1 with a tenant id on every row, so multi-tenant hosting is a deployment change, not a schema change (`docs/05`).
@@ -365,16 +387,16 @@ Sealed **envelopes**: created in a dedicated window (never the chat input), encr
 
 ## 15. Metrics (product)
 
-Intent-to-action time; AI parity coverage (100 %); freshness of state (sampled); notifications per person per day and action rate; decision wait time and in-context share; prediction gap (predicted vs actual dates and load); share of processes at each autonomy level and the acceptance rate of AI suggestions; import completeness (rows, evidence links resolved); cost per day of AI by agent and model.
+Intent-to-action time; **attention cost** (elements per scene, numbers per glance, interrupts per person per day, time to name the focal subject in reviews); scene validator pass rate and re-compositions asked for; AI parity coverage (100 %); freshness of state (sampled); notifications per person per day and action rate; decision wait time and in-context share; prediction gap (predicted vs actual dates and load); share of processes at each autonomy level and the acceptance rate of AI suggestions; import completeness (rows, evidence links resolved); cost per day of AI by agent and model.
 
 ## 16. Release phases (summary; details in `docs/11-roadmap.md`)
 
-Asks ship in Phase 0 (the card, routing to the owner or lead, decisions); company stage `founders` defaults in Phase 0 with the stage model in Phase 3; parties in virtual mode (email on the company's behalf) in Phase 1, direct external views and compartments in Phase 2, payroll-class data with field-level encryption and the security gate in Phase 3.
+Asks ship in Phase 0 (the card, routing to the owner or lead, decisions); company scale `founders` defaults in Phase 0 with the scale model in Phase 3; parties in virtual mode (email on the company's behalf) in Phase 1, direct external views and compartments in Phase 2, payroll-class data with field-level encryption and the security gate in Phase 3.
 
 - **Phase 0 · Bootstrap (the board that replaces the checklist):** items, groupings, relations, board and line view, list, item page with expected vs actual, comments and feedback requests, inbox, bootstrap identity, the coordinator protocol (working lines, items), the import of Lucid Chat's checklist and decision log, the chat with read tools and the first write tools, Deep Blue + Sky Glass, desktop and phone.
-- **Phase 1 · The AI runs the operation:** full action registry parity, previews/confirm/undo, retrieval over docs and code, proactive agents (follow-up, briefing, evidence check, sweeper), notifications and email, Lucid Chat channel, envelopes, Google SSO, templates, time tracking, Aqua Dusk.
-- **Phase 2 · The map and decisions:** the map with perspectives and meeting mode, decisions with change sets, propagation and what-if, priority model with explanations, timeline, dependency graph, workload signals, issues/incidents intake with connectors (GitHub, Railway, email in).
-- **Phase 3 · Company-wide:** budgets, accounts, risks, goals with forecasts, playbooks dashboard and autonomy ladder, knowledge from resolutions, exports, guest access, multi-tenant readiness.
+- **Phase 1 · The AI runs the operation:** the scene grammar v1 and the Stage (Horizon, place scenes, product view, the Fork, two aspects: Delivery and System health), the self-observation monitors and the system's own incidents (`docs/14`), Lucid Chat and email as channels with reply-to-decide (`docs/15`), full action registry parity, previews/confirm/undo, retrieval over docs and code, proactive agents (follow-up, briefing, evidence check, sweeper), notifications and email, Lucid Chat channel, envelopes, Google SSO, templates, time tracking, Aqua Dusk.
+- **Phase 2 · The world and decisions:** the world with places, sub-maps and facades, perspectives and the Table (meeting mode), decisions with change sets, propagation, futures and Refocus, infographics, the remaining aspects, one repair class at inform level, Slack as a messaging adapter, priority model with explanations, timeline, dependency graph, workload signals, issues/incidents intake with connectors (GitHub, Railway, email in).
+- **Phase 3 · Company-wide:** budgets, accounts, risks, goals with forecasts, the autonomy maturity mechanism and the Trust map, the grammar growth path (AI-proposed components built through Claude Code), knowledge from resolutions, exports, guest access, multi-tenant readiness.
 - **Phase 4 · Product:** second tenant, billing, deeper connectors, Lucid Chat surfaces.
 
 ## 17. Open questions (to resolve with the owner, one at a time, when material)

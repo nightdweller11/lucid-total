@@ -54,9 +54,15 @@ The Claude Code coordinator runs Lucid Chat's development outside Lucid Total (o
 | **Google SSO** | in | OIDC sign-in (LT-0001). |
 | **Object storage** | both | Railway Buckets (S3 API). |
 | **Claude API** | out | `packages/ai-gateway` only. |
+| **Slack** (Phase 1, `docs/15`) | both (Socket Mode or Events API; buttons; slash command) | Internal app per workspace; presence modes off · addressed · listen per channel; proposals shown ephemerally to the speaker; the quiet daily line; progress capture at `suggest` until trusted. Data terms: content stays in the workspace and passes Slack's API; Slack's API terms restrict bulk export and LLM training on Slack data (verify before build). |
+| **Teams** (Phase 2) | both (Azure Bot Service) | Same interface as Slack; resource-specific consent per team. Data terms: processed in the Microsoft tenant; the Azure bot registration is outside Railway and needs the written case. |
+| **WhatsApp Business** (Phase 2, parties first) | both (Cloud API) | Approved templates open a conversation; buttons inside the service window; opt-in required. Data terms: Meta hosts and processes content; per-message template pricing. |
+| **Telegram** (Phase 2) | both (Bot API) | Inline keyboards. Data terms: not end-to-end; stored on Telegram's servers. |
+| **SMS** (Phase 2) | both | Short text plus link; digit replies. Data terms: plaintext at carriers and the provider; sender registration per country; per-message cost. |
+| **Voice** (in-app Phase 1; calls later, T-O9) | in (speech in the app); both (telephony, later) | Hold-to-talk in the app; calls through a telephony provider with transcription only if the owner allows. Data terms: call metadata at the provider; recording consent differs by country; per-minute cost. |
 | **Calendar** (later) | both | Meetings in; decisions out. |
 
-Every connector has: a stub for tests, a status card in settings (last event, errors), a kill-switch, and its events mapped into the shared union.
+Every connector has: a stub for tests, a status card in settings (last event, errors), a kill-switch, its **data terms** recorded in this table before it is built, and its events mapped into the shared union. Messaging adapters share one interface under `packages/adapters/messaging/*` and the channel layer (`packages/channels`: notification ledger, identity and assurance, the channel composer that renders scenes and cards per channel), designed in `docs/15`.
 
 ## 7. Import and export
 

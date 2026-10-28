@@ -104,7 +104,7 @@ A pure module (`packages/propagation`) that takes the model snapshot (items, rel
 
 ### 4.5 Scene computation (the map)
 
-`packages/scene` computes, per viewer perspective and zoom window, the regions, cells, hull outlines, clusters, roads, flags and presence from the model snapshot and the pinned layout positions; caches by (perspective, model version, zoom level); streams incremental updates for live changes. Layout: a force layout for first placement, then pinned positions per viewer stored as a perspective's layout; hulls by smoothed concave hull around member cells per region.
+`packages/scene` has two halves. **The world layout** computes, per viewer perspective and zoom window, the places (with their identity: name, subject, glyph, hue, landmark id), sub-place contours, buildings with facade references, hull outlines for overlaps, roads, fronts, flags, presence and embassies from the model snapshot and the pinned layout positions; caches by (perspective, model version, depth); streams incremental updates. Layout: a force layout for first placement, then pinned positions per viewer stored as a perspective's layout; hulls by smoothed concave hull around member places. **The scene grammar** (`docs/13` §8) holds the component catalogue (schemas, attention weights, data contracts), the composer's output schema, the validator (schema, data re-read against bindings, staleness, attention budget, rights and compartments) and three renderers (desktop DOM/SVG, phone, server-side image for channels). The landmark library and the facade renderers (image, screenshot, mock, document cover, chart, build badge, code diff summary, email preview, envelope) live here too. Catalogue growth (`docs/13` §8.4, `docs/14` §9) installs versioned components with provenance.
 
 ### 4.6 Data model (Postgres)
 
@@ -114,7 +114,7 @@ Core tables (every table carries `tenant_id`; ids are ULIDs with human aliases):
 - Partitioning is not needed at Lucid's size; `events` and `agent_runs` are the first candidates (monthly) when they grow.
 - Full-text: `tsvector` on items and comments for exact filtering; semantic retrieval in the knowledge layer. Encrypted fields have no tsvector and are never indexed.
 - **Compartments** are enforced where data is read: every query runs through a visibility resolver that applies tenant, sensitivity and compartment filters (row-level), so no view, tool or export can see past them; the cross-compartment suite proves it (`docs/09`).
-- **Company stage** lives in the settings document and is read by scene computation (default zoom), the scheduler (agent set), notifications (cadence defaults) and the rights resolver (thresholds).
+- **Company scale** lives in the settings document and is read by scene computation (default zoom), the scheduler (agent set), notifications (cadence defaults) and the rights resolver (thresholds).
 
 ### 4.7 Storage
 
@@ -134,7 +134,7 @@ Bootstrap: one owner account (a strong secret in the owner's vault), service acc
 
 ## 7. Scaling plan
 
-| Stage | Shape | Limits |
+| Scale | Shape | Limits |
 |---|---|---|
 | **0 · Lucid (now)** | One `ROLE=all` service (1–2 GB), Postgres, one bucket | Thousands of items, tens of thousands of events a day, a handful of agents; index tens of MB |
 | **1 · A few companies** | `api`, `ai`, `worker` as separate services; Postgres with read replica if needed; index per tenant loaded lazily and evicted idle | Hundreds of thousands of items per tenant |
@@ -166,12 +166,14 @@ packages/model      Schema (Drizzle), zod types, item kinds, settings schema
 packages/actions    Action registry, previews, apply/undo handlers, generated routes and tools
 packages/policy     Rights, autonomy levels, materiality, priority weights (resolver)
 packages/propagation  Change-set derivation, forecasts, deltas
-packages/scene      Map layout and scene computation
+packages/scene      World layout, scene grammar (catalogue, composer schema, validator, renderers), landmarks, facades
 packages/knowledge  Index build (chunk, embed, BM25, enrich, publish) and query (hybrid, RRF)
 packages/ai-gateway Claude adapter, model registry, budgets, cost, run recorder
 packages/agents     Playbooks, proactive agents, scheduler
 packages/events     Event and tool-event unions shared by server and client
-packages/adapters   email · lucid-chat · github · railway · sso · storage (one folder each)
+packages/adapters   email · lucid-chat · github · railway · sso · storage · messaging/{slack,teams,whatsapp,telegram,sms} · telephony (one folder each)
+packages/channels   Notification ledger, channel identities and assurance levels, channel composer (docs/15)
+packages/system     Self-observation: signals, health roll-up, monitors, the repair and improvement loops, the process table (docs/14)
 packages/ui         Lucid Glass tokens (vendored values), components, Lucid Total brand
 packages/i18n       ICU catalogs (en, he), RTL helpers
 packages/observability  Logger, metrics, trace filters
