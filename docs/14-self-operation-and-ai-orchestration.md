@@ -30,6 +30,8 @@ A reporting system shows what happened; an operating system owns resources, runs
 
 "The Stage" (the composed view) and "company scale" (the init setting) are different things; the interface always says "company scale" for the latter.
 
+The research (`docs/research/interface-inspiration.md` §7) confirms the shape of the repair loop as **keepers** in the Kubernetes-operator sense: each monitor holds a declared target state, checks safety and staleness before acting, has a cap on how much one action may touch (blast radius), hands over to a person when unsure, and is exercised by scheduled failure drills (§10). Agents follow the visible-and-quiet rules: they say they are agents, acknowledge at once, show one of four states (idle · working · waiting · stopped), show an artefact to review rather than a log, and stop when told.
+
 ## 2. The system is its own first tenant
 
 ### 2.1 The System place

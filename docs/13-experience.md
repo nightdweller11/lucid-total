@@ -208,6 +208,19 @@ Every scene has a spoken summary and a list equivalent (the "tree" of the world 
 - `docs/04-mocks` v0.2 is built from this doctrine; v0.1 is archived for comparison.
 - `docs/11` adds the scene grammar, the Horizon and the Fork to Phase 1 and Refocus to Phase 2; `docs/12` records T25.
 
+## 15. What the research added (2026-10-28, `docs/research/interface-inspiration.md`)
+
+- **Two kinds of scene.** Frequent scenes (the Horizon, a place, the product view, the Fork, a briefing) are **scene tools**: code owns the layout and the AI fills the slots. Composed scenes (an answer to a question, an aspect variant, an infographic) are a flat, schema-validated list of catalogue components. One repair attempt on a validation failure, then a fallback to the nearest scene tool. AI-written code runs only in a sandbox and carries no action buttons until it is installed as a catalogue component (§8.4).
+- **Bind, don't write.** The composer never writes a number; every value is a binding the server resolves and formats, so a scene refreshes without recomposing and stays correct when the data moves.
+- **Showcase, don't filter.** Highlighting a goal, a hull or a question fades the rest in place; nothing moves or disappears, so places keep their position in the viewer's memory.
+- **Representation changes with zoom**, not only size; labels appear only when legible; collisions resolve by a priority (flags, heat and larger rings win).
+- **The headline is the finding.** Every chart carries a sentence that states what it shows; the current value sits above the trend; the question picks the chart type; insights are computed first and only phrased by the AI; drill-down is offered as a suggested question.
+- **A few invariant meters.** The ring means the same thing everywhere; colour is used only for meaning.
+- **Decisions carry DACI anatomy**: a driver, exactly one approver, contributors and the informed, drawn on the fork; each path shows a published confidence that is later checked against what happened; Refocus shows a fan of outcomes with the base plan kept visible, and exploration never overwrites the plan of record until applied.
+- **Agents are visible and quiet**: they say they are agents, acknowledge at once, have four states (idle · working · waiting · stopped), show an artefact to review rather than a log, stop when told, and a person stays accountable.
+- **At most two disclosure levels** in one scene; untouched things decay out of sight by default.
+- **Traps named**: the list as home; taxonomy on every element at every zoom; filters and forms as navigation; uniform rectangles; decisions buried in comments and awareness as a feed.
+
 ## 14. Acceptance for any screen or scene
 
 1. A reviewer names the focal subject within two seconds.
