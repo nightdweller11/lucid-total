@@ -1,0 +1,252 @@
+{
+ "v1-company": {
+  "needs": 2,
+  "big": 1,
+  "nums": 0
+ },
+ "v1-domain": {
+  "needs": 1,
+  "big": 1,
+  "nums": 1
+ },
+ "v1-program": {
+  "needs": 0,
+  "big": 1,
+  "nums": 5
+ },
+ "v1-cost": {
+  "needs": 0,
+  "big": 2,
+  "nums": 0
+ },
+ "v1-progress": {
+  "needs": 0,
+  "big": 2,
+  "nums": 0
+ },
+ "v1-issues": {
+  "needs": 0,
+  "big": 2,
+  "nums": 0
+ },
+ "v1-deps": {
+  "needs": 0,
+  "big": 2,
+  "nums": 0
+ },
+ "v1-fresh": {
+  "needs": 0,
+  "big": 2,
+  "nums": 0
+ },
+ "v1-problem": {
+  "needs": 0,
+  "big": 3,
+  "nums": 0
+ },
+ "v1-company-phone": {
+  "needs": 1,
+  "big": 2,
+  "nums": 0
+ },
+ "v2-company": {
+  "needs": 2,
+  "big": 1,
+  "nums": 0
+ },
+ "v2-domain": {
+  "needs": 1,
+  "big": 1,
+  "nums": 1
+ },
+ "v2-program": {
+  "needs": 0,
+  "big": 1,
+  "nums": 5
+ },
+ "v2-cost": {
+  "needs": 0,
+  "big": 2,
+  "nums": 0
+ },
+ "v2-progress": {
+  "needs": 0,
+  "big": 2,
+  "nums": 0
+ },
+ "v2-issues": {
+  "needs": 0,
+  "big": 2,
+  "nums": 0
+ },
+ "v2-deps": {
+  "needs": 0,
+  "big": 2,
+  "nums": 0
+ },
+ "v2-power": {
+  "needs": 0,
+  "big": 2,
+  "nums": 0
+ },
+ "v2-problem": {
+  "needs": 0,
+  "big": 2,
+  "nums": 1
+ },
+ "v2-company-phone": {
+  "needs": 1,
+  "big": 2,
+  "nums": 0
+ },
+ "v3-company": {
+  "needs": 2,
+  "big": 1,
+  "nums": 0
+ },
+ "v3-domain": {
+  "needs": 1,
+  "big": 1,
+  "nums": 1
+ },
+ "v3-program": {
+  "needs": 0,
+  "big": 1,
+  "nums": 5
+ },
+ "v3-cost": {
+  "needs": 0,
+  "big": 2,
+  "nums": 0
+ },
+ "v3-progress": {
+  "needs": 0,
+  "big": 2,
+  "nums": 0
+ },
+ "v3-issues": {
+  "needs": 0,
+  "big": 2,
+  "nums": 0
+ },
+ "v3-deps": {
+  "needs": 0,
+  "big": 2,
+  "nums": 0
+ },
+ "v3-trust": {
+  "needs": 1,
+  "big": 2,
+  "nums": 0
+ },
+ "v3-problem": {
+  "needs": 0,
+  "big": 2,
+  "nums": 1
+ },
+ "v3-company-phone": {
+  "needs": 1,
+  "big": 2,
+  "nums": 0
+ },
+ "v4-company": {
+  "needs": 2,
+  "big": 4,
+  "nums": 1
+ },
+ "v4-domain": {
+  "needs": 1,
+  "big": 2,
+  "nums": 1
+ },
+ "v4-program": {
+  "needs": 0,
+  "big": 1,
+  "nums": 5
+ },
+ "v4-cost": {
+  "needs": 0,
+  "big": 5,
+  "nums": 1
+ },
+ "v4-progress": {
+  "needs": 0,
+  "big": 5,
+  "nums": 1
+ },
+ "v4-issues": {
+  "needs": 0,
+  "big": 5,
+  "nums": 0
+ },
+ "v4-deps": {
+  "needs": 0,
+  "big": 5,
+  "nums": 0
+ },
+ "v4-crews": {
+  "needs": 0,
+  "big": 5,
+  "nums": 2
+ },
+ "v4-problem": {
+  "needs": 0,
+  "big": 6,
+  "nums": 0
+ },
+ "v4-company-phone": {
+  "needs": 1,
+  "big": 2,
+  "nums": 1
+ },
+ "v5-company": {
+  "needs": 2,
+  "big": 1,
+  "nums": 0
+ },
+ "v5-domain": {
+  "needs": 1,
+  "big": 5,
+  "nums": 1
+ },
+ "v5-program": {
+  "needs": 0,
+  "big": 1,
+  "nums": 5
+ },
+ "v5-cost": {
+  "needs": 0,
+  "big": 2,
+  "nums": 0
+ },
+ "v5-progress": {
+  "needs": 0,
+  "big": 1,
+  "nums": 0
+ },
+ "v5-issues": {
+  "needs": 0,
+  "big": 1,
+  "nums": 0
+ },
+ "v5-deps": {
+  "needs": 0,
+  "big": 1,
+  "nums": 0
+ },
+ "v5-time": {
+  "needs": 0,
+  "big": 1,
+  "nums": 0
+ },
+ "v5-problem": {
+  "needs": 0,
+  "big": 2,
+  "nums": 1
+ },
+ "v5-company-phone": {
+  "needs": 1,
+  "big": 2,
+  "nums": 0
+ }
+}
