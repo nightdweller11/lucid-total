@@ -27,7 +27,7 @@ curl -sI https://totalmocks.belucid.chat/ | head -1
 
 ## The custom domain
 
-Attached with Railway's `customDomainCreate` (project, environment, service, `totalmocks.belucid.chat`, port 8080) using the workspace token in `~/.lucid/railway-account.env`, then the two records Railway asked for were created in the Cloudflare zone through its API with the token in `~/.lucid/cloudflare.env`: the `CNAME totalmocks → <id>.up.railway.app` and the `TXT _railway-verify.totalmocks` ownership record, both DNS-only (grey cloud), as Lucid Chat's `docs/runbooks/domains.md` does for `status.belucid.chat`. Railway issues the certificate once the CNAME resolves. Tokens never appear in output or in this file.
+Attached with Railway's `customDomainCreate` (project, environment, service, `totalmocks.belucid.chat`, port 8080) using the workspace token in `~/.lucid/railway-account.env`, then the two records Railway asked for were created in the Cloudflare zone through its API with the token in `~/.lucid/cloudflare.env`: the `CNAME totalmocks → tyhqxowg.up.railway.app` (the binding was recreated once on 2026-10-28 because the first stayed in "validating ownership" for an hour; recreating changes the target) and the `TXT _railway-verify.totalmocks` ownership record, both DNS-only (grey cloud), as Lucid Chat's `docs/runbooks/domains.md` does for `status.belucid.chat`. Railway issues the certificate once the CNAME resolves. Tokens never appear in output or in this file.
 
 ## Rollback
 
