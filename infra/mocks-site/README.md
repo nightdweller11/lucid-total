@@ -6,7 +6,7 @@ The mock galleries and the map study, served from a dependency-free Node static 
 |---|---|
 | Railway project | `lucid-total-mocks` (workspace "nightdweller11's Projects"), environment `production`, service `mocks-site` |
 | Hosts | **https://totalmocks.belucid.chat** (custom domain; DNS on the owner's Cloudflare zone, DNS-only, Railway's certificate) and https://mocks-site-production.up.railway.app |
-| What is served | `/` the v0.2 gallery (`docs/04-mocks/index.html`), `/map-study/` the map study with `/map-study/STUDY.md`, `/v0.1/` the archived first wave, `/README.md`, `/BRIEF-v0.2.md`, `/start.html` a landing page with the links; `/healthz` |
+| What is served | `/` the v0.2 gallery (`docs/04-mocks/index.html`), `/living-map/` the living map simulation (T33) with `/living-map/README.md`, `/map-study/` the rejected map study with `/map-study/STUDY.md`, `/v0.1/` the archived first wave, `/README.md`, `/BRIEF-v0.2.md`, `/start.html` a landing page with the links; `/healthz` |
 | Auth | public by default; setting `MOCKS_SITE_USER` and `MOCKS_SITE_PASSWORD` on the service turns on HTTP basic auth (`/healthz` stays open) |
 | Image | `Dockerfile` here: `node:22.23.3-alpine`, the server and `public/` copied in; no dependencies |
 | Cost | one small always-on service, about $1–3 a month on the Hobby plan |

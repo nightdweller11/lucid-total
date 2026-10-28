@@ -4,6 +4,8 @@
 
 ---
 
+> **Revised again 2026-10-28 (T33).** The world is now defined by `docs/16-living-map.md` (concept) and `docs/17-living-map-product-plan.md` (plan): a world that grows from the event log, playable in time, with lenses and overlays; §3–§6 below are superseded where they differ. The simulation is `docs/04-mocks/living-map/`.
+>
 > **Revised 2026-10-28 (T25).** `docs/13-experience.md` is the binding doctrine for the whole interface; this document is its detail for the world. Where the two differ, `docs/13` wins. The v0.1 stance of "a web management system with a map inside it" is withdrawn: the world is a map at every depth, places have identity, items are buildings whose facades show the product, and the board is an instrument, never the map's deepest level.
 
 ## 1. What the map is for

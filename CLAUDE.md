@@ -5,7 +5,7 @@ Lucid Total is the **operating system of an AI-run company**: one model of every
 ## Read first
 
 1. `docs/00-system-definition.md` — the root definition. Binding.
-2. `docs/13-experience.md` — **binding interface doctrine** (attention budget, the Stage, places with identity, products as facades, forks and Refocus, aspects, the phone); then `docs/01-use-cases.md`, `docs/02-product-plan.md`, `docs/03-map-and-views.md`, `docs/04-mocks/` (v0.2; v0.1 archived).
+2. `docs/13-experience.md` — **binding interface doctrine** (attention budget, the Stage, places with identity, products as facades, forks and Refocus, aspects, the phone); then `docs/16-living-map.md` and `docs/17-living-map-product-plan.md` (the world as a map that grows in time; binding for the map), `docs/01-use-cases.md`, `docs/02-product-plan.md`, `docs/03-map-and-views.md`, `docs/04-mocks/` (v0.2; `living-map/` the simulation; v0.1 and the map study archived).
 3. `docs/05-architecture.md`, `docs/06-ai-architecture.md`, `docs/07-security-and-secrets.md`, `docs/08-integrations-and-api.md`, `docs/14-self-operation-and-ai-orchestration.md` (the system as an operating system: self-observation, self-repair, AI process orchestration, model tiers, autonomy maturity, Claude Code integration), `docs/15-presence-and-channels.md` (Lucid Chat, email, Slack and other messaging, voice).
 4. `docs/09-testing-and-quality.md` (Definition of Done, walkthroughs, parity, evals), `docs/10-migration-and-operating-model.md`, `docs/11-roadmap.md`, `docs/12-decision-log.md` (append every owner instruction and lead decision; entries `T<n>`).
 5. `docs/research/appfront-ai-platform-lessons.md` — mechanisms we learned from (never copy code).

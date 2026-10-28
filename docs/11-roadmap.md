@@ -35,6 +35,8 @@
 
 ## Phase 2 · The world and decisions (about 6 weeks)
 
+> The world is built to `docs/17` §6: its Phase 0 (plots, claiming, hulls, time derivation, the Departments lens, Progress and Pipes) lands inside this phase's first two weeks with the simulation in `docs/04-mocks/living-map/` as the reference; its Phases 1–2 (lenses with the walk, the rail and playback, tracing, cutaways, secession Forks, Refocus on the map) fill the rest.
+
 - The world: places with landmarks, sub-maps that reveal on zoom, buildings with facades (expected ghost, actual, criteria ring), skylines, light, heat, weather, roads, flags, presence, embassies; stable layouts; perspectives (role templates, switching); the Table (meeting mode); layers incl. the Trust map; the list equivalent; the phone world (one place at a time).
 - Decisions as change sets; the propagation engine with explanations; the Fork with drawn consequences and futures; Refocus (effort moved between places, live re-forecast, transparency strip); the priority model with factors and overrides; reversal; predicted vs actual on the decision page.
 - Infographics (composer, narrative spine, render to image, compartment-safe sharing); the remaining aspects (Customers, Money, People, Risk, Market, AI operations).

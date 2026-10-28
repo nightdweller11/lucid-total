@@ -122,7 +122,7 @@ The first user of Lucid Total is Lucid itself: the development of Lucid Chat (it
 
 Inherited from Lucid Chat and binding here:
 
-1. **Order of work:** define (this document) → use cases (`docs/01`) → product plan (`docs/02`) → view and interaction design (`docs/03`) → experience doctrine (`docs/13`) → mocks (`docs/04`) → architecture (`docs/05`–`08`, `docs/14` self-operation, `docs/15` presence and channels) → testing plan (`docs/09`) → migration and operating model (`docs/10`) → roadmap (`docs/11`). Documents change when reality changes; trade-offs are ADRs in `docs/decisions/`; owner instructions and decisions are logged in `docs/12-decision-log.md`.
+1. **Order of work:** define (this document) → use cases (`docs/01`) → product plan (`docs/02`) → view and interaction design (`docs/03`) → experience doctrine (`docs/13`) → the living map (`docs/16`, `docs/17`) → mocks and the simulation (`docs/04`) → architecture (`docs/05`–`08`, `docs/14` self-operation, `docs/15` presence and channels) → testing plan (`docs/09`) → migration and operating model (`docs/10`) → roadmap (`docs/11`). Documents change when reality changes; trade-offs are ADRs in `docs/decisions/`; owner instructions and decisions are logged in `docs/12-decision-log.md`.
 2. **Nothing is done without seeing it work**: every user-facing change is walked through in a real browser at desktop and phone widths (and on a real phone for touch-heavy views such as the map), with screenshots in the task's evidence; Playwright automates what it can.
 3. **Docs in the same change**; the task card in Lucid Total carries the evidence.
 4. **The lead orchestrates, reviews and merges; workers build** (Opus 5.5; Fable for security-sensitive or core-technology work); never Sonnet.
@@ -136,7 +136,7 @@ Inherited from Lucid Chat and binding here:
 | `docs/01-use-cases.md` | The use-case catalogue that the product plan must cover: company operation, development operation, AI operation, decisions and change, people, customers, security. |
 | `docs/02-product-plan.md` | Features and requirements: the company model, items, views, AI, notifications, rights, secrets, integrations, settings, metrics. |
 | `docs/03-map-and-views.md` | The world: places with identity, sub-maps, buildings with facades, zoom levels, perspective, overlaps, rendering notes. Subordinate to `docs/13`. |
-| `docs/04-mocks/` | HTML mocks of every scene and screen, in the three Lucid Glass themes, built from `docs/13`; v0.1 archived for comparison. |
+| `docs/04-mocks/` | HTML mocks of every scene and screen, in the three Lucid Glass themes, built from `docs/13`; `living-map/` the time-based simulation of the world; v0.1 and the rejected map study archived for comparison. |
 | `docs/05-architecture.md` | System architecture on Railway: services, data model, event model, APIs, scaling. |
 | `docs/06-ai-architecture.md` | The agentic framework: action registry and tools, model gateway and model choice, retrieval (in-memory RAG), context assembly, proactive agents, safety and budgets. |
 | `docs/07-security-and-secrets.md` | Threat model, identity and rights, sealed envelopes, audit, data handling. |
@@ -147,6 +147,8 @@ Inherited from Lucid Chat and binding here:
 | `docs/12-decision-log.md` | Owner instructions and decisions. |
 | `docs/13-experience.md` | **Binding interface doctrine**: the attention budget, the four modes (Glance, Dive, Decide, Meet) and Talk, the Stage and the scene grammar, products as facades, forks and Refocus, aspects and infographics, the phone. |
 | `docs/14-self-operation-and-ai-orchestration.md` | The operating-system mechanisms: the system as its own tenant, self-observation, self-repair, self-improvement, AI process orchestration, model tiers and routing (Fable as a configured decision), autonomy maturity, Claude Code integration. |
+| `docs/16-living-map.md` | **The living map (concept)**: the company as a world that grows from its event log; time, playback and tracing; lenses; overlays that recolour; zoom as depth; cutaways; managing from the map. |
+| `docs/17-living-map-product-plan.md` | The living map product plan: requirements LM-*, the motion table, algorithms, data model, acceptance, phases. |
 | `docs/15-presence-and-channels.md` | The system where people already are: Lucid Chat, email, Slack and other messaging, voice; identity across channels; conversation to work; decisions outside the app. |
 | `docs/decisions/` | ADRs. |
 

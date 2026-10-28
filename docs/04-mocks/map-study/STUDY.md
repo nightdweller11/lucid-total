@@ -1,5 +1,7 @@
 # The company map: five explorations
 
+> **Rejected by the owner on 2026-10-28 (T33):** five static reliefs of one moment, with no live layers, nothing to zoom into, nothing to open and no time. Kept for the record. The direction is now `docs/16-living-map.md` and the running simulation in `docs/04-mocks/living-map/`.
+
 > Map study for Lucid Total, 2026-10-28 (T30). Brief: `BRIEF.md`. Page: `index.html` (variant switcher, theme and contrast switches, URL params `?v=1..5|all&pt=deep|aqua|sky&hc=std|high&s=<still>`). Stills: `shots/`, 55 in all. Generator: `gen/` (Node 22, no dependencies; `node gen/build.mjs`, then `node gen/shoot.mjs --check` to measure, `node gen/build.mjs` again to print the counts, and `node gen/shoot.mjs` to shoot). Nothing outside this folder was changed.
 
 The owner liked v0.2's direction but found the map neither organic nor something you zoom into, and expected data layers. This study draws one company, one stuck situation and the same three depths five ways, as different from one another as possible, so the comparison is about the metaphor, not polish. It ends by recommending one ground and naming what to take from the other four.

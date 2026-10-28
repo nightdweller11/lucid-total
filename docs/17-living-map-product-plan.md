@@ -1,0 +1,222 @@
+# Lucid Total — The Living Map: product plan
+
+> Everything the map is and does, and how it moves over time. Written 2026-10-28 by the lead from `docs/16-living-map.md` (the concept) and the owner's instructions T30 and T33. Requirement IDs are `LM-<area>-<n>`; each is testable and carries into `docs/09-testing-and-quality.md` §3 and the checklist. The running model is `docs/04-mocks/living-map/`. Where this plan and `docs/13-experience.md` differ, `docs/13` wins; where it and `docs/03-map-and-views.md` differ, this plan wins.
+
+---
+
+## 1. Scope and non-goals
+
+**In scope.** The world rendering (lands, districts, buildings, rooms, monuments, pipes, power, weather, landmarks, beacons); growth from the event log; the timeline and playback; tracing; lenses; overlays; continuous zoom with cutaways; actions from the map; the phone; accessibility and RTL; the data model and the composer's control of the map; performance targets; the mechanism library and how it grows.
+
+**Not in scope here.** The Horizon, the Fork, Refocus and the Table as instruments (they are in `docs/13` §4 and §7; this plan only says how they appear on and act through the map); the scene grammar (`docs/13` §8); the self-operation mechanisms (`docs/14`).
+
+## 2. Areas and requirements
+
+### 2.1 The world (LM-W)
+
+| ID | Requirement |
+|---|---|
+| LM-W-1 | The world is a hexagonal plot field. A plot is empty, sea, park, or claimed by exactly one building for the lifetime of the lens-world. |
+| LM-W-2 | A building occupies one plot. Its footprint fill is its size class (1–5), its height its remaining work, its light its progress, its facade its product kind (`docs/13` §5.3). |
+| LM-W-3 | A district is the contiguous set of its buildings' plots plus its square; a land is the contiguous set of its districts'. Contiguity is guaranteed by the claiming rule (LM-G-2). |
+| LM-W-4 | Every land and district has an identity: name, subject sentence, glyph, hue from the family palette, landmark (land only), and a stable position. Identity is proposed by the AI and editable by a person. |
+| LM-W-5 | Sea separates lands. The sea between two lands narrows as roads (aggregated dependencies) and causeways (secessions) join them. |
+| LM-W-6 | Monuments stand on district squares. A monument is placed where the majority of its effects live and moves only if a later lens-world places its effects elsewhere. |
+| LM-W-7 | Landmarks rise on a land's skyline when a milestone is met; they are taller than any building and lit for ever. |
+| LM-W-8 | Beacons stand at the horizon edge of the lands that serve a goal; the progress tide (LM-O-2) rises toward them. |
+| LM-W-9 | Weather is drawn in the air layer, above buildings and below labels, drifting slowly; it never obscures a label or a focal subject. |
+| LM-W-10 | The world has no decoration that carries no measure; the legend chip (LM-UI-6) names every encoding in use. |
+
+### 2.2 Growth (LM-G)
+
+| ID | Requirement |
+|---|---|
+| LM-G-1 | Layout is a pure function of the event log and the lens: the same log grows the same world on every device and every day. No layout state is stored except the log. |
+| LM-G-2 | A new building claims the empty plot adjacent to its district (else its land, else its land's seed) that minimises distance to the district's centre of mass with a deterministic ripple noise; ties break by birth order. |
+| LM-G-3 | A new land seeds on the quiet spiral around the world's centre at a spacing set by company scale (platform setting), never over sea claimed by a road. |
+| LM-G-4 | A new district inside a land seeds on the land's frontier nearest the land's centre. |
+| LM-G-5 | A dropped building leaves a park. A building that moves within a lens leaves a park and walks to its new plot. |
+| LM-G-6 | **Secession.** A district qualifies for its own land when platform-set thresholds are met (own owner, own goal, own budget line, or a share of its parent's plots). Qualification produces a Fork; acceptance re-seeds the district as a land adjacent to the parent's coast and walks its buildings across over one beat, leaving a causeway. Absorption and merge use the same walk. |
+| LM-G-7 | Growth is bounded only by the camera's extent, which follows the claimed plots with a margin. |
+| LM-G-8 | Company scale (two people to thousands) changes the default camera height and which labels the sky view carries, not the rules. |
+| LM-G-9 | A lens-world exists for every configured lens from the first event; adding a lens later grows its world from the whole log on demand. |
+
+### 2.3 Time (LM-T)
+
+| ID | Requirement |
+|---|---|
+| LM-T-1 | The world at any time *t* is derived from events with time ≤ *t*. Scrubbing to *t* draws that world within one frame budget of 16 ms for up to 5,000 buildings (LM-R-1). |
+| LM-T-2 | A timeline rail shows the company's span, now, the scrubber, monument and landmark ticks, phase bands, and the forecast ghost beyond now. |
+| LM-T-3 | Playback runs at speeds of an hour, a day, a week or a month per second, with pause, step, and jump to the next monument or landmark. Default speed is chosen so the whole span plays in about a minute. |
+| LM-T-4 | Every event has a motion (concept §4.4) with a minimum visible duration during playback, so a change that was instantaneous in the log still reads. |
+| LM-T-5 | A ledger beside the rail names what is happening in the current beat in at most three lines, calmly, and is empty when nothing happens. |
+| LM-T-6 | Beyond now, the world is drawn as the forecast ghost: buildings rising at their forecast pace, beacons lit at their forecast dates, in outline. Saved Futures and Refocus results are branches on the rail. |
+| LM-T-7 | **Trace a decision:** the world dims to the monument's lineage (buildings created or changed, districts reshaped, lands seceded, pipes laid); "play from here" plays from its date. |
+| LM-T-8 | **Trace a task or district:** its history strip (born, started, review, blocked, done, dates) and playback following it. |
+| LM-T-9 | **Difference view:** between two times, what changed is lit and the rest dimmed; this is the default Table (meeting) view of the week. |
+| LM-T-10 | The rail reads from right to left in RTL locales; playback direction follows the reading direction. |
+
+### 2.4 Lenses (LM-L)
+
+| ID | Requirement |
+|---|---|
+| LM-L-1 | Default lenses: Departments, Projects, Products / lines of business, People / ownership. Later: Customers, Money. Lenses are company configuration. |
+| LM-L-2 | A lens is a grouping function (building → district → land) that may vary with time (re-parenting, secession). |
+| LM-L-3 | Switching lenses keeps the camera, fades the old hulls, walks every building to its plot in the new lens over one beat, and draws the new hulls. Names, heights and lights persist through the walk. |
+| LM-L-4 | The AI chooses the lens that answers the question and says which; a person can switch with one tap or one word. |
+| LM-L-5 | Overlays apply to every lens unchanged. |
+
+### 2.5 Overlays (LM-O)
+
+| ID | Requirement |
+|---|---|
+| LM-O-1 | **Terrain:** district elevation is remaining work; off by default; a flat fallback in high contrast. |
+| LM-O-2 | **Progress:** a tide of light to the done share of each land and district; the forecast tide as a dotted line. |
+| LM-O-3 | **Cost:** ground heat by accumulated spend; AI spend as a cooler tint inside the warm; visible by role (T-O12). |
+| LM-O-4 | **Revenue:** golden yield by attributed revenue; brown where cost exceeds revenue; visible by role. |
+| LM-O-5 | **Issues:** haze (stale), cloud (issues), storm (breach), over the place hurt; severity by darkness; drift slow. |
+| LM-O-6 | **Pipes:** dependencies and hand-offs as lines; flow particles while the upstream delivers; a clog (dark pulsing knot) at a blocked upstream; dry dotted pipes downstream of a clog; aggregated as roads between lands at the sky view. |
+| LM-O-7 | **Power:** approval and decision flow; a district waiting on an open decision is dark with the open switch drawn at the monument it waits for. |
+| LM-O-8 | **Load:** window light warmth by people and agent load; overloaded buildings flicker. |
+| LM-O-9 | **Freshness:** lit where something moved today; dim after a fortnight of stillness. |
+| LM-O-10 | **AI:** teal tint by agent share of work; the trust ceiling per land as a faint ring. |
+| LM-O-11 | **Risk:** forecast weather over goals at risk. |
+| LM-O-12 | Overlays never add marks or counts. Overlays on different channels (ground, light, air, lines) may stack; two on the same channel cannot. |
+| LM-O-13 | Each overlay has a legend line in the legend chip and a one-sentence meaning the AI says when it lays it. |
+
+### 2.6 Zoom and cutaways (LM-Z)
+
+| ID | Requirement |
+|---|---|
+| LM-Z-1 | Zoom is continuous (wheel, pinch, double tap, fly-to, sentence); the camera flies and never cuts. |
+| LM-Z-2 | Semantic depths Z0 sky, Z1 land, Z2 district, Z3 building (concept §8); each reveals the next faintly before it is reached. |
+| LM-Z-3 | Labels appear only when legible (≥ 12.5 px rendered) and within the attention budget; otherwise the object is shape, light and position. |
+| LM-Z-4 | Cutaways open in place with the world dimmed around them: building (rooms, crew, pipes, wall chart, monument, actions), district (square, monuments, reservoir, crews), land (country view, coastline history), monument (decision), pipe (hand-off), cloud (issue). |
+| LM-Z-5 | A breadcrumb (Company › land › district › building) is the way back up; the Horizon stays above the world at every depth. |
+| LM-Z-6 | The minimap is not used (`docs/13`); the breadcrumb and fly-out replace it. |
+
+### 2.7 Actions from the map (LM-A)
+
+| ID | Requirement |
+|---|---|
+| LM-A-1 | Every object offers its actions in its cutaway and on long press: nudge, assign, approve, open the product, ask, trace, play from here. |
+| LM-A-2 | Refocus is performed on the map by dragging effort between lands; the tide, the heights and the forecast ghosts re-draw live; Apply / Save as future / Discard. |
+| LM-A-3 | A Fork opens from a monument-to-be (a proposed decision) with its paths drawn as alternative futures on the rail. |
+| LM-A-4 | Secession, absorption and merge are decision items (Forks), never silent. |
+| LM-A-5 | The Talk bar drives everything: lens, overlay, camera, time, trace, open, act. The AI answers in the world and in one sentence. |
+
+### 2.8 Phone (LM-P)
+
+| ID | Requirement |
+|---|---|
+| LM-P-1 | At phone width the world is one place at a time at Z1 or deeper; the sky view is a scrollable list of lands with their landmark, tide and weather, each tappable to fly in. |
+| LM-P-2 | Pinch, drag and double tap work; the rail collapses to a scrubber with play; the cutaway becomes a sheet. |
+| LM-P-3 | Playback on the phone draws at 30 fps with the same motions. |
+
+### 2.9 Accessibility and RTL (LM-X)
+
+| ID | Requirement |
+|---|---|
+| LM-X-1 | Every encoding has a non-colour channel: height, light, outline, motion or position; high contrast replaces glass and gradients with solid fills and visible edges. |
+| LM-X-2 | Reduced motion: playback steps instead of animating; flow particles become static arrows; weather does not drift. |
+| LM-X-3 | A list equivalent of every depth exists and is the screen-reader surface (lands → districts → buildings with their states). |
+| LM-X-4 | RTL mirrors the layout chrome, the rail and the breadcrumb; the world itself is not mirrored (position is history), but the camera's default framing is. |
+
+### 2.10 Rendering and performance (LM-R)
+
+| ID | Requirement |
+|---|---|
+| LM-R-1 | 5,000 buildings, 500 pipes, 200 monuments at 60 fps on a 2020 laptop and 30 fps on a 2022 phone; 20,000 buildings with level-of-detail at the sky view. |
+| LM-R-2 | Canvas 2D for the world (hull, extrusion, light, weather); WebGL only if LM-R-1 cannot be met; HTML for chrome and cutaway text. |
+| LM-R-3 | Level of detail by scale: hulls and landmarks only below 0.35; flat tiles to 1.2; extrusions and facades above; rooms above 3. |
+| LM-R-4 | Hull outlines are recomputed only when the claimed set changes; everything else is drawn from cached per-building state. |
+| LM-R-5 | A still of any state is reproducible (for the attention validator and for sharing). |
+
+### 2.11 Data model (LM-D)
+
+| ID | Requirement |
+|---|---|
+| LM-D-1 | The event log is the source of truth: `item.created`, `item.status`, `item.moved`, `item.dropped`, `dependency.declared`, `decision.taken`, `milestone.met`, `person.joined`, `land.seceded`, `measure.sampled` (cost, revenue, load), each with time, actor and payload. |
+| LM-D-2 | The item has: id, name, kind (task, chore, risk, decision item, milestone), size class, product kind (facade), groups per lens (possibly time-varying), dependencies, decision lineage, criteria (rooms), owner(s), agent runs. |
+| LM-D-3 | Lens-worlds are derived and cached: claims (plot per building per time), hulls, squares, seeds. A cache is invalidated by a new event and rebuilt incrementally (append-only claims). |
+| LM-D-4 | Money measures are sampled per item or per land (cost burn by day, revenue attribution by day) and are restricted data (`docs/07`); the map receives only what the role may see. |
+| LM-D-5 | The map reads nothing a role may not see; a hidden building is drawn as an unlit plot with no name. |
+
+### 2.12 The composer and the mechanism library (LM-C)
+
+| ID | Requirement |
+|---|---|
+| LM-C-1 | The map is a scene tool of the Stage (`docs/13` §8.1) with parameters: dataset, lens, overlays, camera (place, depth), time (instant, range, playing, speed), trace (monument, building), cutaway (object). The AI composes by setting them. |
+| LM-C-2 | The mechanism library holds growth rules, lenses, overlays, landmarks, facades, cutaways, motions. Each is a catalogue entry with a schema, a renderer and a meaning sentence; new entries go through oversight (`docs/13` §8.4). |
+| LM-C-3 | A new overlay or lens can be added without touching the renderer core: an overlay is a function from (building, time, role) to a channel value; a lens is a grouping function. |
+| LM-C-4 | Generated images (`docs/13` §8.2) may be used as landmark illustrations and facade art, never as data. |
+
+## 3. How things move over time: the motion table
+
+| Event | Motion | Minimum visible duration | Sound of it in the ledger |
+|---|---|---|---|
+| Item created | Plot claimed, footprint fades in | 400 ms | "Dispatcher sequencing: new in Private beta" |
+| Work starts | Walls rise to the current remaining-work height | 600 ms | "rising" |
+| Progress | Walls rise further; light fills from the ground | continuous | — |
+| Review | Scaffold light on the top floor, cool | 400 ms | "in review" |
+| Done | Facade fitted, windows lit, settles | 800 ms | "lit" |
+| Blocked | Goes dark; inflow pipe shows the clog | 600 ms | "blocked at Railway token" |
+| Unblocked | Clog clears with a pulse of flow | 600 ms | "flowing again" |
+| Dropped | Becomes a park | 600 ms | "set aside" |
+| Decision taken | Monument placed with lineage lines drawn outward | 800 ms | "Decided: Railway-first" |
+| Dependency declared | Pipe laid from upstream to downstream | 500 ms | — |
+| Milestone met | Landmark rises, light sweep across the land | 1,200 ms | "Private beta live" |
+| Person joins | Light appears; in the people lens a plot | 400 ms | "Dana joined Support" |
+| Secession | Fork, then the walk across the causeway | 1,500 ms | "Europe is its own land" |
+| Stillness | Haze thickens, lights dim | gradual | — |
+| Lens switch | Buildings walk to their new plots; hulls crossfade | 800 ms | "Seen by product" |
+| Overlay laid | Channel fades in | 400 ms | "Cost: warm where money burns" |
+| Fly-to | Camera eases along a curve | 600–900 ms | — |
+
+Outside playback only live flow, slow weather drift and the breath of buildings being built now move (concept §12).
+
+## 4. Algorithms
+
+- **Claiming** (LM-G-2): candidates = empty neighbours of the district's plots (or the land's, or the seed). Score = d(candidate, district centroid) + 0.3·d(candidate, land centroid) + 0.8·noise(candidate, seed) where noise is a hash of the coordinates and the land's seed, in [0, 1). Lowest score wins; tie by coordinate order.
+- **Seeding** (LM-G-3): the k-th land is placed at angle k·137.5° and radius spacing·√k from the world centre, nudged to the nearest empty plot not within spacing/2 of any claimed plot.
+- **Hulls**: the boundary edges of a plot set (edges whose neighbour is not in the set), chained into rings, drawn with rounded corners at the hex radius; cached per (lens, claim count).
+- **Labels**: a land's label at its centroid when the hull is ≥ 160 px wide; a district's at its square when ≥ 90 px; a building's when its hex is ≥ 48 px; collisions resolved by priority (focal subject, needs-you, then size).
+- **Pipes**: cubic curves between plot centres, bowed away from the shorter land axis; aggregated per land pair below scale 0.5.
+- **Weather**: per district a severity in [0, 1] from issues and staleness; drawn as 2–4 soft discs with slow Perlin drift; never over the focal subject.
+- **Playback**: a time cursor advancing at speed; each event's motion is a tween from its time with the minimum duration; the renderer draws the max of (log state at t, tween state).
+- **Forecast ghost**: per item a forecast done date from the company's forecaster (`docs/02` §6); beyond now, height and light follow it in outline.
+
+## 5. Acceptance
+
+- Playing Lucid Chat's real eleven days (`docs/04-mocks/living-map/`, dataset "Lucid Chat") from the first commit to now reads as a city growing, with the contracts sprint, the foundations, the alpha and the beta visibly succeeding one another, and the stuck Railway token chore visible as a clog.
+- Playing the generated three-year company shows departments forming, products appearing, Lucid Total seceding from Engineering, a crisis storm and its clearing, and revenue arriving as harvest.
+- Switching lenses at any time keeps every building identifiable through the walk.
+- Every overlay recolours and never adds a mark; the legend chip names its encoding.
+- Zooming from sky to a building and opening it is one continuous motion; the building's cutaway shows rooms, crew, pipes, wall chart and monument.
+- Tracing a decision dims the world to its lineage and "play from here" works.
+- The attention validator (`docs/09` §3) passes every paused state; playback is exempt.
+- Phone, high contrast, reduced motion and RTL passes per `docs/09`.
+
+## 6. Phases
+
+| Phase | Deliverable | Gate |
+|---|---|---|
+| 0 | The simulation (`docs/04-mocks/living-map/`) as the reference; `packages/scene` world layout: plots, claiming, hulls, time derivation; the Departments lens; Progress and Pipes overlays; Z0–Z2 | The real Lucid Chat log grows the same world as the simulation |
+| 1 | Lenses (Projects, Products, People) with the walk; Cost, Issues, Freshness, Power; Z3 cutaways; the rail and playback; tracing | Acceptance §5 items 1–6 on real data |
+| 2 | Secession Forks; Refocus on the map; forecast ghost and Futures; Revenue, Load, AI, Risk; phone; accessibility; the mechanism library with oversight | Full §5; attention validator in CI |
+| 3 | Customers and Money lenses; generated landmark art; company-scale tuning at 20,000 buildings | LM-R-1 at scale |
+
+## 7. Metrics
+
+- Time to answer "what is stuck" from the sky view (target: under 5 s, no reading).
+- Share of weekly meetings run from the difference view.
+- Attention budget violations per paused state (target: 0).
+- Frame time at the sky view and at Z2 (LM-R-1).
+- Lens switches and overlays laid by the AI versus by hand (the AI should do most).
+
+## 8. Risks
+
+- **Occlusion and label collision** in extruded views: mitigated by shallow extrusion, back-to-front drawing and the label priority rule; terrain is an overlay, not the default.
+- **Growth that looks wrong** (a land boxed in, an enclave): mitigated by spacing by company scale and the frontier rule; the simulation is the test bed.
+- **Playback as spectacle** that breaks the calm: playback is explicit, speeds are few, the ledger is three lines, and the paused state passes the validator.
+- **Money visibility**: by role from day one (T-O12).
