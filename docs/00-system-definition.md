@@ -63,9 +63,9 @@ The first user of Lucid Total is Lucid itself: the development of Lucid Chat (it
 
 ### 4.1 In scope, v1 ("Lucid Total Core", the version that runs Lucid)
 
-- The **company model**: items (task, story, bug, issue, incident, chore, decision, goal, milestone, proposal, reminder), groupings (domain, program, project, epic, release, campaign, OKR), people and roles, relations (parent, blocks, depends, relates, duplicates, spawned-by, evidence-of), comments, time tracking, attachments and links, evidence, labels, custom fields per item kind.
+- The **company model**: items (task, story, bug, issue, incident, chore, decision, proposal, ask, goal, milestone, risk, budget, account, reminder, meeting, lesson, envelope, agent, party, engagement), groupings (domain, program, project, epic, release, campaign, OKR), people and roles, relations (parent, blocks, depends, relates, duplicates, spawned-by, evidence-of), comments, time tracking, attachments and links, evidence, labels, custom fields per item kind.
 - **Views**: the **map** (zoomable, perspective-driven), **board** (cards by state) with **collapsible line view**, list/table with filters and saved views, timeline/roadmap, dependency graph, person view ("my work", "their work"), live agent view, inbox (decisions, feedback requests, mentions, notifications).
-- **The embedded AI**: full chat (threads, streaming, citations, tool previews, confirmations, attachments, voice input on mobile), model choice per conversation (including Fable where allowed), tools for every capability, retrieval over tasks + documents + code + decisions + conversations, proactive follow-ups and reminders, scheduled briefings, feedback requests on cards, drafting emails and notifications, "what if" previews of changes.
+- **The embedded AI**: full chat (threads, streaming, citations, tool previews, confirmations, attachments, voice input on mobile), model choice per conversation (including Fable where allowed), tools for every capability, retrieval over tasks + documents + code + decisions + conversations, proactive follow-ups and reminders, scheduled briefings, feedback requests on cards, drafting emails and notifications, "what if" previews of changes, **meeting mode** (decisions and tasks captured while the meeting runs; Phase 2).
 - **Operating model integration**: the Claude Code coordinator reports live work and finishes tasks through the API; imports of the existing Lucid Chat checklist, decision log, briefs and walkthroughs; the status, quality and cost pages fold into Lucid Total.
 - **Notifications and email**: in-app inbox, email (sending via an adapter; the belucid.chat mail domain), push to the Lucid Chat app through its API, per-person cadence settings.
 - **Secure delivery**: sealed envelopes for secrets with dedicated reveal windows, expiry, one-time reveal, audit.
@@ -79,7 +79,7 @@ The first user of Lucid Total is Lucid itself: the development of Lucid Chat (it
 ### 4.2 Later (v1.5+)
 
 - Multi-company tenancy and Lucid Total as a product; billing.
-- Deep connectors: calendar and meetings (live meeting mode with decisions captured to the map), Slack/WhatsApp-style channels, CRM, accounting, HR, customer support inboxes, analytics.
+- Deep connectors: calendar (meetings imported, meeting mode started from the calendar event), Slack/WhatsApp-style channels, CRM, accounting, HR, customer support inboxes, analytics.
 - Forecasting and simulation at scale (capacity models, Monte-Carlo dates), OKR scoring, budgets as first-class items with actuals.
 - Native Lucid Chat surfaces (a company's Lucid Total inside the chat app).
 
@@ -145,7 +145,7 @@ Inherited from Lucid Chat and binding here:
 
 ## 9. Glossary
 
-- **Item** — anything tracked: a task, story, bug, issue, incident, chore, decision, goal, milestone, proposal, reminder. One schema, a `kind` field, kind-specific fields.
+- **Item** — anything tracked: task, story, bug, issue, incident, chore, decision, proposal, ask, goal, milestone, risk, budget, account, reminder, meeting, lesson, envelope, agent, party, engagement. One schema, a `kind` field, kind-specific fields (`docs/02` §4.1).
 - **Grouping** — a container that gives items context: domain, program, project, epic, release, campaign, objective. Items may belong to several.
 - **Domain** — a top-level area of the company (Engineering, Product, Marketing, Compliance, Finance, Sales, Operations, People). A "country" on the map.
 - **Perspective** — the arrangement of the map for a viewer: role, domains, meeting, question.

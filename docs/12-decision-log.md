@@ -36,6 +36,8 @@
 
 - **T23 (lead, import rules).** Answers to the importer's questions (`docs/10` §7): (1) the 257 orphan follow-ups stay linked to their wave grouping with `origin_unresolved: true`; the review wave LT-0005 attaches them with the AI's proposals; (2) "lead decision pending" entries dated on or before 2026-10-24 are closed as a group under Lucid Chat's L425 and are not shown to the owner again; (3) a done row that cites only an existing code or doc file keeps evidence grade 2 but is sub-labelled `file`, and the "to verify" set stays grades 0–1 plus missing walkthroughs and stale blockers (the 201 file-only rows are listed for sampling); (4) the 13 P3/P4 summary rows import as `milestone` items of their phase.
 
+- **T24 (lead, mocks v1).** The 42-frame gallery (`docs/04-mocks/`) is accepted as the design reference; the Lucid Total mark is the Lucid ribbon with a 180°-turned copy closing into one loop (same curves, one gradient, never mirrored, mono under high contrast); kind → glyph family mapping as in the mocks README. Doc fixes from the mocks review: item kinds and meeting mode aligned in `docs/00`; §2.7 before §2.8 in `docs/02`; the decision card's cost-and-toil first line added to `docs/02` §6.1; the interface shows model classes only; the domain list in `docs/03` follows `docs/02` §2.1; an agent reveals an envelope through the API, a person in the reveal window (UC-H1). Not yet drawn, for the next mocks wave: membership rings (`docs/03` §3.3) and the "shape of the company" view (UC-O3).
+
 ## Open decisions (material; for the owner, one at a time)
 
 | Id | Question | Context and cost in plain words | Default if unanswered |

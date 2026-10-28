@@ -62,7 +62,13 @@ People and agents (capacity, availability, cost), money (budgets with actuals), 
 
 Evidence on every item; reviews as evidence; retrospectives as `lesson` items linked to the templates they change; metrics on groupings; the AI's own quality measured per agent and model (`docs/09`).
 
+### 2.7 The autonomy ladder (principle 14)
+
+Every process (each rhythm, each flow step, each agent playbook) carries an autonomy level: `observe` · `suggest` · `confirm` · `inform` · `run`. Defaults for Lucid: triage of inbound issues `suggest`; follow-ups and reminders `inform`; briefings `run`; priority re-ranking from a decision `confirm`; emails to customers `confirm`; spend `suggest`; merges `observe` (the coordinator merges). A dashboard shows each process's level, its measured quality (how often its suggestions were accepted unchanged) and the recommended next level.
+
 ### 2.8 Company stage: the system grows with the company (principle 17)
+
+(Order note: §2.7 precedes this section since the 2026-10-28 review.)
 
 A company of two founders and a company of forty need different defaults from the same model. **Company stage** is a setting with four values and explicit, previewable consequences:
 
@@ -74,10 +80,6 @@ A company of two founders and a company of forty need different defaults from th
 | **Scaled** | > 40 people, several tenants or business units | Z0 with sub-companies | + portfolios | playbooks largely at `run`, exceptions escalate | weekly for most, instant for incidents and material decisions | formal rights matrix, delegated budgets |
 
 The stage is **proposed** by Lucid Total when signals cross thresholds and **decided** by the owner with a preview of what changes (UC-O2); nothing switches silently. Stage defaults can be overridden per person. The "shape of the company" view (UC-O3) shows the structural metrics behind the proposal; the Lucid Total program shows its own complexity metrics (schema, registry, playbooks, code) so that growth of the system is a decision too (UC-O4).
-
-### 2.7 The autonomy ladder (principle 14)
-
-Every process (each rhythm, each flow step, each agent playbook) carries an autonomy level: `observe` · `suggest` · `confirm` · `inform` · `run`. Defaults for Lucid: triage of inbound issues `suggest`; follow-ups and reminders `inform`; briefings `run`; priority re-ranking from a decision `confirm`; emails to customers `confirm`; spend `suggest`; merges `observe` (the coordinator merges). A dashboard shows each process's level, its measured quality (how often its suggestions were accepted unchanged) and the recommended next level.
 
 ## 3. Personas and core scenarios
 
@@ -241,7 +243,7 @@ WCAG 2.2 AA; full keyboard operation (command bar `⌘K`, list navigation, short
 
 ### 6.1 Decision items
 
-A decision has a question, context, options with consequences, a recommendation (often by the AI), rights, materiality and a chosen option. Taking it produces a **change set**: the list of changes to apply (priorities, dates, assignees, groupings, budgets, notifications). The decision card shows the change set before confirmation.
+A decision has a question, context, options with consequences, a recommendation (often by the AI), rights, materiality and a chosen option. A material decision card's **first line states cost and toil** in plain words ("cost: $0, toil: none"), following Lucid Chat's L425 rule, so the owner knows what is being asked before reading the context. Taking it produces a **change set**: the list of changes to apply (priorities, dates, assignees, groupings, budgets, notifications). The decision card shows the change set before confirmation.
 
 ### 6.2 Propagation engine
 
@@ -275,7 +277,7 @@ Parity (every action a tool), transparency (every AI action visible with its pre
 - **Tool previews and confirmations** as cards: the action's glyph and label, the permission class (read · reversible · irreversible · outbound · spend), the exact change set, Confirm / Edit / Cancel; results with Undo where reversible. Reversible actions at autonomy `inform` run without a tap and show the undo.
 - **Citations**: chips to items, documents (section), code (file and lines), decisions, commits, conversations; a side panel shows what the answer used.
 - **Scopes**: a thread can be scoped to an item, a grouping, a meeting or a person, which shapes retrieval and tools.
-- **Model choice** per thread (fast · standard · strongest · Fable when enabled by the owner) with the running cost shown; a default per role; proactive agents use the smallest model that passes their evals (`docs/06`).
+- **Model choice** per thread by **class** (`fast` · `standard` · `strongest` · `fable`, the last enabled by the owner per company) with the running cost shown; the interface shows class names, never model ids (those live in settings, `docs/06` §3); a default per role; proactive agents use the smallest model that passes their evals (`docs/06`).
 - **Memory**: the assistant remembers per-person preferences (channels, cadence, phrasing) only through explicit "remember" actions; company facts live in the model, never in hidden memory.
 
 ### 7.3 Capabilities (tools), by family
