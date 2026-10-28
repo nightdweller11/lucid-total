@@ -15,6 +15,7 @@
 - Web app shell with Lucid Glass (Deep Blue, Sky Glass; high contrast variant), the rail and the phone pill navigation; board with collapse-to-lines; list/table; item page with Expected vs Actual, comments and feedback requests, dependencies, history; inbox; agents live; command bar; English and Hebrew.
 - Bootstrap identity (owner secret, service accounts); rights model v1; audit.
 - The coordinator CLI and protocol (working lines, items, evidence, follow-ups); the importer run against Lucid Chat with the evaluation pass; "to verify" items created.
+- Asks v0: raise from the command bar, the chat or the inbox; route to the owner or lead; decide (task · no action · more); the asker sees the state. Company stage `founders` defaults.
 - Chat v0: threads, streaming, read tools, the first write tools with preview/confirm/undo, model class choice (standard/strongest; Fable behind the owner's switch), citations to items and decisions; retrieval over items, comments and decisions (BM25 first, dense when the local encoder lands).
 - **Gate 0:** the owner reads the morning state on the phone and the desktop; the coordinator has run two waves entirely through Lucid Total; the import's evaluation report is accepted; parity suite green for the registered actions; walkthroughs for the Phase 0 flows attached.
 
@@ -25,6 +26,7 @@
 - Proactive agents: follow-up, briefing, evidence check, sweeper, deadline/SLA, decision ageing; playbooks as data; the autonomy dashboard (observe/suggest/confirm/inform/run) with measured acceptance.
 - Notifications: inbox and toasts, cadence settings, email adapter (kill-switch, signed unsubscribe), the Lucid Chat channel (needs the bot identity in Lucid Chat).
 - Envelopes (seal, deliver, reveal, rotate) for people and the coordinator; sensitivity levels and filters.
+- Parties v1: the party model with engagements, **virtual mode** (correspondence on the company's behalf over email, threaded to party pages and items; the external-correspondence playbook at `suggest`), party pages, the asks router aggregating support issues into product asks.
 - Google SSO (LT-0001); guests; templates (brief, walkthrough, gate report, incident, decision card, account chore); time tracking; Aqua Dusk.
 - **Gate 1:** the owner's reminders and briefings arrive at their cadence; an API key has travelled to the coordinator by envelope; the evidence checker's agreement with human verdicts is measured and reported with cost; email and Lucid Chat channels verified end to end; parity 100 % of registered actions.
 
@@ -34,6 +36,7 @@
 - Decisions as change sets; the propagation engine with explanations; what-if drafts with ghosts; the priority model with factors and overrides; reversal.
 - Timeline layer and view; dependency graph; workload signals (respectful rules); capacity inputs.
 - Issues and incidents: intake (Lucid Chat reports, email, form, API), triage agent, SLA timers, customer notices; GitHub and Railway connectors.
+- Parties v2: **direct mode** and the external view with compartments (contractor, supplier, customer-organisation templates), magic-link sign-in, materialisation of a virtual party, embassies on the map, automatic revocation at engagement end; the cross-compartment suite; the security gate before the first external is admitted.
 - **Gate 2:** "focus on Europe" previewed and applied as a change set with its delta, then reverted, in a walkthrough; the CMO and CTO perspectives of the same company shown to the owner; a meeting run in meeting mode with decisions landing; the predicted vs actual view exists for the first applied change set.
 
 ## Phase 3 · Company-wide (about 4 weeks)
@@ -41,6 +44,8 @@
 - Goals with contribution links and forecasts; budgets with actuals; accounts and renewals; risks as weather; lessons and retrospectives; recurrence.
 - Knowledge from resolutions; search across everything with saved views; exports (JSON, Markdown) daily; guest access hardened.
 - Autonomy raised where measured: briefings and follow-ups at `run`, triage at `confirm`; the playbook quality record drives the recommendations.
+- Payroll-class data: the `payroll` sensitivity class with field-level encryption, read audit, the integrity-chained audit log; People and Finance compartments; the board compartment; the pen-test gate before the first payroll or board use.
+- Company stage model: the stage watcher, the "shape of the company" view, stage change as a decision with preview; the complexity metrics of the Lucid Total program.
 - Multi-tenant readiness: cross-tenant suite, tenant settings isolation, a second tenant created in `staging`.
 - **Gate 3:** every Lucid domain has its items, goals and owner in Lucid Total; the owner's inbox holds only material decisions for a month; the autonomy dashboard shows measured levels; the export restores into a fresh instance in a drill.
 
@@ -54,4 +59,4 @@ Walkthroughs on desktop and phone, RTL, accessibility; parity suite; quality wit
 
 ## First tracked tasks (seeded at bootstrap)
 
-`LT-0001` Google SSO · `LT-0002` Bot identity for Lucid Total in Lucid Chat (a Lucid Chat task, linked) · `LT-0003` Email adapter and the belucid.chat sending domain · `LT-0004` Railway project `lucid-total` with `dev` · `LT-0005` The importer's "to verify" review wave · `LT-0006` Owner decision: Fable data-retention terms for Lucid Total (material) · `LT-0007` Owner decision: default AI budget per month (material) · `LT-0008` The coordinator's envelope key and first envelope drill.
+`LT-0001` Google SSO · `LT-0002` Bot identity for Lucid Total in Lucid Chat (a Lucid Chat task, linked) · `LT-0003` Email adapter and the belucid.chat sending domain · `LT-0004` Railway project `lucid-total` with `dev` · `LT-0005` The importer's "to verify" review wave · `LT-0006` Owner decision: Fable data-retention terms for Lucid Total (material) · `LT-0007` Owner decision: default AI budget per month (material) · `LT-0008` The coordinator's envelope key and first envelope drill · `LT-0009` Asks v0 · `LT-0010` Party model and virtual correspondence · `LT-0011` Security gate: cross-compartment suite and field-level encryption design review before the first external.

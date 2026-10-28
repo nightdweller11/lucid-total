@@ -62,6 +62,19 @@ People and agents (capacity, availability, cost), money (budgets with actuals), 
 
 Evidence on every item; reviews as evidence; retrospectives as `lesson` items linked to the templates they change; metrics on groupings; the AI's own quality measured per agent and model (`docs/09`).
 
+### 2.8 Company stage: the system grows with the company (principle 17)
+
+A company of two founders and a company of forty need different defaults from the same model. **Company stage** is a setting with four values and explicit, previewable consequences:
+
+| Stage | Signals (settings) | Home view | Structure shown | Agents | Cadence | Approvals |
+|---|---|---|---|---|---|---|
+| **Founders** (Lucid today) | ≤ 3 people, ≤ 2 domains with leads | Z1–Z2 close-up: the current wave, the owner's decisions, agents' lines; the inbox on the phone | phase · wave · domain | follow-up, evidence check, sweeper at `suggest`; briefing at `run` | instant for decisions and blocks, daily digest for the rest | owner decides material; lead decides the rest |
+| **Small team** | 4–10 people, ≥ 3 domains | Z1 of the home domain with the goals horizon | + programs and epics | + triage, deadline, decision ageing at `inform` | hourly batches for most classes | domain leads decide within thresholds |
+| **Growing** | 11–40 people, parties engaged | Z0 with regions by work, flags and heat | + releases, campaigns, objectives, compartments | + workload, account renewal, asks routing at `inform`/`run` | daily briefings replace most notifications | thresholds per domain; proposals the norm |
+| **Scaled** | > 40 people, several tenants or business units | Z0 with sub-companies | + portfolios | playbooks largely at `run`, exceptions escalate | weekly for most, instant for incidents and material decisions | formal rights matrix, delegated budgets |
+
+The stage is **proposed** by Lucid Total when signals cross thresholds and **decided** by the owner with a preview of what changes (UC-O2); nothing switches silently. Stage defaults can be overridden per person. The "shape of the company" view (UC-O3) shows the structural metrics behind the proposal; the Lucid Total program shows its own complexity metrics (schema, registry, playbooks, code) so that growth of the system is a decision too (UC-O4).
+
 ### 2.7 The autonomy ladder (principle 14)
 
 Every process (each rhythm, each flow step, each agent playbook) carries an autonomy level: `observe` · `suggest` · `confirm` · `inform` · `run`. Defaults for Lucid: triage of inbound issues `suggest`; follow-ups and reminders `inform`; briefings `run`; priority re-ranking from a decision `confirm`; emails to customers `confirm`; spend `suggest`; merges `observe` (the coordinator merges). A dashboard shows each process's level, its measured quality (how often its suggestions were accepted unchanged) and the recommended next level.
@@ -74,9 +87,9 @@ Every process (each rhythm, each flow step, each agent playbook) carries an auto
 | **The Claude Code coordinator (lead agent)** | UC-B6 live working line, UC-B7 waves and follow-ups, UC-D8 receive handed-off work, UC-B2 attach evidence, read briefs and acceptance from items. |
 | **Workstream agents** | UC-B1 a task with everything needed, UC-B3 receive feedback mid-task, report results. |
 | **Domain role holders (CTO, CMO, compliance lead)** | UC-E1 my world, UC-C4 accept proposals, UC-C2 preview a change, UC-E4 workload signals of their people. |
-| **Team members** | UC-E2 my work, UC-C4 propose, UC-G3 change-only notifications, UC-D1 ask. |
+| **Team members** | UC-E2 my work, UC-C4 propose, UC-N1 raise an ask, UC-G3 change-only notifications, UC-D1 ask the assistant. |
 | **Customers and testers (indirect)** | UC-F1 report and be answered, UC-F2 told when fixed, UC-I3 via Lucid Chat. |
-| **External collaborators** | UC-E8 see only their items. |
+| **Parties (contractors, board, accounting, legal, suppliers)** | UC-P1 work inside a compartment, UC-P2 be reached as a virtual participant, UC-P3 materialise, UC-P4 board compartment, UC-N4 ask. |
 | **Admins (Lucid Total operators)** | §13 settings, rights, autonomy levels, connectors, budgets, audit. |
 
 ## 4. The company model
@@ -105,6 +118,9 @@ One table of items with a `kind`, common fields, and kind-specific fields valida
 | `lesson` | A retrospective finding | what happened, change made (template or process), linked items |
 | `envelope` | A sealed secret (`docs/07`) | recipients, expiry, reveal policy, uses[] (never the content in the item table) |
 | `agent` | A non-human actor record | kind (coordinator, worker, assistant, proactive), model, rights, working line, budgets |
+| `ask` | A request or suggestion from anyone to a responsible role holder (§4.9) | asker (person or party), requesting domain, target domain or subject, sources[] (issues, comments, emails), AI summary, related items[], routed to, decision (act · no action · more information), reason, resulting items[] |
+| `party` | An external participant: person or organisation (§4.10) | kind (contractor, board, accounting, legal, supplier, partner, customer org, system), mode (direct · virtual · system), contacts and channels, engagements[], compartment, key fingerprint (for envelopes), terms link |
+| `engagement` | What a party does with the company and for how long | party, domain(s), groupings[], role in them, start and end, owner inside the company, terms, access revocation rule |
 
 Recurrence applies to `chore`, `task`, `reminder`, `meeting` (rule, next occurrence, generated instances link to the series).
 
@@ -123,6 +139,32 @@ Every `task`, `story`, `bug`, `chore` and `milestone` has an **Expected** side a
 - **Expected**: acceptance criteria (each a line with id), mocks (frame links or images), tests required (by class: unit, integration, contract, e2e, load, eval, walkthrough), docs required, measurable targets (latency, coverage, eval threshold), definition of done (from the template).
 - **Actual**: per criterion a status (met / partly / not met / not checked) with evidence links; test results (counts, links); walkthrough evidence (screenshots, videos, report); measurements; deviations with reasons; the reviewer's verdict (person or AI) and date.
 - **Comparison**: the card shows the two sides as aligned rows; the roll-up gives a single confidence glyph (all met · some partly · unmet · unchecked). The AI's **evidence check** (§7.6) reads the linked evidence and proposes the per-criterion statuses; a human verdict overrides.
+
+### 4.9 Asks: everyone can raise, the responsible decide
+
+An **ask** is the universal inbound request: a suggestion, a feature request, a need from another domain, an idea, a complaint, a question that needs an owner. Anyone can raise one (a person, a party in their compartment, the triage agent aggregating support issues, an email to the asks address, the assistant on someone's behalf).
+
+- **Routing**: by target domain and subject to the responsible role holder (rules per domain; the domain lead by default; the owner as last resort); the asker may suggest a target, the AI proposes one, the rule decides; re-routing is one action with a reason.
+- **The card**: who asked and from where (the source chain: support issues → ask; email → ask), the AI's one-paragraph summary, related items (possible duplicates, existing tasks), the suggested decision, and the decision buttons: **Turn into task(s)** (items created with `spawned_by` and, for cross-domain asks, a dependency to the asker's grouping), **No action** (with a reason the asker sees), **Needs more** (a feedback request to the asker), **Route to…**, **Make it a proposal/decision** (UC-N5).
+- **Transparency**: the asker sees the ask's state and outcome always, within their compartment; the resulting items show the ask as their origin; customers behind a support-born ask are notified when it ships (UC-F2).
+- **Ageing**: asks without a decision surface like ageing decisions (the decision-ageing agent covers both); one escalation by the asker.
+- **Metrics**: asks per week by source and domain, time to decision, share turned into work, share declined with reason; shown on the domain's roll-up.
+
+### 4.10 Parties, engagements and compartments (externals as participants)
+
+Externals are **parties** of the company, not users with fewer permissions bolted on. A party has **engagements** (what they do with us, in which domains and groupings, with which role, from when to when, owned by whom inside the company) and a **compartment** (the slice of the model they may see and act on: their items, the groupings of their engagements, the people they work with, the asks and comments addressed to them, the evidence they produced or were given; never the map of the company, never other domains, never anything above their sensitivity clearance).
+
+Three modes, one identity:
+
+- **Direct**: the party signs in (SSO or a magic link) and uses the **external view**: a reduced rail (Inbox · My items · Chat · the groupings of their engagements), their compartment banner ("You see: Finance · Payroll with Lucid"), chores with envelope steps, asks, comments, evidence upload; the assistant scoped to their compartment.
+- **Virtual**: the party does not sign in. Lucid Total reaches them on the company's behalf by email or message (drafted by the AI, approved per the autonomy level of the "external correspondence" process, sent through the channel adapters), tracks replies (threaded by headers and a per-party address tag), extracts commitments and answers into items, and keeps the whole exchange on the party's page. The company sees the party as a participant; the party sees ordinary email.
+- **System**: the party is a service (payroll provider, bank feed, vendor API) with a service account and a connector; the same compartment logic answers "who touches our finance data".
+
+**Materialisation**: a virtual party can be invited to direct use; the identity, history and compartment carry over (UC-P3). **Revocation**: engagement end dates revoke access automatically; a terminated engagement keeps the history visible to the company and nothing new to the party.
+
+**On the map**: parties appear as **embassies** at the company's border, sized by engagement, coloured by state (active · waiting on us · waiting on them · overdue), opening into the party page (`docs/03` §3).
+
+**Compartment templates**: contractor (their groupings), board (goals, board pack, board decisions, their asks), accounting (Finance: invoices, payroll inputs, filings), legal (Legal: contracts, filings, restricted items by name), supplier (orders, deliveries, invoices), customer organisation (their issues and asks). Templates are settings; every compartment is enforced by row filters at the data layer and tested by the cross-compartment suite (`docs/09`).
 
 ### 4.5 Comments, feedback and change history
 
@@ -182,6 +224,10 @@ Full-text and structured search across items, comments, documents, decisions and
 ### 5.9 Item page
 
 Header (glyph, id, title, state, priority with reason, assignees, groupings as chips with map placement, dates); tabs: Overview (brief and context), Expected vs Actual, Dependencies (both directions, graph), Comments and feedback, Evidence, Time, History; a right panel with the assistant scoped to this item ("summarise", "what's missing for done", "draft the follow-ups").
+
+### 5.9b External view and party pages
+
+The external view is the direct mode of a party (§4.10): the reduced rail, the compartment banner, their inbox, items, chores, asks and chat scoped to the compartment. Inside the company, a **party page** shows the party's engagements, the thread of correspondence the system handled on the company's behalf, the items and asks linked to them, deadlines, their channels and key fingerprint, and the "Invite to Lucid Total" materialisation action. A **Parties** list (under People & agents) answers "who are we waiting on outside the company?" with the embassy states.
 
 ### 5.10 Phone
 
@@ -299,10 +345,13 @@ Sealed **envelopes**: created in a dedicated window (never the chat input), encr
 
 ## 13. Identity, rights, tenancy and settings
 
-- **Identity**: bootstrap mode (owner account with a strong secret, agent service accounts) → Google SSO (the first tracked task) → more providers later; sessions with device list; API keys per service account.
+- **Identity**: bootstrap mode (owner account with a strong secret, agent service accounts) → Google SSO (the first tracked task) → more providers later; sessions with device list; API keys per service account. **Parties**: magic-link or SSO sign-in for direct externals, bound to their party and compartment; virtual parties have no sign-in; system parties have service accounts.
+- **Compartments** for parties and, where a company wants them, for internal roles (e.g. People and Finance for payroll-class data); enforced at the data layer; cross-compartment tests from day one.
+- **Company stage** (§2.8) as the master default for zoom, structure, agents, cadences and thresholds; proposed by the system, decided by the owner with a preview.
 - **Rights**: roles per domain; decision kinds per role; permission classes for actions; visibility scopes (company, domain, item-level for guests); the AI inherits the acting person's rights.
 - **Autonomy levels** per process and playbook; a dashboard with measured quality and recommendations.
 - **Tenancy**: one company per instance in v1 with a tenant id on every row, so multi-tenant hosting is a deployment change, not a schema change (`docs/05`).
+- **Security priority**: because every company interface (production, support, finance, payroll, legal, board) passes through Lucid Total, security, encryption and integrity are first-class product requirements: sensitivity classes up to `payroll`, field-level encryption for the most sensitive fields, an integrity-protected audit log with read audits for payroll-class data, compartments, envelopes, a security review gate before the first external is admitted (`docs/07`).
 - **Settings as data**: domains, templates, priority weights, materiality thresholds, SLA classes, cadences, budgets, kill-switches, model policy, connectors, map layout preferences. Every behaviour named in this plan is a setting.
 
 ## 14. Platforms, performance and quality targets
@@ -317,6 +366,8 @@ Sealed **envelopes**: created in a dedicated window (never the chat input), encr
 Intent-to-action time; AI parity coverage (100 %); freshness of state (sampled); notifications per person per day and action rate; decision wait time and in-context share; prediction gap (predicted vs actual dates and load); share of processes at each autonomy level and the acceptance rate of AI suggestions; import completeness (rows, evidence links resolved); cost per day of AI by agent and model.
 
 ## 16. Release phases (summary; details in `docs/11-roadmap.md`)
+
+Asks ship in Phase 0 (the card, routing to the owner or lead, decisions); company stage `founders` defaults in Phase 0 with the stage model in Phase 3; parties in virtual mode (email on the company's behalf) in Phase 1, direct external views and compartments in Phase 2, payroll-class data with field-level encryption and the security gate in Phase 3.
 
 - **Phase 0 · Bootstrap (the board that replaces the checklist):** items, groupings, relations, board and line view, list, item page with expected vs actual, comments and feedback requests, inbox, bootstrap identity, the coordinator protocol (working lines, items), the import of Lucid Chat's checklist and decision log, the chat with read tools and the first write tools, Deep Blue + Sky Glass, desktop and phone.
 - **Phase 1 · The AI runs the operation:** full action registry parity, previews/confirm/undo, retrieval over docs and code, proactive agents (follow-up, briefing, evidence check, sweeper), notifications and email, Lucid Chat channel, envelopes, Google SSO, templates, time tracking, Aqua Dusk.

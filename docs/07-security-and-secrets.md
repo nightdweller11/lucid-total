@@ -15,6 +15,8 @@
 | Customer PII in issues | Regulated (GDPR, Israel privacy law) | Over-collection, exposure in logs or prompts, retention beyond need |
 | Identity and sessions | Critical | Account takeover, token theft, SSO misconfiguration |
 | Agent credentials and rights | Critical | An agent acting beyond its rights, prompt injection steering an agent, budget exhaustion |
+| Payroll, contracts and personal data of staff (People and Finance compartments) | Highest; regulated and reputationally critical | Insider over-read, exfiltration through an export or a model prompt, a party seeing beyond its compartment, tampering with amounts |
+| Parties' data and the company's correspondence with them | Confidential; contractual | A party seeing another party's or the company's internals; impersonation of the company by email; a stale engagement keeping access |
 | Audit trail | Integrity | Tampering, gaps |
 | Availability | High | Outbox parked, scheduler lost, index missing; the company cannot see or act |
 
@@ -34,9 +36,13 @@
 - **Enforcement** is in the action layer and the data layer (row filters by visibility), never in the UI alone and never by the prompt. An attempt beyond rights becomes a proposal where that makes sense, else a refusal with an audit event.
 - **Rights changes** are `admin` actions with preview and audit; granting rights above one's own is impossible.
 
+### 3b. Compartments (parties and sensitive internal roles)
+
+A **compartment** is a resolved set of visibility rules: the items, groupings, people, asks, comments and evidence a principal may see and act on. Parties always have one (from their engagements and a template: contractor, board, accounting, legal, supplier, customer organisation, system); internal roles may have one for payroll-class data (People and Finance). Rules: compartments are enforced by the data layer's visibility resolver on every read and write (row filters), by the retrieval filter and by the tool rights of any assistant scoped to the principal; a compartment never includes the map of the company or roll-ups across domains; engagement end dates revoke access automatically; **direct, virtual and system modes share one party identity** so history and compartment carry over when a profile materialises; every cross-compartment attempt is audited; the cross-compartment suite (every query under each compartment template returns nothing outside it) runs at every merge.
+
 ## 4. Audit
 
-Append-only `events` with actor, on-behalf-of, reason, preview hash, before/after, causation; a per-item history; an admin audit view with filters; daily export of the event log to the bucket. Reversibility is stamped by the system (the undo function exists and succeeded in preview), never claimed by a model. Agent runs record their tool calls and the previews they produced.
+Append-only `events` with actor, on-behalf-of, reason, preview hash, before/after, causation; a per-item history; an admin audit view with filters; daily export of the event log to the bucket. **Integrity:** each event carries a hash chained to the previous event of its tenant and the chain head is published daily to the bucket and signed with a server key held outside the database, so tampering with or deleting audit rows is detectable; the daily integrity check is itself an incident when it fails. **Read audit:** reads of `payroll` and `restricted` data (who, what, when, from where) are events too, visible to the People and Finance leads and the owner. Reversibility is stamped by the system (the undo function exists and succeeded in preview), never claimed by a model. Agent runs record their tool calls and the previews they produced.
 
 ## 5. Sealed envelopes (secrets)
 
@@ -62,6 +68,17 @@ Append-only `events` with actor, on-behalf-of, reason, preview hash, before/afte
 - **Model providers** receive company work data under the provider's terms (30-day retention for Fable; ZDR where offered for the other classes), never `restricted` content, never envelopes.
 - **Tenancy**: `tenant_id` on every row; row filters at the data layer; a cross-tenant test suite from day one even though v1 runs one tenant.
 
+### 6b. Sensitivity classes and field-level encryption
+
+| Class | Examples | Who | Index / model | Logs | Storage |
+|---|---|---|---|---|---|
+| `normal` | ordinary work | company by visibility | yes | ids only | plain |
+| `sensitive` | customer PII in issues, financial figures, vendor terms | domain roles, named people | excluded from prompts unless the thread is cleared; indexed for search by cleared people only | masked | plain, masked in exports |
+| `restricted` | contracts, legal matters, board material, personal matters | named people and the compartment | never | never | plain rows, restricted by compartment; attachments encrypted at rest with per-tenant keys |
+| `payroll` | salaries, bank details, identity numbers, health and leave records | People and Finance leads, the owner; the employee for their own | never | never, not even field names of values | **field-level encryption**: each value encrypted (AES-256-GCM) under a per-tenant data key wrapped by a master key in the server's secret store (Railway variable today, a KMS adapter later); decrypted only in the request that serves a cleared principal; every read audited; exports only as envelopes |
+
+Field-level encryption uses the same envelope-style primitives as §5 but server-side keys, because payroll data must be searchable and reportable by cleared staff and processed by connectors (payroll providers), which end-to-end encryption would prevent. The master key never lives in the database; rotation re-wraps the data key; the integrity chain (§4) covers the encrypted fields' hashes so amounts cannot be altered unnoticed.
+
 ## 7. Application security
 
 - Strict CSP, no inline scripts, SRI for the few CDN assets (or self-hosted), HTTPS only, HSTS; CSRF protection on cookie sessions; rate limits per account and per API key; input validation from the registry schemas; idempotency keys; file uploads validated by type and size with thumbnails generated in the worker.
@@ -74,6 +91,10 @@ Append-only `events` with actor, on-behalf-of, reason, preview hash, before/afte
 - Prompt injection: untrusted content marked, sentinels sanitised, admin tools undisclosed, numbers grounded, every consequential action previewed by the action layer (not described by the model).
 - Agent keys: hashed at rest, rotated on a schedule, scoped; the coordinator's key never leaves the lead's machine's vault.
 
+### 9b. Gates before admitting externals
+
+Before the first party is admitted in direct mode, and again before the first party with payroll or board access: the cross-tenant and cross-compartment suites pass; the field-level encryption invariants hold (no plaintext of a `payroll` field in any table, log, index, export or prompt record); the audit chain verifies; the external view's walkthrough is attached; a dependency and secret scan is clean; and, for payroll or board access, an external pen-test report exists. These gates are items on the Lucid Total program (`docs/11`).
+
 ## 9. Incident response
 
-Lucid Total's own incidents are incidents in Lucid Total (parked outbox, scheduler lease lost, index refused, auth failures spike, budget exhausted). Runbooks: key rotation, session revocation, envelope re-seal, restore from backup, provider outage (switch model class or pause AI). The owner is paged through their configured channel for security incidents.
+Lucid Total's own incidents are incidents in Lucid Total (parked outbox, scheduler lease lost, index refused, auth failures spike, budget exhausted, audit chain mismatch, compartment violation detected, a party's engagement expired with open access). Runbooks: key rotation, session revocation, envelope re-seal, restore from backup, provider outage (switch model class or pause AI). The owner is paged through their configured channel for security incidents.

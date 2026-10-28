@@ -1,0 +1,247 @@
+{
+ "meta": {
+  "generator": "tools/import/lucid-chat/import.mjs",
+  "source_repository": "Lucid Chat (nightdweller11/lucid)",
+  "source_hashes": {
+   "docs/15-checklist.md": "e08aefd307261c9d",
+   "docs/09-decision-log.md": "00abb6af46f1748a",
+   "docs/07a-accounts-to-open.md": "144286136f24932a",
+   "docs/decisions/0001-expo-single-codebase.md": "7891e126a907ca13",
+   "docs/decisions/0002-modular-monolith-by-role.md": "e278c53dceb4926b",
+   "docs/decisions/0003-sealed-mediation-keys.md": "c889c751879d9050",
+   "docs/decisions/0004-postgres-first.md": "da94c49f43a9999b",
+   "docs/decisions/0005-nats-jetstream.md": "8f361adca7f5f420",
+   "docs/decisions/0006-model-gateway-and-tiering.md": "2d6507907afbd6f0",
+   "docs/decisions/0007-providers-and-self-host-trigger.md": "dd18529b109ad87b",
+   "docs/decisions/0008-protobuf-protocol.md": "2f77ab3ae32e7249",
+   "docs/decisions/0009-mediator-gated-release.md": "cc7a9fafb23ec27c",
+   "docs/decisions/0010-crypto-runtime-mobile-web.md": "052bcb404868ff7c",
+   "docs/decisions/0011-device-streams-ephemeral-consumers.md": "ae6c2293abcaa17b",
+   "docs/decisions/0012-partitioning-without-pg-partman.md": "9a037047f1e85229",
+   "docs/decisions/0013-phase-a-mediator-key-custody.md": "4240816e48c2af73",
+   "docs/decisions/0014-profile-key-distribution.md": "50a7d47cf5922975",
+   "docs/decisions/0015-railway-dev-stack.md": "2ca73f68af4b0277",
+   "docs/decisions/0016-device-linking-and-key-backup.md": "e1a78a4b858bd3ff",
+   "docs/decisions/0017-recent-turns.md": "eba3b5ad72eb7ae7",
+   "docs/decisions/0018-server-kms-adapter.md": "7aa789363792c1ec",
+   "docs/decisions/0019-transit-kek.md": "ee9aec1e851e5469",
+   "docs/decisions/0020-dependency-currency-and-typescript-7.md": "8a07df7b81c95146",
+   "docs/decisions/0021-ai-context-and-memory.md": "f21fc98a3849e8d5",
+   "docs/decisions/0022-device-continuity-and-recovery.md": "173108ae3eea51bd",
+   "docs/decisions/0023-fail-safe-behaviour.md": "19524926e47eeb35",
+   "docs/decisions/0024-tiered-inference-cascade.md": "f4dcfca13536185b",
+   "docs/decisions/0025-party-private-mediation.md": "8a54d776466919dc",
+   "docs/decisions/0026-beta-diagnostics-and-whole-conversation-reports.md": "681971e79e13af77",
+   "docs/decisions/0027-on-device-ai.md": "0e9a82af25da7986",
+   "docs/status/decisions-catalogue.json": "8816dd9a68557a1f",
+   "docs/status/decisions-answers.json": "fdff7a694ed7b730",
+   "docs/status/decisions.json": "248fd94a0b48fc18",
+   "docs/13-implementation-plan.md": "34099c64ea042a00",
+   "docs/status/scoreboard.json": "ae78027d37b5bb24"
+  },
+  "source_files_read": 794,
+  "sanitizer": {
+   "email": 17,
+   "phone": 90,
+   "secret": 0
+  }
+ },
+ "schema": "lucid-total.import.people/v1",
+ "people": [
+  {
+   "id": "owner",
+   "kind": "person",
+   "name": "Yossi",
+   "role": "founder and product owner",
+   "decision_rights": [
+    "strategy",
+    "material decisions",
+    "gates",
+    "spend above threshold",
+    "legal commitments"
+   ],
+   "inbox": "the decisions page of the status site (docs/status/decisions-*.json) until cutover",
+   "rows_assigned": 60
+  },
+  {
+   "id": "counsel",
+   "kind": "external",
+   "name": "Counsel and DPO",
+   "role": "privacy and technology counsel (not engaged as a person in the model yet)",
+   "rows_assigned": 4
+  }
+ ],
+ "agents": [
+  {
+   "id": "lead",
+   "kind": "agent",
+   "agent_kind": "coordinator",
+   "name": "Claude Code lead",
+   "role": "orchestrates, reviews and merges; owns INT rows and phase gates; never implements (CLAUDE.md)",
+   "model_policy": "Fable for orchestration and security-sensitive or core work; Opus 5.5 otherwise; never Sonnet (L198, L325, L363)",
+   "rows_assigned": 321
+  },
+  {
+   "id": "ws-A",
+   "kind": "agent",
+   "agent_kind": "worker",
+   "workstream": "A",
+   "name": "Workstream A · Platform & infra",
+   "owns": "monorepo, CI/CD, the Railway dev stack and the Compose reference graph (ADR-0015), OpenTofu, k3s/k8s, observability stack, secrets, backups, load-test harness",
+   "consumes": "all",
+   "model_policy": "Opus 5.5 workers, one task per worktree (L102, L363)",
+   "briefs_by_model": {
+    "unstated": 35,
+    "Sonnet": 4,
+    "Opus": 27,
+    "Fable": 2
+   },
+   "rows_assigned": 396
+  },
+  {
+   "id": "ws-B",
+   "kind": "agent",
+   "agent_kind": "worker",
+   "workstream": "B",
+   "name": "Workstream B · Protocol & crypto",
+   "owns": "`packages/protocol` (Protobuf, state machines), `packages/core/crypto` (device keys, epoch keys, wraps, gated release, signatures, test vectors)",
+   "consumes": "— (produces contracts)",
+   "model_policy": "Opus 5.5 workers, one task per worktree (L102, L363)",
+   "briefs_by_model": {
+    "Opus": 8,
+    "unstated": 24,
+    "Fable": 3,
+    "Sonnet": 1
+   },
+   "rows_assigned": 191
+  },
+  {
+   "id": "ws-C",
+   "kind": "agent",
+   "agent_kind": "worker",
+   "workstream": "C",
+   "name": "Workstream C · Server core",
+   "owns": "`apps/server` roles `gateway`, `dispatcher`, `api`, `worker`; data model and migrations; sequencing, fan-out, receipts, media presign, OTP/identity, contacts discovery, groups",
+   "consumes": "B, F (policy schema)",
+   "model_policy": "Opus 5.5 workers, one task per worktree (L102, L363)",
+   "briefs_by_model": {
+    "unstated": 30,
+    "Sonnet": 5,
+    "Opus": 14,
+    "Fable": 1
+   },
+   "rows_assigned": 562
+  },
+  {
+   "id": "ws-D",
+   "kind": "agent",
+   "agent_kind": "worker",
+   "workstream": "D",
+   "name": "Workstream D · Mediator & AI",
+   "owns": "`apps/server` role `mediator`; `packages/ai-gateway` (task API, registry, router, adapters, prompts, evals); policy engine; mediation pipeline incl. modes, Relay, clarity, trust, scope, Coach",
+   "consumes": "B, F",
+   "model_policy": "Opus 5.5 workers, one task per worktree (L102, L363)",
+   "briefs_by_model": {
+    "unstated": 37,
+    "Sonnet": 2,
+    "Opus": 21,
+    "Fable": 2
+   },
+   "rows_assigned": 387
+  },
+  {
+   "id": "ws-E1",
+   "kind": "agent",
+   "agent_kind": "worker",
+   "workstream": "E1",
+   "name": "Workstream E1 · Client app",
+   "owns": "`apps/mobile` (Expo: iOS, Android, web): onboarding, chats, groups, settings, Assistant, Coach, sync engine, local DB, push",
+   "consumes": "B, C APIs, E2",
+   "model_policy": "Opus 5.5 workers, one task per worktree (L102, L363)",
+   "briefs_by_model": {
+    "unstated": 29,
+    "Sonnet": 1,
+    "Opus": 10
+   },
+   "rows_assigned": 479
+  },
+  {
+   "id": "ws-E2",
+   "kind": "agent",
+   "agent_kind": "worker",
+   "workstream": "E2",
+   "name": "Workstream E2 · UI kit, theming, i18n",
+   "owns": "`packages/ui` (tokens, glass primitives, Icon, MeaningGlyph, nav/bubble variants), `packages/i18n` (ICU catalogs, RTL, bidi), visual regression gallery",
+   "consumes": "design docs",
+   "model_policy": "Opus 5.5 workers, one task per worktree (L102, L363)",
+   "briefs_by_model": {
+    "unstated": 30,
+    "Sonnet": 1,
+    "Opus": 7,
+    "Fable": 1
+   },
+   "rows_assigned": 166
+  },
+  {
+   "id": "ws-F",
+   "kind": "agent",
+   "agent_kind": "worker",
+   "workstream": "F",
+   "name": "Workstream F · Platform policy & admin",
+   "owns": "policy schema and resolver, signed delivery, feature flags, theme manifest, market compliance profiles and mechanism catalogue, admin console (web), audit",
+   "consumes": "C APIs",
+   "model_policy": "Opus 5.5 workers, one task per worktree (L102, L363)",
+   "briefs_by_model": {
+    "unstated": 39,
+    "Sonnet": 3,
+    "Opus": 7,
+    "Fable": 1
+   },
+   "rows_assigned": 259
+  },
+  {
+   "id": "ws-G",
+   "kind": "agent",
+   "agent_kind": "worker",
+   "workstream": "G",
+   "name": "Workstream G · QA & performance",
+   "owns": "Maestro/Playwright suites, device/browser matrix, agent exploratory runs, k6 scenarios and chat simulator, chaos, perf dashboards, gate reports",
+   "consumes": "all",
+   "model_policy": "Opus 5.5 workers, one task per worktree (L102, L363)",
+   "briefs_by_model": {
+    "unstated": 20,
+    "Sonnet": 2,
+    "Opus": 3
+   },
+   "rows_assigned": 163
+  },
+  {
+   "id": "ws-H",
+   "kind": "agent",
+   "agent_kind": "worker",
+   "workstream": "H",
+   "name": "Workstream H · Docs & compliance",
+   "owns": "`docs/api`, `docs/mechanisms`, runbooks, legal/compliance texts, store deliverables, doc-conformance audits",
+   "consumes": "all",
+   "model_policy": "Opus 5.5 workers, one task per worktree (L102, L363)",
+   "briefs_by_model": {
+    "unstated": 35,
+    "Sonnet": 3,
+    "Opus": 12
+   },
+   "rows_assigned": 168
+  },
+  {
+   "id": "ws-WEB",
+   "kind": "agent",
+   "agent_kind": "worker",
+   "workstream": "WEB",
+   "name": "Workstream WEB · public site",
+   "owns": "apps/site (belucid.chat)",
+   "briefs_by_model": {
+    "Opus": 2
+   },
+   "rows_assigned": 3
+  }
+ ]
+}

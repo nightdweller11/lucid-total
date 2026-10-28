@@ -33,7 +33,9 @@ Design stance: the map is a **semantic map**, not a geographic metaphor pushed t
 6. **Dependencies are roads**: lines between areas or items, drawn only on the dependency layer, at epic zoom and deeper, or when an item is selected; the critical path to a milestone is the thick road; a blocked dependency is a road with a barrier glyph.
 7. **People and agents are presence**: avatars at the areas where they are working now (from working lines), with a status ring (doing · waiting · stuck). A person's own avatar is always findable (recentre on me).
 8. **Decisions waiting are flags**: a flag glyph at the area or item; the owner's material decisions are larger flags at company zoom.
-9. **Time is a layer**, not the axis: switch to the **timeline layer** and the same areas slide onto a time axis (roadmap); switch back and they return to the terrain. What-if deltas render as **ghosts** (dashed outlines where things would go, arrows from current to proposed) in both.
+9. **Parties are embassies at the border.** Externals (contractors, board, accounting, legal, suppliers, partners) are drawn as small markers along the company's outer edge, next to the region they engage with, sized by engagement and coloured by state (active · waiting on us · waiting on them · overdue); a road from an embassy into a region is an open ask or deliverable across the boundary. Tapping opens the party page. A party sees none of this: their external view has no map, only their compartment.
+10. **The default zoom follows the company stage** (`docs/02` §2.8): founders open at Z1–Z2 of the current wave; a growing company opens at Z0. The viewer can always change it; the stage changes the default.
+11. **Time is a layer**, not the axis: switch to the **timeline layer** and the same areas slide onto a time axis (roadmap); switch back and they return to the terrain. What-if deltas render as **ghosts** (dashed outlines where things would go, arrows from current to proposed) in both.
 
 ## 4. Zoom levels (semantic zoom)
 
@@ -97,6 +99,8 @@ The map on the phone is for orientation and quick action, not dense work:
 - **People / Agents live** = the presence layer, as a list with working lines.
 - **Inbox** = the flags addressed to me, as a queue.
 - **Item page** = Z3, standalone with the map hidden.
+- **External view** = a party's compartment as a reduced application (Inbox · My items · Chat · their groupings), no map; **party page** = the company's view of a party (engagements, correspondence thread, linked items and asks, deadlines, materialise).
+- **Asks** = cards in the responsible person's inbox and a per-domain asks list; on the map an ask across domains is a road from the asking region to the target region.
 - **Chat** = a panel beside any view, or full-screen on the phone; it points and moves on the map.
 
 ## 11. Rendering and performance notes (for the architecture)
@@ -108,4 +112,4 @@ The map on the phone is for orientation and quick action, not dense work:
 
 ## 12. What the mocks must show (`docs/04-mocks/`)
 
-Z0 company (owner perspective, with goals horizon, flags, heat, presence); Z1 Engineering and Z1 Marketing (the same company, two perspectives, the Europe program crossing both); Z2 an epic with cards by state and roads, plus its line view; Z3 an item page with Expected vs Actual; what-if ghosts for "Europe first"; meeting perspective; the timeline layer; the phone map at Z0/Z1 and the phone line view; RTL variant of Z1; high-contrast variant of Z0; the list equivalent (tree) of the map.
+Z0 company (owner perspective, with goals horizon, flags, heat, presence, embassies at the border); Z1 Engineering and Z1 Marketing (the same company, two perspectives, the Europe program crossing both); Z2 an epic with cards by state and roads, plus its line view; Z3 an item page with Expected vs Actual; what-if ghosts for "Europe first"; meeting perspective; the timeline layer; the phone map at Z0/Z1 and the phone line view; RTL variant of Z1; high-contrast variant of Z0; the list equivalent (tree) of the map; the ask card with routing; the external view; the virtual party page; the company stage settings card.

@@ -54,6 +54,9 @@ The first user of Lucid Total is Lucid itself: the development of Lucid Chat (it
 12. **Current, best-supported technology; Railway-first; adapters for every external.** Inherited from Lucid Chat (L390, L425, L483): maintained current majors, no deprecated dependency, nothing new outside Railway without a written case, no provider SDK outside its adapter, no CI dependency on GitHub Actions.
 13. **Lucid Total runs itself.** Its own development is tracked in Lucid Total from the first usable build; every feature is a card; the AI uses the product to help build the product.
 14. **The autonomy ladder.** Every process in the company has an explicit autonomy level: *observe* (the AI watches and reports), *suggest* (proposes, a person applies), *act with confirmation* (prepares everything, a person taps), *act and inform* (acts, tells, undo available), *run* (owns the process end to end, escalates exceptions). Levels are settings per process and per domain, raised as trust is earned and measured; the direction of travel is up. People keep the decisions that define the company (strategy, money above thresholds, people, legal commitments) for as long as they choose to.
+16. **Everyone can ask; the responsible decide.** Any person, inside or outside the company, can raise an *ask* (a suggestion, a feature request, a need from another domain, a complaint, an idea). Asks route to whoever holds the responsibility, who decides whether action is needed, what to do, and whether it becomes a task; the asker always sees the outcome. Support issues filter up into product asks the same way.
+17. **The system grows with the company.** Two founders with direct focus need a close-up, few groupings and quiet agents; a growing company needs a wider view, more structure, more delegation and more automation. Lucid Total carries an explicit *company stage* that sets the default zoom, grouping depth, agent set, cadences and approval thresholds, and it is designed, in its model and in its codebase, to add complexity only when the company's reality demands it.
+18. **Externals are participants, not strangers.** Contractors, board members, accountants, lawyers, suppliers and partners are parties of the company with a compartment: they see their own domain and their relation to the company, nothing else, and they contribute inside it. A party may use Lucid Total directly (an external view) or exist as a *virtual participant* the system reaches by email or message on the company's behalf; a virtual profile materialises into a direct user when the company allows it. Every interface of the company (production, support, finance, payroll, legal, board) passes through Lucid Total, which is why security, encryption and integrity are top priorities.
 15. **Model the company as it really works.** Functions (product, engineering, marketing, sales, support, finance, legal and compliance, people, operations), rhythms (daily, weekly, release, quarter), flows (idea → decision → work → release → feedback → learning; lead → customer → issue → resolution; need → vendor → account → cost), and decision kinds with their rights. The schema and the AI's playbooks encode these so that a new company starts with a working operating model, not an empty board.
 
 ## 4. Scope
@@ -67,6 +70,9 @@ The first user of Lucid Total is Lucid itself: the development of Lucid Chat (it
 - **Notifications and email**: in-app inbox, email (sending via an adapter; the belucid.chat mail domain), push to the Lucid Chat app through its API, per-person cadence settings.
 - **Secure delivery**: sealed envelopes for secrets with dedicated reveal windows, expiry, one-time reveal, audit.
 - **Identity**: start with a single owner account plus named service accounts for agents (bootstrap mode, no SSO); Google SSO is the first task tracked in the system; roles and decision rights from day one.
+- **Asks**: suggestions, feature requests and cross-domain requests from anyone (including support and externals), routed to the responsible role holder, decided and tracked (`docs/02` §4.9).
+- **Parties and compartments**: externals (contractors, board, accounting, legal, suppliers) as parties with engagements and compartmented visibility, as direct users with an external view or as virtual participants reached by email or message (`docs/02` §4.10, `docs/07` §3b).
+- **Company stage**: a setting that shapes defaults for a two-founder company and grows with it (`docs/02` §2.8).
 - **Integrations API**: REST + webhooks + an MCP-style tool surface for external agents; inbound email-to-item; GitHub (commits/PRs referencing items), Railway (deploy and incident events) as the first two connectors.
 - **Platforms**: responsive web app (desktop and phone), installable as a PWA; native mobile later through Lucid Chat.
 
@@ -96,7 +102,8 @@ The first user of Lucid Total is Lucid itself: the development of Lucid Chat (it
 | **Portability** | Postgres, object storage (S3 API), Node/TypeScript, standard protocols; every external behind an adapter (email, SSO, Claude API, GitHub, Railway, push). |
 | **Mobile and desktop** | One responsive web app; phone-width layouts are designed, not shrunk; map and chat work with touch. |
 | **i18n and RTL** | English and Hebrew from day one; ICU catalogs; mirrored layouts. |
-| **Privacy** | Company data stays in the company's instance; customer PII in issues is minimised and marked; AI providers used under zero-data-retention terms. |
+| **Privacy** | Company data stays in the company's instance; customer PII in issues is minimised and marked; AI providers used under zero-data-retention terms where offered (`docs/06` §3 for the Fable exception the owner decides). |
+| **Security, encryption, integrity** | Every company interface passes through Lucid Total, including payroll, legal and board material: compartments per party, field-level encryption for the most sensitive fields, an integrity-protected audit log, and a security review before any external is admitted (`docs/07`). |
 
 ## 6. Success metrics
 
@@ -149,3 +156,7 @@ Inherited from Lucid Chat and binding here:
 - **Working line** — an agent's or person's live "currently on" state.
 - **Envelope** — a sealed container for a secret, delivered through Lucid Total to named recipients.
 - **Evidence** — artefacts that show what actually happened: screenshots, test results, links, measurements, reviews.
+- **Ask** — a request or suggestion from anyone to a responsible role holder: feature request, cross-domain need, idea, complaint. Decided (act, no action, more information) and, when acted on, turned into items.
+- **Party** — a person or organisation outside the company's staff that takes part in its work: contractor, board member, accountant, lawyer, supplier, partner, customer organisation. Has an **engagement** (what they do with us, in which domain), a **compartment** (what they may see), and a mode: **direct** (signs in to an external view) or **virtual** (the system reaches them by email or message on the company's behalf).
+- **Compartment** — the slice of the model a party or a role may see and act on.
+- **Company stage** — a setting (founders · small team · growing · scaled) that sets the defaults for zoom, structure, agents, cadences and thresholds.

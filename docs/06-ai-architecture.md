@@ -11,7 +11,7 @@
 1. **Parity by construction.** The action registry (`docs/05` §4.2) is the only source of capabilities. Chat tools, REST routes, the MCP server and the UI's menus are generated from it. A capability missing from any surface fails a build-time or test-time check.
 2. **Read tools during a run; consequential actions through preview → confirm → apply.** The model may read freely (within the actor's visibility). Writes, outbound sends and spend go through the action layer with a preview the person (or the autonomy level) approves; what runs is exactly what was previewed (hash-bound).
 3. **Evidence over assertion.** Answers cite items, documents, code locations, decisions and commits. A number in an answer comes from a query in the same turn (a grounding guard re-prompts once if not). A dense-only retrieval hit is a hypothesis until the source is read.
-4. **The model never sees secrets.** Envelopes are ciphertext end to end; items and comments above a conversation's clearance are filtered before prompt assembly; the retrieval index excludes them.
+4. **The model never sees secrets.** Envelopes are ciphertext end to end; items and comments above a conversation's clearance are filtered before prompt assembly; the retrieval index excludes them. Field-level encrypted (payroll-class) fields are never decrypted for a model. A party's assistant is scoped to the party's compartment: the retrieval filter and the tool rights both carry the compartment, so an external cannot ask their way past it.
 5. **Quiet by default.** Proactive agents emit one card or line per finding, deduped, at the reader's cadence; outbound channels are off until enabled, each with a kill-switch.
 6. **Model and provider agnosticism inside a Claude-first reality.** The owner's Claude API token powers v1. All calls go through `packages/ai-gateway`; model classes (fast · standard · strongest · Fable) map to model ids in configuration; a second provider is an adapter, never a code path.
 7. **Measured autonomy.** Every playbook has an autonomy level and a quality record; levels rise on evidence (`docs/02` §2.7).
@@ -91,6 +91,9 @@ A playbook is data: name, trigger (schedule or event), autonomy level, allowed t
 | Workload | weekly | suggest | Workload signals per person, shown to the person first, as help (UC-E4) |
 | Account renewal | daily | inform | Expiring accounts and envelopes → rotation chores |
 | Import reviewer | after an import | suggest | Grades imported rows' evidence; creates "to verify" items |
+| Ask router | new ask | suggest (→ inform) | Summarises the ask, finds related items and duplicates, proposes the responsible role holder and a decision; aggregates support issues into product asks |
+| External correspondence | chore or ask addressed to a virtual party; inbound reply | suggest (→ confirm) | Drafts the email or message on the company's behalf inside the party's compartment; parses replies into answers, commitments and evidence; never sends without the process's autonomy level allowing it |
+| Stage watcher | weekly | suggest | Computes the company's structural signals and proposes a stage change with its preview (UC-O2) |
 
 Every finding links its evidence and is deduped by a stable key; the reader's cadence batches delivery; nothing is emailed until the email channel is enabled.
 

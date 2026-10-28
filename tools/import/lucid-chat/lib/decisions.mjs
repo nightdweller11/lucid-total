@@ -30,14 +30,20 @@ export function firstSentence(text) {
 export function decisionType(paren, heading, text) {
   const p = (paren ?? '').toLowerCase();
   const h = (heading ?? '').toLowerCase();
-  if (/\bowner\b/.test(p) && !/\blead\b/.test(p.split(/[,;]/)[0] ?? '') ) {
-    return /\b(?:decid|answer|chose|choice|picked|accepted|approved|rejected|reversed)/i.test(`${p} ${(text ?? '').slice(0, 300)}`)
+  // The actor is whichever of "owner" / "lead" the parenthetical names first:
+  // "(lead, 2026-10-24; the owner moved …)" is the lead's; "(owner, 2026-10-23)" the owner's.
+  const iOwner = p.search(/\bowner\b/);
+  const iLead = p.search(/\blead\b/);
+  let actor = null;
+  if (/\bowner and (?:the )?lead\b/.test(p)) actor = 'owner';
+  else if (iOwner >= 0 && (iLead < 0 || iOwner < iLead)) actor = 'owner';
+  else if (iLead >= 0) actor = 'lead';
+  if (actor === 'owner') {
+    return /\b(?:decid|answer|chose|choice|picked|accept|approv|reject|revers|confirm)/i.test(`${p} ${(text ?? '').slice(0, 300)}`)
       ? 'owner decision'
       : 'owner instruction';
   }
-  if (/pending/.test(p)) return 'lead decision pending';
-  if (/\blead\b/.test(p)) return 'lead decision';
-  if (/\bowner and lead\b/.test(p)) return 'owner decision';
+  if (actor === 'lead') return /pending/.test(p) ? 'lead decision pending' : 'lead decision';
   if (/pending owner confirmation/.test(h)) return 'lead decision pending';
   if (/owner decisions?\b|owner answers/.test(h)) return 'owner decision';
   if (/owner instruction/.test(h)) return 'owner instruction';
@@ -114,7 +120,15 @@ export function parseDecisionLog(md) {
     const em = ENTRY_LINE.exec(line);
     if (em) {
       finish();
-      const [, id, , paren, rest] = em;
+      let [, id, , paren, rest] = em;
+      // A parenthetical with deeper nesting does not match the pattern: take it up to the first "):" or ") —".
+      if (!paren && rest.startsWith('(')) {
+        const end = rest.search(/\)\s*(?::|—|–)/);
+        if (end > 0 && end < 400) {
+          paren = rest.slice(1, end);
+          rest = rest.slice(end + 1).replace(/^\s*(?::|—|–)\s*/, '');
+        }
+      }
       current = { id, paren: paren ?? null, text: rest.trim(), heading, headingDate, line: i + 1, shape: 'list' };
       return;
     }
@@ -264,7 +278,8 @@ export function decisionItems(log, ctx) {
  */
 export function adrItem(md, path, ctx) {
   const title = /^#\s*(ADR-\d{4})\s*[:—-]\s*(.+)$/m.exec(md);
-  const id = title?.[1] ?? /(\d{4})/.exec(path)?.[1] ? `ADR-${/(\d{4})/.exec(path)[1]}` : path;
+  const num = /(\d{4})/.exec(path)?.[1];
+  const id = title?.[1] ?? (num ? `ADR-${num}` : path);
   const statusLine = /^\*\*Status:?\*\*:?\s*(.+)$/m.exec(md)?.[1]?.trim() ?? null;
   const status = (statusLine ?? '').split(/[·;,(]/)[0].trim().toLowerCase() || 'unknown';
   const state = /proposed|draft/.test(status) ? 'open' : 'closed';

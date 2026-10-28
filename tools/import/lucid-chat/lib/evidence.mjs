@@ -91,6 +91,14 @@ export function extractEvidence(text, opts = {}) {
   for (const m of text.matchAll(PR_RE)) push('pr', `#${m[1] ?? m[2]}`);
   for (const m of text.matchAll(PATH_RE)) {
     const raw = m[1];
+    if (/\{[^{}]*,[^{}]*\}/.test(raw) && !raw.includes('*')) {
+      // Brace list: packages/x/{a,b}.ts → packages/x/a.ts, packages/x/b.ts (one level, as the checklist writes it).
+      for (const p of expandBraces(raw)) {
+        const path = resolveRepoPath(p);
+        push(pathType(path), path, opts.root ? { exists: existsSync(join(opts.root, path)) } : {});
+      }
+      continue;
+    }
     if (/[{}*]/.test(raw) || raw.endsWith('/')) {
       // A glob or a folder: keep as a pointer, existence checked on the folder part.
       const path = resolveRepoPath(raw.replace(/[{*].*$/, ''));
@@ -114,6 +122,13 @@ export function extractEvidence(text, opts = {}) {
   for (const m of text.matchAll(DATE_RE)) push('date', m[1]);
   for (const m of text.matchAll(DECISION_RE)) push('decision', m[1]);
   return out;
+}
+
+/** Expand the first `{a,b,c}` group of a path (recursively for later groups). */
+export function expandBraces(p) {
+  const m = /\{([^{}]*)\}/.exec(p);
+  if (!m) return [p];
+  return m[1].split(',').flatMap((alt) => expandBraces(p.slice(0, m.index) + alt.trim() + p.slice(m.index + m[0].length)));
 }
 
 /** Evidence types that are links to an artefact (as opposed to mentions). */

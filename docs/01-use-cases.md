@@ -202,6 +202,58 @@
 
 **UC-L4 · Export everything.** The company model exports as JSON and Markdown (items, relations, comments, decisions) at any time, so Lucid Total never locks the company in. Requires: export job, documented format.
 
+## N. Asks: everyone can raise, the responsible decide
+
+> Owner (2026-10-28): "All users should be able to make suggestions, request features. Things from support can filter up as feature requests. It can be any ask from another domain, and it should be surfaced and go to whomever is responsible, to decide if actions are needed, if and what to do, if to turn it into a task."
+
+**UC-N1 · A team member suggests a feature.** Noa, in Engineering, thinks the admin console should show the policy diff. She raises an ask in two sentences (or tells the assistant). The ask routes to the Product role holder; it appears in their inbox with the AI's summary, related items (an existing task that overlaps) and a suggested decision; the role holder turns it into a task, declines with a reason, or asks Noa for more. Noa sees the state of her ask at every step. Requires: `ask` kind; routing by domain and subject; related-item suggestions; asker visibility; decision outcomes (act → items created with `spawned_by`; no action with reason; more information).
+
+**UC-N2 · Support filters up.** Several beta testers report the same friction (the Hebrew sign-in code field). Support issues are linked; the triage agent proposes an ask "Feature: … (from 4 issues)" to Product, carrying the issues as evidence and the customers to notify when it ships. Requires: issue → ask aggregation; the ask carries its sources; cascade notices on resolution (UC-F2).
+
+**UC-N3 · A cross-domain ask.** Marketing needs a screenshot set of the Relay flow for the launch page by the 15th; the ask goes to Engineering's lead, who decides it is a task, assigns it, and the task shows Marketing as the requesting domain with the date; the campaign item depends on it. Requires: asks with a requesting domain and a target domain; acceptance creates items with the dependency to the asker's grouping.
+
+**UC-N4 · An external asks.** The accounting firm asks for the Q3 vendor invoices. The ask arrives (through their external view or by email as a virtual party) and routes to Finance; the answer travels back on the same channel; both sides see the state. Requires: parties as askers; channel-aware routing (`docs/08` §6).
+
+**UC-N5 · Asks that become decisions or strategy.** A board member suggests entering a new market. The ask routes to the owner as a proposal; if taken up it becomes a decision with its change set (UC-C1). Requires: ask → proposal → decision chain with the asker kept informed within their compartment.
+
+**UC-N6 · Nothing falls through.** Asks have an owner from the moment they exist (the responsible role holder by routing rules, the domain lead by default, the owner as last resort); ageing asks surface like ageing decisions; the asker can escalate once. Requires: routing fallback, ageing agent, escalation rule.
+
+## O. The system grows with the company
+
+> Owner (2026-10-28): "The system must evolve with the company, in its function and in its reality, and in its codebase and complexity. Now we are two people in the company and we have direct focus, although already there are many tasks and things in the air; the more this moves, the higher the complexity, the more 'zoomed out' we should be, and more people will be involved."
+
+**UC-O1 · Two founders, direct focus.** With two people the home view is close-up: the current wave, the owner's decisions, the agents' lines; groupings are few (phase, wave, domain); most agents are off or at `suggest`; notifications are immediate. Requires: company stage `founders` defaults (`docs/02` §2.8).
+
+**UC-O2 · Growing: zoom out by default.** When people, domains and groupings pass thresholds (settings), Lucid Total proposes the next stage: the home map opens one level higher, programs appear as the unit of attention, briefings replace immediate notifications for most classes, more proactive agents turn on, delegation rules and approval thresholds become explicit. The owner confirms the stage change with a preview of what it changes. Requires: stage detection signals, stage change as a decision with preview, per-stage defaults.
+
+**UC-O3 · Complexity made visible.** A "shape of the company" view shows counts and depth (people, parties, domains, groupings, open items per person, decisions per week, asks per week, agents and their autonomy) and where structure is missing (items without a grouping, domains without a lead, asks without a route). Requires: structural metrics and gap detection.
+
+**UC-O4 · The codebase and the model evolve deliberately.** New kinds, fields, playbooks and views are added as data and small modules when the company's reality needs them, never ahead of it; every addition is a card with the reason, and the complexity metrics (schema size, registry size, playbooks, lines of code) are shown in the Lucid Total program so growth is a decision, not an accident. Requires: configuration-first design, complexity metrics on the Lucid Total program, the roadmap's "add when needed" rule.
+
+**UC-O5 · More people, same clarity.** Perspectives, compartments and routing rules make a company of thirty read as clearly as a company of two: each person sees their world, the owner sees the roll-ups, asks and decisions find their owners. Requires: everything in §E and §N at scale, load tests at 100k items (`docs/09`).
+
+## P. Externals as participants ("human APIs")
+
+> Owner (2026-10-28): "We need the ability to share part of the picture and manage it with externals, not just people from the company, while the externals have visibility into their own domain and relation to the company. They are like 'human APIs' or integration points: they can influence and contribute into the system in their own domain, with limited visibility. Contractors, board members, accounting services, legal, whatever, and there can be many. They can interface directly as a user of the system with external views, or through regular interfaces where they exist as a virtual entity (the system contacts and manages communication with them via email or text), and their profiles can connect and materialise if we allow them to use the system directly. All company interfaces go through this: from production management and support all the way to managing salaries. Security, encryption and integrity are an important and high priority."
+
+**UC-P1 · A contractor works inside their compartment.** A designer contracted for the launch site signs in with an external view: their items, the groupings they are engaged in (the launch campaign), the people they work with, the comments and asks that concern them; no map of the company, no other domains. They upload deliverables as evidence, complete chores, raise asks, and get notifications on their channel. Requires: `party` with an `engagement` (domain, groupings, role, dates, terms link); compartment enforcement at the data layer; the external view (reduced rail; `docs/03` §10).
+
+**UC-P2 · The accounting firm as a virtual participant.** The firm does not use Lucid Total. Finance's monthly close has a chore "collect payroll inputs from the accountant"; the system emails the accountant on the company's behalf (drafted by the AI, approved per autonomy level), tracks the reply, attaches the returned file as evidence (sensitive, Finance compartment), and marks the chore done; the accountant's party page shows the thread, the open asks to them and the deadlines. Requires: virtual party mode; outbound and inbound mail threading to the party and item; the party page; sensitivity on attachments.
+
+**UC-P3 · Materialising a profile.** Later the firm's contact is invited to use the system directly; their virtual profile becomes a direct user with the same compartment; the email history stays on their party page. Requires: party identity continuity (one party, two modes), invitation with compartment preview, SSO or magic-link sign-in for externals.
+
+**UC-P4 · A board member sees the board compartment.** Board members see goals, the board pack items, decisions escalated to the board and their own asks; they can comment, ask and vote on board decisions; nothing operational leaks. Requires: a `board` compartment template; board decision kind; compartment-scoped briefings.
+
+**UC-P5 · Legal counsel receives sealed material.** A contract draft (restricted) goes to counsel as an envelope or a compartmented item with field-level encryption; their comments return in the same compartment; the engagement's end date revokes access automatically. Requires: envelopes to parties; restricted items visible in a compartment; time-bound engagements with automatic revocation.
+
+**UC-P6 · Payroll and HR through the same system.** Salaries, contracts and personal data are items and fields in the People and Finance compartments with the highest sensitivity: field-level encryption at rest, access by named roles only, every read audited, never indexed or sent to a model, exported only as envelopes. Requires: `restricted` and `payroll` sensitivity classes, field-level encryption (`docs/07` §6b), read audit, retrieval and prompt exclusion.
+
+**UC-P7 · Many externals, one picture.** Suppliers, agencies, auditors and partners each have a party page and compartment; the map shows them as embassies at the company's border with their engagement state (active, waiting on us, waiting on them, overdue); the owner asks "who are we waiting on outside the company?" Requires: party roll-ups, border rendering (`docs/03` §3), waiting-on relations across the boundary.
+
+**UC-P8 · Externals as integration points.** A party can be a system as much as a person: a vendor's API account, a payroll provider's webhook, a bank's statement feed: the same party model with a service-account mode and the same compartment, so "who touches our finance data" is one list. Requires: party modes `direct` · `virtual` · `system`; the connector model (`docs/08` §6) hangs off parties.
+
+**UC-P9 · Security review before admitting externals.** Before any party is admitted, the cross-tenant and cross-compartment suites, the field-level encryption invariants and the audit integrity check pass; a pen-test precedes the first external payroll or board use. Requires: `docs/07` §9b gates; `docs/09` security suite.
+
 ## M. What the owner's brief did not name, and we must still cover
 
 The lead adds these because a company operating system without them leaks work back into side tools:
@@ -228,3 +280,7 @@ The lead adds these because a company operating system without them leaks work b
 | **Dependency cycles and impossible plans** | Detect and show cycles and over-committed dates. | `docs/02` §4.4 |
 | **Time zones and working hours** | Reminders and briefings respect them. | `docs/02` §6 |
 | **Data export and portability** | UC-L4. | `docs/02` §12 |
+| **Asks, company stage and parties** | Added on the owner's 2026-10-28 instruction; see §N, §O, §P. | `docs/02` §2.8, §4.9, §4.10, §13 |
+| **Field-level encryption and read audit for payroll-class data** | Externals and payroll through the same system raise the bar from access control to encryption and integrity. | `docs/07` §6b, §4 |
+| **Engagement terms and time-bound access** | Externals come and go; access must end when the engagement does. | `docs/02` §4.10 |
+| **A security review gate before admitting externals** | The first external with payroll or board access is a trust boundary move. | `docs/07` §9b, `docs/11` |

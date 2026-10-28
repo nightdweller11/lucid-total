@@ -199,7 +199,8 @@ export function buildItem(raw, ctx) {
   const deps = parseDepends(f.depends, ctx.exists, ctx.idLike);
   const kind = detectKind(raw.id, f.title, workstreams, ctx.in07a.has(raw.id));
   const evidence = [
-    ...extractEvidence(f.status, { root: ctx.root, field: 'status' }),
+    ...extractEvidence(st.verdict, { root: ctx.root, field: 'status' }),
+    ...extractEvidence(st.history.join(' · '), { root: ctx.root, field: 'status_history' }),
     ...extractEvidence(f.followUps, { root: ctx.root, field: 'follow_ups' }),
   ];
   return {

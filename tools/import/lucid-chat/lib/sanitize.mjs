@@ -11,7 +11,7 @@ const EMAIL = /[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}
 // International numbers (+972 54 123 4567, +1-415-555-0100) including partially elided ones ("+972 54 …"),
 // and Israeli-style local mobiles (054-1234567). Dates (2026-10-22), hashes and counts do not match: an
 // international number needs the leading `+`, a local one the 0X prefix with exactly seven digits after it.
-const PHONE_INTL = /\+\d{1,3}(?:[\s.-]?\(?\d{1,4}\)?)(?:[\s.-]?(?:\d{2,4}|…|\.\.\.)){1,4}/g;
+const PHONE_INTL = /(?<![A-Za-z0-9])\+\d{1,3}(?:[\s.-]?\(?\d{1,4}\)?)(?:[\s.-]?(?:\d{2,4}|…|\.\.\.)){1,4}/g;
 const PHONE_LOCAL = /\b0\d{1,2}-\d{7}\b/g;
 
 // Credential-looking tokens: well-known key prefixes and PEM private keys. The Lucid Chat repository runs
