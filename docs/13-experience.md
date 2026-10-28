@@ -138,6 +138,8 @@ A **scene** is a declarative description of what to show: a composition of compo
 
 ### 8.2 The component grammar
 
+People never build scenes; the AI does (T29). The person's part is to click a path, answer a card, or say what they want to see. So nothing in this grammar is a user-facing editor; it is the AI's vocabulary and the engineers' library, and the work goes into making it rich, consistent and growable.
+
 Components are the vocabulary. Each has a schema, a renderer for desktop, phone and image, a theme-aware style, an accessibility form (a spoken summary and a list equivalent), and a data contract. The starting catalogue:
 
 | Family | Components |
@@ -148,6 +150,7 @@ Components are the vocabulary. Each has a schema, a renderer for desktop, phone 
 | Time | path (agenda, plan), timeline band, countdown, "since you last looked" |
 | People | person chip with load, team strip, who-is-where, ask thread |
 | Product | image, screenshot, mock, document cover, code diff summary, build badge, email preview, envelope |
+| Image | an illustration from the landmark library; a **generated image** (requested by the composer from an image model through the gateway, with its prompt, provenance and a review flag) where a picture explains better than a chart: a scenario, a mood for a campaign, a product idea; never for data |
 | Narrative | title line, sentence, two-sentence context, citation chips, legend chip |
 | Action | choose a path, confirm card (permission class glyph, change set, undo), reply options, hold-to-talk |
 
@@ -158,6 +161,8 @@ Every component carries an attention weight; the scene validator sums them again
 The composer (the embedded AI, `docs/06` §6) receives the viewer, the moment, the context and the request, retrieves data through the action registry's read actions, and emits a scene. The scene is validated (schema, data cross-check: every number in the scene re-read from its binding; staleness; budget; rights and compartments: nothing in the scene the viewer may not see), then rendered. The viewer can ask for a different composition ("simpler", "as a timeline", "just the money"), and the AI re-composes. Scenes composed for a question carry a "back" to the Stage before.
 
 ### 8.4 The grammar grows, with oversight
+
+Growth is a first-class mechanism, not an exception: the library accumulates controls, layouts, visualisation mechanisms and image kinds as the company's contexts multiply; each addition is versioned, tested in all themes and directions, carries an attention weight and an accessibility form, and is proposed by the composer when it meets a request it cannot express, or by a person in a sentence. Modifying an existing component (a new variant, a new binding) follows the same path.
 
 When a request needs a visual the catalogue cannot express, the composer says so and proposes a component: a brief (data contract, the visual, the accessibility form, the attention weight) becomes a task for the coordinator (`docs/14` §8), built as a component in a sandbox, reviewed against the design rules and the attention budget, tested in all themes and both directions, and installed. Installed components are catalogue entries with provenance and a version; the AI can use them from then on. The catalogue is itself a place in the System region: its health, usage and failures are visible like any other.
 
