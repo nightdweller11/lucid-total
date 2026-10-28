@@ -1,6 +1,8 @@
 {
  "meta": {
   "generator": "tools/import/lucid-chat/import.mjs",
+  "importer_version": "1.1.0",
+  "importer_date": "2026-10-28",
   "source_repository": "Lucid Chat (nightdweller11/lucid)",
   "source_hashes": {
    "docs/15-checklist.md": "e08aefd307261c9d",

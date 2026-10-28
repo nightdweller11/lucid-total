@@ -197,7 +197,10 @@ export function buildItem(raw, ctx) {
   const workstreams = parseWorkstreams(f.ws);
   const tests = parseTests(f.tests);
   const deps = parseDepends(f.depends, ctx.exists, ctx.idLike);
-  const kind = detectKind(raw.id, f.title, workstreams, ctx.in07a.has(raw.id));
+  // P3 / P4 summary rows are milestones of their phase (lead decision T23, 2026-10-28), not open tasks.
+  const kind = f.summaryRow
+    ? { kind: 'milestone', reason: 'phase summary row (P3/P4, no status column)' }
+    : detectKind(raw.id, f.title, workstreams, ctx.in07a.has(raw.id));
   const evidence = [
     ...extractEvidence(st.verdict, { root: ctx.root, field: 'status' }),
     ...extractEvidence(st.history.join(' · '), { root: ctx.root, field: 'status_history' }),

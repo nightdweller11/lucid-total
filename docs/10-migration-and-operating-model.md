@@ -30,13 +30,14 @@ Lucid Chat tracks its development in Markdown and JSON files: one checklist of a
 | Follow-up `Origin` | `origin_text`; `spawned_by` (rule `origin-column`) | Rules in §2.3. |
 | Wave mentions ("wave 36 H", "E2 wave 5", "wave BETA-AI-1") | groupings `wave:<n>-<ws>` / `wave:<NAME>` | Every wave a row names becomes a grouping; the wave's brief is attached to the grouping. |
 | `INT-<n>` rows | `kind: milestone` | Gate rows. Criteria come from `docs/testing/gates/phase-<n>.md` when the gate view is built. |
-| Human-action rows | `kind: chore` with `kind_reason` | WS names the owner, a person or counsel, or the description is addressed to the owner ("Owner: open Apple Developer…", "Lead/owner: confirm…"). 84 rows. |
+| P3 / P4 summary rows (four columns: ID, Task, WS, Acceptance; no status column) | `kind: milestone` of their phase, `summary_row: true`, state `todo` | Lead decision T23 (§7). They expand into tasks when their phase is planned. |
+| Human-action rows | `kind: chore` with `kind_reason` | WS names the owner, a person or counsel, or the description is addressed to the owner ("Owner: open Apple Developer…", "Lead/owner: confirm…"). 83 rows. |
 
 ### 1.2 Other sources
 
 | Lucid Chat source | Lucid Total | Notes |
 |---|---|---|
-| Decision log entries `L<n>` | `decision` items, `decision_kind: log entry`, `decision_type` (owner instruction · owner decision · lead decision · lead decision pending), `date`, `summary` (first sentence), `text`, `references[]` (`relates` relations to rows) | State: owner entries and lead decisions are closed; a pending lead decision is open when an open card still cites it or it is dated after 2026-10-24, otherwise closed by L425's rule (the owner closed every `confirm` row as the lead's). |
+| Decision log entries `L<n>` | `decision` items, `decision_kind: log entry`, `decision_type` (owner instruction · owner decision · lead decision · lead decision pending), `date`, `summary` (first sentence), `text`, `references[]` (`relates` relations to rows) | State: owner entries and lead decisions are closed; a pending lead decision is open when an open card still cites it or it is dated after 2026-10-24, otherwise closed as a group by L425's rule (the owner closed every `confirm` row as the lead's) with `closed_by: "L425 rule"` and not shown to the owner again (T23). |
 | Owner answers `O<n>` (2026-10-18 tables) | `decision` items, `decision_kind: owner answer` | Their Status column decides open/closed; the second `O19` is `O19-mocks`. |
 | "Open decisions" table | `decision` items `OD-<id>` (alias the raw id: `0eq`, `13`), `open_kind` (decide · confirm · unblock · later), recommendation, the rows they hold | **The owner's inbox at cutover.** The "Resolved … (L437): 7 (…), 0ek (…)" lines become closed `OD-` items with `resolved_by`. |
 | `docs/status/decisions-catalogue.json` | the card (`CARD-<id>`: title, two-sentence context, recommendation, group) on the `OD-` item | The curated catalogue becomes the inbox's card text. |
@@ -88,7 +89,7 @@ Tried in order; the first rule that finds an existing item wins, and the relatio
 2. **listed-by** — another row lists this id in its Follow-ups cell.
 3. **id-prefix** — strip the last `-F<n>` / `-CR<n>` (or reviewer markers `-R/-X/-N/-S/-D/-P<n>`), then a wave segment `-w<n>…`, then trailing segments, until an existing item remains: `X-F1` → X, `X-CR2` → X, `X-w36-F1` → X, `L503-F1` → decision L503, `P0-G-01-ios-F1` → `P0-G-01`.
 
-A row none of the three resolves is an **orphan**. Its Origin text is classified (a wave or report, a review or audit, the owner or lead, other) so the coordinator can link it by hand or let it stand as a root.
+A row none of the three resolves is an **orphan**: it carries `origin_unresolved: true` and stays linked only to its wave groupings (the waves its status names, and the wave its Origin text names, as in "wave 4 C report"). Its Origin text is classified (a wave or report, a review or audit, the owner or lead, other). The import does no hand linking; in the review wave (LT-0005) the AI proposes an attachment per orphan (T23).
 
 **Subtasks (`parent_of`)**: an id whose last segment is not a follow-up marker (`-U1`, a single letter, `-ios`, a bare number as in `REV-E1-30-2`) and whose prefix exists is that item's subtask.
 
@@ -100,7 +101,7 @@ A row none of the three resolves is an **orphan**. Its Origin text is classified
 - **Columns in malformed rows.** 40 rows have a status written twice or an extra Evidence cell; the parser keeps the first columns by position and folds the rest into `follow_ups_text`.
 - **Waves written in other ways** ("H 36's census") and **bare hashes in prose** (hashes are taken only from code spans, parentheses or after merge/commit/main words).
 - **Chore detection** is a wording rule; a human step inside a technical row stays a task.
-- **Pending lead decisions** before 2026-10-24 are closed by L425's rule as a group, not by a per-entry record.
+- **Pending lead decisions** before 2026-10-24 are closed by L425's rule as a group (`closed_by: "L425 rule"`, 55 entries), not by a per-entry record.
 - **Status contradictions** are a word match ("done, but … pending"): 158 done rows carry open-sounding words in their verdict ("mobile sims pending ENV-F1"). Many are honest partial notes; they are listed, not reopened.
 - **Dates of state changes.** The checklist has only the dates written into cells; an item's `started`/`done` dates come from the first and last dated evidence until Lucid Total records them itself.
 
@@ -110,10 +111,10 @@ The owner asked that the translation also evaluate the work. Every row was read 
 
 ### 3.1 Counts
 
-- **2,357 checklist rows**: 207 top-level (CT 10, P0 52, P1 70, P2 62, P3 7, P4 6) and 2,150 follow-ups. Kinds: 2,268 tasks, 84 chores, 5 milestones; plus 19 accounts and 28 chores from `docs/07a`. **604 decisions**: 513 log entries, 24 owner answers, 40 open-decision cards (22 still open), 27 ADRs (2 proposed).
+- **2,357 checklist rows**: 207 top-level (CT 10, P0 52, P1 70, P2 62, P3 7, P4 6) and 2,150 follow-ups. Kinds: 2,258 tasks, 83 chores, 16 milestones (the five `INT-<n>` gates and the eleven other P3/P4 summary rows); plus 19 accounts and 28 chores from `docs/07a`. **604 decisions**: 513 log entries, 24 owner answers, 40 open-decision cards (22 still open), 27 ADRs (2 proposed).
 - **States** (all rows): done 1,699 (48 of them closed as obsolete), todo 369, blocked 164, doing 99, review 26, brief 0.
 - **Relations**: 4,675 — spawned_by 1,893 (origin column 1,753, listed-by 35, id prefix 105), depends_on 321 (Depends column 171, status verdicts 150), parent_of 12, answered_by 30, `relates` 2,419 (decisions citing rows and rows citing decisions, secondary origins, `docs/07a` references).
-- **Orphan follow-ups: 257** (194 name a wave or a report, 33 a review, 10 the owner or lead, 20 other text). **191 rows** where the Origin column and the id prefix point at different existing items (the Origin column wins).
+- **Orphan follow-ups: 257**, flagged `origin_unresolved` (194 name a wave or a report, 33 a review, 10 the owner or lead, 20 other text); 250 of them are linked to at least one wave grouping. **191 rows** where the Origin column and the id prefix point at different existing items (the Origin column wins).
 - **Unresolved dependency ids: 3** (`P1-G-03` and `P1-H-03` depend on `P1-A`, `P2-H-02` on `P2-A`: workstream-wide dependencies written as ids). **One dependency cycle**: `AI-1` ↔ `DC-1`. **No duplicate ids.**
 
 ### 3.2 The status board, re-derived
@@ -125,11 +126,11 @@ The board's two bars computed from the items with the board's own rules match th
 | Grade | Meaning | Rows | Share |
 |---|---|---|---|
 | 3 | a walkthrough or test report on disk, cited or naming the row | 883 | 52 % |
-| 2 | a commit, PR or test counts; or an existing code/doc file cited (201 rows reach 2 only that way) | 373 | 22 % |
+| 2 | a commit, PR or test counts, or an existing code/doc file cited; `grade2_source`: commit 49 · pr 0 · tests 123 · file 201 | 373 | 22 % |
 | 1 | only a wave, a date or a decision reference | 434 | 25.5 % |
 | 0 | nothing | 9 | 0.5 % |
 
-653 done rows have no link of any kind in the row itself (their grade comes from a report that names them, or they are grade 0–1). 23 done rows cite a path that no longer exists. Of the 44 done top-level rows that require a walkthrough, 34 cite a report on disk and **10 have none** (`P0-C-07`, `P0-E2-02`…`06`, `P1-D-03`…`06`).
+The 201 **file-only** grade-2 rows (no commit, PR or test count) are listed on their own line in `report.md`; they are not "to verify", and the review wave samples them. 653 done rows have no link of any kind in the row itself (their grade comes from a report that names them, or they are grade 0–1). 23 done rows cite a path that no longer exists. Of the 44 done top-level rows that require a walkthrough, 34 cite a report on disk and **10 have none** (`P0-C-07`, `P0-E2-02`…`06`, `P1-D-03`…`06`).
 
 ### 3.4 Blocked and waiting
 
@@ -183,9 +184,9 @@ Documents stay where they are written and versioned; Lucid Total indexes them an
 - **In Lucid Total:** items, relations, groupings, decisions as items, evidence records (a link with type, path, commit and title; images and videos only when attached directly), comments, working lines, the owner's inbox, the views.
 - **The rule:** a document that explains or argues (a brief, an ADR, a walkthrough report) is a file in the repository, reviewed with the code that implements it; Lucid Total holds the pointer, the state and the comparison of expectation and result. The retrieval layer indexes the repository on each merge (`docs/02` §7.4), so the assistant can quote a document without Lucid Total owning it. If a path moves, the evidence checker flags the dead link (the import already found 23).
 
-## 7. Open questions for the lead
+## 7. Decisions taken (lead, 2026-10-28, T23)
 
-1. Should the 257 orphan follow-ups be linked to their wave grouping only (the import does that) or should the review wave attach each to an item by hand?
-2. Should "lead decision pending" entries before 2026-10-24 be closed as a group by L425 (the import's rule) or listed for the owner once?
-3. Is a grade-2 "existing code or doc file cited" enough to clear `to_verify`, or should only commits, PRs, test counts and reports count (201 rows depend on the answer)?
-4. Should the 13 P3/P4 summary rows (no status column) import as `todo` tasks or as goals/milestones of their phase?
+1. **Orphan follow-ups** stay linked to their wave groupings only. Each carries `origin_unresolved: true` so the review wave (LT-0005) can filter them; there the AI proposes an attachment per orphan. The import does no hand linking. (257 rows; 250 have a wave grouping.)
+2. **Pending lead decisions dated on or before 2026-10-24** are closed as a group under L425: state `closed`, `closed_by: "L425 rule"`; they are not shown to the owner again. (55 entries; the 3 still open are L60 and L93, cited by open cards, and L484, dated after the cut-off.)
+3. **Grade 2 keeps "cites an existing code or doc file"**, with the evidence subcategory `grade2_source: "file" | "commit" | "pr" | "tests"` on the item and in `evaluation.json`. The `to_verify` rule stays: grades 0–1, plus a required walkthrough with no report, plus a stale blocker (442 items). The 201 file-only rows have their own line in `report.md` for the review wave to sample.
+4. **The 13 P3/P4 summary rows** import as `milestone` items of their phase with `summary_row: true` (state `todo`), not as tasks.

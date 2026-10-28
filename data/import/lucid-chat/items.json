@@ -1,6 +1,8 @@
 {
  "meta": {
   "generator": "tools/import/lucid-chat/import.mjs",
+  "importer_version": "1.1.0",
+  "importer_date": "2026-10-28",
   "source_repository": "Lucid Chat (nightdweller11/lucid)",
   "source_hashes": {
    "docs/15-checklist.md": "e08aefd307261c9d",
@@ -280,7 +282,8 @@
     "line": 46
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "CT-03",
@@ -375,7 +378,8 @@
     "line": 47
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "CT-04",
@@ -480,7 +484,8 @@
     "line": 48
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "CT-05",
@@ -562,7 +567,8 @@
     "line": 49
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "CT-06",
@@ -734,7 +740,8 @@
     "line": 51
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "CT-08",
@@ -828,7 +835,8 @@
     "line": 52
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "CT-09",
@@ -1344,7 +1352,8 @@
     "line": 60
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P0-A-02",
@@ -1442,7 +1451,8 @@
     "line": 61
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P0-A-03",
@@ -1989,7 +1999,8 @@
     "line": 65
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P0-A-07",
@@ -2273,7 +2284,8 @@
     "line": 68
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P0-B-02",
@@ -2349,7 +2361,8 @@
     "line": 69
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P0-B-03",
@@ -2436,7 +2449,8 @@
     "line": 70
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P0-B-04",
@@ -2700,7 +2714,8 @@
     "line": 72
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P0-C-01",
@@ -2780,7 +2795,8 @@
     "line": 73
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P0-C-02",
@@ -2855,7 +2871,8 @@
     "line": 74
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P0-C-03",
@@ -2983,7 +3000,8 @@
     "line": 75
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P0-C-04",
@@ -3391,6 +3409,7 @@
    },
    "waits_on": [],
    "evidence_grade": 2,
+   "grade2_source": "file",
    "walkthrough_check": "none",
    "to_verify": [
     "walkthrough required, no report found"
@@ -3481,7 +3500,8 @@
     "line": 80
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P0-D-02",
@@ -3554,7 +3574,8 @@
     "line": 81
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P0-D-03",
@@ -3641,7 +3662,8 @@
     "line": 82
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P0-D-04",
@@ -3717,7 +3739,8 @@
     "line": 83
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P0-D-05",
@@ -3798,7 +3821,8 @@
     "line": 84
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P0-D-06",
@@ -3874,7 +3898,8 @@
     "line": 85
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P0-E1-01",
@@ -4511,6 +4536,7 @@
    },
    "waits_on": [],
    "evidence_grade": 2,
+   "grade2_source": "tests",
    "walkthrough_check": "none",
    "to_verify": [
     "walkthrough required, no report found"
@@ -4576,6 +4602,7 @@
    },
    "waits_on": [],
    "evidence_grade": 2,
+   "grade2_source": "tests",
    "walkthrough_check": "none",
    "to_verify": [
     "walkthrough required, no report found"
@@ -4641,6 +4668,7 @@
    },
    "waits_on": [],
    "evidence_grade": 2,
+   "grade2_source": "tests",
    "walkthrough_check": "none",
    "to_verify": [
     "walkthrough required, no report found"
@@ -4707,6 +4735,7 @@
    },
    "waits_on": [],
    "evidence_grade": 2,
+   "grade2_source": "tests",
    "walkthrough_check": "none",
    "to_verify": [
     "walkthrough required, no report found"
@@ -4777,6 +4806,7 @@
    },
    "waits_on": [],
    "evidence_grade": 2,
+   "grade2_source": "tests",
    "walkthrough_check": "none",
    "to_verify": [
     "walkthrough required, no report found"
@@ -4884,7 +4914,8 @@
     "line": 98
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P0-F-02",
@@ -5963,7 +5994,8 @@
     "line": 105
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P0-G-05",
@@ -6352,6 +6384,7 @@
    },
    "waits_on": [],
    "evidence_grade": 2,
+   "grade2_source": "file",
    "status_contradiction": "done, but the verdict says \"not yet\""
   },
   {
@@ -6438,7 +6471,8 @@
     "line": 109
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-H-04",
@@ -10495,7 +10529,8 @@
     "line": 137
    },
    "waits_on": [],
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-03",
@@ -10844,6 +10879,7 @@
    },
    "waits_on": [],
    "evidence_grade": 2,
+   "grade2_source": "file",
    "walkthrough_check": "none",
    "to_verify": [
     "walkthrough required, no report found"
@@ -26027,8 +26063,8 @@
    "aliases": [
     "P3-A-01"
    ],
-   "kind": "task",
-   "kind_reason": null,
+   "kind": "milestone",
+   "kind_reason": "phase summary row (P3/P4, no status column)",
    "title": "Mediator phase B: confidential VMs, attestation, KMS release gated on measurement, transparency log",
    "state": "todo",
    "resolution": null,
@@ -26079,8 +26115,8 @@
    "aliases": [
     "P3-D-01"
    ],
-   "kind": "task",
-   "kind_reason": null,
+   "kind": "milestone",
+   "kind_reason": "phase summary row (P3/P4, no status column)",
    "title": "Self-hosted mid tier (if trigger met); confidential-inference pilot for tier 3",
    "state": "todo",
    "resolution": null,
@@ -26129,8 +26165,8 @@
    "aliases": [
     "P3-C-01"
    ],
-   "kind": "task",
-   "kind_reason": null,
+   "kind": "milestone",
+   "kind_reason": "phase summary row (P3/P4, no status column)",
    "title": "Business pilot: shared inbox, FAQ auto-answers (3–5 partners)",
    "state": "todo",
    "resolution": null,
@@ -26183,8 +26219,8 @@
    "aliases": [
     "P3-E1-01"
    ],
-   "kind": "task",
-   "kind_reason": null,
+   "kind": "milestone",
+   "kind_reason": "phase summary row (P3/P4, no status column)",
    "title": "Growth loops (translated invites, templates), localized onboarding",
    "state": "todo",
    "resolution": null,
@@ -26233,8 +26269,8 @@
    "aliases": [
     "P3-G-01"
    ],
-   "kind": "task",
-   "kind_reason": null,
+   "kind": "milestone",
+   "kind_reason": "phase summary row (P3/P4, no status column)",
    "title": "Launch-scale test (1M MAU profile ×2 headroom), 30-day availability tracking",
    "state": "todo",
    "resolution": null,
@@ -26283,8 +26319,8 @@
    "aliases": [
     "P3-H-01"
    ],
-   "kind": "chore",
-   "kind_reason": "owner workstream",
+   "kind": "milestone",
+   "kind_reason": "phase summary row (P3/P4, no status column)",
    "title": "Store submissions (launch markets), transparency report v1, audits published",
    "state": "todo",
    "resolution": null,
@@ -26336,7 +26372,7 @@
     "INT-3"
    ],
    "kind": "milestone",
-   "kind_reason": "gate row (INT-<n>)",
+   "kind_reason": "phase summary row (P3/P4, no status column)",
    "title": "Gate 3",
    "state": "todo",
    "resolution": null,
@@ -26385,8 +26421,8 @@
    "aliases": [
     "P4-A-01"
    ],
-   "kind": "task",
-   "kind_reason": null,
+   "kind": "milestone",
+   "kind_reason": "phase summary row (P3/P4, no status column)",
    "title": "Multi-region active-active with residency",
    "state": "todo",
    "resolution": null,
@@ -26437,8 +26473,8 @@
    "aliases": [
     "P4-C-01"
    ],
-   "kind": "task",
-   "kind_reason": null,
+   "kind": "milestone",
+   "kind_reason": "phase summary row (P3/P4, no status column)",
    "title": "Sharded or ScyllaDB message storage",
    "state": "todo",
    "resolution": null,
@@ -26489,8 +26525,8 @@
    "aliases": [
     "P4-B-01"
    ],
-   "kind": "task",
-   "kind_reason": null,
+   "kind": "milestone",
+   "kind_reason": "phase summary row (P3/P4, no status column)",
    "title": "MLS migration (protocol v2), key transparency",
    "state": "todo",
    "resolution": null,
@@ -26539,8 +26575,8 @@
    "aliases": [
     "P4-D-01"
    ],
-   "kind": "task",
-   "kind_reason": null,
+   "kind": "milestone",
+   "kind_reason": "phase summary row (P3/P4, no status column)",
    "title": "Confidential GPU inference fleet",
    "state": "todo",
    "resolution": null,
@@ -26591,8 +26627,8 @@
    "aliases": [
     "P4-F-01"
    ],
-   "kind": "task",
-   "kind_reason": null,
+   "kind": "milestone",
+   "kind_reason": "phase summary row (P3/P4, no status column)",
    "title": "Communities decision and DSA mechanisms if adopted",
    "state": "todo",
    "resolution": null,
@@ -26644,7 +26680,7 @@
     "INT-4"
    ],
    "kind": "milestone",
-   "kind_reason": "gate row (INT-<n>)",
+   "kind_reason": "phase summary row (P3/P4, no status column)",
    "title": "Gate 4",
    "state": "todo",
    "resolution": null,
@@ -26906,6 +26942,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "blocker": {
     "category": "external account",
@@ -27347,7 +27384,8 @@
    "spawned_by": "P0-A-01",
    "spawned_rule": "id-prefix",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P0-A-01-F1-F1",
@@ -27731,7 +27769,8 @@
    "spawned_by": "CT-07",
    "spawned_rule": "listed-by",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "CT-01-F4",
@@ -27832,7 +27871,8 @@
    "spawned_by": "CT-01",
    "spawned_rule": "id-prefix",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "CT-04-F7",
@@ -28132,7 +28172,8 @@
    "spawned_by": "CT-01",
    "spawned_rule": "id-prefix",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "CT-04-F8",
@@ -28289,7 +28330,8 @@
    "spawned_by": "CT-10",
    "spawned_rule": "listed-by",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-A-04-F1",
@@ -28677,6 +28719,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -28789,8 +28832,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "ROOT-F1-F1",
@@ -28976,7 +29021,8 @@
    "spawned_by": "ROOT-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "OWNER-F1",
@@ -29113,8 +29159,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "CT-03-F2",
@@ -29265,7 +29313,8 @@
    "spawned_by": "CT-01-F6",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "MOCKS-F2",
@@ -29379,6 +29428,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true
   },
   {
@@ -29461,7 +29511,8 @@
    "spawned_by": "P0-D-06",
    "spawned_rule": "id-prefix",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-A-02-F2",
@@ -29540,7 +29591,8 @@
    "spawned_by": "P0-A-02",
    "spawned_rule": "id-prefix",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "EVIDENCE-F1",
@@ -29653,6 +29705,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -29831,7 +29884,8 @@
    "spawned_by": "CT-01",
    "spawned_rule": "id-prefix",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "CT-03-F3",
@@ -29989,7 +30043,8 @@
    "spawned_by": "INT-0",
    "spawned_rule": "id-prefix",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "CT-01-F10",
@@ -30069,7 +30124,8 @@
    "spawned_by": "CT-01",
    "spawned_rule": "id-prefix",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "CT-04-F12",
@@ -30161,7 +30217,8 @@
    "spawned_by": "CT-04",
    "spawned_rule": "id-prefix",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "CT-10-F9",
@@ -30531,7 +30588,8 @@
    "spawned_by": "CT-01",
    "spawned_rule": "id-prefix",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "CT-03-F5",
@@ -30856,6 +30914,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -31095,7 +31154,8 @@
    "spawned_by": "CT-04",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "CT-04-F2",
@@ -31530,7 +31590,8 @@
    "spawned_by": "CT-04",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "CT-09-F1",
@@ -31886,7 +31947,8 @@
    "spawned_by": "P0-F-01",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-F-01-F2",
@@ -32245,7 +32307,8 @@
    "spawned_by": "P0-D-03",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P0-D-03-F2",
@@ -33352,7 +33415,8 @@
    "spawned_by": "P0-D-01",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-D-01-F3",
@@ -33415,7 +33479,8 @@
    "spawned_by": "P0-D-01",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-D-01-F4",
@@ -34178,7 +34243,8 @@
    "spawned_by": "P0-D-05",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-D-06-F1",
@@ -34640,7 +34706,8 @@
    "spawned_by": "CT-01",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "CT-01-F3",
@@ -34716,7 +34783,8 @@
    "spawned_by": "CT-01",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "CT-02-F1",
@@ -34790,7 +34858,8 @@
    "spawned_by": "CT-02",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "CT-02-F2",
@@ -34864,7 +34933,8 @@
    "spawned_by": "CT-02",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P0-B-03-F1",
@@ -34945,7 +35015,8 @@
    "spawned_by": "P0-B-03",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P0-B-05-F1",
@@ -35171,7 +35242,8 @@
    "spawned_by": "P0-B-05",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "CT-10-F1",
@@ -35451,7 +35523,8 @@
    "spawned_by": "CT-10",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "CT-10-F4",
@@ -36301,6 +36374,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "tests",
    "status_contradiction": "done, but the verdict says \"pending\""
   },
   {
@@ -36548,6 +36622,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "file",
    "status_contradiction": "done, but the verdict says \"waits for\""
   },
   {
@@ -36666,7 +36741,8 @@
    "spawned_by": "P0-C-01",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-C-02-F1",
@@ -37025,7 +37101,8 @@
    "spawned_by": "P0-C-03",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-C-03-F2",
@@ -37105,7 +37182,8 @@
    "spawned_by": "P0-C-03",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-C-04-F2",
@@ -37369,7 +37447,8 @@
    "spawned_by": "P0-C-04",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-C-05-F1",
@@ -37570,7 +37649,8 @@
    "spawned_by": "P0-C-05",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-C-07-F1",
@@ -39847,7 +39927,8 @@
    "spawned_by": "P0-A-06-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-A-06-F3",
@@ -39967,7 +40048,8 @@
    "spawned_by": "P0-A-06-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "CT-01-F6",
@@ -40072,7 +40154,8 @@
    "spawned_by": "CT-01-F5",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "CT-01-F7",
@@ -40219,7 +40302,8 @@
    "spawned_by": "CT-01-F4",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "CT-02-F3",
@@ -40338,7 +40422,8 @@
    "spawned_by": "CT-02-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "CT-02-F4",
@@ -40600,7 +40685,8 @@
    "spawned_by": "P0-B-03-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-F-03-F1",
@@ -41265,7 +41351,8 @@
    "spawned_by": "P0-F-03",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-F-03-F8",
@@ -41350,7 +41437,8 @@
    "spawned_by": "P0-F-03",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-F-03-F9",
@@ -41802,7 +41890,8 @@
    "spawned_by": "CT-04-F8",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-E1-03-F4",
@@ -42867,7 +42956,8 @@
    "spawned_by": "P0-A-02-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-A-02-F6",
@@ -42948,6 +43038,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "file",
    "status_contradiction": "done, but the verdict says \"wait for\""
   },
   {
@@ -43343,7 +43434,8 @@
    "spawned_by": "P0-A-02-F9",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P0-F-03-F11",
@@ -44347,7 +44439,8 @@
    "spawned_by": "P0-F-03-F11",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-E2-01-F3",
@@ -44874,7 +44967,8 @@
    "spawned_by": "P0-D-01-F6",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-D-01-F8",
@@ -45228,7 +45322,8 @@
    "spawned_by": "CT-04-F10",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "CT-08-F6",
@@ -46388,7 +46483,8 @@
    "spawned_by": "P0-C-05-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-C-07-F2",
@@ -46710,6 +46806,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "tests",
    "status_contradiction": "done, but the verdict says \"pending\""
   },
   {
@@ -47729,7 +47826,8 @@
    "spawned_by": "P1-F-05",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-F-04-F3",
@@ -48654,7 +48752,8 @@
    "spawned_by": "P1-H-06",
    "spawned_rule": "listed-by",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-H-06-F5",
@@ -48762,7 +48861,8 @@
    "spawned_by": "P1-H-06",
    "spawned_rule": "listed-by",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-H-06-F6",
@@ -48860,7 +48960,8 @@
    "spawned_by": "P0-H-04",
    "spawned_rule": "listed-by",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-H-06-F7",
@@ -49391,6 +49492,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "tests",
    "status_contradiction": "done, but the verdict says \"pending\""
   },
   {
@@ -51774,7 +51876,8 @@
    "spawned_by": "P1-C-02",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-C-02-F3",
@@ -52138,7 +52241,8 @@
    "spawned_by": "P1-C-03",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-C-04-F1",
@@ -52377,7 +52481,8 @@
    "spawned_by": "P1-C-04",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-C-08-F1",
@@ -52933,7 +53038,8 @@
    "spawned_by": "CT-01-F12",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "ENV-F9",
@@ -53006,7 +53112,8 @@
     "phase:unphased",
     "section:follow-up",
     "workstream:A",
-    "wave:4-A"
+    "wave:4-A",
+    "wave:4-C"
    ],
    "summary_row": false,
    "malformed": null,
@@ -53017,8 +53124,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "ENV-F4",
@@ -53468,7 +53577,8 @@
    "spawned_by": "ENV-F3",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "ENV-F7",
@@ -54259,7 +54369,8 @@
     "phase:unphased",
     "section:follow-up",
     "workstream:A",
-    "workstream:C"
+    "workstream:C",
+    "wave:4-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -54270,6 +54381,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -54350,7 +54462,8 @@
     "phase:unphased",
     "section:follow-up",
     "workstream:A",
-    "wave:5-A"
+    "wave:5-A",
+    "wave:4-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -54361,8 +54474,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "ENV-F13",
@@ -54934,6 +55049,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "tests",
    "status_contradiction": "done, but the verdict says \"missing\""
   },
   {
@@ -56612,7 +56728,8 @@
    "spawned_by": "P0-E1-03-F4",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "MOCKS-F4",
@@ -56787,6 +56904,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -57015,6 +57133,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -58520,7 +58639,8 @@
    "spawned_by": "P1-D-10",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-H-06-F2-F1",
@@ -59116,7 +59236,8 @@
    "spawned_by": "P0-E1-03-F9",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "MOCKS-F7",
@@ -59224,6 +59345,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -59752,7 +59874,8 @@
    "spawned_by": "P1-E1-09",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "CT-01-F17-F3",
@@ -59916,7 +60039,8 @@
    "spawned_by": "P0-F-03-F15",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-C-07-F2-F1",
@@ -61194,7 +61318,8 @@
    "spawned_by": "ENV-F12",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "ENV-F12-F1-F1",
@@ -61361,6 +61486,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "file",
    "status_contradiction": "done, but the verdict says \"missing\""
   },
   {
@@ -61517,7 +61643,8 @@
    "spawned_by": "ENV-F14",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "ENV-F15",
@@ -61626,7 +61753,8 @@
    "spawned_by": "L76",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "ENV-F16",
@@ -62262,7 +62390,8 @@
    "spawned_by": "ENV-STATUS-SITE-F6",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "ENV-STATUS-SITE-F6-F3",
@@ -63602,6 +63731,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "tests",
    "status_contradiction": "done, but the verdict says \"missing\""
   },
   {
@@ -63683,7 +63813,8 @@
    "spawned_by": "L313",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "ENV-RAILWAY-F3",
@@ -63775,7 +63906,8 @@
    "spawned_by": "L399",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "ENV-RAILWAY-F2-F1",
@@ -64492,7 +64624,8 @@
    "spawned_by": "ENV-STATUS-SHOTS",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-D-04-F1",
@@ -64771,7 +64904,8 @@
    "spawned_by": "P1-D-04",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-04-F4",
@@ -64910,7 +65044,8 @@
    "spawned_by": "P1-D-04",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-04-F4-F1",
@@ -65588,7 +65723,8 @@
    "spawned_by": "P0-G-02-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-G-01-F3",
@@ -66404,7 +66540,8 @@
    "spawned_by": "CT-01-F17-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-D-04-F3-F1",
@@ -66484,7 +66621,8 @@
    "spawned_by": "P1-D-04-F3",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-04-F3-F2",
@@ -66644,7 +66782,8 @@
    "spawned_by": "P1-D-08-F3",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-08-F3-F2",
@@ -67503,7 +67642,8 @@
    "spawned_by": "P1-C-08-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-F-01-F2-F1-F2",
@@ -67924,7 +68064,8 @@
    "spawned_by": "L75",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P0-G-02-F6",
@@ -68127,7 +68268,8 @@
    "spawned_by": "P0-D-01-F14",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P0-D-01-F4-F1-F1",
@@ -68249,7 +68391,8 @@
    "spawned_by": "P0-D-01-F4-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-07-F1",
@@ -68765,7 +68908,8 @@
    "spawned_by": "P1-D-07",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-08-F1-F1",
@@ -68935,6 +69079,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3,
    "status_contradiction": "done, but the verdict says \"pending\""
@@ -69028,6 +69173,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -69115,6 +69261,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -69191,6 +69338,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -69502,7 +69650,8 @@
    "spawned_by": "P1-F-01-F2-F1-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-F-01-F2-F1-F2-F2",
@@ -70064,7 +70213,8 @@
    "spawned_by": "P1-D-07-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-07-F2-F4",
@@ -70905,7 +71055,8 @@
    "spawned_by": "P1-D-08-F2-F1-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-08-F2-F1-F2-F4",
@@ -71085,6 +71236,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "file",
    "status_contradiction": "done, but the verdict says \"missing\""
   },
   {
@@ -73286,7 +73438,8 @@
    "spawned_by": "P1-D-08-F2-F1-F2-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-F-w7-F2",
@@ -73447,7 +73600,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:lead",
-    "wave:38-H"
+    "wave:38-H",
+    "wave:7-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -73458,6 +73612,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -73523,7 +73678,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:lead",
-    "wave:38-H"
+    "wave:38-H",
+    "wave:7-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -73534,6 +73690,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -73615,7 +73772,8 @@
     "section:follow-up",
     "workstream:D",
     "workstream:F",
-    "wave:9-D"
+    "wave:9-D",
+    "wave:7-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -73626,6 +73784,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -73706,8 +73865,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-08-F2-F1-F2-F5-F1",
@@ -74456,6 +74617,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -75976,7 +76138,8 @@
    "spawned_by": "P1-B-01-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-E1-w8-F1",
@@ -76668,6 +76831,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -76835,7 +76999,8 @@
    "spawned_by": "P1-D-08-F2-F1-F2-F3-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-E1-w7-F1-F3-F1",
@@ -77725,6 +77890,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "file",
    "status_contradiction": "done, but the verdict says \"Not run\""
   },
   {
@@ -77826,7 +77992,8 @@
    "spawned_by": "P1-G-01",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-G-01-F8",
@@ -78524,7 +78691,8 @@
    "spawned_by": "P0-G-03",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "EXPLORATORY-03-F4",
@@ -80092,7 +80260,8 @@
    "spawned_by": "P1-C-06",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-C-w9-F5",
@@ -80896,7 +81065,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:lead",
-    "wave:38-H"
+    "wave:38-H",
+    "wave:8-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -80907,6 +81077,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -80972,7 +81143,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:lead",
-    "wave:38-H"
+    "wave:38-H",
+    "wave:8-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -80983,6 +81155,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -81080,6 +81253,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -82590,7 +82764,8 @@
    "spawned_by": "P1-B-w8-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P2-E1-08-F5",
@@ -83274,7 +83449,8 @@
    "spawned_by": "P1-C-w9-F4-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "CT-01-F18-F2-F1",
@@ -83831,7 +84007,8 @@
    "spawned_by": "P1-D-04-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-G-01-F9-F1",
@@ -84495,6 +84672,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -84693,7 +84871,8 @@
    "spawned_by": "P1-F-w9-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-G-01-F3-F1",
@@ -85485,7 +85664,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:C",
-    "wave:10-C"
+    "wave:10-C",
+    "wave:10-D"
    ],
    "summary_row": false,
    "malformed": null,
@@ -85496,6 +85676,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -85597,7 +85778,8 @@
    "spawned_by": "P1-G-01-F3",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-C-w10-F5",
@@ -85884,6 +86066,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -85965,6 +86148,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -86514,8 +86698,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-A-w9-F2",
@@ -86630,7 +86816,8 @@
    "spawned_by": "P1-F-w9-F1-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-A-w9-F3",
@@ -86953,7 +87140,8 @@
     "section:follow-up",
     "workstream:A",
     "workstream:E1",
-    "wave:6-G"
+    "wave:6-G",
+    "wave:10-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -86964,6 +87152,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3,
    "status_contradiction": "done, but the verdict says \"waits for\""
@@ -87048,7 +87237,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:E1",
-    "wave:6-G"
+    "wave:6-G",
+    "wave:10-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -87059,6 +87249,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -88012,7 +88203,8 @@
    "spawned_by": "P1-C-09",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-C-09-F3",
@@ -88515,7 +88707,8 @@
    "spawned_by": "P1-C-10",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-C-10-F4",
@@ -89204,7 +89397,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:lead",
-    "wave:38-H"
+    "wave:38-H",
+    "wave:12-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -89215,6 +89409,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -89307,6 +89502,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -89944,6 +90140,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -90020,7 +90217,8 @@
     "phase:unphased",
     "section:follow-up",
     "workstream:H",
-    "wave:9-H"
+    "wave:9-H",
+    "wave:8-H"
    ],
    "summary_row": false,
    "malformed": null,
@@ -90031,6 +90229,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -92130,7 +92329,8 @@
    "spawned_by": "P1-B-w9-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-B-w9-F2-F2",
@@ -93201,7 +93401,8 @@
    "spawned_by": "P1-G-01",
    "spawned_rule": "listed-by",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-G-w6-F6",
@@ -93460,6 +93661,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -93540,6 +93742,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -93626,8 +93829,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-E2-w9-F5",
@@ -93706,6 +93911,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -93915,7 +94121,8 @@
    "spawned_by": "P1-B-w9-F6",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-09-F4-F1",
@@ -95356,7 +95563,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:lead",
-    "wave:38-H"
+    "wave:38-H",
+    "wave:13-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -95367,6 +95575,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -95462,6 +95671,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -95537,7 +95747,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:lead",
-    "wave:38-H"
+    "wave:38-H",
+    "wave:13-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -95548,6 +95759,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -95909,7 +96121,8 @@
    "spawned_by": "ENV-F5",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-A-w10-F3",
@@ -95993,7 +96206,8 @@
     "section:follow-up",
     "workstream:lead",
     "wave:47-H",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:10-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -96004,6 +96218,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true
   },
   {
@@ -96830,7 +97045,8 @@
     "wave:47-H",
     "wave:45-A",
     "wave:46-H",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:11-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -96841,6 +97057,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "blocker": {
     "category": "external account",
@@ -96937,7 +97154,8 @@
     "section:follow-up",
     "workstream:E1",
     "wave:32-E1",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:11-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -96948,6 +97166,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -97087,7 +97306,8 @@
     "wave:35-E1",
     "wave:47-H",
     "wave:32-E1",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:11-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -97098,6 +97318,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -97242,7 +97463,8 @@
     "wave:47-H",
     "wave:46-H",
     "wave:45-H",
-    "wave:48-A"
+    "wave:48-A",
+    "wave:11-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -97255,6 +97477,7 @@
    ],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "blocker": {
     "category": "another task",
@@ -97478,7 +97701,8 @@
     "wave:45-H",
     "wave:13-A",
     "wave:15-A",
-    "wave:14-E1"
+    "wave:14-E1",
+    "wave:11-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -97489,6 +97713,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "blocker": {
     "category": "external account",
@@ -97700,7 +97925,8 @@
     "workstream:E1",
     "wave:38-H",
     "wave:13-C",
-    "wave:11-B"
+    "wave:11-B",
+    "wave:14-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -97711,6 +97937,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -97787,7 +98014,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:A",
-    "wave:12-A"
+    "wave:12-A",
+    "wave:14-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -97798,8 +98026,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "file",
    "status_contradiction": "done, but the verdict says \"Not run\""
   },
   {
@@ -97897,6 +98127,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -97997,6 +98228,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -98323,7 +98555,8 @@
    "spawned_by": "P1-C-10-F6-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-F-w15-F1",
@@ -98476,7 +98709,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:C",
-    "wave:13-C"
+    "wave:13-C",
+    "wave:15-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -98487,6 +98721,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -98662,7 +98897,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:lead",
-    "wave:38-H"
+    "wave:38-H",
+    "wave:15-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -98673,6 +98909,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -98902,6 +99139,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -99079,6 +99317,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "blocker": {
     "category": "external account",
@@ -99195,6 +99434,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -99287,6 +99527,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -99596,8 +99837,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-B-w9-F3-F1",
@@ -99711,7 +99954,8 @@
    "spawned_by": "P1-B-w9-F3",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-B-w11-F1",
@@ -99878,6 +100122,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -100170,7 +100415,8 @@
     "wave:45-H",
     "wave:7-G",
     "wave:14-A",
-    "wave:8-G"
+    "wave:8-G",
+    "wave:12-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -100183,6 +100429,7 @@
    ],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "blocker": {
     "category": "another task",
@@ -100273,7 +100520,8 @@
     "section:follow-up",
     "workstream:E1",
     "wave:38-H",
-    "wave:12-E1"
+    "wave:12-E1",
+    "wave:12-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -100284,8 +100532,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-A-w12-F4",
@@ -100348,7 +100598,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:G",
-    "wave:7-G"
+    "wave:7-G",
+    "wave:12-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -100359,8 +100610,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P2-H-08-F18",
@@ -100565,7 +100818,8 @@
     "workstream:H",
     "wave:12-H",
     "wave:12-E1",
-    "wave:11-H"
+    "wave:11-H",
+    "wave:10-H"
    ],
    "summary_row": false,
    "malformed": null,
@@ -100576,6 +100830,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3,
    "status_contradiction": "done, but the verdict says \"Remaining\""
@@ -100674,6 +100929,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -101489,7 +101745,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:A",
-    "wave:14-C"
+    "wave:14-C",
+    "wave:13-C"
    ],
    "summary_row": false,
    "malformed": null,
@@ -101500,6 +101757,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -101572,7 +101830,8 @@
     "section:follow-up",
     "workstream:E2",
     "workstream:F",
-    "wave:14-C"
+    "wave:14-C",
+    "wave:13-C"
    ],
    "summary_row": false,
    "malformed": null,
@@ -101583,6 +101842,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -102000,7 +102260,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:F",
-    "wave:19-F"
+    "wave:19-F",
+    "wave:18-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -102011,6 +102272,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -102123,7 +102385,8 @@
     "workstream:C",
     "wave:47-H",
     "wave:14-C",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:18-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -102134,6 +102397,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true
   },
   {
@@ -102203,7 +102467,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:C",
-    "wave:14-C"
+    "wave:14-C",
+    "wave:18-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -102214,6 +102479,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -103632,7 +103898,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:H",
-    "wave:11-H"
+    "wave:11-H",
+    "wave:14-C"
    ],
    "summary_row": false,
    "malformed": null,
@@ -103643,8 +103910,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-C-w14-F7",
@@ -103899,7 +104168,8 @@
    "spawned_by": "P1-D-09-F4-F5-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-F-w19-F2",
@@ -104046,7 +104316,8 @@
     "section:follow-up",
     "workstream:lead",
     "workstream:owner",
-    "wave:38-H"
+    "wave:38-H",
+    "wave:19-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -104057,6 +104328,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -104341,7 +104613,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:H",
-    "wave:12-H"
+    "wave:12-H",
+    "wave:12-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -104352,6 +104625,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -104594,7 +104868,8 @@
    "spawned_by": "P2-H-08",
    "spawned_rule": "id-prefix",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "MOCKS-F13-F1",
@@ -104877,6 +105152,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -106238,7 +106514,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:C",
-    "wave:16-C"
+    "wave:16-C",
+    "wave:21-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -106249,6 +106526,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -106332,7 +106610,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:D",
-    "wave:15-D"
+    "wave:15-D",
+    "wave:21-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -106343,6 +106622,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -106411,7 +106691,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:H",
-    "wave:13-H"
+    "wave:13-H",
+    "wave:21-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -106422,6 +106703,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -106562,6 +106844,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -106644,7 +106927,8 @@
     "section:follow-up",
     "workstream:F",
     "wave:22-F",
-    "wave:46-F"
+    "wave:46-F",
+    "wave:21-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -106655,6 +106939,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -107473,6 +107758,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3,
    "status_contradiction": "done, but the verdict says \"pending\""
@@ -108662,7 +108948,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:H",
-    "wave:13-H"
+    "wave:13-H",
+    "wave:13-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -108673,6 +108960,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -108743,7 +109031,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:E1",
-    "wave:14-E1"
+    "wave:14-E1",
+    "wave:13-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -108754,6 +109043,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -109085,7 +109375,8 @@
     "workstream:H",
     "wave:14-A",
     "wave:13-H",
-    "wave:8-G"
+    "wave:8-G",
+    "wave:13-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -109096,8 +109387,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "tests",
    "status_contradiction": "done, but the verdict says \"not done\""
   },
   {
@@ -109183,6 +109476,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -109274,6 +109568,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1
   },
@@ -109371,7 +109666,8 @@
    "spawned_by": "P2-H-08",
    "spawned_rule": "id-prefix",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P2-H-08-F24",
@@ -109547,6 +109843,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -110229,7 +110526,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:F",
-    "wave:23-F"
+    "wave:23-F",
+    "wave:22-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -110240,6 +110538,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -110416,7 +110715,8 @@
     "wave:23-F",
     "wave:16-C",
     "wave:47-H",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:22-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -110427,6 +110727,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -110546,7 +110847,8 @@
     "workstream:lead",
     "wave:45-H",
     "wave:23-F",
-    "wave:16-C"
+    "wave:16-C",
+    "wave:22-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -110557,6 +110859,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -110668,7 +110971,8 @@
     "workstream:C",
     "wave:45-H",
     "wave:23-F",
-    "wave:16-C"
+    "wave:16-C",
+    "wave:22-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -110679,6 +110983,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -110796,7 +111101,8 @@
     "workstream:C",
     "wave:50-C",
     "wave:47-H",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:22-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -110807,8 +111113,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-F-w22-F6",
@@ -110936,7 +111244,8 @@
     "wave:47-H",
     "wave:17-C",
     "wave:18-C",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:22-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -110947,8 +111256,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-G-w8-F1",
@@ -111489,7 +111800,8 @@
    "spawned_by": "P1-G-01",
    "spawned_rule": "listed-by",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-E2-w14-F1",
@@ -111799,7 +112111,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:E2",
-    "wave:15-E2"
+    "wave:15-E2",
+    "wave:14-E2"
    ],
    "summary_row": false,
    "malformed": null,
@@ -111810,6 +112123,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -111873,7 +112187,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:C",
-    "wave:16-C"
+    "wave:16-C",
+    "wave:14-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -111884,6 +112199,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -111984,7 +112300,8 @@
     "section:follow-up",
     "workstream:D",
     "wave:47-H",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:14-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -111995,6 +112312,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true
   },
   {
@@ -112069,7 +112387,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:G",
-    "wave:9-G"
+    "wave:9-G",
+    "wave:14-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -112080,6 +112399,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -112208,7 +112528,8 @@
     "workstream:A",
     "wave:47-H",
     "wave:45-H",
-    "wave:16-A"
+    "wave:16-A",
+    "wave:14-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -112221,6 +112542,7 @@
    ],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "blocker": {
     "category": "another task",
@@ -112381,7 +112703,8 @@
     "wave:45-H",
     "wave:15-E2",
     "wave:15-A",
-    "wave:9-G"
+    "wave:9-G",
+    "wave:14-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -112392,6 +112715,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -112724,7 +113048,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:A",
-    "wave:15-A"
+    "wave:15-A",
+    "wave:23-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -112735,8 +113060,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-E1-w14-F1",
@@ -113075,7 +113402,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:H",
-    "wave:15-H"
+    "wave:15-H",
+    "wave:14-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -113086,6 +113414,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -113161,7 +113490,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:E2",
-    "wave:16-E2"
+    "wave:16-E2",
+    "wave:14-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -113172,6 +113502,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -113241,7 +113572,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:E1",
-    "wave:15-E1"
+    "wave:15-E1",
+    "wave:14-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -113252,6 +113584,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -113525,7 +113858,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:A",
-    "wave:15-A"
+    "wave:15-A",
+    "wave:15-E2"
    ],
    "summary_row": false,
    "malformed": null,
@@ -113536,6 +113870,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -113983,6 +114318,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1
   },
@@ -114043,6 +114379,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -114133,6 +114470,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -114220,6 +114558,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -114376,7 +114715,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:F",
-    "wave:25-F"
+    "wave:25-F",
+    "wave:24-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -114387,6 +114727,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -114456,7 +114797,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:F",
-    "wave:25-F"
+    "wave:25-F",
+    "wave:24-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -114467,6 +114809,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -114630,7 +114973,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:E1",
-    "wave:15-E1"
+    "wave:15-E1",
+    "wave:16-E2"
    ],
    "summary_row": false,
    "malformed": null,
@@ -114641,6 +114985,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -114839,7 +115184,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:E1",
-    "wave:15-E1"
+    "wave:15-E1",
+    "wave:15-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -114850,6 +115196,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -114966,7 +115313,8 @@
     "workstream:G",
     "wave:23-G",
     "wave:47-H",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:15-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -114977,8 +115325,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-A-w15-F3",
@@ -115092,7 +115442,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:A",
-    "wave:16-A"
+    "wave:16-A",
+    "wave:15-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -115103,8 +115454,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-A-w15-F4",
@@ -115184,7 +115537,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:E2",
-    "wave:16-E2"
+    "wave:16-E2",
+    "wave:15-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -115195,6 +115549,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -116038,7 +116393,8 @@
    "spawned_by": "L144",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-E1-w15-F1",
@@ -116106,7 +116462,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:E1",
-    "wave:16-E1"
+    "wave:16-E1",
+    "wave:15-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -116117,6 +116474,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -116475,7 +116833,8 @@
    "spawned_by": "P1-G-01",
    "spawned_rule": "listed-by",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-G-w9-F4",
@@ -116562,6 +116921,7 @@
    "spawned_rule": "listed-by",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "file",
    "status_contradiction": "done, but the verdict says \"missing\""
   },
   {
@@ -116652,6 +117012,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1
   },
@@ -116749,6 +117110,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -116915,7 +117277,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:C",
-    "wave:17-C"
+    "wave:17-C",
+    "wave:25-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -116926,6 +117289,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -117261,7 +117625,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:H",
-    "wave:16-H"
+    "wave:16-H",
+    "wave:16-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -117272,6 +117637,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -117397,7 +117763,8 @@
     "workstream:A",
     "wave:47-H",
     "wave:17-A",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:16-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -117410,6 +117777,7 @@
    ],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "blocker": {
     "category": "another task",
@@ -118520,7 +118888,8 @@
    "spawned_by": "P1-E1-w14-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-E1-w14-F2-F6",
@@ -118788,7 +119157,8 @@
    "spawned_by": "P1-C-w15-F4",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-C-w17-F3",
@@ -118879,7 +119249,8 @@
     "workstream:C",
     "workstream:H",
     "wave:47-H",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:17-C"
    ],
    "summary_row": false,
    "malformed": null,
@@ -118890,6 +119261,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "blocker": {
     "category": "owner decision",
@@ -119136,6 +119508,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -119233,7 +119606,8 @@
    "spawned_by": "P1-C-w16-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-C-w17-F7",
@@ -119313,7 +119687,8 @@
    "spawned_by": "P1-G-w8-F2-F3",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "MOCKS-w15-F1",
@@ -119372,6 +119747,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -119582,7 +119958,8 @@
     "workstream:C",
     "wave:45-H",
     "wave:26-F",
-    "wave:18-C"
+    "wave:18-C",
+    "wave:16-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -119593,6 +119970,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -119667,7 +120045,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:E2",
-    "wave:18-E2"
+    "wave:18-E2",
+    "wave:16-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -119678,6 +120057,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3,
    "status_contradiction": "done, but the verdict says \"pending\""
@@ -119753,7 +120133,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:E1",
-    "wave:17-E1"
+    "wave:17-E1",
+    "wave:16-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -119764,6 +120145,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3,
    "status_contradiction": "done, but the verdict says \"waits for\""
@@ -119834,7 +120216,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:H",
-    "wave:18-H"
+    "wave:18-H",
+    "wave:16-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -119845,6 +120228,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -120014,7 +120398,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:E2",
-    "wave:19-E2"
+    "wave:19-E2",
+    "wave:18-E2"
    ],
    "summary_row": false,
    "malformed": null,
@@ -120025,6 +120410,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -120106,7 +120492,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:H",
-    "wave:18-H"
+    "wave:18-H",
+    "wave:18-E2"
    ],
    "summary_row": false,
    "malformed": null,
@@ -120117,6 +120504,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -120206,7 +120594,8 @@
     "section:follow-up",
     "workstream:C",
     "wave:18-C",
-    "wave:28-F"
+    "wave:28-F",
+    "wave:26-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -120217,6 +120606,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -120293,7 +120683,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:C",
-    "wave:18-C"
+    "wave:18-C",
+    "wave:26-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -120304,6 +120695,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -120944,7 +121336,8 @@
     "workstream:lead",
     "wave:48-H",
     "wave:47-H",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:15-B"
    ],
    "summary_row": false,
    "malformed": null,
@@ -120955,8 +121348,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-B-w15-F6",
@@ -121332,6 +121727,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -121478,7 +121874,8 @@
     "workstream:E1",
     "wave:45-H",
     "wave:27-F",
-    "wave:18-E1"
+    "wave:18-E1",
+    "wave:10-G"
    ],
    "summary_row": false,
    "malformed": null,
@@ -121489,6 +121886,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -121558,7 +121956,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:E1",
-    "wave:18-E1"
+    "wave:18-E1",
+    "wave:10-G"
    ],
    "summary_row": false,
    "malformed": null,
@@ -121569,6 +121968,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -121655,7 +122055,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:G",
-    "wave:11-G"
+    "wave:11-G",
+    "wave:10-G"
    ],
    "summary_row": false,
    "malformed": null,
@@ -121666,6 +122067,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -121735,7 +122137,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:E1",
-    "wave:18-E1"
+    "wave:18-E1",
+    "wave:10-G"
    ],
    "summary_row": false,
    "malformed": null,
@@ -121746,6 +122149,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3,
    "status_contradiction": "done, but the verdict says \"not run\""
@@ -122336,7 +122740,8 @@
     "section:follow-up",
     "workstream:A",
     "wave:44-A",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:18-C"
    ],
    "summary_row": false,
    "malformed": null,
@@ -122347,8 +122752,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-C-w18-F5",
@@ -122430,7 +122837,8 @@
     "section:follow-up",
     "workstream:F",
     "wave:28-F",
-    "wave:27-F"
+    "wave:27-F",
+    "wave:18-C"
    ],
    "summary_row": false,
    "malformed": null,
@@ -122441,6 +122849,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -122522,6 +122931,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -122602,7 +123012,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:H",
-    "wave:20-H"
+    "wave:20-H",
+    "wave:18-C"
    ],
    "summary_row": false,
    "malformed": null,
@@ -122613,6 +123024,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -122721,7 +123133,8 @@
     "section:follow-up",
     "workstream:D",
     "wave:54-D",
-    "wave:47-H"
+    "wave:47-H",
+    "wave:18-C"
    ],
    "summary_row": false,
    "malformed": null,
@@ -122732,8 +123145,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-F-w27-F2",
@@ -122907,7 +123322,8 @@
     "section:follow-up",
     "workstream:E2",
     "workstream:H",
-    "wave:19-H"
+    "wave:19-H",
+    "wave:27-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -122918,6 +123334,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -123110,7 +123527,8 @@
     "section:follow-up",
     "workstream:F",
     "wave:29-F",
-    "wave:33-F"
+    "wave:33-F",
+    "wave:27-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -123121,6 +123539,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3,
    "status_contradiction": "done, but the verdict says \"remaining\""
@@ -123225,7 +123644,8 @@
    "spawned_by": "P2-H-08",
    "spawned_rule": "id-prefix",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P2-H-08-F28",
@@ -123407,7 +123827,8 @@
    "spawned_by": "P2-H-08-F27",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P2-H-08-F27-F2",
@@ -123694,6 +124115,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -123922,7 +124344,8 @@
     "workstream:C",
     "workstream:B",
     "wave:11-G",
-    "wave:18-A"
+    "wave:18-A",
+    "wave:17-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -123933,6 +124356,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -124249,7 +124673,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:C",
-    "wave:19-C"
+    "wave:19-C",
+    "wave:17-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -124260,6 +124685,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -124351,7 +124777,8 @@
     "section:follow-up",
     "workstream:C",
     "wave:47-H",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:17-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -124364,6 +124791,7 @@
    ],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "blocker": {
     "category": "another task",
@@ -124823,7 +125251,8 @@
     "section:follow-up",
     "workstream:lead",
     "wave:45-H",
-    "wave:25-E2"
+    "wave:25-E2",
+    "wave:19-E2"
    ],
    "summary_row": false,
    "malformed": null,
@@ -124834,6 +125263,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -125043,7 +125473,8 @@
     "workstream:C",
     "wave:21-C",
     "wave:22-C",
-    "wave:19-C"
+    "wave:19-C",
+    "wave:11-G"
    ],
    "summary_row": false,
    "malformed": null,
@@ -125054,6 +125485,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -125123,7 +125555,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:G",
-    "wave:12-G"
+    "wave:12-G",
+    "wave:11-G"
    ],
    "summary_row": false,
    "malformed": null,
@@ -125134,6 +125567,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -125386,6 +125820,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -125998,6 +126433,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "file",
    "status_contradiction": "done, but the verdict says \"pending\""
   },
   {
@@ -126285,7 +126721,8 @@
    "spawned_by": "P1-A-05",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-A-05-F4",
@@ -126853,7 +127290,8 @@
    "spawned_by": "P1-A-05-F4",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-A-05-F1-F1",
@@ -126975,7 +127413,8 @@
    "spawned_by": "P1-A-05-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-A-05-F1-F2",
@@ -127074,6 +127513,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "file",
    "status_contradiction": "done, but the verdict says \"Not run\""
   },
   {
@@ -127903,7 +128343,8 @@
     "section:follow-up",
     "workstream:E2",
     "wave:21-E2",
-    "wave:21-H"
+    "wave:21-H",
+    "wave:28-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -127914,6 +128355,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3,
    "status_contradiction": "done, but the verdict says \"pending\""
@@ -128002,7 +128444,8 @@
     "section:follow-up",
     "workstream:F",
     "wave:45-H",
-    "wave:29-F"
+    "wave:29-F",
+    "wave:28-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -128013,6 +128456,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -129431,6 +129875,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "file",
    "status_contradiction": "done, but the verdict says \"blocked on\""
   },
   {
@@ -129679,7 +130124,8 @@
    "spawned_by": "P1-G-01",
    "spawned_rule": "listed-by",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-G-w13-F4",
@@ -130275,7 +130721,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:F",
-    "wave:30-F"
+    "wave:30-F",
+    "wave:29-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -130286,6 +130733,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -133676,7 +134124,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:F",
-    "wave:32-F"
+    "wave:32-F",
+    "wave:31-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -133687,6 +134136,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -134998,7 +135448,8 @@
    "spawned_by": "P1-D-01-F4-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-C-w19-F1",
@@ -135060,7 +135511,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:A",
-    "wave:21-C"
+    "wave:21-C",
+    "wave:19-C"
    ],
    "summary_row": false,
    "malformed": null,
@@ -135071,6 +135523,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -135240,7 +135693,8 @@
     "workstream:lead",
     "wave:45-F",
     "wave:44-F",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:19-C"
    ],
    "summary_row": false,
    "malformed": null,
@@ -135251,6 +135705,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -135805,7 +136260,8 @@
    "spawned_by": "L244",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P2-H-08-F31",
@@ -136527,7 +136983,8 @@
    "spawned_by": "P1-G-06",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-G-w14-F2",
@@ -136725,7 +137182,8 @@
    "spawned_by": "P1-G-07",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-G-w14-F4",
@@ -137088,7 +137546,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:G",
-    "wave:17-G"
+    "wave:17-G",
+    "wave:14-G"
    ],
    "summary_row": false,
    "malformed": null,
@@ -137099,6 +137558,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -137297,6 +137757,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "tests",
    "status_contradiction": "done, but the verdict says \"remaining\""
   },
   {
@@ -137550,7 +138011,8 @@
     "wave:45-H",
     "wave:26-E2",
     "wave:34-F",
-    "wave:27-E2"
+    "wave:27-E2",
+    "wave:32-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -137561,6 +138023,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -137630,7 +138093,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:F",
-    "wave:33-F"
+    "wave:33-F",
+    "wave:32-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -137641,6 +138105,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -137810,7 +138275,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:E2",
-    "wave:26-E2"
+    "wave:26-E2",
+    "wave:25-E2"
    ],
    "summary_row": false,
    "malformed": null,
@@ -137821,6 +138287,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -138014,7 +138481,8 @@
     "section:follow-up",
     "workstream:A",
     "wave:27-A",
-    "wave:29-A"
+    "wave:29-A",
+    "wave:21-C"
    ],
    "summary_row": false,
    "malformed": null,
@@ -138025,8 +138493,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-C-w21-F2",
@@ -138523,7 +138993,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:F",
-    "wave:34-F"
+    "wave:34-F",
+    "wave:33-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -138534,6 +139005,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -139034,7 +139506,8 @@
    "spawned_by": "P1-G-07",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-G-w16-F6",
@@ -139474,7 +139947,8 @@
    "spawned_by": "P1-G-w14-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-A-w27-F2",
@@ -139579,7 +140053,8 @@
    "spawned_by": "P1-C-w21-F3",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-A-w27-F3",
@@ -140721,7 +141196,8 @@
    "spawned_by": "P1-A-w27-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-E2-w26-F1",
@@ -141063,7 +141539,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:A",
-    "wave:29-A"
+    "wave:29-A",
+    "wave:20-C"
    ],
    "summary_row": false,
    "malformed": null,
@@ -141074,8 +141551,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-C-w20-F2",
@@ -141159,7 +141638,8 @@
     "section:follow-up",
     "workstream:C",
     "wave:47-H",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:20-C"
    ],
    "summary_row": false,
    "malformed": null,
@@ -141170,6 +141650,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true
   },
   {
@@ -141243,7 +141724,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:B",
-    "wave:19-B"
+    "wave:19-B",
+    "wave:20-C"
    ],
    "summary_row": false,
    "malformed": null,
@@ -141254,6 +141736,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3,
    "status_contradiction": "done, but the verdict says \"still open\""
@@ -141337,7 +141820,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:E1",
-    "wave:24-E1"
+    "wave:24-E1",
+    "wave:20-C"
    ],
    "summary_row": false,
    "malformed": null,
@@ -141348,6 +141832,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -141616,7 +142101,8 @@
    "spawned_by": "P1-C-w20-F3",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-B-w19-CR2",
@@ -141707,7 +142193,8 @@
    "spawned_by": "P1-C-w20-F3",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-B-w19-CR3",
@@ -141937,7 +142424,8 @@
    "spawned_by": "P1-A-w27-F3",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-A-w28-F2",
@@ -142149,7 +142637,8 @@
    "spawned_by": "P1-D-w23-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-A-w28-F4",
@@ -142223,7 +142712,8 @@
    "spawned_by": "P1-D-w23-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-A-w29-F1",
@@ -142421,6 +142911,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "file",
    "status_contradiction": "done, but the verdict says \"missing\""
   },
   {
@@ -142935,7 +143426,8 @@
    "spawned_by": "P1-A-w28-F3",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-w25-F5",
@@ -143185,6 +143677,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -143261,7 +143754,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:D",
-    "wave:22-D"
+    "wave:22-D",
+    "wave:23-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -143272,6 +143766,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -143363,7 +143858,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:D",
-    "wave:22-D"
+    "wave:22-D",
+    "wave:23-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -143374,6 +143870,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -143466,7 +143963,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:D",
-    "wave:27-D"
+    "wave:27-D",
+    "wave:23-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -143477,6 +143975,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -143569,7 +144068,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:D",
-    "wave:27-D"
+    "wave:27-D",
+    "wave:23-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -143580,6 +144080,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3,
    "status_contradiction": "done, but the verdict says \"missing\""
@@ -143668,7 +144169,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:D",
-    "wave:27-D"
+    "wave:27-D",
+    "wave:23-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -143679,6 +144181,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3,
    "status_contradiction": "done, but the verdict says \"pending\""
@@ -143761,7 +144264,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:C",
-    "wave:22-C"
+    "wave:22-C",
+    "wave:23-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -143772,6 +144276,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -143867,7 +144372,8 @@
     "section:follow-up",
     "workstream:E1",
     "wave:25-E1",
-    "wave:22-C"
+    "wave:22-C",
+    "wave:23-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -143878,6 +144384,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -143960,7 +144467,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:E1",
-    "wave:24-E1"
+    "wave:24-E1",
+    "wave:23-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -143971,6 +144479,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -144053,7 +144562,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:F",
-    "wave:34-F"
+    "wave:34-F",
+    "wave:23-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -144064,6 +144574,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -144142,7 +144653,8 @@
     "section:follow-up",
     "workstream:A",
     "workstream:C",
-    "wave:29-A"
+    "wave:29-A",
+    "wave:23-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -144153,6 +144665,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -144260,7 +144773,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:D",
-    "wave:27-D"
+    "wave:27-D",
+    "wave:23-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -144271,6 +144785,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -144869,7 +145384,8 @@
     "wave:59-A",
     "wave:47-H",
     "wave:46-H",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:24-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -144880,6 +145396,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "blocker": {
     "category": "external account",
@@ -145298,7 +145815,8 @@
    "spawned_by": "P1-F-w32-CR2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-F-w32-CR2-F3",
@@ -145384,7 +145902,8 @@
    "spawned_by": "P1-F-w32-CR2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-G-w16-F5-F1",
@@ -145760,7 +146279,8 @@
    "spawned_by": "P1-G-w16-F9",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-w22-CR2",
@@ -145854,7 +146374,8 @@
    "spawned_by": "P1-G-w16-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-w22-F3",
@@ -146058,7 +146579,8 @@
    "spawned_by": "P1-F-w32-CR2-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-F-w34-CR1",
@@ -146416,7 +146938,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:F",
-    "wave:35-F"
+    "wave:35-F",
+    "wave:34-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -146427,6 +146950,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -146617,7 +147141,8 @@
    "spawned_by": "P1-E1-w23-F4",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-w27-F3",
@@ -146697,7 +147222,8 @@
    "spawned_by": "P1-E1-w23-F4",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-D-w27-F4",
@@ -146824,7 +147350,8 @@
    "spawned_by": "P1-E1-w23-F6",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-w27-CR1",
@@ -147075,7 +147602,8 @@
     "phase:unphased",
     "section:follow-up",
     "workstream:H",
-    "wave:30-H"
+    "wave:30-H",
+    "wave:28-H"
    ],
    "summary_row": false,
    "malformed": null,
@@ -147086,6 +147614,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -147168,7 +147697,8 @@
     "section:follow-up",
     "workstream:lead",
     "workstream:H",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:28-H"
    ],
    "summary_row": false,
    "malformed": null,
@@ -147179,6 +147709,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -147755,7 +148286,8 @@
    "spawned_by": "P1-E1-w24-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-B-w20-CR3",
@@ -148592,7 +149124,8 @@
    "spawned_by": "P1-B-w20-CR5",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-w28-F1",
@@ -148883,7 +149416,8 @@
    "spawned_by": "P1-D-w25-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-D-w28-F3",
@@ -149304,7 +149838,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:H",
-    "wave:30-H"
+    "wave:30-H",
+    "wave:27-E2"
    ],
    "summary_row": false,
    "malformed": null,
@@ -149315,6 +149850,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -149395,7 +149931,8 @@
    "spawned_by": "P2-H-08",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P2-H-08-F38",
@@ -149721,7 +150258,8 @@
    "spawned_by": "P1-B-w20-CR3",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-D-w29-F1",
@@ -149809,7 +150347,8 @@
    "spawned_by": "P1-B-w20-CR2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-w29-F2",
@@ -150084,7 +150623,8 @@
     "section:follow-up",
     "workstream:H",
     "wave:31-H",
-    "wave:28-E2"
+    "wave:28-E2",
+    "wave:30-H"
    ],
    "summary_row": false,
    "malformed": null,
@@ -150095,6 +150635,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -150204,7 +150745,8 @@
     "workstream:E2",
     "wave:45-H",
     "wave:28-E2",
-    "wave:31-H"
+    "wave:31-H",
+    "wave:30-H"
    ],
    "summary_row": false,
    "malformed": null,
@@ -150215,6 +150757,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -150296,7 +150839,8 @@
    "spawned_by": "P1-B-w20-CR2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-w29-F1-F1",
@@ -150448,7 +150992,8 @@
    "spawned_by": "P1-D-w29-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-w29-F4-F1",
@@ -150538,7 +151083,8 @@
    "spawned_by": "P1-D-w29-F4",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-D-w29-F4-F1-F1",
@@ -150727,7 +151273,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:D",
-    "wave:32-D"
+    "wave:32-D",
+    "wave:25-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -150738,6 +151285,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -150831,7 +151379,8 @@
     "section:follow-up",
     "workstream:F",
     "workstream:lead",
-    "wave:36-F"
+    "wave:36-F",
+    "wave:25-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -150842,6 +151391,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -150973,7 +151523,8 @@
     "wave:47-H",
     "wave:27-E1",
     "wave:45-H",
-    "wave:38-H"
+    "wave:38-H",
+    "wave:25-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -150986,6 +151537,7 @@
    ],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "blocker": {
     "category": "another task",
@@ -151054,7 +151606,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:A",
-    "wave:34-A"
+    "wave:34-A",
+    "wave:25-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -151065,6 +151618,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -151235,7 +151789,8 @@
     "workstream:E1",
     "workstream:A",
     "wave:47-H",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:25-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -151246,6 +151801,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true
   },
   {
@@ -151391,6 +151947,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -151816,7 +152373,8 @@
    "spawned_by": "P2-H-08-F39",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P2-H-08-F43",
@@ -152198,7 +152756,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:F",
-    "wave:37-F"
+    "wave:37-F",
+    "wave:35-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -152209,6 +152768,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -152731,6 +153291,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -152824,6 +153385,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -152915,6 +153477,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "file",
    "status_contradiction": "done, but the verdict says \"not yet\""
   },
   {
@@ -153137,7 +153700,8 @@
    "spawned_by": "P1-E1-w25-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-w32-F1",
@@ -153762,7 +154326,8 @@
    "spawned_by": "P1-B-w20-CR1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-B-w21-CR6",
@@ -153857,7 +154422,8 @@
    "spawned_by": "P1-B-w9-F3-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-B-w21-CR7",
@@ -153982,7 +154548,8 @@
    "spawned_by": "P1-E1-w26-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-G-w19-F1",
@@ -154647,7 +155214,8 @@
    "spawned_by": "P1-G-w19-F3",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-G-w19-F4",
@@ -155317,7 +155885,8 @@
    "spawned_by": "P1-E1-w26-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-E1-w27-CR2",
@@ -155700,6 +156269,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true
   },
   {
@@ -155997,7 +156567,8 @@
    "spawned_by": "P1-G-03",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-B-w9-F3-F1-F1",
@@ -156090,7 +156661,8 @@
    "spawned_by": "P1-B-w9-F3-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-A-w35-CR1",
@@ -157200,7 +157772,8 @@
    "spawned_by": "P1-E1-w26-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-B-w22-F3",
@@ -157316,7 +157889,8 @@
    "spawned_by": "P1-E1-w26-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-D-w35-F1",
@@ -157569,7 +158143,8 @@
    "spawned_by": "P1-D-w33-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-w36-F1",
@@ -158059,6 +158634,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -158802,7 +159378,8 @@
     "section:follow-up",
     "workstream:E2",
     "wave:45-H",
-    "wave:31-E2"
+    "wave:31-E2",
+    "wave:34-H"
    ],
    "summary_row": false,
    "malformed": null,
@@ -158813,6 +159390,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -158914,7 +159492,8 @@
     "section:follow-up",
     "workstream:E2",
     "wave:45-H",
-    "wave:31-E2"
+    "wave:31-E2",
+    "wave:34-H"
    ],
    "summary_row": false,
    "malformed": null,
@@ -158925,6 +159504,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -159031,7 +159611,8 @@
     "section:follow-up",
     "workstream:lead",
     "wave:45-H",
-    "wave:31-E2"
+    "wave:31-E2",
+    "wave:34-H"
    ],
    "summary_row": false,
    "malformed": null,
@@ -159042,6 +159623,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -159437,7 +160019,8 @@
    "spawned_by": "P1-E1-w27-CR1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-B-w23-CR5",
@@ -159537,7 +160120,8 @@
    "spawned_by": "P1-E1-w27-CR1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-B-w23-CR6",
@@ -160400,7 +160984,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:lead",
-    "wave:42-H"
+    "wave:42-H",
+    "wave:41-H"
    ],
    "summary_row": false,
    "malformed": null,
@@ -160411,8 +160996,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-E2-w32-CR3",
@@ -160936,7 +161523,8 @@
    "spawned_by": "P1-B-w23-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-F-w39-F3",
@@ -161870,7 +162458,8 @@
    "spawned_by": "P1-E1-w27-CR1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-C-w28-CR2",
@@ -162175,6 +162764,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "commit",
    "status_contradiction": "done, but the verdict says \"Not done\""
   },
   {
@@ -162873,7 +163463,8 @@
    "spawned_by": "P2-H-08",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P2-H-08-F58",
@@ -163198,7 +163789,8 @@
     "section:follow-up",
     "workstream:E1",
     "wave:45-H",
-    "wave:30-E1"
+    "wave:30-E1",
+    "wave:29-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -163209,6 +163801,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -163296,7 +163889,8 @@
     "section:follow-up",
     "workstream:E1",
     "wave:45-H",
-    "wave:30-E1"
+    "wave:30-E1",
+    "wave:29-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -163307,6 +163901,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -164128,7 +164723,8 @@
    "spawned_by": "P1-E1-w27-CR1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-B-w24-CR6",
@@ -164317,7 +164913,8 @@
     "workstream:E1",
     "wave:45-H",
     "wave:32-E2",
-    "wave:31-E1"
+    "wave:31-E1",
+    "wave:29-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -164328,6 +164925,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -164388,7 +164986,8 @@
     "section:follow-up",
     "workstream:C",
     "workstream:F",
-    "wave:32-C"
+    "wave:32-C",
+    "wave:29-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -164399,6 +164998,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -164532,7 +165132,8 @@
    "spawned_by": "ENV-RAILWAY-ROTATE",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-C-w29-F1",
@@ -165149,7 +165750,8 @@
    "spawned_by": "P1-B-w21-CR7",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-C-w29-F7",
@@ -165323,6 +165925,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -165522,7 +166125,8 @@
    "spawned_by": "P1-G-w20-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-C-w30-F3",
@@ -166530,7 +167134,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:D",
-    "wave:39-D"
+    "wave:39-D",
+    "wave:31-C"
    ],
    "summary_row": false,
    "malformed": null,
@@ -166541,8 +167146,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-C-w31-F3",
@@ -167623,7 +168230,8 @@
    "spawned_by": "L333",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-A-w40-F1",
@@ -167698,7 +168306,8 @@
    "spawned_by": "P1-C-w30-CR1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-B-w27-CR1",
@@ -167904,7 +168513,8 @@
    "spawned_by": "P1-C-w31-F4",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-B-w27-CR3",
@@ -168325,7 +168935,8 @@
    "groupings": [
     "phase:P1",
     "section:follow-up",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:27-B"
    ],
    "summary_row": false,
    "malformed": null,
@@ -168336,6 +168947,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -168408,6 +169020,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -169525,7 +170138,8 @@
    "spawned_by": "L363",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "REV-A37-1",
@@ -169698,7 +170312,8 @@
    "spawned_by": "L363",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "REV-A37-3",
@@ -169791,7 +170406,8 @@
    "spawned_by": "L363",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "REV-A38-1",
@@ -170582,7 +171198,8 @@
    "spawned_by": "L363",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "REV-G21-2",
@@ -171269,6 +171886,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 0,
    "to_verify": [
@@ -171430,7 +172048,8 @@
    "spawned_by": "L338",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "REV-H40-2",
@@ -171673,7 +172292,8 @@
    "spawned_by": "L364",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "REV-H41-1",
@@ -171753,6 +172373,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -171834,6 +172455,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -171938,7 +172560,8 @@
     "workstream:E2",
     "workstream:lead",
     "wave:42-H",
-    "wave:33-E2"
+    "wave:33-E2",
+    "wave:32-E2"
    ],
    "summary_row": false,
    "malformed": null,
@@ -171949,6 +172572,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -172119,6 +172743,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -172818,7 +173443,8 @@
     "wave:47-H",
     "wave:46-H",
     "wave:45-H",
-    "wave:45-A"
+    "wave:45-A",
+    "wave:31-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -172829,6 +173455,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "blocker": {
     "category": "external account",
@@ -172905,7 +173532,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:E2",
-    "wave:35-E2"
+    "wave:35-E2",
+    "wave:31-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -172916,6 +173544,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -172991,7 +173620,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:lead",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:31-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -173002,8 +173632,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-E2-w34-F1",
@@ -173499,7 +174131,8 @@
     "workstream:lead",
     "wave:48-H",
     "wave:47-H",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:43-H"
    ],
    "summary_row": false,
    "malformed": null,
@@ -173510,6 +174143,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true
   },
   {
@@ -173636,7 +174270,8 @@
     "workstream:H",
     "wave:45-H",
     "wave:35-E2",
-    "wave:44-H"
+    "wave:44-H",
+    "wave:43-H"
    ],
    "summary_row": false,
    "malformed": null,
@@ -173647,6 +174282,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -173744,7 +174380,8 @@
     "section:follow-up",
     "workstream:lead",
     "wave:47-H",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:43-H"
    ],
    "summary_row": false,
    "malformed": null,
@@ -173755,6 +174392,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true
   },
   {
@@ -173803,7 +174441,8 @@
    "groupings": [
     "phase:unphased",
     "section:follow-up",
-    "workstream:lead"
+    "workstream:lead",
+    "wave:43-H"
    ],
    "summary_row": false,
    "malformed": null,
@@ -173814,6 +174453,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -173908,7 +174548,8 @@
     "section:follow-up",
     "workstream:E1",
     "wave:32-E1",
-    "wave:45-H"
+    "wave:45-H",
+    "wave:35-E2"
    ],
    "summary_row": false,
    "malformed": null,
@@ -173919,6 +174560,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -173993,7 +174635,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:H",
-    "wave:44-H"
+    "wave:44-H",
+    "wave:35-E2"
    ],
    "summary_row": false,
    "malformed": null,
@@ -174004,6 +174647,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -174053,7 +174697,8 @@
    "groupings": [
     "phase:P1",
     "section:follow-up",
-    "workstream:lead"
+    "workstream:lead",
+    "wave:35-E2"
    ],
    "summary_row": false,
    "malformed": null,
@@ -174064,6 +174709,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -174116,7 +174762,8 @@
    "groupings": [
     "phase:unphased",
     "section:follow-up",
-    "workstream:lead"
+    "workstream:lead",
+    "wave:44-H"
    ],
    "summary_row": false,
    "malformed": null,
@@ -174127,6 +174774,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -174314,7 +174962,8 @@
    "spawned_by": "ROOT-F1-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-A-w40-F1-F1",
@@ -174474,7 +175123,8 @@
    "spawned_by": "P1-A-w40-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-A-w42-F1",
@@ -174595,7 +175245,8 @@
    "spawned_by": "ROOT-F1-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-E1-w27-CR2-F1",
@@ -174902,7 +175553,8 @@
    "spawned_by": "P1-E1-w27-CR2-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-E1-w27-CR2-F1-F3",
@@ -176316,7 +176968,8 @@
    "spawned_by": "CT-01-F12-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-A-w44-F2",
@@ -176436,7 +177089,8 @@
    "spawned_by": "P1-C-04-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-A-w44-F3",
@@ -177112,7 +177766,8 @@
     "section:follow-up",
     "workstream:E1",
     "wave:59-A",
-    "wave:47-H"
+    "wave:47-H",
+    "wave:32-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -177123,6 +177778,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "blocker": {
     "category": "external account",
@@ -177356,6 +178012,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -177508,7 +178165,8 @@
     "workstream:B",
     "wave:47-H",
     "wave:30-B",
-    "wave:40-C"
+    "wave:40-C",
+    "wave:32-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -177521,6 +178179,7 @@
    ],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "blocker": {
     "category": "another task",
@@ -177641,6 +178300,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -177966,7 +178626,8 @@
    "spawned_by": "ENV-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "ENV-F1-F4",
@@ -178191,6 +178852,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "tests",
    "status_contradiction": "done, but the verdict says \"waits for\""
   },
   {
@@ -178719,7 +179381,8 @@
    "spawned_by": "ENV-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "ENV-F1-F11",
@@ -179069,7 +179732,8 @@
    "spawned_by": "P1-D-05-F1-CR1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-B-w28-CR3",
@@ -179596,7 +180260,8 @@
    "spawned_by": "P1-B-w22-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-B-w28-CR7",
@@ -180319,7 +180984,8 @@
    "spawned_by": "ENV-F1-F8",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "ENV-F1-F5-F1",
@@ -180708,6 +181374,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "file",
    "status_contradiction": "done, but the verdict says \"blocked on\""
   },
   {
@@ -181033,7 +181700,8 @@
    "spawned_by": "L396",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "ENV-GITHUB-F2",
@@ -181119,7 +181787,8 @@
    "spawned_by": "L396",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "ENV-GITHUB-F3",
@@ -181235,7 +181904,8 @@
    "spawned_by": "ENV-GITHUB-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "ENV-GITHUB-F4",
@@ -181334,7 +182004,8 @@
    "spawned_by": "ENV-GITHUB-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "ENV-GITHUB-F5",
@@ -182028,7 +182699,8 @@
    "spawned_by": "L398",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "REV-B28-S2",
@@ -182115,6 +182787,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "file",
    "status_contradiction": "done, but the verdict says \"missing\""
   },
   {
@@ -182225,7 +182898,8 @@
    "spawned_by": "L398",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "REV-B28-S4",
@@ -182311,7 +182985,8 @@
    "spawned_by": "L398",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "REV-B28-N3",
@@ -182409,7 +183084,8 @@
    "spawned_by": "L398",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "REV-B28-N6",
@@ -182489,7 +183165,8 @@
    "spawned_by": "L398",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "REV-B28-N7",
@@ -182581,7 +183258,8 @@
    "spawned_by": "L398",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "REV-B28-N8",
@@ -182673,7 +183351,8 @@
    "spawned_by": "L398",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "REV-B28-N9",
@@ -182759,7 +183438,8 @@
    "spawned_by": "L398",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-B-w29-F1",
@@ -183039,7 +183719,8 @@
    "spawned_by": "REV-B28-S1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-B-w29-F4",
@@ -183137,7 +183818,8 @@
     "workstream:C",
     "workstream:E1",
     "wave:34-E1",
-    "wave:39-C"
+    "wave:39-C",
+    "wave:29-B"
    ],
    "summary_row": false,
    "malformed": null,
@@ -183148,6 +183830,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true
   },
   {
@@ -183219,7 +183902,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:E1",
-    "wave:34-E1"
+    "wave:34-E1",
+    "wave:29-B"
    ],
    "summary_row": false,
    "malformed": null,
@@ -183230,6 +183914,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3,
    "status_contradiction": "done, but the verdict says \"wait for\""
@@ -183456,7 +184141,8 @@
    "spawned_by": "REV-B28-N8",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "ENV-GITHUB-F11",
@@ -183542,7 +184228,8 @@
    "spawned_by": "ENV-GITHUB-F10",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "ENV-GITHUB-F12",
@@ -183606,7 +184293,8 @@
     "phase:unphased",
     "section:follow-up",
     "workstream:A",
-    "wave:47-H"
+    "wave:47-H",
+    "wave:52-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -183617,6 +184305,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true
   },
   {
@@ -183723,7 +184412,8 @@
     "section:follow-up",
     "workstream:A",
     "wave:55-A",
-    "wave:47-H"
+    "wave:47-H",
+    "wave:52-A"
    ],
    "summary_row": false,
    "malformed": null,
@@ -183734,8 +184424,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "ENV-GITHUB-F14",
@@ -183990,7 +184682,8 @@
    "spawned_by": "ENV-GITHUB-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "ENV-GITHUB-F16",
@@ -184169,7 +184862,8 @@
    "spawned_by": "ENV-GITHUB-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "ENV-GITHUB-F18",
@@ -184303,7 +184997,8 @@
    "spawned_by": "ENV-GITHUB-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "ENV-GITHUB-F19",
@@ -185084,7 +185779,8 @@
    "spawned_by": "L425",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "L425-F7",
@@ -185243,7 +185939,8 @@
    "spawned_by": "L425",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "L434-F1",
@@ -185420,7 +186117,8 @@
    "spawned_by": "L437",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "L437-F1a",
@@ -186980,7 +187678,8 @@
    "spawned_by": "L468",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "L463-F1",
@@ -187167,7 +187866,8 @@
    "spawned_by": "L463",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "L463-F3",
@@ -188815,7 +189515,8 @@
    "spawned_by": "L390",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-A-w46-F1-U1",
@@ -188890,7 +189591,8 @@
    "spawned_rule": "origin-column",
    "parent": "P1-A-w46-F1",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-A-w46-F1-U2",
@@ -188970,7 +189672,8 @@
    "spawned_rule": "origin-column",
    "parent": "P1-A-w46-F1",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-A-w46-F1-U3",
@@ -189045,7 +189748,8 @@
    "spawned_rule": "origin-column",
    "parent": "P1-A-w46-F1",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-A-w46-F1-U4",
@@ -189125,7 +189829,8 @@
    "spawned_rule": "origin-column",
    "parent": "P1-A-w46-F1",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-A-w46-F1-U5",
@@ -189200,7 +189905,8 @@
    "spawned_rule": "origin-column",
    "parent": "P1-A-w46-F1",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-A-w46-F1-U6",
@@ -189275,7 +189981,8 @@
    "spawned_rule": "origin-column",
    "parent": "P1-A-w46-F1",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-A-w46-F1-U7",
@@ -189350,7 +190057,8 @@
    "spawned_rule": "origin-column",
    "parent": "P1-A-w46-F1",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-A-w46-F1-U8",
@@ -189425,7 +190133,8 @@
    "spawned_rule": "origin-column",
    "parent": "P1-A-w46-F1",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-A-w46-F1-U9",
@@ -189505,7 +190214,8 @@
    "spawned_rule": "origin-column",
    "parent": "P1-A-w46-F1",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-A-w46-F1-U10",
@@ -189590,7 +190300,8 @@
    "spawned_rule": "origin-column",
    "parent": "P1-A-w46-F1",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-A-w46-F1-U11",
@@ -189665,7 +190376,8 @@
    "spawned_rule": "origin-column",
    "parent": "P1-A-w46-F1",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-A-w46-F1-U12",
@@ -189740,7 +190452,8 @@
    "spawned_rule": "origin-column",
    "parent": "P1-A-w46-F1",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-A-w46-F1-F1",
@@ -189959,7 +190672,8 @@
    "spawned_by": "P1-A-w46-F1-U9",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-A-w46-F1-F3",
@@ -190676,7 +191390,8 @@
    "spawned_by": "P1-A-w46-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-A-w46-F1-F10",
@@ -191144,7 +191859,8 @@
    "spawned_by": "P1-B-w28-CR2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-w43-CR2",
@@ -191653,7 +192369,8 @@
    "spawned_by": "P1-C-w28-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-C-w38-F1",
@@ -191772,7 +192489,8 @@
    "spawned_by": "P1-F-01-F2-F1-F2-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-C-w38-F2",
@@ -192454,7 +193172,8 @@
    "spawned_by": "P1-B-w28-CR7",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-C-w39-CR2",
@@ -192536,7 +193255,8 @@
    "spawned_by": "P1-B-w29-F6",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-C-w39-CR3",
@@ -192617,7 +193337,8 @@
    "spawned_by": "P1-B-w28-CR6",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-C-w39-CR4",
@@ -193241,7 +193962,8 @@
    "spawned_by": "P1-B-w13-F3-CR2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-E1-w33-F1",
@@ -193681,7 +194403,8 @@
    "spawned_by": "ENV-F1-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-E1-w33-F5",
@@ -193776,7 +194499,8 @@
     "section:follow-up",
     "workstream:E1",
     "wave:59-A",
-    "wave:47-H"
+    "wave:47-H",
+    "wave:33-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -193787,6 +194511,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true
   },
   {
@@ -193930,6 +194655,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "file",
    "status_contradiction": "done, but the verdict says \"remaining\""
   },
   {
@@ -194124,7 +194850,8 @@
    "spawned_by": "P1-E1-w32-CR1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-B-w30-CR2",
@@ -194512,6 +195239,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "tests",
    "status_contradiction": "done, but the verdict says \"pending\""
   },
   {
@@ -194586,7 +195314,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:E2",
-    "wave:36-E2"
+    "wave:36-E2",
+    "wave:44-F"
    ],
    "summary_row": false,
    "malformed": null,
@@ -194597,6 +195326,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },
@@ -195163,7 +195893,8 @@
    "spawned_by": "ENV-GITHUB-F15",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-C-w38-F1-F1",
@@ -196516,7 +197247,8 @@
    "spawned_by": "P1-D-w44-CR2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "ENV-GITHUB-F17-F1",
@@ -196898,7 +197630,8 @@
    "spawned_by": "ENV-GITHUB-F18",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "ENV-GITHUB-F18-F2",
@@ -197012,7 +197745,8 @@
    "spawned_by": "ENV-GITHUB-F18",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "ENV-GITHUB-F18-F3",
@@ -197351,7 +198085,8 @@
    "spawned_by": "P1-C-w39-CR2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-B-w31-F1",
@@ -197509,7 +198244,8 @@
    "spawned_by": "P1-C-w39-CR1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-B-w31-F3",
@@ -197850,7 +198586,8 @@
    "spawned_by": "P1-C-w39-CR1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P2-H-08-w47",
@@ -198297,6 +199034,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "file",
    "status_contradiction": "done, but the verdict says \"blocked on\""
   },
   {
@@ -198960,6 +199698,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3,
    "status_contradiction": "done, but the verdict says \"Not yet\""
@@ -200082,7 +200821,8 @@
    "spawned_by": "ENV-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "AI-1-F1",
@@ -200782,7 +201522,8 @@
    "spawned_by": "ADR-0021",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "AI-1-CR2",
@@ -203408,6 +204149,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "tests",
    "status_contradiction": "done, but the verdict says \"wait for\""
   },
   {
@@ -203574,7 +204316,8 @@
    "spawned_by": "L425-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-F-w47-CR2",
@@ -203660,7 +204403,8 @@
    "spawned_by": "L425-F2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-F-w47-CR3",
@@ -209012,7 +209756,8 @@
    "spawned_by": "P1-B-w32-2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-B-w32-CR2",
@@ -209113,6 +209858,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "file",
    "status_contradiction": "done, but the verdict says \"missing\""
   },
   {
@@ -209554,7 +210300,8 @@
    "groupings": [
     "phase:P1",
     "section:follow-up",
-    "workstream:lead"
+    "workstream:lead",
+    "wave:32-B"
    ],
    "summary_row": false,
    "malformed": "follow-up row has 6 cells (extra folded into follow_ups_text)",
@@ -209565,6 +210312,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true
   },
   {
@@ -209898,6 +210646,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -209970,6 +210719,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -210054,6 +210804,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "tests",
    "status_contradiction": "done, but the verdict says \"not done\""
   },
   {
@@ -210146,7 +210897,8 @@
    "spawned_by": "P1-B-w33-1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-B-w33-CR3",
@@ -210375,7 +211127,8 @@
    "spawned_by": "P1-B-w33-1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "L425-F8-F1",
@@ -211084,7 +211837,8 @@
    "spawned_by": "P1-F-w47-CR2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-w48-CR4",
@@ -211170,7 +211924,8 @@
    "spawned_by": "P1-B-w32-CR2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-w48-CR5",
@@ -211350,6 +212105,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "file",
    "status_contradiction": "done, but the verdict says \"not run\""
   },
   {
@@ -211906,7 +212662,8 @@
    "spawned_by": "P1-B-w33-CR2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-w49-CR3",
@@ -212102,7 +212859,8 @@
    "spawned_by": "P1-C-w42-CR1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-D-w49-F3",
@@ -212194,7 +212952,8 @@
    "spawned_by": "P1-C-w42-CR1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "MOCKS-w38E2-F1",
@@ -212283,6 +213042,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true
   },
   {
@@ -212336,6 +213096,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "blocker": {
     "category": "external account",
@@ -212401,6 +213162,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -212534,7 +213296,8 @@
    "spawned_by": "P2-H-10-F12",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-C-w42-CR2",
@@ -212745,7 +213508,8 @@
    "spawned_by": "L425-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-C-w42-CR4",
@@ -213963,7 +214727,8 @@
    "spawned_by": "P1-D-w48-CR2",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-C-w43-CR2",
@@ -214123,7 +214888,8 @@
    "spawned_by": "REV-B32-S1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-C-w43-CR4",
@@ -214363,6 +215129,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "file",
    "status_contradiction": "done, but the verdict says \"pending\""
   },
   {
@@ -214560,7 +215327,8 @@
    "spawned_by": "P2-H-08-w51",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-F-w48-CR1",
@@ -214657,7 +215425,8 @@
    "spawned_by": "FS-1-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-F-w48-CR2",
@@ -214988,7 +215757,8 @@
    "spawned_by": "P1-D-w48-CR5",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-F-w48-CR6",
@@ -215147,7 +215917,8 @@
    "spawned_by": "FS-1-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-F-w48-F1",
@@ -216197,7 +216968,8 @@
    "spawned_by": "P1-C-w43-CR3",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-B-w34-CR2",
@@ -216291,7 +217063,8 @@
    "spawned_by": "P1-D-w49-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-B-w34-CR3",
@@ -216571,7 +217344,8 @@
    "spawned_by": "P1-D-w49-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-B-w34-F1",
@@ -216769,7 +217543,8 @@
    "spawned_by": "P1-C-w44-CR3",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-B-w34-F4",
@@ -216875,8 +217650,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "ENV-DB-SWEEP",
@@ -216954,6 +217731,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true
   },
   {
@@ -217032,6 +217810,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true
   },
   {
@@ -217183,7 +217962,8 @@
    "spawned_by": "P1-B-w34-CR5",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-D-w50-CR1",
@@ -217333,6 +218113,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "tests",
    "status_contradiction": "done, but the verdict says \"pending\""
   },
   {
@@ -217884,7 +218665,8 @@
    "spawned_by": "P1-B-w32-CR5",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-F-w49-CR2",
@@ -218452,6 +219234,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "tests",
    "status_contradiction": "done, but the verdict says \"pending\""
   },
   {
@@ -218550,6 +219333,7 @@
    "spawned_rule": "origin-column",
    "phase_inferred": true,
    "evidence_grade": 2,
+   "grade2_source": "file",
    "status_contradiction": "done, but the verdict says \"missing\""
   },
   {
@@ -220045,7 +220829,8 @@
    "spawned_by": "L425-F4",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "L425-F4-F7",
@@ -220192,7 +220977,8 @@
    "spawned_by": "L425-F4",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "P1-D-w51-F2",
@@ -220279,8 +221065,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "L463-F3-F1",
@@ -222172,7 +222960,8 @@
    "spawned_by": "L468-F5",
    "spawned_rule": "id-prefix",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "L468-F3-F1",
@@ -222663,7 +223452,8 @@
    "spawned_by": "L468-F3",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "tests"
   },
   {
    "id": "P1-C-w48-CR3",
@@ -222711,7 +223501,8 @@
    "groupings": [
     "phase:P1",
     "section:follow-up",
-    "workstream:H"
+    "workstream:H",
+    "wave:48-C"
    ],
    "summary_row": false,
    "malformed": null,
@@ -222722,6 +223513,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -222994,7 +223786,8 @@
    "spawned_by": "L468-F1",
    "spawned_rule": "id-prefix",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "L468-F1-F3",
@@ -224491,7 +225284,8 @@
     "section:follow-up",
     "workstream:WEB",
     "workstream:lead",
-    "wave:2-WEB"
+    "wave:2-WEB",
+    "wave:53-H"
    ],
    "summary_row": false,
    "malformed": null,
@@ -224502,6 +225296,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true
   },
   {
@@ -224548,7 +225343,8 @@
     "section:follow-up",
     "workstream:E1",
     "workstream:F",
-    "workstream:lead"
+    "workstream:lead",
+    "wave:53-H"
    ],
    "summary_row": false,
    "malformed": null,
@@ -224559,6 +225355,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true
   },
   {
@@ -224614,7 +225411,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:owner",
-    "workstream:lead"
+    "workstream:lead",
+    "wave:53-H"
    ],
    "summary_row": false,
    "malformed": null,
@@ -224625,6 +225423,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -224701,7 +225500,8 @@
     "phase:P1",
     "section:follow-up",
     "workstream:lead",
-    "wave:2-WEB"
+    "wave:2-WEB",
+    "wave:53-H"
    ],
    "summary_row": false,
    "malformed": null,
@@ -224712,6 +225512,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 1,
    "to_verify": [
@@ -225046,8 +225847,10 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "commit"
   },
   {
    "id": "L483-F1",
@@ -227539,7 +228342,8 @@
    "spawned_by": "L489-F1",
    "spawned_rule": "origin-column",
    "phase_inferred": true,
-   "evidence_grade": 2
+   "evidence_grade": 2,
+   "grade2_source": "file"
   },
   {
    "id": "P1-E1-w39-F1",
@@ -227848,7 +228652,8 @@
    "groupings": [
     "phase:P1",
     "section:follow-up",
-    "workstream:A"
+    "workstream:A",
+    "wave:39-E1"
    ],
    "summary_row": false,
    "malformed": null,
@@ -227859,6 +228664,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true
   },
   {
@@ -230232,6 +231038,7 @@
    "waits_on": [],
    "spawned_by": null,
    "spawned_rule": null,
+   "origin_unresolved": true,
    "phase_inferred": true,
    "evidence_grade": 3
   },

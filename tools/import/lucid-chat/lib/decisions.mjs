@@ -189,12 +189,15 @@ export function decisionItems(log, ctx) {
     const type = e.id.startsWith('O') ? 'owner decision' : decisionType(e.paren, e.heading, e.text);
     let state = 'closed';
     let stateReason = 'recorded';
+    let closedBy = null;
     if (type === 'lead decision pending') {
       if (openFrom.has(e.id)) {
         state = 'open';
         stateReason = 'cited by an open card in §Open decisions';
       } else if (date && date <= confirmCutoff) {
+        // Lead decision T23 (2026-10-28): closed as a group under L425, not shown to the owner again.
         stateReason = 'pending confirmation, closed by the L425 rule (confirm rows closed as the lead\'s)';
+        closedBy = 'L425 rule';
       } else {
         state = 'open';
         stateReason = 'pending the owner\'s confirmation';
@@ -220,6 +223,7 @@ export function decisionItems(log, ctx) {
       status_text: e.status ?? null,
       state,
       state_reason: stateReason,
+      ...(closedBy ? { closed_by: closedBy } : {}),
       section: e.heading,
       references: refs,
       source: { file: 'docs/09-decision-log.md', line: e.line },

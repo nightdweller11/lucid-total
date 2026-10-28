@@ -22,9 +22,13 @@ import { findOrigin, findParent, findCycles, isFollowUpId } from './lib/relation
 import { parseDecisionLog, decisionItems, adrItem, ownerAnswers } from './lib/decisions.mjs';
 import { indexBriefs, indexReports, parseAccounts } from './lib/sources.mjs';
 import { gradeEvidence, walkthroughCheck, parseBlocker, contradiction, boardBars, waveReportKey } from './lib/evaluate.mjs';
-import { waveLabel } from './lib/evidence.mjs';
+import { waveLabel, extractEvidence } from './lib/evidence.mjs';
 import { renderReport } from './lib/report.mjs';
 import { parseWorkstreamTable } from './lib/people.mjs';
+
+/** Importer version and date, stated in meta and at the top of report.md (no wall clock: output stays deterministic). */
+export const IMPORTER_VERSION = '1.1.0';
+export const IMPORTER_DATE = '2026-10-28';
 
 const sha = (s) => createHash('sha256').update(s).digest('hex');
 const evId = (...parts) => `EV-${createHash('sha1').update(parts.join('\u0000')).digest('hex').slice(0, 12)}`;
@@ -148,6 +152,9 @@ export function runImport(source) {
         for (const extra of extractIds(it.origin_text ?? '').filter((x) => exists(x) && x !== o.origin && x !== it.id))
           rel(it.id, 'relates', extra, 'origin-column-secondary');
       } else {
+        // Lead decision T23: orphans stay linked to their wave groupings only; the flag lets the review wave
+        // (LT-0005) filter them, and the AI proposes attachments there.
+        it.origin_unresolved = true;
         origins.orphans.push({ id: it.id, origin_text: it.origin_text, origin_text_kind: o.originTextKind, line: it.source.line });
       }
     }
@@ -240,6 +247,8 @@ export function runImport(source) {
       group(gid, 'domain', w === 'lead' ? 'Lead (integration and gates)' : w === 'owner' ? 'Owner actions' : `Workstream ${w}`).members.push(it.id);
     }
     const waves = new Set(it.evidence.filter((e) => e.type === 'wave' || (e.type === 'brief' && e.match === 'scope')).map((e) => e.type === 'wave' ? e.value : e.wave));
+    // An orphan's Origin text often names its wave ("wave 4 C report"): that wave is its link.
+    if (it.origin_unresolved) for (const e of extractEvidence(it.origin_text ?? '')) if (e.type === 'wave') waves.add(e.value);
     for (const w of waves) {
       const gid = `wave:${w}`;
       gs.push(gid);
@@ -277,8 +286,9 @@ export function runImport(source) {
     const rec = { id: it.id, state: it.state, top_level: it.top_level, phase: it.phase, workstream: it.workstream };
     if (it.state === 'done') {
       const g = gradeEvidence(it, reportsById);
-      Object.assign(rec, { grade: g.grade, basis: g.basis, missing_paths: g.missing_paths, lifted_by_artefact: g.lifted_by_artefact });
+      Object.assign(rec, { grade: g.grade, grade2_source: g.grade2_source, basis: g.basis, missing_paths: g.missing_paths, lifted_by_artefact: g.lifted_by_artefact });
       it.evidence_grade = g.grade;
+      if (g.grade2_source) it.grade2_source = g.grade2_source;
       if (it.walkthrough_required) {
         const w = walkthroughCheck(it, reportsById, waveReports);
         rec.walkthrough = w;
@@ -308,6 +318,7 @@ export function runImport(source) {
       rec.contradiction = c;
       it.status_contradiction = c;
     }
+    if (it.origin_unresolved) rec.origin_unresolved = true;
     rec.has_evidence_link = it.evidence.some((e) => ['link', 'commit', 'pr', 'walkthrough', 'report', 'code', 'doc'].includes(e.type) && e.match !== 'report names the row');
     evaluation.push(rec);
   }
@@ -355,6 +366,8 @@ export function runImport(source) {
   // 11. Assemble.
   const meta = {
     generator: 'tools/import/lucid-chat/import.mjs',
+    importer_version: IMPORTER_VERSION,
+    importer_date: IMPORTER_DATE,
     source_repository: 'Lucid Chat (nightdweller11/lucid)',
     source_hashes: Object.fromEntries(Object.entries(hashes).filter(([k]) => !k.includes('/walkthroughs/') && !k.includes('/briefs/') && !/docs\/testing\//.test(k))),
     source_files_read: Object.keys(hashes).length,

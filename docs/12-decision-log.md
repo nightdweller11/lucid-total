@@ -34,6 +34,8 @@
 - **T21 (lead).** Company stage is a setting with four values whose change is proposed by the system and decided by the owner with a preview; Lucid runs at `founders` (`docs/02` §2.8).
 - **T22 (lead).** Phasing: asks v0 and `founders` defaults in Phase 0; virtual parties in Phase 1; direct external views, compartments and the admission gate in Phase 2; payroll-class data, the board compartment, the stage model and the pen-test gate in Phase 3 (`docs/11`).
 
+- **T23 (lead, import rules).** Answers to the importer's questions (`docs/10` §7): (1) the 257 orphan follow-ups stay linked to their wave grouping with `origin_unresolved: true`; the review wave LT-0005 attaches them with the AI's proposals; (2) "lead decision pending" entries dated on or before 2026-10-24 are closed as a group under Lucid Chat's L425 and are not shown to the owner again; (3) a done row that cites only an existing code or doc file keeps evidence grade 2 but is sub-labelled `file`, and the "to verify" set stays grades 0–1 plus missing walkthroughs and stale blockers (the 201 file-only rows are listed for sampling); (4) the 13 P3/P4 summary rows import as `milestone` items of their phase.
+
 ## Open decisions (material; for the owner, one at a time)
 
 | Id | Question | Context and cost in plain words | Default if unanswered |

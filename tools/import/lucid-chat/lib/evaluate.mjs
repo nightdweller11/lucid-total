@@ -40,13 +40,17 @@ export function gradeEvidence(item, reportsById) {
   }
   const strong = ev.filter((e) => e.type === 'commit' || e.type === 'pr' || e.type === 'tests');
   const artefacts = ev.filter((e) => (e.type === 'code' || e.type === 'doc') && e.exists && !e.pattern);
+  let grade2Source = null;
   if (!grade && strong.length) {
     grade = 2;
+    // Which kind of evidence carried grade 2 (lead decision T23): commit before PR before test counts.
+    grade2Source = ['commit', 'pr', 'tests'].find((t) => strong.some((e) => e.type === t));
     basis.push(...strong.slice(0, 5).map((e) => `${e.type}: ${e.value}`));
   }
   let liftedByArtefact = false;
   if (!grade && artefacts.length) {
     grade = 2;
+    grade2Source = 'file';
     liftedByArtefact = true;
     basis.push(...artefacts.slice(0, 5).map((e) => `${e.type}: ${e.value}`));
   }
@@ -56,7 +60,7 @@ export function gradeEvidence(item, reportsById) {
     basis.push(...weak.slice(0, 5).map((e) => `${e.type}: ${e.value}`));
   }
   for (const e of ev) if ((e.type === 'code' || e.type === 'doc' || e.type === 'brief') && e.exists === false && !e.pattern) missing.push(e.value);
-  return { grade, basis, missing_paths: [...new Set(missing)], lifted_by_artefact: liftedByArtefact };
+  return { grade, grade2_source: grade2Source, basis, missing_paths: [...new Set(missing)], lifted_by_artefact: liftedByArtefact };
 }
 
 /**

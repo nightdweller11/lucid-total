@@ -1,6 +1,8 @@
 {
  "meta": {
   "generator": "tools/import/lucid-chat/import.mjs",
+  "importer_version": "1.1.0",
+  "importer_date": "2026-10-28",
   "source_repository": "Lucid Chat (nightdweller11/lucid)",
   "source_hashes": {
    "docs/15-checklist.md": "e08aefd307261c9d",
@@ -64,6 +66,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Founding brief (owner instruction) » Lead decisions taken on the founding brief (pending owner confirmation)",
    "references": [
     "ADR-0001"
@@ -89,6 +92,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Founding brief (owner instruction) » Lead decisions taken on the founding brief (pending owner confirmation)",
    "references": [
     "ADR-0002"
@@ -114,6 +118,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Founding brief (owner instruction) » Lead decisions taken on the founding brief (pending owner confirmation)",
    "references": [
     "ADR-0003"
@@ -139,6 +144,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Founding brief (owner instruction) » Lead decisions taken on the founding brief (pending owner confirmation)",
    "references": [],
    "source": {
@@ -162,6 +168,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Founding brief (owner instruction) » Lead decisions taken on the founding brief (pending owner confirmation)",
    "references": [],
    "source": {
@@ -185,6 +192,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Founding brief (owner instruction) » Lead decisions taken on the founding brief (pending owner confirmation)",
    "references": [
     "ADR-0006"
@@ -210,6 +218,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Founding brief (owner instruction) » Lead decisions taken on the founding brief (pending owner confirmation)",
    "references": [],
    "source": {
@@ -233,6 +242,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Founding brief (owner instruction) » Lead decisions taken on the founding brief (pending owner confirmation)",
    "references": [],
    "source": {
@@ -256,6 +266,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Founding brief (owner instruction) » Lead decisions taken on the founding brief (pending owner confirmation)",
    "references": [],
    "source": {
@@ -279,6 +290,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Deeper mediation (owner instruction) » Lead decisions taken on deeper mediation (pending owner confirmation)",
    "references": [],
    "source": {
@@ -302,6 +314,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Deeper mediation (owner instruction) » Lead decisions taken on deeper mediation (pending owner confirmation)",
    "references": [],
    "source": {
@@ -325,6 +338,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Deeper mediation (owner instruction) » Lead decisions taken on deeper mediation (pending owner confirmation)",
    "references": [],
    "source": {
@@ -348,6 +362,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Deeper mediation (owner instruction) » Lead decisions taken on deeper mediation (pending owner confirmation)",
    "references": [],
    "source": {
@@ -371,6 +386,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Deeper mediation (owner instruction) » Lead decisions taken on deeper mediation (pending owner confirmation)",
    "references": [],
    "source": {
@@ -394,6 +410,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Deeper mediation (owner instruction) » Lead decisions taken on deeper mediation (pending owner confirmation)",
    "references": [],
    "source": {
@@ -417,6 +434,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Deeper mediation (owner instruction) » Lead decisions taken on deeper mediation (pending owner confirmation)",
    "references": [],
    "source": {
@@ -440,6 +458,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Deeper mediation (owner instruction) » Lead decisions taken on deeper mediation (pending owner confirmation)",
    "references": [],
    "source": {
@@ -463,6 +482,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Deeper mediation (owner instruction) » Lead decisions taken on deeper mediation (pending owner confirmation)",
    "references": [
     "ADR-0009"
@@ -488,6 +508,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Deeper mediation (owner instruction) » Lead decisions taken on deeper mediation (pending owner confirmation)",
    "references": [],
    "source": {
@@ -1343,6 +1364,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "MOCKS-F5",
@@ -1378,6 +1400,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "CT-01-F18",
@@ -1404,6 +1427,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [],
    "source": {
@@ -1427,6 +1451,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "P0-G-02-F2",
@@ -1454,6 +1479,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "P1-H-04-F2-F1",
@@ -1480,6 +1506,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "ENV-F7-F1",
@@ -1506,6 +1533,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "P1-H-06-F8-F2-F1",
@@ -1533,6 +1561,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "P0-G-02-F5",
@@ -1559,6 +1588,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [],
    "source": {
@@ -1582,6 +1612,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [],
    "source": {
@@ -1605,6 +1636,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "P1-C-08-F5-F1",
@@ -1631,6 +1663,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "P0-A-02-F15",
@@ -1682,6 +1715,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [],
    "source": {
@@ -1728,6 +1762,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "L74"
@@ -1753,6 +1788,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "L74",
@@ -1780,6 +1816,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [],
    "source": {
@@ -1803,6 +1840,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "L80",
@@ -1856,6 +1894,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "P1-E1-w7-F1"
@@ -1881,6 +1920,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "ADR-0016",
@@ -1907,6 +1947,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "L82"
@@ -1932,6 +1973,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "P2-H-08-F3",
@@ -1959,6 +2001,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [],
    "source": {
@@ -1982,6 +2025,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "P1-C-w8-F3",
@@ -2008,6 +2052,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "L86",
@@ -2036,6 +2081,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [],
    "source": {
@@ -2059,6 +2105,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "L90",
@@ -2112,6 +2159,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "L85",
@@ -2139,6 +2187,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "L90",
@@ -2167,6 +2216,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "P1-B-w8-F2"
@@ -2192,6 +2242,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [],
    "source": {
@@ -2215,6 +2266,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [],
    "source": {
@@ -2238,6 +2290,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "L94"
@@ -2263,6 +2316,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [],
    "source": {
@@ -3015,6 +3069,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "ENV-F8",
@@ -3044,6 +3099,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "ENV-F7",
@@ -3081,6 +3137,7 @@
    "status_text": null,
    "state": "closed",
    "state_reason": "pending confirmation, closed by the L425 rule (confirm rows closed as the lead's)",
+   "closed_by": "L425 rule",
    "section": "2026-10-18 · Lead decisions during wave 1 integration",
    "references": [
     "P1-H-06-F2-F2",

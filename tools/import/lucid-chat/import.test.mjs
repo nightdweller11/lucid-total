@@ -97,6 +97,8 @@ test('buildItem maps the columns to Lucid Total fields', () => {
   const gate = buildItem(rows[2], ctx);
   assert.equal(gate.kind, 'milestone');
   assert.equal(gate.depends_text, 'all P0');
+  const p3 = buildItem(rows[3], ctx);
+  assert.deepEqual([p3.kind, p3.summary_row, p3.phase, p3.state], ['milestone', true, 'P3', 'todo']); // T23 (4)
   const env = buildItem(rows[7], ctx);
   assert.equal(env.kind, 'chore');
   assert.deepEqual(env.workstreams, ['owner', 'A']);
@@ -268,6 +270,8 @@ test('decision log parsing', () => {
   const get = (id) => items.find((i) => i.id === id);
   assert.equal(get('L1').decision_type, 'lead decision pending');
   assert.equal(get('L1').state, 'closed'); // closed by the L425 rule (dated 2026-10-18)
+  assert.equal(get('L1').closed_by, 'L425 rule'); // T23 (2)
+  assert.equal(get('L484').closed_by, undefined);
   assert.equal(get('L29').decision_type, 'lead decision');
   assert.equal(get('L64').decision_type, 'lead decision pending');
   assert.deepEqual(get('L64').references, ['CT-09']);
@@ -288,6 +292,10 @@ test('evaluation: grades and blockers', () => {
   const reports = new Map([['A-1', [{ path: 'docs/testing/walkthroughs/A-1.md', type: 'walkthrough' }]]]);
   assert.equal(gradeEvidence({ id: 'A-1', evidence: [] }, reports).grade, 3);
   assert.equal(gradeEvidence({ id: 'B', evidence: [{ type: 'commit', value: 'abc1234' }] }, reports).grade, 2);
+  // T23 (3): the source of grade 2 is recorded.
+  assert.equal(gradeEvidence({ id: 'B', evidence: [{ type: 'tests', value: '9 tests' }, { type: 'pr', value: '#4' }] }, reports).grade2_source, 'pr');
+  assert.equal(gradeEvidence({ id: 'B', evidence: [{ type: 'code', value: 'a.ts', exists: true }] }, reports).grade2_source, 'file');
+  assert.equal(gradeEvidence({ id: 'A-1', evidence: [] }, reports).grade2_source, null);
   assert.equal(gradeEvidence({ id: 'B', evidence: [{ type: 'wave', value: '2-A' }] }, reports).grade, 1);
   assert.equal(gradeEvidence({ id: 'B', evidence: [] }, reports).grade, 0);
   const missing = gradeEvidence({ id: 'B', evidence: [{ type: 'walkthrough', value: 'docs/x.md', exists: false }] }, reports);
@@ -334,4 +342,8 @@ test('whole import against the Lucid Chat repository', { skip: !existsSync(`${SO
   const json = JSON.stringify(r.items) + JSON.stringify(r.decisions) + JSON.stringify(r.answers);
   assert.ok(!/[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+\.(?:chat|com|tech|io|org)\b/.test(json), 'no email address in the outputs');
   assert.ok(r.board.bar1.total > 0);
+  // T23 (1): every orphan carries the flag, and only orphans do.
+  const orphanIds = new Set(r.stats.origins.orphans.map((o) => o.id));
+  for (const it of r.checklistItems) assert.equal(Boolean(it.origin_unresolved), orphanIds.has(it.id), it.id);
+  assert.equal(r.meta.importer_version, '1.1.0');
 });

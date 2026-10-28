@@ -1,6 +1,8 @@
 {
  "meta": {
   "generator": "tools/import/lucid-chat/import.mjs",
+  "importer_version": "1.1.0",
+  "importer_date": "2026-10-28",
   "source_repository": "Lucid Chat (nightdweller11/lucid)",
   "source_hashes": {
    "docs/15-checklist.md": "e08aefd307261c9d",
@@ -2657,14 +2659,15 @@
     "P1-F-w22-F1",
     "P1-F-w22-F2",
     "P1-F-w22-F3",
-    "P1-F-w22-F4"
+    "P1-F-w22-F4",
+    "P1-F-w23-F4"
    ],
    "brief": "docs/briefs/wave23-F.md",
    "rollup": {
-    "done": 6,
+    "done": 7,
     "blocked": 2
    },
-   "done_share": 75
+   "done_share": 77.8
   },
   {
    "id": "wave:47-C",
@@ -4172,15 +4175,17 @@
     "P1-H-06-F7",
     "ENV-F8",
     "ENV-F9",
-    "ENV-F5"
+    "ENV-F5",
+    "ENV-F11",
+    "ENV-F12"
    ],
    "brief": "docs/briefs/wave4-A.md",
    "rollup": {
     "doing": 5,
-    "done": 10,
+    "done": 12,
     "blocked": 1
    },
-   "done_share": 62.5
+   "done_share": 66.7
   },
   {
    "id": "workstream:E1",
@@ -6990,16 +6995,19 @@
     "P2-H-08",
     "P1-A-w16-F4",
     "P1-C-w17-F2",
-    "P1-C-w17-F6"
+    "P1-C-w17-F6",
+    "P1-A-w17-F2",
+    "P1-A-w17-F5",
+    "P1-A-w17-F6"
    ],
    "brief": "docs/briefs/wave17-A.md",
    "rollup": {
     "todo": 1,
     "review": 1,
-    "blocked": 1,
-    "done": 2
+    "blocked": 2,
+    "done": 4
    },
-   "done_share": 40
+   "done_share": 50
   },
   {
    "id": "wave:21-C",
@@ -7018,6 +7026,7 @@
     "P1-G-w14-F2",
     "P1-G-w14-F3",
     "P1-F-w32-CR2",
+    "P1-C-w21-F1",
     "P1-C-w21-F4",
     "P1-G-w16-F5",
     "P1-A-w27-F2",
@@ -7030,9 +7039,9 @@
    "rollup": {
     "doing": 1,
     "blocked": 1,
-    "done": 17
+    "done": 18
    },
-   "done_share": 89.5
+   "done_share": 90
   },
   {
    "id": "wave:34-A",
@@ -7334,14 +7343,16 @@
     "P1-F-w7-F5-F1",
     "P1-E1-w8-F5-F2",
     "P1-E1-w8-F5-F3",
-    "P1-C-w9-F2"
+    "P1-C-w9-F2",
+    "P1-F-w8-F3",
+    "P1-F-w8-F4"
    ],
    "brief": "docs/briefs/wave8-F.md",
    "rollup": {
     "todo": 1,
-    "done": 7
+    "done": 9
    },
-   "done_share": 87.5
+   "done_share": 90
   },
   {
    "id": "wave:15-B",
@@ -7351,16 +7362,17 @@
     "P1-B-01",
     "P2-H-08",
     "P1-D-04-F2-F3",
-    "P1-C-w17-F4"
+    "P1-C-w17-F4",
+    "P1-B-w15-F5"
    ],
    "brief": "docs/briefs/wave15-B.md",
    "rollup": {
     "todo": 1,
     "review": 1,
-    "done": 1,
+    "done": 2,
     "blocked": 1
    },
-   "done_share": 25
+   "done_share": 40
   },
   {
    "id": "wave:6-B",
@@ -7398,7 +7410,9 @@
     "P1-F-w36-F1",
     "P1-E2-w35-CR1",
     "P1-E1-w27-CR2-F1-F3",
+    "P1-E1-w32-F4",
     "P1-E1-w32-F3",
+    "P1-E1-w32-CR1",
     "P1-E1-w32-CR2",
     "P1-B-w28-CR8"
    ],
@@ -7406,9 +7420,10 @@
    "rollup": {
     "done": 12,
     "blocked": 1,
-    "doing": 1
+    "todo": 1,
+    "doing": 2
    },
-   "done_share": 85.7
+   "done_share": 75
   },
   {
    "id": "wave:21-B",
@@ -7446,11 +7461,12 @@
     "P0-A-02-F9",
     "P1-H-06-F4",
     "P1-H-06-F5",
-    "ENV-F8"
+    "ENV-F8",
+    "ENV-F9"
    ],
    "brief": "docs/briefs/wave4-C.md",
    "rollup": {
-    "done": 14
+    "done": 15
    },
    "done_share": 100
   },
@@ -7518,14 +7534,18 @@
     "REV-E1-30-5",
     "REV-E1-30-6",
     "REV-E1-30-7",
-    "REV-E1-30-8"
+    "REV-E1-30-8",
+    "P1-E1-w31-F1",
+    "P1-E1-w31-CR1",
+    "P1-E1-w31-CR2"
    ],
    "brief": "docs/briefs/wave31-E1.md",
    "rollup": {
     "doing": 1,
-    "done": 23
+    "done": 25,
+    "todo": 1
    },
-   "done_share": 95.8
+   "done_share": 92.6
   },
   {
    "id": "wave:42-D",
@@ -7585,14 +7605,19 @@
     "P1-F-w31-CR2",
     "P1-B-w18-CR1",
     "P1-C-w19-F3",
-    "P2-H-08-F31"
+    "P2-H-08-F31",
+    "P1-C-w20-F1",
+    "P1-C-w20-F2",
+    "P1-C-w20-F3",
+    "P1-C-w20-F4"
    ],
    "brief": "docs/briefs/wave20-C.md",
    "rollup": {
     "doing": 3,
-    "done": 7
+    "done": 10,
+    "todo": 1
    },
-   "done_share": 70
+   "done_share": 71.4
   },
   {
    "id": "wave:6-C",
@@ -7655,15 +7680,16 @@
     "P1-F-05-F1",
     "P1-F-w27-F5",
     "P1-F-w28-F4",
+    "P1-F-w29-F1",
     "P1-B-w17-F1"
    ],
    "brief": "docs/briefs/wave29-F.md",
    "rollup": {
     "doing": 1,
     "review": 1,
-    "done": 4
+    "done": 5
    },
-   "done_share": 66.7
+   "done_share": 71.4
   },
   {
    "id": "wave:17-B",
@@ -7948,14 +7974,17 @@
     "P1-F-01-F2-F1-F2-F2",
     "P1-D-07-F2-F4",
     "P1-F-w6-F1-F1",
-    "P1-D-08-F2-F1-F2-F1"
+    "P1-D-08-F2-F1-F2-F1",
+    "P1-F-w7-F3",
+    "P1-F-w7-F4",
+    "P1-F-w7-F5"
    ],
    "brief": "docs/briefs/wave7-F.md",
    "rollup": {
     "doing": 1,
-    "done": 5
+    "done": 8
    },
-   "done_share": 83.3
+   "done_share": 88.9
   },
   {
    "id": "wave:6-D",
@@ -7991,14 +8020,18 @@
     "P1-A-w16-F1",
     "P1-A-w16-F2",
     "P1-G-w8-F2-F2",
-    "P1-G-w10-F2"
+    "P1-G-w10-F2",
+    "P1-G-w10-F3",
+    "P1-G-w10-F4",
+    "P1-G-w10-F5",
+    "P1-G-w10-F6"
    ],
    "brief": "docs/briefs/wave10-G.md",
    "rollup": {
     "blocked": 1,
-    "done": 6
+    "done": 10
    },
-   "done_share": 85.7
+   "done_share": 90.9
   },
   {
    "id": "wave:6-E2",
@@ -8207,14 +8240,15 @@
     "P1-E2-w15-F3",
     "P1-E2-w16-F1",
     "P1-E2-w16-F2",
-    "P1-A-w15-F1"
+    "P1-A-w15-F1",
+    "P1-E1-w15-F1"
    ],
    "brief": "docs/briefs/wave15-E1.md",
    "rollup": {
-    "done": 8,
+    "done": 9,
     "doing": 1
    },
-   "done_share": 88.9
+   "done_share": 90
   },
   {
    "id": "wave:7-E1",
@@ -8247,14 +8281,17 @@
     "P1-E1-w13-F2",
     "P1-E1-w13-F5",
     "P1-E1-w13-F6",
-    "P1-G-w8-F3"
+    "P1-G-w8-F3",
+    "P1-E1-w14-F3",
+    "P1-E1-w14-F4",
+    "P1-E1-w14-F5"
    ],
    "brief": "docs/briefs/wave14-E1.md",
    "rollup": {
     "doing": 2,
-    "done": 6
+    "done": 9
    },
-   "done_share": 75
+   "done_share": 81.8
   },
   {
    "id": "wave:2-E2",
@@ -8280,11 +8317,13 @@
    "title": "wave 18 E2",
    "members": [
     "P1-E2-01",
-    "P1-E1-w16-F2"
+    "P1-E1-w16-F2",
+    "P1-E2-w18-F2",
+    "P1-E2-w18-F3"
    ],
    "brief": "docs/briefs/wave18-E2.md",
    "rollup": {
-    "done": 2
+    "done": 4
    },
    "done_share": 100
   },
@@ -8335,15 +8374,16 @@
     "P1-E2-01-F1",
     "P1-E2-w10-F3",
     "P1-E1-w13-F1",
-    "MOCKS-w12-F1"
+    "MOCKS-w12-F1",
+    "P1-E2-w14-F3"
    ],
    "brief": "docs/briefs/wave14-E2.md",
    "rollup": {
     "doing": 3,
     "blocked": 1,
-    "done": 2
+    "done": 3
    },
-   "done_share": 33.3
+   "done_share": 42.9
   },
   {
    "id": "wave:4-E2",
@@ -8480,16 +8520,18 @@
     "P1-F-w25-F1",
     "P1-C-w17-F1",
     "P1-E1-w16-F1",
+    "P1-F-w26-F1",
+    "P1-F-w26-F2",
     "P1-B-w15-F4",
     "P1-F-w27-F1"
    ],
    "brief": "docs/briefs/wave26-F.md",
    "rollup": {
-    "done": 6,
+    "done": 8,
     "blocked": 1,
     "review": 1
    },
-   "done_share": 75
+   "done_share": 80
   },
   {
    "id": "wave:16-G",
@@ -8577,15 +8619,16 @@
     "P1-E2-w10-F4",
     "P1-A-w12-F3",
     "MOCKS-F13",
-    "P1-E2-w11-F2"
+    "P1-E2-w11-F2",
+    "P1-E1-w12-F3"
    ],
    "brief": "docs/briefs/wave12-E1.md",
    "rollup": {
     "blocked": 1,
     "review": 1,
-    "done": 17
+    "done": 18
    },
-   "done_share": 89.5
+   "done_share": 90
   },
   {
    "id": "wave:19-G",
@@ -8629,14 +8672,15 @@
    "members": [
     "P1-G-06",
     "P1-G-07",
+    "P1-G-w14-F7",
     "P1-G-w14-F8"
    ],
    "brief": "docs/briefs/wave14-G.md",
    "rollup": {
     "blocked": 2,
-    "done": 1
+    "done": 2
    },
-   "done_share": 33.3
+   "done_share": 50
   },
   {
    "id": "wave:26-H",
@@ -8698,14 +8742,25 @@
    "title": "wave 23 E1",
    "members": [
     "P1-G-07",
-    "P1-E1-w23-F1"
+    "P1-E1-w23-F1",
+    "P1-E1-w23-F2",
+    "P1-E1-w23-F3",
+    "P1-E1-w23-F4",
+    "P1-E1-w23-F5",
+    "P1-E1-w23-F6",
+    "P1-E1-w23-F7",
+    "P1-E1-w23-F8",
+    "P1-E1-w23-F9",
+    "P1-E1-w23-F10",
+    "P1-E1-w23-F11",
+    "P1-E1-w23-F12"
    ],
    "brief": "docs/briefs/wave23-E1.md",
    "rollup": {
     "blocked": 1,
-    "done": 1
+    "done": 12
    },
-   "done_share": 50
+   "done_share": 92.3
   },
   {
    "id": "wave:25-H",
@@ -9047,15 +9102,16 @@
     "P1-E1-w7-F1-F3-F1",
     "P1-G-01-F9",
     "P1-E1-w7-F1-F3-F1-F1",
-    "P1-D-08-F2-F1-F2-F3-F1-F1-F1"
+    "P1-D-08-F2-F1-F2-F3-F1-F1-F1",
+    "P1-C-w10-F3"
    ],
    "brief": "docs/briefs/wave10-D.md",
    "rollup": {
     "blocked": 1,
-    "done": 5,
+    "done": 6,
     "todo": 1
    },
-   "done_share": 71.4
+   "done_share": 75
   },
   {
    "id": "wave:7-H",
@@ -9087,14 +9143,15 @@
     "P1-F-01-F7-F1",
     "P1-B-w13-F3",
     "P1-C-w19-F2",
-    "P1-F-w38-F1"
+    "P1-F-w38-F1",
+    "P1-F-w44-F1"
    ],
    "brief": "docs/briefs/wave44-F.md",
    "rollup": {
     "blocked": 4,
-    "done": 5
+    "done": 6
    },
-   "done_share": 55.6
+   "done_share": 60
   },
   {
    "id": "wave:22-F",
@@ -9105,14 +9162,20 @@
     "P1-E2-01-F1",
     "P1-C-w15-F5",
     "P1-F-w21-F5",
-    "P1-B-w13-F3"
+    "P1-B-w13-F3",
+    "P1-F-w22-F1",
+    "P1-F-w22-F2",
+    "P1-F-w22-F3",
+    "P1-F-w22-F4",
+    "P1-F-w22-F5",
+    "P1-F-w22-F6"
    ],
    "brief": "docs/briefs/wave22-F.md",
    "rollup": {
     "blocked": 3,
-    "done": 2
+    "done": 8
    },
-   "done_share": 40
+   "done_share": 72.7
   },
   {
    "id": "wave:24-F",
@@ -9123,14 +9186,16 @@
     "MOCKS-F14",
     "P1-E2-w15-F2",
     "MOCKS-w13-F3",
-    "MOCKS-w13-F4"
+    "MOCKS-w13-F4",
+    "P1-F-w24-F1",
+    "P1-F-w24-F2"
    ],
    "brief": "docs/briefs/wave24-F.md",
    "rollup": {
     "blocked": 1,
-    "done": 4
+    "done": 6
    },
-   "done_share": 80
+   "done_share": 85.7
   },
   {
    "id": "wave:25-F",
@@ -9141,14 +9206,15 @@
     "P1-F-w24-F1",
     "P1-F-w24-F2",
     "P1-C-w16-F4",
-    "P1-C-w16-F7"
+    "P1-C-w16-F7",
+    "P1-F-w25-F2"
    ],
    "brief": "docs/briefs/wave25-F.md",
    "rollup": {
     "blocked": 1,
-    "done": 4
+    "done": 5
    },
-   "done_share": 80
+   "done_share": 83.3
   },
   {
    "id": "wave:17-C",
@@ -9165,14 +9231,15 @@
     "P1-F-w25-F1",
     "P1-F-w25-F2",
     "P1-G-w8-F2-F1",
+    "P1-C-w17-F3",
     "P1-C-w17-F5"
    ],
    "brief": "docs/briefs/wave17-C.md",
    "rollup": {
-    "blocked": 2,
+    "blocked": 3,
     "done": 9
    },
-   "done_share": 81.8
+   "done_share": 75
   },
   {
    "id": "wave:40-F",
@@ -9458,15 +9525,17 @@
     "P2-H-08",
     "P2-H-08-F31",
     "P2-H-08-F33",
-    "P2-H-08-F35"
+    "P2-H-08-F35",
+    "MOCKS-w28-F1",
+    "MOCKS-w28-F2"
    ],
    "brief": "docs/briefs/wave28-H.md",
    "rollup": {
     "review": 1,
-    "done": 2,
+    "done": 4,
     "todo": 1
    },
-   "done_share": 50
+   "done_share": 66.7
   },
   {
    "id": "wave:27-D",
@@ -9518,14 +9587,15 @@
     "P1-F-w31-CR1",
     "P1-G-w14-F5",
     "P1-F-w32-F2",
-    "P1-E2-w25-CR1"
+    "P1-E2-w25-CR1",
+    "P1-F-w33-F1"
    ],
    "brief": "docs/briefs/wave33-F.md",
    "rollup": {
     "review": 1,
-    "done": 6
+    "done": 7
    },
-   "done_share": 85.7
+   "done_share": 87.5
   },
   {
    "id": "wave:24-H",
@@ -9782,15 +9852,18 @@
    "members": [
     "P2-H-08",
     "P1-F-w17-F1",
-    "P1-C-w13-F3"
+    "P1-C-w13-F3",
+    "P1-F-w18-F2",
+    "P1-F-w18-F3",
+    "P1-F-w18-F4"
    ],
    "brief": "docs/briefs/wave18-F.md",
    "rollup": {
     "review": 1,
-    "done": 1,
-    "todo": 1
+    "done": 3,
+    "todo": 2
    },
-   "done_share": 33.3
+   "done_share": 50
   },
   {
    "id": "wave:10-H",
@@ -9799,15 +9872,16 @@
    "members": [
     "P2-H-08",
     "P1-F-w16-F2",
-    "P1-E2-w10-F6"
+    "P1-E2-w10-F6",
+    "MOCKS-F13"
    ],
    "brief": "docs/briefs/wave10-H.md",
    "rollup": {
     "review": 1,
     "blocked": 1,
-    "done": 1
+    "done": 2
    },
-   "done_share": 33.3
+   "done_share": 50
   },
   {
    "id": "wave:16-F",
@@ -9847,15 +9921,16 @@
    "members": [
     "P2-H-08",
     "P2-H-08-F1",
-    "MOCKS-F11"
+    "MOCKS-F11",
+    "MOCKS-F12"
    ],
    "brief": "docs/briefs/wave8-H.md",
    "rollup": {
     "review": 1,
     "doing": 1,
-    "done": 1
+    "done": 2
    },
-   "done_share": 33.3
+   "done_share": 50
   },
   {
    "id": "wave:6-H",
@@ -9936,15 +10011,16 @@
     "P1-B-w12-F2",
     "P1-F-w18-F3",
     "P1-F-w18-F4",
-    "P1-C-w14-F1"
+    "P1-C-w14-F1",
+    "P1-C-w14-F6"
    ],
    "brief": "docs/briefs/wave14-C.md",
    "rollup": {
     "review": 1,
-    "done": 15,
+    "done": 16,
     "todo": 1
    },
-   "done_share": 88.2
+   "done_share": 88.9
   },
   {
    "id": "wave:16-A",
@@ -9955,15 +10031,17 @@
     "P1-A-w14-F4",
     "P1-A-w15-F3",
     "P1-G-w9-F3",
-    "P1-G-w9-F4"
+    "P1-G-w9-F4",
+    "P1-A-w16-F3",
+    "P1-A-w16-F4"
    ],
    "brief": "docs/briefs/wave16-A.md",
    "rollup": {
     "review": 1,
-    "blocked": 1,
-    "done": 3
+    "blocked": 2,
+    "done": 4
    },
-   "done_share": 60
+   "done_share": 57.1
   },
   {
    "id": "wave:14-B",
@@ -12853,13 +12931,20 @@
    "title": "wave 11 A",
    "members": [
     "ENV-F1",
-    "P1-E2-01-F1"
+    "P1-E2-01-F1",
+    "P1-A-w11-F1",
+    "P1-A-w11-F2",
+    "P1-A-w11-F3",
+    "P1-A-w11-F4",
+    "P1-A-w11-F5"
    ],
    "brief": "docs/briefs/wave11-A.md",
    "rollup": {
-    "blocked": 2
+    "blocked": 4,
+    "done": 2,
+    "doing": 1
    },
-   "done_share": 0
+   "done_share": 28.6
   },
   {
    "id": "wave:7-G",
@@ -12981,14 +13066,15 @@
     "P1-B-w25-CR5",
     "P1-A-w38-CR1",
     "P1-C-w31-F1",
+    "P1-C-w31-F2",
     "REV-H40-1"
    ],
    "brief": "docs/briefs/wave31-C.md",
    "rollup": {
-    "done": 16,
+    "done": 17,
     "doing": 1
    },
-   "done_share": 94.1
+   "done_share": 94.4
   },
   {
    "id": "wave:35-E1",
@@ -13266,15 +13352,17 @@
     "P1-F-w14-F1",
     "P1-F-w15-F2",
     "P1-B-w11-F1",
-    "P1-F-w17-F1"
+    "P1-F-w17-F1",
+    "P1-C-w13-F6",
+    "P1-C-w13-F7"
    ],
    "brief": "docs/briefs/wave13-C.md",
    "rollup": {
-    "done": 24,
+    "done": 26,
     "todo": 1,
     "doing": 1
    },
-   "done_share": 92.3
+   "done_share": 92.9
   },
   {
    "id": "wave:4-B",
@@ -13376,14 +13464,15 @@
     "P1-A-w9-F2",
     "P1-C-09-F2",
     "P1-B-w9-F2-F1",
-    "P1-E2-w9-F4"
+    "P1-E2-w9-F4",
+    "P1-A-w10-F3"
    ],
    "brief": "docs/briefs/wave10-A.md",
    "rollup": {
     "done": 6,
-    "doing": 1
+    "doing": 2
    },
-   "done_share": 85.7
+   "done_share": 75
   },
   {
    "id": "wave:29-A",
@@ -13431,14 +13520,16 @@
     "P1-B-w12-F3",
     "P1-E1-w12-F4",
     "P1-G-w7-F6",
-    "P1-B-w13-F1"
+    "P1-B-w13-F1",
+    "P1-E1-w13-F4",
+    "P1-E1-w13-F5"
    ],
    "brief": "docs/briefs/wave13-E1.md",
    "rollup": {
-    "done": 8,
+    "done": 10,
     "doing": 1
    },
-   "done_share": 88.9
+   "done_share": 90.9
   },
   {
    "id": "wave:15-E2",
@@ -13447,14 +13538,15 @@
    "members": [
     "P1-E2-01-F1",
     "P1-E2-w14-F3",
-    "P1-A-w14-F5"
+    "P1-A-w14-F5",
+    "P1-E2-w15-F1"
    ],
    "brief": "docs/briefs/wave15-E2.md",
    "rollup": {
     "blocked": 1,
-    "done": 2
+    "done": 3
    },
-   "done_share": 66.7
+   "done_share": 75
   },
   {
    "id": "wave:5-F",
@@ -13496,11 +13588,13 @@
     "P1-E2-w9-F1",
     "P1-E2-w9-F2",
     "P1-D-09-F4-F1",
-    "P1-E1-w11-F3"
+    "P1-E1-w11-F3",
+    "P1-F-w13-F2",
+    "P1-F-w13-F4"
    ],
    "brief": "docs/briefs/wave13-F.md",
    "rollup": {
-    "done": 9
+    "done": 11
    },
    "done_share": 100
   },
@@ -13563,13 +13657,15 @@
     "ENV-F1-F2",
     "ENV-F1-F4",
     "ENV-F1-F7",
-    "ENV-F1-F9"
+    "ENV-F1-F9",
+    "P1-E1-w33-F5"
    ],
    "brief": "docs/briefs/wave33-E1.md",
    "rollup": {
-    "done": 12
+    "done": 12,
+    "doing": 1
    },
-   "done_share": 100
+   "done_share": 92.3
   },
   {
    "id": "wave:10-E1",
@@ -13583,11 +13679,13 @@
     "P2-E1-08-F7",
     "MOCKS-F10",
     "P1-G-01-F3-F1",
-    "P1-C-w9-F6-F1"
+    "P1-C-w9-F6-F1",
+    "P1-E1-w10-F1",
+    "P1-E1-w10-F2"
    ],
    "brief": "docs/briefs/wave10-E1.md",
    "rollup": {
-    "done": 8
+    "done": 10
    },
    "done_share": 100
   },
@@ -13716,14 +13814,16 @@
     "P1-E1-w18-F3",
     "P1-F-w28-F1",
     "P1-F-w28-F2",
+    "P1-C-w19-F1",
+    "P1-C-w19-F2",
     "P1-C-w19-F3"
    ],
    "brief": "docs/briefs/wave19-C.md",
    "rollup": {
     "doing": 1,
-    "done": 9
+    "done": 11
    },
-   "done_share": 90
+   "done_share": 91.7
   },
   {
    "id": "wave:13-A",
@@ -13733,14 +13833,15 @@
     "P0-A-02-F12",
     "P1-A-w10-F1",
     "P1-A-w11-F5",
-    "P1-F-w19-F1"
+    "P1-F-w19-F1",
+    "P1-A-w13-F2"
    ],
    "brief": "docs/briefs/wave13-A.md",
    "rollup": {
-    "done": 3,
+    "done": 4,
     "doing": 1
    },
-   "done_share": 75
+   "done_share": 80
   },
   {
    "id": "wave:20-G",
@@ -13899,14 +14000,17 @@
     "REV-B28-N8",
     "REV-B28-N9",
     "P1-B-w29-F1",
-    "P1-B-w29-F2"
+    "P1-B-w29-F2",
+    "P1-B-w29-F4",
+    "P1-B-w29-F5"
    ],
    "brief": "docs/briefs/wave29-B.md",
    "rollup": {
     "blocked": 1,
-    "done": 12
+    "done": 13,
+    "doing": 1
    },
-   "done_share": 92.3
+   "done_share": 86.7
   },
   {
    "id": "wave:43-D",
@@ -14051,11 +14155,12 @@
     "ENV-STATUS-SITE",
     "ENV-STATUS-SHOTS",
     "P1-F-w32-F1",
-    "P1-D-w27-CR1"
+    "P1-D-w27-CR1",
+    "P1-E2-w27-F2"
    ],
    "brief": "docs/briefs/wave27-E2.md",
    "rollup": {
-    "done": 4
+    "done": 5
    },
    "done_share": 100
   },
@@ -14174,14 +14279,17 @@
     "ENV-RAILWAY-F1-F1",
     "ENV-GITHUB-F9",
     "ENV-GITHUB-F10",
-    "ENV-GITHUB-F11"
+    "ENV-GITHUB-F11",
+    "ENV-GITHUB-F12",
+    "ENV-GITHUB-F13"
    ],
    "brief": "docs/briefs/wave52-A.md",
    "rollup": {
     "doing": 1,
-    "done": 3
+    "done": 4,
+    "todo": 1
    },
-   "done_share": 75
+   "done_share": 66.7
   },
   {
    "id": "wave:15-G",
@@ -14276,11 +14384,12 @@
     "P1-C-05-F1-CR1",
     "P1-B-01-F3",
     "P2-H-08-F50",
-    "P1-E1-w29-F1"
+    "P1-E1-w29-F1",
+    "REV-H41-3"
    ],
    "brief": "docs/briefs/wave32-E2.md",
    "rollup": {
-    "done": 4
+    "done": 5
    },
    "done_share": 100
   },
@@ -14347,11 +14456,12 @@
     "P1-F-w32-F1",
     "P1-F-w33-F1",
     "P1-E1-w23-F10",
-    "P1-F-w32-CR2-F1"
+    "P1-F-w32-CR2-F1",
+    "P1-F-w34-F1"
    ],
    "brief": "docs/briefs/wave34-F.md",
    "rollup": {
-    "done": 6
+    "done": 7
    },
    "done_share": 100
   },
@@ -14428,11 +14538,13 @@
     "P1-G-w10-F1",
     "P1-G-w10-F5",
     "P1-A-w17-F2",
-    "P1-A-w17-F4"
+    "P1-A-w17-F4",
+    "P1-G-w11-F2",
+    "P1-G-w11-F3"
    ],
    "brief": "docs/briefs/wave11-G.md",
    "rollup": {
-    "done": 5
+    "done": 7
    },
    "done_share": 100
   },
@@ -14512,11 +14624,13 @@
     "P1-D-04-F2-F2",
     "P1-C-10-F6-F1",
     "P1-D-09-F4-F3",
-    "P1-F-w14-F3"
+    "P1-F-w14-F3",
+    "P1-F-w15-F2",
+    "P1-F-w15-F4"
    ],
    "brief": "docs/briefs/wave15-F.md",
    "rollup": {
-    "done": 4
+    "done": 6
    },
    "done_share": 100
   },
@@ -14545,14 +14659,15 @@
     "P1-F-w11-F3",
     "P1-B-w9-F1",
     "P1-C-09-F1",
-    "P1-C-10-F1"
+    "P1-C-10-F1",
+    "P1-F-w12-F4"
    ],
    "brief": "docs/briefs/wave12-F.md",
    "rollup": {
-    "done": 4,
+    "done": 5,
     "blocked": 1
    },
-   "done_share": 80
+   "done_share": 83.3
   },
   {
    "id": "wave:11-D",
@@ -14610,11 +14725,13 @@
     "P2-H-08-F17",
     "P1-F-w13-F3",
     "P1-F-w13-F5",
+    "P1-F-w14-F1",
+    "P1-F-w14-F2",
     "P1-F-w14-F4"
    ],
    "brief": "docs/briefs/wave14-F.md",
    "rollup": {
-    "done": 5
+    "done": 7
    },
    "done_share": 100
   },
@@ -14626,13 +14743,17 @@
     "P1-B-w9-F2-F1",
     "P1-A-w10-F1",
     "P1-D-09-F4-F3",
-    "P1-F-w14-F2"
+    "P1-F-w14-F2",
+    "P1-A-w12-F2",
+    "P1-A-w12-F3",
+    "P1-A-w12-F4"
    ],
    "brief": "docs/briefs/wave12-A.md",
    "rollup": {
-    "done": 4
+    "done": 6,
+    "blocked": 1
    },
-   "done_share": 100
+   "done_share": 85.7
   },
   {
    "id": "wave:46-D",
@@ -14684,14 +14805,18 @@
     "P1-A-w11-F5",
     "P1-A-w14-F5",
     "P1-F-w23-F4",
-    "P1-E2-w15-F1"
+    "P1-E2-w15-F1",
+    "P1-A-w15-F1",
+    "P1-A-w15-F2",
+    "P1-A-w15-F3",
+    "P1-A-w15-F4"
    ],
    "brief": "docs/briefs/wave15-A.md",
    "rollup": {
     "doing": 1,
-    "done": 3
+    "done": 7
    },
-   "done_share": 75
+   "done_share": 87.5
   },
   {
    "id": "wave:28-C",
@@ -14751,11 +14876,12 @@
    "members": [
     "P1-F-w16-F1",
     "P1-F-w18-F2",
-    "P2-H-08-F12-F1-F3"
+    "P2-H-08-F12-F1-F3",
+    "P1-F-w19-F3"
    ],
    "brief": "docs/briefs/wave19-F.md",
    "rollup": {
-    "done": 3
+    "done": 4
    },
    "done_share": 100
   },
@@ -14768,14 +14894,16 @@
     "P1-A-w27-F3",
     "P1-C-w20-F4",
     "P1-A-w28-F2",
-    "P1-E1-w23-F9"
+    "P1-E1-w23-F9",
+    "P1-E1-w24-F5"
    ],
    "brief": "docs/briefs/wave24-E1.md",
    "rollup": {
     "done": 4,
-    "blocked": 1
+    "blocked": 1,
+    "doing": 1
    },
-   "done_share": 80
+   "done_share": 66.7
   },
   {
    "id": "wave:14-A",
@@ -14786,14 +14914,20 @@
     "P1-A-w13-F2",
     "P1-D-09-F4-F5-F1-F1",
     "P1-G-w7-F2-F1",
-    "P1-G-w8-F4"
+    "P1-G-w8-F4",
+    "P1-A-w14-F1",
+    "P1-A-w14-F2",
+    "P1-A-w14-F3",
+    "P1-A-w14-F4",
+    "P1-A-w14-F5"
    ],
    "brief": "docs/briefs/wave14-A.md",
    "rollup": {
-    "blocked": 1,
-    "done": 4
+    "blocked": 2,
+    "done": 7,
+    "todo": 1
    },
-   "done_share": 80
+   "done_share": 70
   },
   {
    "id": "wave:17-F",
@@ -14818,11 +14952,15 @@
     "P1-C-w15-F2",
     "P1-F-w20-F4",
     "P1-F-w20-F5",
-    "P1-F-w21-F4"
+    "P1-F-w21-F1",
+    "P1-F-w21-F2",
+    "P1-F-w21-F3",
+    "P1-F-w21-F4",
+    "P1-F-w21-F5"
    ],
    "brief": "docs/briefs/wave21-F.md",
    "rollup": {
-    "done": 5
+    "done": 9
    },
    "done_share": 100
   },
@@ -14898,14 +15036,18 @@
     "P1-B-w15-F3",
     "P1-G-w10-F1",
     "P1-C-w18-F1",
-    "P1-C-w18-F6"
+    "P1-C-w18-F4",
+    "P1-C-w18-F5",
+    "P1-C-w18-F6",
+    "P1-C-w18-F7",
+    "P1-C-w18-F8"
    ],
    "brief": "docs/briefs/wave18-C.md",
    "rollup": {
-    "done": 10,
+    "done": 14,
     "doing": 1
    },
-   "done_share": 90.9
+   "done_share": 93.3
   },
   {
    "id": "wave:16-E2",
@@ -14914,11 +15056,12 @@
    "members": [
     "P1-E1-w14-F4",
     "P1-E2-w15-F4",
+    "P1-E2-w16-F2",
     "P1-A-w15-F4"
    ],
    "brief": "docs/briefs/wave16-E2.md",
    "rollup": {
-    "done": 3
+    "done": 4
    },
    "done_share": 100
   },
@@ -14930,11 +15073,15 @@
     "P1-B-w14-F2",
     "P1-E1-w15-F1",
     "P1-G-w9-F1",
-    "P1-G-w9-F2"
+    "P1-G-w9-F2",
+    "P1-E1-w16-F1",
+    "P1-E1-w16-F2",
+    "P1-E1-w16-F3",
+    "P1-E1-w16-F4"
    ],
    "brief": "docs/briefs/wave16-E1.md",
    "rollup": {
-    "done": 4
+    "done": 8
    },
    "done_share": 100
   },
@@ -14974,11 +15121,13 @@
     "P1-G-w10-F3",
     "P1-C-w18-F5",
     "P1-F-w27-F2",
+    "P1-F-w27-F3",
+    "P1-F-w27-F5",
     "P2-H-08-F28"
    ],
    "brief": "docs/briefs/wave27-F.md",
    "rollup": {
-    "done": 5
+    "done": 7
    },
    "done_share": 100
   },
@@ -15006,11 +15155,12 @@
    "title": "wave 19 E2",
    "members": [
     "P1-E2-w18-F2",
-    "P1-E1-w17-F1"
+    "P1-E1-w17-F1",
+    "P1-E2-w19-F3"
    ],
    "brief": "docs/briefs/wave19-E2.md",
    "rollup": {
-    "done": 2
+    "done": 3
    },
    "done_share": 100
   },
@@ -15022,11 +15172,13 @@
     "P1-F-w26-F1",
     "P1-F-w26-F3",
     "P1-C-w18-F1",
-    "P1-C-w18-F5"
+    "P1-C-w18-F5",
+    "P1-F-w28-F3",
+    "P1-F-w28-F4"
    ],
    "brief": "docs/briefs/wave28-F.md",
    "rollup": {
-    "done": 4
+    "done": 6
    },
    "done_share": 100
   },
@@ -15137,11 +15289,12 @@
     "P1-E2-w19-F3",
     "P1-E2-w24-F1",
     "P1-F-w31-CR1",
-    "P1-G-w14-F6"
+    "P1-G-w14-F6",
+    "P1-E2-w25-F1"
    ],
    "brief": "docs/briefs/wave25-E2.md",
    "rollup": {
-    "done": 4
+    "done": 5
    },
    "done_share": 100
   },
@@ -15168,11 +15321,13 @@
     "P1-F-w28-F1",
     "P1-F-w28-F2",
     "P1-F-w31-F1",
-    "P1-D-01-F4-F1-F4"
+    "P1-D-01-F4-F1-F4",
+    "P1-F-w32-F1",
+    "P1-F-w32-F2"
    ],
    "brief": "docs/briefs/wave32-F.md",
    "rollup": {
-    "done": 4
+    "done": 6
    },
    "done_share": 100
   },
@@ -15199,11 +15354,12 @@
     "P1-F-w28-F1",
     "P1-B-w17-F1",
     "P1-E2-w24-CR2",
-    "P1-E2-w24-CR4"
+    "P1-E2-w24-CR4",
+    "P1-F-w31-F1"
    ],
    "brief": "docs/briefs/wave31-F.md",
    "rollup": {
-    "done": 4
+    "done": 5
    },
    "done_share": 100
   },
@@ -15483,13 +15639,20 @@
     "P1-E1-w24-F3",
     "P1-F-w34-CR1",
     "P1-D-w27-F1",
-    "P1-D-w27-CR2"
+    "P1-D-w27-CR2",
+    "P1-E1-w25-F1",
+    "P1-E1-w25-F2",
+    "P1-E1-w25-F3",
+    "P1-E1-w25-F4",
+    "P1-E1-w25-F6"
    ],
    "brief": "docs/briefs/wave25-E1.md",
    "rollup": {
-    "done": 5
+    "done": 8,
+    "doing": 1,
+    "todo": 1
    },
-   "done_share": 100
+   "done_share": 80
   },
   {
    "id": "wave:28-E2",
@@ -15513,11 +15676,13 @@
    "members": [
     "P1-E1-w24-F1",
     "MOCKS-w28-F1",
-    "P1-E2-w27-F2"
+    "P1-E2-w27-F2",
+    "MOCKS-w30-F1",
+    "MOCKS-w30-F2"
    ],
    "brief": "docs/briefs/wave30-H.md",
    "rollup": {
-    "done": 3
+    "done": 5
    },
    "done_share": 100
   },
@@ -15527,11 +15692,12 @@
    "title": "wave 35 F",
    "members": [
     "P1-F-w34-F1",
-    "P2-H-08-F38"
+    "P2-H-08-F38",
+    "P1-F-w35-F1"
    ],
    "brief": "docs/briefs/wave35-F.md",
    "rollup": {
-    "done": 2
+    "done": 3
    },
    "done_share": 100
   },
@@ -15692,11 +15858,15 @@
     "P1-E1-w28-F3",
     "P1-D-w37-F1",
     "P1-E2-w30-CR1",
-    "P1-E2-w30-CR2"
+    "P1-E2-w30-CR2",
+    "P1-E1-w29-F2",
+    "P1-E1-w29-F4",
+    "P1-E1-w29-F1",
+    "P1-E1-w29-F3"
    ],
    "brief": "docs/briefs/wave29-E1.md",
    "rollup": {
-    "done": 5
+    "done": 9
    },
    "done_share": 100
   },
@@ -15800,11 +15970,14 @@
     "P1-E1-w27-F1",
     "P1-F-w38-F2",
     "P1-B-w22-CR4",
-    "P1-E2-w30-F1"
+    "P1-E2-w30-F1",
+    "MOCKS-w34-F1",
+    "MOCKS-w34-F2",
+    "MOCKS-w34-F3"
    ],
    "brief": "docs/briefs/wave34-H.md",
    "rollup": {
-    "done": 5
+    "done": 8
    },
    "done_share": 100
   },
@@ -15972,12 +16145,13 @@
    "members": [
     "P1-E2-w32-CR1",
     "P1-E2-w32-CR2",
+    "P1-H-w41-CR1",
     "P2-H-08-F58",
     "P1-E1-w32-F1"
    ],
    "brief": "docs/briefs/wave41-H.md",
    "rollup": {
-    "done": 4
+    "done": 5
    },
    "done_share": 100
   },
@@ -16084,11 +16258,12 @@
     "P1-B-w26-CR1",
     "P1-B-w26-CR2",
     "P1-C-w33-F1",
+    "P1-B-w27-CR8",
     "P1-B-w27-CR9"
    ],
    "brief": "docs/briefs/wave27-B.md",
    "rollup": {
-    "done": 7
+    "done": 8
    },
    "done_share": 100
   },
@@ -16271,27 +16446,35 @@
    "members": [
     "P1-E1-w31-CR1",
     "P1-E2-w34-F2",
-    "MOCKS-w43-CR1"
+    "MOCKS-w43-CR1",
+    "P1-E2-w35-CR1",
+    "P1-E2-w35-CR2",
+    "P1-E2-w35-CR3"
    ],
    "brief": "docs/briefs/wave35-E2.md",
    "rollup": {
-    "done": 2,
+    "done": 5,
     "todo": 1
    },
-   "done_share": 66.7
+   "done_share": 83.3
   },
   {
    "id": "wave:43-H",
    "kind": "wave",
    "title": "wave 43 H",
    "members": [
-    "P1-E2-w34-CR2"
+    "P1-E2-w34-CR2",
+    "MOCKS-w43-F1",
+    "MOCKS-w43-CR1",
+    "MOCKS-w43-CR2",
+    "MOCKS-w43-CR3"
    ],
    "brief": "docs/briefs/wave43-H.md",
    "rollup": {
-    "done": 1
+    "done": 3,
+    "todo": 2
    },
-   "done_share": 100
+   "done_share": 60
   },
   {
    "id": "wave:44-H",
@@ -16299,11 +16482,12 @@
    "title": "wave 44 H",
    "members": [
     "MOCKS-w43-CR1",
-    "P1-E2-w35-CR2"
+    "P1-E2-w35-CR2",
+    "MOCKS-w44-CR1"
    ],
    "brief": "docs/briefs/wave44-H.md",
    "rollup": {
-    "done": 2
+    "done": 3
    },
    "done_share": 100
   },
@@ -16661,13 +16845,15 @@
    "title": "wave 48 C",
    "members": [
     "L468-F3",
-    "L468-F4"
+    "L468-F4",
+    "P1-C-w48-CR3"
    ],
    "brief": "docs/briefs/wave48-C.md",
    "rollup": {
-    "review": 2
+    "review": 2,
+    "done": 1
    },
-   "done_share": 0
+   "done_share": 33.3
   },
   {
    "id": "wave:52-D",
@@ -16911,11 +17097,13 @@
     "P0-G-01-ios-F1",
     "P0-G-01-ios-F2",
     "P0-G-01-ios-F3",
-    "P1-E1-w48-F1"
+    "P1-E1-w48-F1",
+    "P1-E1-w39-F6"
    ],
    "brief": "docs/briefs/wave39-E1.md",
    "rollup": {
-    "review": 12
+    "review": 12,
+    "todo": 1
    },
    "done_share": 0
   },
@@ -16933,14 +17121,16 @@
     "P1-B-w32-6",
     "P1-B-w32-7",
     "P1-B-w32-8",
-    "P1-B-w32-9"
+    "P1-B-w32-9",
+    "P1-B-w32-F4"
    ],
    "brief": "docs/briefs/wave32-B.md",
    "rollup": {
     "doing": 1,
-    "done": 9
+    "done": 9,
+    "todo": 1
    },
-   "done_share": 90
+   "done_share": 81.8
   },
   {
    "id": "wave:25-G",
@@ -17304,13 +17494,19 @@
    "members": [
     "L474-F1-F2",
     "L475-F1-F1-F1",
+    "P1-H-w53-F1",
+    "P1-H-w53-F2",
+    "P1-H-w53-F3",
+    "P1-H-w53-F4",
     "L483"
    ],
    "brief": "docs/briefs/wave53-H.md",
    "rollup": {
-    "done": 3
+    "done": 5,
+    "doing": 1,
+    "todo": 1
    },
-   "done_share": 100
+   "done_share": 71.4
   },
   {
    "id": "wave:69-A",
