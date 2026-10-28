@@ -212,7 +212,7 @@ Every scene has a spoken summary and a list equivalent (the "tree" of the world 
 
 1. A reviewer names the focal subject within two seconds.
 2. The things that need the viewer are countable without reading, and there are at most three.
-3. Every place on screen has a landmark, a name and a ring; no bare polygons.
+3. Every place on screen has a landmark and a ring; its name appears whenever it is legible at that depth (far or faded places show landmark and ring only); no bare polygons.
 4. Every item with a product shows the product; expected and actual are visually comparable.
 5. Every decision shows its consequence drawn, not described only.
 6. No section rail, no column-of-cards home, no table as a default answer.
