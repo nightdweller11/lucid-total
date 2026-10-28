@@ -208,6 +208,17 @@ Every scene has a spoken summary and a list equivalent (the "tree" of the world 
 - `docs/04-mocks` v0.2 is built from this doctrine; v0.1 is archived for comparison.
 - `docs/11` adds the scene grammar, the Horizon and the Fork to Phase 1 and Refocus to Phase 2; `docs/12` records T25.
 
+## 14. Acceptance for any screen or scene
+
+1. A reviewer names the focal subject within two seconds.
+2. The things that need the viewer are countable without reading, and there are at most three.
+3. Every place on screen has a landmark, a name and a ring; no bare polygons.
+4. Every item with a product shows the product; expected and actual are visually comparable.
+5. Every decision shows its consequence drawn, not described only.
+6. No section rail, no column-of-cards home, no table as a default answer.
+7. The attention budget passes the validator in all three themes, both directions, desktop and phone.
+8. A person can get the same scene by asking for it in Talk, and the AI can produce every scene a person can open (parity, `docs/00` principle 2).
+
 ## 15. What the research added (2026-10-28, `docs/research/interface-inspiration.md`)
 
 - **Two kinds of scene.** Frequent scenes (the Horizon, a place, the product view, the Fork, a briefing) are **scene tools**: code owns the layout and the AI fills the slots. Composed scenes (an answer to a question, an aspect variant, an infographic) are a flat, schema-validated list of catalogue components. One repair attempt on a validation failure, then a fallback to the nearest scene tool. AI-written code runs only in a sandbox and carries no action buttons until it is installed as a catalogue component (§8.4).
@@ -220,14 +231,3 @@ Every scene has a spoken summary and a list equivalent (the "tree" of the world 
 - **Agents are visible and quiet**: they say they are agents, acknowledge at once, have four states (idle · working · waiting · stopped), show an artefact to review rather than a log, stop when told, and a person stays accountable.
 - **At most two disclosure levels** in one scene; untouched things decay out of sight by default.
 - **Traps named**: the list as home; taxonomy on every element at every zoom; filters and forms as navigation; uniform rectangles; decisions buried in comments and awareness as a feed.
-
-## 14. Acceptance for any screen or scene
-
-1. A reviewer names the focal subject within two seconds.
-2. The things that need the viewer are countable without reading, and there are at most three.
-3. Every place on screen has a landmark, a name and a ring; no bare polygons.
-4. Every item with a product shows the product; expected and actual are visually comparable.
-5. Every decision shows its consequence drawn, not described only.
-6. No section rail, no column-of-cards home, no table as a default answer.
-7. The attention budget passes the validator in all three themes, both directions, desktop and phone.
-8. A person can get the same scene by asking for it in Talk, and the AI can produce every scene a person can open (parity, `docs/00` principle 2).
