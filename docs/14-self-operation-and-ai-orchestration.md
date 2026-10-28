@@ -53,7 +53,7 @@ Signals carry no item bodies, comment text, prompts or secrets (`docs/05` §9). 
 | Signal | Source | Default threshold |
 |---|---|---|
 | Availability | `/readyz` per role every 30 s; Railway deploy and crash events | failing after 3 misses |
-| Latency p95 | action layer, retrieval, scene, first token (`docs/09` §6) | 110 % of budget for 15 min |
+| Latency p95 | action layer, retrieval, scene, first token (`docs/09` §7) | 110 % of budget for 15 min |
 | Error rate | faults (not refusals) per action family | 2 % over 10 min |
 | Queue age | outbox oldest unclaimed, parked rows, scheduler lag | p95 lag > 5 s; any parked row |
 | Cost per day | gateway usage by model class, agent, process | 80 % of the daily share of the monthly budget |
@@ -128,7 +128,7 @@ Repair restores; improvement raises the bar. Inputs are measured: lagging eval c
 
 **The improvement backlog** is ordinary `proposal` items targeting a process, playbook, prompt, scene composition, setting or subsystem, each with its triggering signal, expected gain, cost and measurement plan, ranked by gain × reach ÷ cost (weights are settings). A weekly improvement review (composed at `run`) puts the top proposals before the lead; material ones reach the owner one at a time.
 
-**Experiments.** Prompt versions and scene compositions run as A/B variants (by run for agents, by stable viewer hash for scenes) with sample size fixed in the proposal, judged on the held-out set and on live acceptance, correction and friction; promotion only through the `docs/09` §5 gates; the result becomes a `lesson`.
+**Experiments.** Prompt versions and scene compositions run as A/B variants (by run for agents, by stable viewer hash for scenes) with sample size fixed in the proposal, judged on the held-out set and on live acceptance, correction and friction; promotion only through the `docs/09` §6 gates; the result becomes a `lesson`.
 
 **The quality page is a scene** composed by the Stage: quality with cost and latency per playbook and class (L495), the trust map, open repairs, and **where it works well**, as prominent as where it breaks: streaks ("briefings: 14 days without a correction"), classes running clean, money saved by routing down. Strengths are the evidence that raises a level.
 
@@ -163,7 +163,7 @@ Failed runs retry with backoff (3 by default per kind), then `parked`, visible i
 
 ### 6.4 Runs as records
 
-`runs` generalises `agent_runs` (`docs/05` §4.6): inputs by pointer, model class, tool calls with previews and outcomes, outputs, validator results, evidence, cost, latency, prompt and scene versions; replayable without side effects (`docs/09` §5); expected (the owner item's acceptance) beside actual. Reporting stays quiet: working lines at start, meaningful change and finish (`docs/08` §5.3); healthy monitors post nothing.
+`runs` generalises `agent_runs` (`docs/05` §4.6): inputs by pointer, model class, tool calls with previews and outcomes, outputs, validator results, evidence, cost, latency, prompt and scene versions; replayable without side effects (`docs/09` §6); expected (the owner item's acceptance) beside actual. Reporting stays quiet: working lines at start, meaningful change and finish (`docs/08` §5.3); healthy monitors post nothing.
 
 ### 6.5 Oversight: validate, confirm, follow up, maintain
 
@@ -271,7 +271,7 @@ A `task` with a **build profile** (target repository: Lucid Total, Lucid Chat or
 9. **Build queue.** `ready` tasks with a build profile queue by priority; the coordinator pulls them as worker slots free.
 10. **Brief generation.** Lucid Total generates the brief with its context pack (§9.2); the lead reviews it and its hash is recorded before launch.
 11. **Session.** One worktree per task; one worker service account per slot, rights limited to its item; working lines and evidence as in steps 3–4.
-12. **Review.** A second session on a different class reviews against brief and evidence (`docs/09` §4); findings become comments or `spawned_by` follow-ups.
+12. **Review.** A second session on a different class reviews against brief and evidence (`docs/09` §5); findings become comments or `spawned_by` follow-ups.
 13. **Merge and deploy.** The lead merges (merges stay `observe` for the system, `docs/02` §2.7); deploys follow §4.1's staged path.
 14. **Confirm.** Before `done`, the expected outcome is checked after deploy: the signal moved, the component validates, the connector receives events.
 
