@@ -9,7 +9,7 @@
 3. [`docs/01-use-cases.md`](docs/01-use-cases.md) — the use-case catalogue the product must serve.
 4. [`docs/02-product-plan.md`](docs/02-product-plan.md) — the company model, views, decisions and propagation, the embedded AI, notifications, secrets, integrations, rights, phases.
 5. [`docs/03-map-and-views.md`](docs/03-map-and-views.md) — the world: places, sub-maps, buildings, zoom, perspective, rendering notes.
-6. [`docs/04-mocks/`](docs/04-mocks/README.md) — HTML mocks v0.2 in the Lucid Glass themes (open `index.html` in a browser); v0.1 archived in `v0.1/`.
+6. [`docs/04-mocks/`](docs/04-mocks/README.md) — HTML mocks v0.2 in the Lucid Glass themes, online at https://totalmocks.belucid.chat (`infra/mocks-site/`); the map study in `map-study/`; v0.1 archived in `v0.1/`.
 7. [`docs/05-architecture.md`](docs/05-architecture.md) · [`docs/06-ai-architecture.md`](docs/06-ai-architecture.md) · [`docs/07-security-and-secrets.md`](docs/07-security-and-secrets.md) · [`docs/08-integrations-and-api.md`](docs/08-integrations-and-api.md).
 8. [`docs/14-self-operation-and-ai-orchestration.md`](docs/14-self-operation-and-ai-orchestration.md) — the operating-system mechanisms: self-observation, self-repair, self-improvement, AI process orchestration, model tiers (Fable as a configured decision), autonomy maturity, Claude Code integration. [`docs/15-presence-and-channels.md`](docs/15-presence-and-channels.md) — Lucid Chat, email, Slack and other messaging, voice.
 9. [`docs/09-testing-and-quality.md`](docs/09-testing-and-quality.md) · [`docs/10-migration-and-operating-model.md`](docs/10-migration-and-operating-model.md) · [`docs/11-roadmap.md`](docs/11-roadmap.md) · [`docs/12-decision-log.md`](docs/12-decision-log.md).
