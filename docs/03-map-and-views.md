@@ -89,7 +89,7 @@ The phone follows `docs/13` §10 and never shrinks the desktop world:
 Heat carries no count on the terrain (`docs/13` §3); the spoken summary and the list equivalent state "moved today" in words for screen-reader users.
 
 - Every cell, cluster, flag and road is a focusable element with a spoken name ("Engineering, 48 items, 6 blocked, 2 decisions waiting") and a keyboard action; the map has a **list equivalent** (the same hierarchy as a tree) one toggle away, used by screen readers and by anyone who prefers it.
-- Colour is never the only signal: state uses glyphs and shapes (barrier for blocked, flag for decision, clock for due, cloud for risk); heat is accompanied by a "moved today" count in labels.
+- Colour is never the only signal: state uses glyphs and shapes (barrier for blocked, flag for decision, clock for due, cloud for risk); heat is accompanied by a "moved today" statement in the spoken summary, the list equivalent and the legend chip, not by a count on the terrain.
 - RTL: the state axis inside cells runs right to left; chevrons, roads' arrowheads and the breadcrumb mirror; glyphs that are not directional do not.
 - Reduced motion: no drift, crossfades instead of zoom animation, static heat.
 - High contrast and reduce transparency: cells take the opaque fills from the Lucid tokens, borders become visible edges.
