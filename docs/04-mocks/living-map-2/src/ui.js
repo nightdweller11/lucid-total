@@ -43,7 +43,7 @@ LM.boot = function boot() {
     <aside class="feed gl l2" id="panel" aria-label="What needs attention"></aside>
     <div class="key gl l2" id="key" data-open="1"></div>
     <div class="tip gl l3" id="tip" hidden></div>
-    <div class="zoomc gl l2" id="zoomc"><button class="ic" id="zin" title="Zoom in (+)">${I('plus')}</button><span class="depth" id="depth">Sky</span><button class="ic" id="zout" title="Zoom out (−)">${I('minus')}</button><button class="ic" id="zfit" title="Frame the whole company (0)">${I('scan')}</button></div>
+    <div class="zoomc gl l2" id="zoomc"><button class="ic" id="zin" title="Zoom in (+)">${I('plus')}</button><button class="ic" id="zout" title="Zoom out (−)">${I('minus')}</button><div class="lvls" id="depth" role="group" aria-label="Level">${[[0, 'Land', 'map'], [1, 'Area', 'map-pin'], [2, 'Task', 'square-check-big']].map(([l, n, ic]) => `<button class="lvl" data-level="${l}" title="${n}">${I(ic)}<span>${n}</span></button>`).join('')}</div><button class="ic" id="zfit" title="Frame the whole company (0)">${I('scan')}</button></div>
     <div class="ledger" id="ledger"></div>
     <div class="talk" role="search" aria-label="Talk to Lucid">${AI()}<input id="talk" placeholder="Ask, or tell Lucid what to show" autocomplete="off"><span class="tb slash" title="Commands">/</span><span class="tb" title="Hold to talk">${I('mic')}</span></div>
     <div class="rail gl l2" id="rail" hidden><button class="ic" id="back" title="Previous beat">${I('skip-back')}</button><button class="ic" id="play" title="Play">${I('play')}</button><button class="ic" id="step" title="Next beat">${I('skip-forward')}</button><button class="pillx" id="speed" title="Speed">${I('gauge')}<span></span></button><div class="date" id="date"></div><canvas id="railc"></canvas><button class="pillx" id="tonow" title="Back to now">${I('sun-medium')}<span>Now</span></button><button class="ic" id="railx" title="Close the timeline">${I('x')}</button></div>
@@ -127,7 +127,7 @@ function loop(now) {
     if (p >= 1) { LM.flight = null; writeUrl(); }
     LM.needsFrame = true;
   }
-  if (LM.needsFrame) { LM.needsFrame = false; LM.draw(now); drawRail(); updateCrumbs(); LM.renderPanel(); LM.renderKey(); $('#depth').textContent = LM.levelName(LM.lod); }
+  if (LM.needsFrame) { LM.needsFrame = false; LM.draw(now); drawRail(); updateCrumbs(); LM.renderPanel(); LM.renderKey(); for (const b of document.querySelectorAll('#depth .lvl')) b.classList.toggle('on', Number(b.dataset.level) === LM.lod); }
   LM.updateCards(now);
   if (LM.toastUntil && now > LM.toastUntil) { $('#toast').classList.remove('on'); LM.toastUntil = 0; }
   if (LM.ledgerUntil && now > LM.ledgerUntil) { $('#ledger').classList.remove('on'); LM.ledgerUntil = 0; }
@@ -153,8 +153,9 @@ function buildChrome() {
   $('#tonow').onclick = () => { togglePlay(false); setTime(LM.ds.now); say('Now.'); };
   $('#railx').onclick = () => toggleTime(false);
   $('#dim').onclick = () => select(null);
-  $('#zin').onclick = () => zoomStep(1);
-  $('#zout').onclick = () => zoomStep(-1);
+  $('#zin').onclick = () => zoomAt(LM.W / 2, LM.H / 2, 1.45, true);
+  $('#zout').onclick = () => zoomAt(LM.W / 2, LM.H / 2, 1 / 1.45, true);
+  for (const b of document.querySelectorAll('#depth .lvl')) b.onclick = () => goLevel(Number(b.dataset.level));
   $('#zfit').onclick = () => { select(null); LM.flyTo(null, null, LM.fitAt(LM.view.t).k); };
   const talk = $('#talk');
   talk.addEventListener('keydown', (e) => { if (e.key === 'Enter') { LM.command(talk.value); talk.value = ''; } if (e.key === 'Escape') talk.blur(); });
@@ -165,7 +166,7 @@ function buildChrome() {
     else if (e.key === 'Escape') { clearTrace(); select(null); setProject(null); $('#list').hidden = true; $('#sheet').hidden = true; $('#pop').hidden = true; }
     else if (e.key >= '1' && e.key <= '4') setLens(LENSES[Number(e.key) - 1][0]);
     else if (e.key === '/') { e.preventDefault(); talk.focus(); }
-    else if (e.key === '+' || e.key === '=') zoomStep(1); else if (e.key === '-' || e.key === '_') zoomStep(-1); else if (e.key === '0') LM.flyTo(null, null, LM.fitAt(LM.view.t).k);
+    else if (e.key === '+' || e.key === '=') zoomAt(LM.W / 2, LM.H / 2, 1.45, true); else if (e.key === '-' || e.key === '_') zoomAt(LM.W / 2, LM.H / 2, 1 / 1.45, true); else if (e.key === '0') LM.flyTo(null, null, LM.fitAt(LM.view.t).k);
     else if (e.key.toLowerCase() === 'f') LM.togglePanel();
     else if (e.key.toLowerCase() === 't') toggleTime();
     else if (e.key.toLowerCase() === 's') setSince(LM.view.sinceOn ? null : LM.view.t - LM.ds.win.review);
@@ -433,6 +434,15 @@ function zoomStep(dir) {
   }
 }
 LM.zoomStep = zoomStep;
+/** The level segment: jump to a level, into the place under the camera. */
+function goLevel(l) {
+  const W = LM.where();
+  if (l === 0) { select(null); LM.flyTo(null, null); return; }
+  if (l === 1) { const L = W.land || [...LM.vis.lands.values()].sort((a, b) => Math.hypot(a.cx - LM.cam.x, a.cy - LM.cam.y) - Math.hypot(b.cx - LM.cam.x, b.cy - LM.cam.y))[0]; if (L) flyToLand(L.key); return; }
+  const L = W.land; const D = W.dist || (L && [...LM.vis.districts.values()].filter((x) => x.land === L.key && x.built).sort((a, b) => (b.asks * 4 + b.blocked * 3 + b.n * 0.05) - (a.asks * 4 + a.blocked * 3 + a.n * 0.05))[0]) || [...LM.vis.districts.values()].filter((x) => x.built).sort((a, b) => (b.asks * 4 + b.blocked * 3) - (a.asks * 4 + a.blocked * 3) || b.n - a.n)[0];
+  if (D) flyToDistrict(D.key);
+}
+LM.goLevel = goLevel;
 function click(sx, sy) {
   const h = LM.hit(sx, sy);
   LM.renderTip(null);
@@ -791,6 +801,7 @@ LM.command = function command(text) {
   if (dm && !sm) { const t = dm[1] ? Date.parse(dm[1] + 'T12:00:00') : Date.parse(`${dm[2]} ${dm[3]} ${dm[4] || new Date(ds.now).getFullYear()} 12:00`); if (!isNaN(t)) { if (!LM.view.time) toggleTime(true); setTime(t); said.push(LM.fmtDate(t)); } }
   if (has(/\b(play|run|animate)\b/) && !has(/from here/)) { togglePlay(true); said.push('playing'); }
   if (has(/\bzoom in\b|\bcloser\b|\bdive\b/)) { zoomStep(1); said.push('one level in'); } if (has(/\bzoom out\b|\bfarther\b|\bback out\b/)) { zoomStep(-1); said.push('one level out'); }
+  if (has(/\bland level\b|\barea level\b|\btask level\b/)) { goLevel(has(/\bland level\b/) ? 0 : has(/\barea level\b/) ? 1 : 2); said.push('the level'); }
   if (has(/\bisometric\b|\b3d\b|\btilt\b/)) { LM.view.iso = !has(/\boff\b|\bflat\b/); said.push(LM.view.iso ? 'the task level tilts in' : 'flat'); } else if (has(/\bflat\b/)) { LM.view.iso = false; said.push('flat'); }
   const tm = /\b(trace|cause|caused|effects? of)\b\s*(.*)$/.exec(q);
   if (tm) { const key = (tm[2] || '').replace(/^(of|the)\s+/, '').trim(); const d = ds.decisions.find((x) => x.id.toLowerCase() === key) || ds.decisions.filter((x) => key && x.n.toLowerCase().includes(key)).sort((a, b) => b.lin.size - a.lin.size)[0]; if (d) { setTrace('decision', d); const c = LM.worlds[LM.view.lens].claims.find((cc) => cc.dec === d); if (c) { const [x, y] = LM.hexXY(c.q, c.r); LM.flyTo(x, y, Math.max(LM.cam.k, 16)); } said.push(`tracing ${LM.esc(d.n.replace(/\*\*/g, ''))}`); } else if (key) said.push(`no decision matches "${LM.esc(key)}"`); }

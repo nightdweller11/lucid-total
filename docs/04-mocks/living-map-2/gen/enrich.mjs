@@ -43,6 +43,19 @@ export function enrich(ds) {
     // the children live where their parent lives, in every lens, and move with it
     for (const k of kids) { const p = byId.get(k.parent); k.g = { ...p.g }; k.d = { ...p.d }; if (p.g0) k.g0 = { ...p.g0 }; if (p.d0) k.d0 = { ...p.d0 }; if (p.moves) k.moves = p.moves.map((/** @type {any} */ m) => ({ ...m })); }
   }
+  // ---- lucid: districts are the phases inside a workstream (not one per root row), so the area level has territories ----
+  if (ds.key === 'lucid') {
+    const PH = ds.lenses.proj.lands;
+    const dn = (/** @type {string} */ lens, /** @type {string} */ k) => (ds.lenses[lens].lands[k] ? ds.lenses[lens].lands[k].name : k);
+    for (const it of ds.items) it.d = { dept: `${it.g.dept}:${it.g.proj}`, proj: `${it.g.proj}:${it.g.dept}`, prod: `${it.g.prod}:${it.g.proj}`, people: `${it.g.people}:${it.g.proj}` };
+    ds.districts = { dept: {}, proj: {}, prod: {}, people: {} };
+    for (const it of ds.items) {
+      ds.districts.dept[it.d.dept] = { name: PH[it.g.proj] ? PH[it.g.proj].name : it.g.proj };
+      ds.districts.proj[it.d.proj] = { name: dn('dept', it.g.dept) };
+      ds.districts.prod[it.d.prod] = { name: PH[it.g.proj] ? PH[it.g.proj].name : it.g.proj };
+      ds.districts.people[it.d.people] = { name: PH[it.g.proj] ? PH[it.g.proj].name : it.g.proj };
+    }
+  }
   for (const it of ds.items) { it.children = []; }
   for (const it of ds.items) if (it.parent && byId.has(it.parent)) byId.get(it.parent).children.push(it.id);
 

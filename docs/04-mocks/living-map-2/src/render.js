@@ -231,7 +231,8 @@ LM.draw = function draw(now) {
   const askByItem = new Map(); for (const a of asksAt) { const p = LM.askPlace(ds, a, view.lens, view.t); if (p.it) { if (!askByItem.has(p.it.id)) askByItem.set(p.it.id, []); askByItem.get(p.it.id).push(a); } }
   LM.askByItem = askByItem;
   for (const S of [...vis.lands.values(), ...vis.districts.values()]) { S.asks = 0; S.proj = 0; }
-  for (const a of asksAt) { const p = LM.askPlace(ds, a, view.lens, view.t); const L = p.g && vis.lands.get(p.g), D = p.d && vis.districts.get(p.d); if (L) L.asks++; if (D) D.asks++; }
+  for (const S of [...vis.lands.values(), ...vis.districts.values()]) S.askList = [];
+  for (const a of asksAt) { const p = LM.askPlace(ds, a, view.lens, view.t); const L = p.g && vis.lands.get(p.g), D = p.d && vis.districts.get(p.d); if (L) { L.asks++; L.askList.push(a); } if (D) { D.asks++; D.askList.push(a); } }
   if (projSet) for (const v of vis.items) if (v.it && projSet.has(v.it.id)) { const L = vis.lands.get(v.g), D = vis.districts.get(v.d); if (L) L.proj++; if (D) D.proj++; }
   const where = LM.where(); LM.hereLand = where.land || null; LM.hereDist = where.dist || null;
 
@@ -384,7 +385,7 @@ LM.draw = function draw(now) {
       const hue = hueOf(v.g);
       if (v.square) { hexPath(ctx, sx, sy, k, 0.98); ctx.fillStyle = rgba(mix(hue, T.paper, 0.4), 0.1 * dimTrace); ctx.fill(); ctx.lineWidth = 1; ctx.strokeStyle = rgba(T.gold, 0.3 * dimTrace); ctx.stroke(); continue; }
       if (v.park) { hexPath(ctx, sx, sy, k, 0.92); ctx.fillStyle = rgba(T.lime, 0.1 * dimTrace); ctx.fill(); ctx.lineWidth = 1; ctx.strokeStyle = rgba(T.lime, 0.25 * dimTrace); ctx.stroke(); LM.icon(ctx, 'trees', sx, sy, Math.max(10, k * 0.3), rgba(T.lime, 0.55 * dimTrace), 1.8); continue; }
-      if (v.mon) { const sq = v.q + ',' + v.r; if (!squares.has(sq)) squares.set(sq, { x: sx, y: sy, n: 0, g: v.g, d: v.d, list: [], recent: 0 }); const S = squares.get(sq); S.n++; S.list.push(v); continue; }
+      if (v.mon) { const sq = v.q + ',' + v.r; if (!squares.has(sq)) squares.set(sq, { x: sx, y: sy, n: 0, g: v.g, d: v.d, list: [], recent: 0, key: sq }); const S = squares.get(sq); S.n++; S.list.push(v); continue; }
       if (v.lm) continue;
       const it = v.it, st = v.st;
       it.vh += (st.h - it.vh) * chase; if (Math.abs(st.h - it.vh) < 0.002) it.vh = st.h;
@@ -406,14 +407,7 @@ LM.draw = function draw(now) {
       LM.tilePos.set(it.id, { x: sx, y: sy - Hpx, dim, v, tv, fill });
     }
     for (const [bx, by, hard] of barriers) pillIcon(ctx, bx, by, Math.max(7, k * 0.1), 'construction', hard ? T.coral : T.amber, T, 0.95);
-    for (const S of squares.values()) {
-      const r = Math.max(6, Math.min(12, k * 0.1)); const dimS = traceLands && !traceLands.has(S.g) ? 0.3 : 1;
-      ctx.save(); ctx.globalAlpha = dimS;
-      ctx.lineWidth = Math.max(1, k * 0.02); ctx.strokeStyle = T.ink(0.6); ctx.beginPath(); ctx.moveTo(S.x, S.y); ctx.lineTo(S.x, S.y - r * 2.2); ctx.stroke();
-      rrect(ctx, S.x - r * 1.3, S.y - r * 3.6, r * 2.6, r * 1.6, r * 0.4); ctx.fillStyle = rgba(T.light ? [77, 95, 214] : T.rules, 0.9); ctx.fill();
-      ctx.font = `600 ${Math.max(8, r * 1.05)}px Figtree, system-ui, sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#fff'; ctx.fillText(String(S.n), S.x, S.y - r * 2.8);
-      ctx.restore(); S.r = r;
-    }
+    for (const S of squares.values()) { hexPath(ctx, S.x, S.y, k, 0.93); ctx.fillStyle = rgba(mix(T.rules, T.sea, 0.75), 0.9); ctx.fill(); ctx.lineWidth = 1.2; ctx.strokeStyle = rgba(T.rules, 0.7); ctx.stroke(); S.r = k * 0.5; }
   }
   LM.squares = squares;
   LM.lastFrame = now;
@@ -450,20 +444,57 @@ function drawMilestone(ctx, sx, sy, k, v, dim, T) {
 }
 LM.drawMilestone = drawMilestone;
 
-// ---- the overlays in the DOM: land summaries, district summaries and callouts, hexagonal tiles ----
+// ---- the overlays in the DOM: one place summary at every level, on the territory; hexagonal tiles; council tiles ----
 LM.overlays = new Map();
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 const Iw = (n) => LM.I(n);
 const segRingHtml = (size, segs, w) => { const r = size / 2 - w / 2 - 1, c = size / 2, n = segs.length, gap = 4; return `<svg class="ring" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" aria-hidden="true">${segs.map((st, i) => { const len = 100 / n - gap; return `<circle class="trk seg-${st}" cx="${c}" cy="${c}" r="${r}" stroke-width="${w}" pathLength="100" stroke-dasharray="${len.toFixed(2)} ${(100 - len).toFixed(2)}" stroke-dashoffset="${(-(i * 100 / n + gap / 2) + 25).toFixed(2)}" stroke-linecap="round"/>`; }).join('')}</svg>`; };
-/** The stacked bar of a place's tasks by state. */
 const stateBar = (S) => {
   const n = Math.max(1, S.built || 0); const c = { done: S.done || 0, review: 0, doing: 0, blocked: S.blocked || 0, todo: 0 };
   for (const v of S.items) if (v.it) { if (v.st.s === 'review') c.review++; else if (v.st.s === 'doing') c.doing++; else if (v.st.s === 'todo') c.todo++; }
   return `<span class="sbar" role="img" aria-label="${c.done} done, ${c.review} in review, ${c.doing} in progress, ${c.blocked} blocked, ${c.todo} planned">${['done', 'review', 'doing', 'blocked', 'todo'].map((s) => c[s] ? `<i class="s-${s}" style="width:${(c[s] / n * 100).toFixed(1)}%"></i>` : '').join('')}</span>`;
 };
-/** The attention chips of a place; each leads to what it counts. */
-const attnChips = (S, ch, projSet) => [S.asks ? `<span class="k rules" data-go="ask">${Iw('message-circle-question')}${S.asks} to decide</span>` : '', S.blocked ? `<span class="k block" data-go="blocked">${Iw('construction')}${S.blocked} blocked</span>` : '', S.stale && !S.blocked ? `<span class="k hold" data-go="blocked">${Iw('hourglass')}${S.stale} still</span>` : '', (S.review0 || 0) ? `<span class="k ai" data-go="review">${Iw('eye')}${S.review0} in review</span>` : '', ch ? `<span class="k heat" data-go="new">${Iw('history')}${ch.n} changed</span>` : '', projSet && S.proj ? `<span class="k gold">${Iw('kanban')}${S.proj} of the project</span>` : ''].filter(Boolean).join('');
+const attnChips = (S, ch, projSet) => [S.blocked ? `<span class="k block" data-go="blocked">${Iw('construction')}${S.blocked} blocked</span>` : '', S.stale && !S.blocked ? `<span class="k hold" data-go="blocked">${Iw('hourglass')}${S.stale} still</span>` : '', (S.review0 || 0) ? `<span class="k ai" data-go="review">${Iw('eye')}${S.review0} in review</span>` : '', ch ? `<span class="k heat" data-go="new">${Iw('history')}${ch.n} changed</span>` : '', projSet && S.proj ? `<span class="k gold">${Iw('kanban')}${S.proj} of the project</span>` : ''].filter(Boolean).join('');
+/** The open asks of a place, written out as flags (the first two; the rest counted). */
+const askFlags = (S, max) => { const list = (S.askList || []).slice().sort((a, b) => (b.to === 'owner') - (a.to === 'owner') || b.b - a.b); if (!list.length) return ''; const shown = list.slice(0, max); return `<div class="flags">${shown.map((a) => `<span class="fl${a.to === 'owner' ? ' you' : ''}" data-ask="${a.id}" title="${esc(a.n)}"><i></i><span class="ban">${Iw(a.kind === 'approve' ? 'badge-check' : a.kind === 'unblock' ? 'construction' : 'message-circle-question')}<span>${esc(a.n.length > 46 ? a.n.slice(0, 44) + '…' : a.n)}</span></span></span>`).join('')}${list.length > max ? `<span class="k rules" data-go="ask">${Iw('message-circle-question')}+${list.length - max} more to decide</span>` : ''}</div>`; };
+/** Who works in a place: up to three avatars, people before agents. */
+const crewOf = (S, max = 3) => { const m = new Map(); for (const v of S.items) if (v.it && !v.st.closed) { const w = LM.who(v.it); const c = m.get(w.name) || { w, n: 0 }; c.n++; m.set(w.name, c); } const list = [...m.values()].sort((a, b) => (a.w.agent - b.w.agent) || b.n - a.n); return list.length ? `<span class="avs">${list.slice(0, max).map(({ w, n }) => `<span class="av ${w.agent ? 'ag' : w.cls}" title="${esc(w.name)} · ${n} open">${w.agent ? Iw('bot') : w.initial}</span>`).join('')}${list.length > max ? `<span class="av more">+${list.length - max}</span>` : ''}</span>` : ''; };
 const healthOf = (S) => (S.asks || S.blocked >= 2 ? 'needs' : S.blocked || S.stale > (S.built || 1) * 0.3 ? 'watch' : (S.built - S.done - (S.dropped || 0)) === 0 ? 'done' : 'ok');
+/** The place summary, the same component at the land and the area level; `tier` xs | s | m | l. */
+function placeSummary(S, kind, tier, ctx) {
+  const { ds, lens, layer, stats, since, projSet, info, name } = ctx;
+  const pct = S.size ? S.doneSize / S.size : 0;
+  const open = (S.built || 0) - (S.done || 0) - (S.dropped || 0);
+  const pv = layer ? LM.placeValue(S, layer, stats, kind === 'land') : null;
+  const ch = since ? (kind === 'land' ? since.places : since.districts).get(S.key) : null;
+  const head = kind === 'land'
+    ? `<div class="lh"><span class="disc h-${info.hue}"><svg class="lm" viewBox="0 0 48 48"><path d="${LM.LANDMARKS[LM.lmKey(info.lm)].d}"/></svg></span><span class="nm">${esc(name)}</span></div>`
+    : `<div class="lh row"><span class="g f-${info.hue} sm">${Iw('map-pin')}</span><span class="nm">${esc(name)}</span></div>`;
+  if (tier === 'xs') return head + (kind === 'district' ? `<div class="ln"><b>${pv ? esc(pv.text) : Math.round(pct * 100) + ' %'}</b> · ${S.built}</div>` : '');
+  const bar = pv ? `<span class="sbar lay" style="--lv:${pv.v.toFixed(2)};--lc:${LM.hueVar(LM.layerHue(layer))}"><i></i></span>` : stateBar(S);
+  const line = `<div class="ln">${pv ? `<b>${esc(pv.text)}</b> ${LM.OV_INFO[layer][0].toLowerCase()} · ` : `<b>${Math.round(pct * 100)} %</b> done · `}${S.built} task${S.built === 1 ? '' : 's'} · ${open} open</div>`;
+  const flags = askFlags(S, tier === 'l' ? 3 : tier === 'm' ? 2 : 1);
+  const chips = attnChips(S, ch, projSet);
+  const crew = tier === 'l' || tier === 'm' ? crewOf(S) : '';
+  let tops = '';
+  if (kind === 'land' && tier === 'l' && ctx.tops && ctx.tops.length) tops = `<div class="tops">${ctx.tops.map((D) => `<span class="chip sm" data-dist="${D.key}">${Iw('map-pin')}<span>${esc(LM.shortName(LM.distName(ds, lens, D.key)).slice(0, 22))}</span><em>${Math.round((D.size ? D.doneSize / D.size : 0) * 100)} %</em></span>`).join('')}</div>`;
+  return `${head}${bar}${tier !== 's' ? line : `<div class="ln">${pv ? esc(pv.text) : Math.round(pct * 100) + ' %'} · ${S.built} · ${open} open</div>`}${flags}${chips || crew ? `<div class="at">${chips}${crew}</div>` : ''}${tops}`;
+}
+/** Push summaries apart so none overlaps; returns how far each moved. */
+function spread(items) {
+  for (let it = 0; it < 30; it++) {
+    let moved = false;
+    for (let i = 0; i < items.length; i++) for (let j = i + 1; j < items.length; j++) {
+      const a = items[i], b = items[j];
+      const dx = b.x - a.x, dy = b.y - a.y;
+      const ox = (a.w + b.w) / 2 + 8 - Math.abs(dx), oy = (a.h + b.h) / 2 + 8 - Math.abs(dy);
+      if (ox <= 0 || oy <= 0) continue;
+      moved = true;
+      if (ox < oy) { const s = (dx >= 0 ? 1 : -1) * ox / 2; a.x -= s; b.x += s; } else { const s = (dy >= 0 ? 1 : -1) * oy / 2; a.y -= s; b.y += s; }
+    }
+    if (!moved) break;
+  }
+}
 
 LM.syncOverlays = function syncOverlays(vis, world, lod, stats, since, layer, nowMode, projSet, traceSet, traceLands) {
   const root = LM.tilesEl; if (!root) return;
@@ -485,16 +516,19 @@ LM.syncOverlays = function syncOverlays(vis, world, lod, stats, since, layer, no
   const bindPlace = (el, S, kind) => {
     el.addEventListener('click', (e) => {
       e.stopPropagation();
-      const chip = e.target.closest('[data-go]'); const dist = e.target.closest('[data-dist]');
+      const ask = e.target.closest('[data-ask]'); const chip = e.target.closest('[data-go]'); const dist = e.target.closest('[data-dist]');
+      if (ask) { const a = ds.asks.find((x) => x.id === ask.dataset.ask); if (a) { const p = LM.askPlace(ds, a, view.lens, view.t); LM.select({ ask: a, it: p.it }); } return; }
       if (dist) { LM.flyToDistrict(dist.dataset.dist); return; }
       if (chip) { LM.focusPanel(chip.dataset.go, S, kind); return; }
       if (kind === 'land') LM.flyToLand(S.key); else LM.flyToDistrict(S.key);
     });
   };
   for (const S of [...vis.lands.values(), ...vis.districts.values()]) { S.review0 = 0; for (const v of S.items) if (v.it && v.st.s === 'review') S.review0++; }
+  const base = { ds, lens: view.lens, layer, stats, since, projSet };
 
   if (lod <= 1) {
-    // ---- land summaries, overlaid at the pole of each land ----
+    // ---- land summaries at the pole of each land (the land under the camera at the area level speaks through its districts) ----
+    const sums = [];
     for (const L of vis.lands.values()) {
       const info = LM.landInfo(ds, view.lens, L.key);
       const pole = LM.poleOf(world, L);
@@ -502,25 +536,20 @@ LM.syncOverlays = function syncOverlays(vis, world, lod, stats, since, layer, no
       const room = pole.r * k;
       if (sx < -200 || sx > LM.W + 200 || sy < -200 || sy > LM.H + 200) continue;
       const here = lod === 1 && LM.hereLand && LM.hereLand.key === L.key;
-      const far = lod === 1 && !here;
-      if (here) continue; // at the area level the land under the camera carries its name as a header and its districts speak
-      const tier = far ? 'xs' : room >= 150 ? 'l' : room >= 100 ? 'm' : room >= 55 ? 's' : 'xs';
-      const pct = L.size ? L.doneSize / L.size : 0;
-      const open = (L.built || 0) - (L.done || 0) - (L.dropped || 0);
-      const pv = layer ? LM.placeValue(L, layer, stats, true) : null;
-      const ch = since ? since.places.get(L.key) : null;
-      const Ds = [...vis.districts.values()].filter((D) => D.land === L.key && D.built >= 2).sort((a, b) => (b.asks * 4 + b.blocked * 3 + b.working * 0.5 + b.n * 0.05) - (a.asks * 4 + a.blocked * 3 + a.working * 0.5 + a.n * 0.05)).slice(0, 3);
-      const tops = tier === 'l' && Ds.length ? `<div class="tops">${Ds.map((D) => `<span class="chip sm" data-dist="${D.key}">${Iw('map-pin')}<span>${esc(LM.shortName(LM.distName(ds, view.lens, D.key)).slice(0, 22))}</span><em>${Math.round((D.size ? D.doneSize / D.size : 0) * 100)} %</em></span>`).join('')}</div>` : '';
-      const line = pv ? `<div class="ln"><b>${esc(pv.text)}</b> ${LM.OV_INFO[layer][0].toLowerCase()} · ${L.built} tasks · ${open} open</div>` : `<div class="ln"><b>${Math.round(pct * 100)} %</b> done · ${L.built} tasks · ${open} open</div>`;
-      const html = `<div class="lh"><span class="disc h-${info.hue}"><svg class="lm" viewBox="0 0 48 48"><path d="${LM.LANDMARKS[LM.lmKey(info.lm)].d}"/></svg></span><span class="nm">${esc(info.name)}</span></div>${tier !== 'xs' ? (pv ? `<span class="sbar lay" style="--lv:${pv.v.toFixed(2)};--lc:${LM.hueVar(LM.layerHue(layer))}"><i></i></span>` : stateBar(L)) : ''}${tier === 'm' || tier === 'l' ? line : ''}${tier !== 'xs' ? `<div class="at">${attnChips(L, ch, projSet)}</div>` : ''}${tops}`;
+      if (here) continue;
+      const far = lod === 1;
+      const tier = far ? 'xs' : room >= 140 ? 'l' : room >= 92 ? 'm' : room >= 55 ? 's' : 'xs';
+      const tops = [...vis.districts.values()].filter((D) => D.land === L.key && D.built >= 2).sort((a, b) => (b.asks * 4 + b.blocked * 3 + b.working * 0.5 + b.n * 0.05) - (a.asks * 4 + a.blocked * 3 + a.working * 0.5 + a.n * 0.05)).slice(0, 3);
+      const html = placeSummary(L, 'land', tier, { ...base, info, name: info.name, tops });
       const dim = (traceLands && !traceLands.has(L.key) ? 0.35 : 1) * (projSet && !L.proj ? 0.45 : 1) * (far ? 0.6 : 1);
-      const w = tier === 'l' ? Math.min(330, room * 2.1) : tier === 'm' ? Math.min(250, room * 2.1) : tier === 's' ? Math.min(190, room * 2.1) : 0;
-      const m = want('L:' + L.key, `lsum ${tier} h-${info.hue} hl-${healthOf(L)}`, html, sx, sy, w, 0, { bind: (el) => bindPlace(el, L, 'land'), op: dim.toFixed(2) });
-      m.el.title = `${info.name}${info.sub ? ': ' + info.sub : ''}`;
+      const w = tier === 'l' ? Math.min(340, Math.max(260, room * 2.1)) : tier === 'm' ? Math.min(270, Math.max(220, room * 2.1)) : tier === 's' ? 200 : 0;
+      sums.push({ key: 'L:' + L.key, cls: `lsum ${tier} h-${info.hue} hl-${healthOf(L)}`, html, x: sx, y: sy, w: w || 120, h: tier === 'l' ? 230 : tier === 'm' ? 190 : tier === 's' ? 120 : 90, dim, L, info });
     }
+    if (lod === 0) spread(sums);
+    for (const o of sums) { const m = want(o.key, o.cls, o.html, o.x, o.y, o.w === 120 ? 0 : o.w, 0, { bind: (el) => bindPlace(el, o.L, 'land'), op: o.dim.toFixed(2) }); m.el.title = `${o.info.name}${o.info.sub ? ': ' + o.info.sub : ''}`; }
   }
   if (lod === 1 && LM.hereLand) {
-    // ---- the land's header at its top edge; district summaries overlaid on their territories; callouts where there is no room ----
+    // ---- the land's header; every district's summary anchored to its territory, pushed apart, with a leader when displaced ----
     const L = LM.hereLand;
     const info = LM.landInfo(ds, view.lens, L.key);
     let bx0 = Infinity, bx1 = -Infinity, by0 = Infinity, by1 = -Infinity;
@@ -528,48 +557,38 @@ LM.syncOverlays = function syncOverlays(vis, world, lod, stats, since, layer, no
     const [lx0, ly0] = LM.toScreen(bx0, by0), [lx1, ly1] = LM.toScreen(bx1, by1);
     const pct = L.size ? L.doneSize / L.size : 0, open = (L.built || 0) - (L.done || 0) - (L.dropped || 0);
     const pvL = layer ? LM.placeValue(L, layer, stats, true) : null, chL = since ? since.places.get(L.key) : null;
-    const hdr = `<div class="lh"><span class="disc h-${info.hue}"><svg class="lm" viewBox="0 0 48 48"><path d="${LM.LANDMARKS[LM.lmKey(info.lm)].d}"/></svg></span><span class="nm">${esc(info.name)}</span></div><div class="ln"><b>${pvL ? esc(pvL.text) + ' ' + LM.OV_INFO[layer][0].toLowerCase() : Math.round(pct * 100) + ' % done'}</b> · ${L.built} tasks · ${open} open</div><div class="at">${attnChips(L, chL, projSet)}</div>`;
-    want('H:' + L.key, `lsum hdr h-${info.hue} hl-${healthOf(L)}`, hdr, (lx0 + lx1) / 2, Math.max(LM.W <= 720 ? 300 : 215, ly0 - 54), 0, 0, { bind: (el) => bindPlace(el, L, 'land') });
     const Ds = [...vis.districts.values()].filter((D) => D.land === L.key && D.built);
-    const callouts = [];
-    for (const D of Ds) {
+    const score = (D) => D.asks * 4 + D.blocked * 3 + (projSet ? D.proj * 3 : 0) + (since ? ((since.districts.get(D.key) || { n: 0 }).n) : 0) + D.working * 0.4 + D.n * 0.05;
+    Ds.sort((a, b) => score(b) - score(a));
+    const max = Math.max(4, Math.min(14, Math.floor(((lx1 - lx0) * (ly1 - ly0)) / (200 * 150))));
+    const shown = Ds.slice(0, max), rest = Ds.slice(max);
+    const hdr = `<div class="lh"><span class="disc h-${info.hue}"><svg class="lm" viewBox="0 0 48 48"><path d="${LM.LANDMARKS[LM.lmKey(info.lm)].d}"/></svg></span><span class="nm">${esc(info.name)}</span></div><div class="ln"><b>${pvL ? esc(pvL.text) + ' ' + LM.OV_INFO[layer][0].toLowerCase() : Math.round(pct * 100) + ' % done'}</b> · ${L.built} tasks · ${open} open${rest.length ? ` · ${rest.length} smaller areas` : ''}</div><div class="at">${L.asks ? `<span class="k rules" data-go="ask">${Iw('message-circle-question')}${L.asks} to decide</span>` : ''}${attnChips(L, chL, projSet)}${crewOf(L, 4)}</div>`;
+    want('H:' + L.key, `lsum hdr h-${info.hue} hl-${healthOf(L)}`, hdr, (lx0 + lx1) / 2, Math.max(LM.W <= 720 ? 300 : 215, ly0 - 54), 0, 0, { bind: (el) => bindPlace(el, L, 'land') });
+    const sums = [];
+    for (const D of shown) {
       const pole = LM.poleOf(world, D);
       const [sx, sy] = LM.toScreen(pole.x, pole.y);
       const room = pole.r * k;
-      const pv = layer ? LM.placeValue(D, layer, stats, false) : null;
-      const ch = since ? since.districts.get(D.key) : null;
-      const pctD = D.size ? D.doneSize / D.size : 0;
-      const openD = D.built - D.done - (D.dropped || 0);
       const name = LM.shortName(LM.distName(ds, view.lens, D.key));
-      const needs = D.asks || D.blocked || (projSet && D.proj) || (ch && ch.n);
-      const tier = room >= 95 ? 'm' : room >= 60 ? 's' : room >= 34 ? 'xs' : null;
-      if (!tier) { if (needs) callouts.push({ D, sx, sy, name, pv, ch, pct: pctD, open: openD }); continue; }
-      const line = pv ? `<div class="ln"><b>${esc(pv.text)}</b> · ${D.built} tasks</div>` : `<div class="ln"><b>${Math.round(pctD * 100)} %</b> · ${D.built} task${D.built === 1 ? '' : 's'} · ${openD} open</div>`;
-      const html = `<div class="nm">${esc(name)}</div>${tier !== 'xs' ? (pv ? `<span class="sbar lay" style="--lv:${pv.v.toFixed(2)};--lc:${LM.hueVar(LM.layerHue(layer))}"><i></i></span>` : stateBar(D)) : ''}${tier === 'm' ? line : `<div class="ln">${pv ? esc(pv.text) : Math.round(pctD * 100) + ' %'} · ${D.built}</div>`}${tier !== 'xs' ? `<div class="at">${attnChips(D, ch, projSet)}</div>` : ''}`;
-      const w = Math.min(tier === 'm' ? 230 : tier === 's' ? 160 : 110, room * 2);
-      want('D:' + D.key, `dsum ${tier} hl-${healthOf(D)}${projSet && !D.proj ? ' dimmed' : ''}`, html, sx, sy, w, 0, { bind: (el) => bindPlace(el, D, 'district') });
+      const tier = room >= 90 || D.asks || D.blocked ? 'm' : room >= 50 || D.built >= 4 ? 's' : 'xs';
+      const html = placeSummary(D, 'district', tier, { ...base, info, name });
+      const w = tier === 'm' ? 236 : tier === 's' ? 190 : 130;
+      sums.push({ key: 'D:' + D.key, cls: `dsum ${tier} hl-${healthOf(D)}${projSet && !D.proj ? ' dimmed' : ''}`, html, x: sx, y: sy, ax: sx, ay: sy, w, h: tier === 'm' ? (D.asks ? 150 : 110) : tier === 's' ? 76 : 44, D });
     }
-    callouts.sort((a, b) => (b.D.asks * 4 + b.D.blocked * 3) - (a.D.asks * 4 + a.D.blocked * 3));
-    const rightRoom = LM.W - (view.panel && LM.W > 1100 ? 382 : 16) - lx1, leftRoom = lx0 - 100;
-    const side = rightRoom >= 230 || rightRoom >= leftRoom ? 1 : -1;
-    const cx = side > 0 ? lx1 + 24 + 105 : lx0 - 24 - 105;
-    let cy = Math.max(120, ly0 + 20);
-    for (const c of callouts.slice(0, 6)) {
-      const D = c.D;
-      const html = `<div class="nm">${esc(c.name)}</div>${c.pv ? `<span class="sbar lay" style="--lv:${c.pv.v.toFixed(2)};--lc:${LM.hueVar(LM.layerHue(layer))}"><i></i></span>` : stateBar(D)}<div class="ln"><b>${c.pv ? esc(c.pv.text) : Math.round(c.pct * 100) + ' %'}</b> · ${D.built} task${D.built === 1 ? '' : 's'} · ${c.open} open</div><div class="at">${attnChips(D, c.ch, projSet)}</div>`;
-      const m = want('C:' + D.key, `dcall gl l2 hl-${healthOf(D)}`, html, cx, cy + 44, 210, 0, { bind: (el) => bindPlace(el, D, 'district') });
-      const h = m.el.offsetHeight || 88;
-      m.el.style.transform = `translate(${(cx - 105).toFixed(1)}px,${cy.toFixed(1)}px)`;
-      LM.leaders.push([side > 0 ? cx - 105 : cx + 105, cy + h / 2, c.sx, c.sy]);
-      cy += h + 10;
+    const topY = Math.max(LM.W <= 720 ? 300 : 215, ly0 - 54) + 70;
+    for (let round = 0; round < 3; round++) { for (const o of sums) o.y = Math.max(topY + o.h / 2, o.y); spread(sums); }
+    for (const o of sums) {
+      want(o.key, o.cls, o.html, o.x, o.y, o.w, 0, { bind: (el) => bindPlace(el, o.D, 'district') });
+      if (Math.hypot(o.x - o.ax, o.y - o.ay) > 26) LM.leaders.push([o.x, o.y, o.ax, o.ay]);
     }
   }
   if (lod === 2) {
-    // ---- hexagonal tiles: the information inside the shape ----
+    // ---- hexagonal tiles: the task inside the shape ----
     const r = 0.93, hw = Math.sqrt(3) / 2 * r * k, hh = r * k * LM.YS;
     const w = hw * 2, h = hh * 2;
     const tier = k >= 170 ? 'xl' : k >= 135 ? 'l' : k >= 108 ? 'm' : 's';
     root.style.setProperty('--hexclip', 'polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)');
+    const sizeDots = (n) => `<span class="dots" title="size ${n} of 5">${[1, 2, 3, 4, 5].map((i) => `<i${i <= n ? ' class="on"' : ''}></i>`).join('')}</span>`;
     for (const [id, p] of LM.tilePos) {
       if (p.x < -w || p.x > LM.W + w || p.y < -h || p.y > LM.H + h) continue;
       const v = p.v, it = v.it, st = v.st;
@@ -579,18 +598,34 @@ LM.syncOverlays = function syncOverlays(vis, world, lod, stats, since, layer, no
       const rooms = LM.rooms(it, st), met = rooms.filter((x) => x.st === 'met').length;
       const ch = since ? since.items.get(it.id) : null;
       const stateWord = st.dropped ? 'Set aside' : LM.STATUS_WORD[st.s];
-      const val = p.tv ? p.tv.text : st.done ? 'done' : st.dropped ? '' : st.s === 'todo' ? 'planned' : `${Math.round(st.h * 100)} %`;
-      const downs = tier === 'xl' || tier === 'l' ? ds.items.filter((o) => o.dep.includes(it.id)).length : 0;
-      const html = `<div class="th"><span class="g f-${kind[0]} sm">${Iw(kind[1])}</span><span class="stw st-${st.dropped ? 'dropped' : st.s}">${stateWord}</span><b class="val">${esc(val)}</b>${prob ? `<span class="pb f-${PROBLEM[prob][1]}" title="${prob === 'ask' ? esc(asks[0].n) : prob}">${Iw(PROBLEM[prob][0])}</span>` : ch ? `<span class="pb f-${badgeOf(ch.kind)[1]}">${Iw(badgeOf(ch.kind)[0])}</span>` : ''}</div>
-        <div class="tt">${esc(it.n)}</div>
-        <div class="tf"><span class="av ${who.agent ? 'ag' : who.cls}" title="${esc(who.name)}">${who.agent ? Iw('bot') : who.initial}</span><span class="tw">${tier === 's' ? '' : esc(who.name.length > 14 ? who.initial : who.name) + ' · '}${LM.rel(st.since, view.t)}</span>${tier === 'xl' || tier === 'l' ? `<span class="tx">${it.children.length ? `<span>${Iw('git-branch')}${it.children.length}</span>` : ''}${it.dep.length || downs ? `<span>${Iw('route')}${it.dep.length}→${downs}</span>` : ''}${it.cost ? `<span>${Iw('flame')}${LM.fmtMoney(st.cost)}</span>` : ''}</span>` : ''}<span class="cr" title="${met} of ${rooms.length} criteria">${segRingHtml(20, rooms.map((x) => x.st), 3.5)}</span></div>`;
+      const val = p.tv ? `<b>${esc(p.tv.text)}</b><small>${LM.OV_INFO[layer][0].toLowerCase()}</small>` : st.done ? `<b>done</b>` : st.dropped ? '' : st.s === 'todo' ? `<b>0 %</b>` : `<b>${Math.round(st.h * 100)} %</b>`;
+      const downs = ds.items.filter((o) => o.dep.includes(it.id)).length;
+      const proj = it.projects.length ? ds.byProject.get(it.projects[0]) : null;
+      const land = LM.landInfo(ds, view.lens, v.g);
+      const facade = tier !== 's' && !st.dropped ? `<span class="fc"><span class="fac">${LM.FACADES[LM.FACADES[it.f] ? it.f : 'doc']}</span></span>` : '';
+      const banner = asks ? `<div class="askban${asks.some((a) => a.to === 'owner') ? ' you' : ''}" data-ask="${asks[0].id}" title="${esc(asks[0].n)}">${Iw(asks[0].kind === 'approve' ? 'badge-check' : asks[0].kind === 'unblock' ? 'construction' : 'message-circle-question')}<span>${esc(asks[0].n)}</span></div>` : '';
+      const why = tier === 'xl' ? `<div class="why">${Iw('target')}<span>Serves ${esc(land.name)}${proj ? ` · ${esc(proj.short)}` : ''}</span></div>` : '';
+      const html = `<div class="th"><span class="g f-${kind[0]} sm">${Iw(kind[1])}</span><span class="stw st-${st.dropped ? 'dropped' : st.s}">${stateWord}</span><span class="val">${val}</span>${prob && prob !== 'ask' ? `<span class="pb f-${PROBLEM[prob][1]}" title="${prob}">${Iw(PROBLEM[prob][0])}</span>` : ch ? `<span class="pb f-${badgeOf(ch.kind)[1]}" title="changed since you last looked">${Iw(badgeOf(ch.kind)[0])}</span>` : ''}</div>
+        ${banner}
+        <div class="tb">${facade}<div class="tt">${esc(it.n)}</div></div>
+        <div class="tm"><span class="cr" title="${met} of ${rooms.length} criteria">${segRingHtml(22, rooms.map((x) => x.st), 3.5)}<em>${met}/${rooms.length}</em></span>${sizeDots(it.s)}${it.dep.length || downs ? `<span class="x" title="waits on ${it.dep.length} · frees ${downs}">${Iw('route')}${it.dep.length}→${downs}</span>` : ''}${it.cost ? `<span class="x">${Iw('flame')}${LM.fmtMoney(st.cost)}</span>` : ''}${it.children.length ? `<span class="x">${Iw('git-branch')}${it.children.length}</span>` : ''}</div>
+        <div class="tf"><span class="av ${who.agent ? 'ag' : who.cls}" title="${esc(who.name)}">${who.agent ? Iw('bot') : who.initial}</span><span class="tw">${tier === 's' ? '' : esc(who.name.length > 14 ? who.initial : who.name) + ' · '}${LM.rel(st.since, view.t)}</span>${proj && tier !== 's' ? `<span class="pt" title="${esc(proj.n)}">${Iw('kanban')}${esc(proj.short.length > 18 ? proj.short.slice(0, 16) + '…' : proj.short)}</span>` : ''}</div>${why}`;
       const quiet = nowMode && view.quiet && st.old && !ch && !projSet && !traceSet;
       const col = p.tv ? LM.hueVar(LM.layerHue(layer)) : '';
       const cls = `hex ${tier}${view.sel === it ? ' sel' : ''}${st.dropped ? ' park' : ''}${quiet ? ' quiet' : ''} st-${st.dropped ? 'dropped' : st.s}${asks ? ' asked' : ''}${layer ? ' lay' : ''}`;
-      const m = want('T:' + id, cls, html, p.x, p.y, w, h, { bind: (el) => { el.addEventListener('click', (e) => { e.stopPropagation(); LM.select(it); }); el.addEventListener('pointerenter', (e) => { LM.view.hover = it; LM.renderTip({ it }, e.clientX, e.clientY); LM.dirty(); }); el.addEventListener('pointermove', (e) => LM.renderTip({ it }, e.clientX, e.clientY)); el.addEventListener('pointerleave', () => { LM.view.hover = null; LM.renderTip(null); LM.dirty(); }); }, op: p.dim.toFixed(2) });
+      const m = want('T:' + id, cls, html, p.x, p.y, w, h, { bind: (el) => { el.addEventListener('click', (e) => { e.stopPropagation(); const ask = e.target.closest('[data-ask]'); if (ask) { const a = ds.asks.find((x) => x.id === ask.dataset.ask); if (a) { LM.select({ ask: a, it }); return; } } LM.select(it); }); el.addEventListener('pointerenter', (e) => { LM.view.hover = it; LM.renderTip({ it }, e.clientX, e.clientY); LM.dirty(); }); el.addEventListener('pointermove', (e) => LM.renderTip({ it }, e.clientX, e.clientY)); el.addEventListener('pointerleave', () => { LM.view.hover = null; LM.renderTip(null); LM.dirty(); }); }, op: p.dim.toFixed(2) });
       if (col) m.el.style.setProperty('--lc', col); else m.el.style.removeProperty('--lc');
       m.el.style.setProperty('--fill', p.fill.toFixed(2));
-      m.el.style.padding = `${(h * (tier === 's' ? 0.19 : 0.17)).toFixed(0)}px ${(w * 0.1).toFixed(0)}px ${(h * 0.16).toFixed(0)}px`;
+      m.el.style.padding = `${(h * (tier === 's' ? 0.2 : 0.17)).toFixed(0)}px ${(w * 0.09).toFixed(0)}px ${(h * 0.22).toFixed(0)}px`;
+    }
+    // ---- council tiles: the decisions decided on a square, the latest written out ----
+    for (const S of (LM.squares || new Map()).values()) {
+      if (S.x < -w || S.x > LM.W + w || S.y < -h || S.y > LM.H + h) continue;
+      const list = S.list.slice().sort((a, b) => b.mon.b - a.mon.b);
+      const n = tier === 's' ? 1 : tier === 'm' ? 2 : 3;
+      const html = `<div class="th"><span class="g f-rules sm">${Iw('signpost')}</span><span class="stw st-rules">${S.n} decision${S.n > 1 ? 's' : ''} here</span></div><div class="dl">${list.slice(0, n).map((v) => `<span class="row" data-dec="${v.mon.id}"><b>${v.mon.id}</b><span>${esc(v.mon.n.replace(/\*\*/g, '').slice(0, tier === 's' ? 40 : 70))}</span><em>${LM.fmtShort(v.mon.b)}</em></span>`).join('')}</div>${S.n > n ? `<div class="meta">and ${S.n - n} earlier · click for all</div>` : ''}`;
+      const m = want('S:' + S.key, `hex council ${tier}`, html, S.x, S.y, w, h, { bind: (el) => { el.addEventListener('click', (e) => { e.stopPropagation(); const d = e.target.closest('[data-dec]'); if (d) { const dec = ds.decisions.find((x) => x.id === d.dataset.dec); if (dec) { LM.select({ mon: dec }); return; } } LM.select({ plaque: S }); }); } });
+      m.el.style.padding = `${(h * 0.17).toFixed(0)}px ${(w * 0.09).toFixed(0)}px ${(h * 0.15).toFixed(0)}px`;
     }
   }
   for (const [key, m] of LM.overlays) if (!alive.has(key)) { m.el.remove(); LM.overlays.delete(key); }
@@ -600,7 +635,6 @@ LM.syncMarkers = () => {};
 /** Hit test on the canvas (what the DOM did not catch): a plaque, a landmark, else the district, else the land. */
 LM.hit = function hit(sx, sy) {
   const vis = LM.vis; if (!vis) return null;
-  for (const S of (LM.squares || new Map()).values()) if (S.r && Math.abs(S.x - sx) <= S.r * 1.4 && sy >= S.y - S.r * 3.8 && sy <= S.y) return { plaque: S };
   for (const m of LM.lmPos || []) if (Math.hypot(m.sx - sx, m.sy - m.size * 0.45 - sy) <= m.size * 0.55) return m.v;
   const [wx, wy] = LM.toWorld(sx, sy);
   const [q, r] = LM.xyHex(wx, wy);

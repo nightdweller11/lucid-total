@@ -325,6 +325,18 @@ At the task level the tile is the hexagon itself: the information is laid inside
 
 Every level carries a summary of the level below: the land's bar and leading areas, the area's bar and attention, the task's criteria ring and subtask count. Zooming in expands the detail of the place under the camera, never the whole scene.
 
+## 19. The fifth pass: what each element says (T38)
+
+The owner's review of the fourth pass asked for product thinking, not more drawing: the intermediate level said almost nothing, the top level little; open decisions were not called out; the tile did not use its area; a square that said "decisions made here" said nothing.
+
+**One summary, at every level.** A place, land or area, carries the same summary on its territory: its glyph and name, the stacked bar of its tasks by state, the done share with tasks and open, its **open asks written out as flags** (the owner's in gold-edged indigo; the rest counted), the attention chips (blocked, still, in review, changed), and **who works there** as avatars. The land adds the landmark and its leading areas. Summaries stand on a translucent plate so they read over the ground, are pushed apart when they would collide, and keep a leader to their territory when displaced. Every chip and flag leads to what it names.
+
+**Real areas in the real log.** Lucid Chat's areas are the phases inside each workstream (Contracts sprint, Phase 0, Phase 1, Alpha, Environment, Mocks and design, Owner decisions), not one area per root row, so the intermediate level has territories with content.
+
+**The tile uses its area.** Kind and state, the one number with its unit (the share, or the layer's value and name), the product's facade for what the task makes, the full title, the criteria ring with its count, size as dots, links in and out, cost, subtasks, who and since, the project tag, and at the deepest zoom what it serves. An ask is a banner across the tile with its text. A square becomes a **council tile** listing the latest decisions decided there.
+
+**Zoom that moves.** The buttons zoom continuously and a Land · Area · Task segment jumps to a level into the place under the camera.
+
 ## 14. Open questions for the owner
 
 Material only (L425). Everything smaller is a platform setting with a default.
