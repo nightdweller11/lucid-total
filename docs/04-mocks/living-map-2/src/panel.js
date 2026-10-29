@@ -95,7 +95,7 @@ function rowHtml(x, t) {
 }
 LM.goToAttention = function goToAttention(x) {
   const v = LM.view;
-  if (x.it) { const p = LM.posOf && LM.posOf.get(x.it.id); if (p) LM.flyTo(p.x, p.y + 0.6, Math.max(LM.cam.k, 60)); if (x.kind === 'ask') LM.select({ ask: x.a, it: x.it }); else LM.select(x.it); return; }
+  if (x.it) { const p = LM.posOf && LM.posOf.get(x.it.id); if (p) LM.flyToDistrict(p.d); if (x.kind === 'ask') LM.select({ ask: x.a, it: x.it }); else LM.select(x.it); return; }
   if (x.a) { LM.select({ ask: x.a }); return; }
   if (x.d) { LM.setTrace('decision', x.d); const c = LM.worlds[v.lens].claims.find((cc) => cc.dec === x.d); if (c) { const [xx, yy] = LM.hexXY(c.q, c.r); LM.flyTo(xx, yy, Math.max(LM.cam.k, 24)); } LM.select({ mon: x.d }); return; }
   if (x.m) { const vv = LM.vis.items.find((o) => o.lm === x.m); if (vv) { LM.flyTo(vv.x, vv.y, Math.max(LM.cam.k, 24)); LM.select({ lm: x.m, v: vv }); } return; }
@@ -103,9 +103,9 @@ LM.goToAttention = function goToAttention(x) {
 };
 LM.goToEvent = function goToEvent(e) {
   const v = LM.view;
-  if (e.it) { const p = LM.posOf && LM.posOf.get(e.it.id); if (p) LM.flyTo(p.x, p.y + 0.6, Math.max(LM.cam.k, 60)); LM.select(e.it); return; }
+  if (e.it) { const p = LM.posOf && LM.posOf.get(e.it.id); if (p) LM.flyToDistrict(p.d); LM.select(e.it); return; }
   if (e.d) { LM.setTrace('decision', e.d); const c = LM.worlds[v.lens].claims.find((cc) => cc.dec === e.d); if (c) { const [x, y] = LM.hexXY(c.q, c.r); LM.flyTo(x, y, Math.max(LM.cam.k, 24)); } LM.select({ mon: e.d }); return; }
-  if (e.a) { const p = LM.askPlace(LM.ds, e.a, v.lens, v.t); if (p.it) { const pp = LM.posOf.get(p.it.id); if (pp) LM.flyTo(pp.x, pp.y + 0.6, Math.max(LM.cam.k, 60)); } LM.select({ ask: e.a, it: p.it }); return; }
+  if (e.a) { const p = LM.askPlace(LM.ds, e.a, v.lens, v.t); if (p.it) { const pp = LM.posOf.get(p.it.id); if (pp) LM.flyToDistrict(pp.d); } LM.select({ ask: e.a, it: p.it }); return; }
   if (e.p) { LM.openProject(e.p.id); return; }
   if (e.pol) { LM.openPolicies(e.pol.id); return; }
   if (e.m) { const vv = LM.vis.items.find((o) => o.lm === e.m); if (vv) { LM.flyTo(vv.x, vv.y, Math.max(LM.cam.k, 24)); LM.select({ lm: e.m, v: vv }); } return; }
@@ -223,7 +223,7 @@ LM.renderKey = function renderKey() {
   const K = LM.keyEl; if (!K || !LM.vis) return;
   const v = LM.view, ds = LM.ds, I = LM.I;
   const layer = [...v.overlays].find((o) => o !== 'deps') || null;
-  const Wk = LM.where(); const state = `${v.mode}|${layer}|${v.overlays.has('deps')}|${v.sinceOn}|${v.lens}|${K.dataset.open}|${v.proj}|${Math.round(v.t / 3600e3)}|${Wk.level}|${Wk.key}|${LM.lod}`;
+  const Wk = LM.where(); const state = `${v.mode}|${v.iso}|${layer}|${v.overlays.has('deps')}|${v.sinceOn}|${v.lens}|${K.dataset.open}|${v.proj}|${Math.round(v.t / 3600e3)}|${Wk.level}|${Wk.key}|${LM.lod}`;
   if (K.dataset.state === state) return; K.dataset.state = state;
   const sw = (cls, label) => `<span class="krow"><i class="kt ${cls}"></i><span>${label}</span></span>`;
   const mark = (icon, hue, label) => `<span class="krow"><span class="g f-${hue} sm">${I(icon)}</span><span>${label}</span></span>`;
@@ -246,7 +246,7 @@ LM.renderKey = function renderKey() {
   const open = K.dataset.open !== '0';
   const states = `<div class="kstates">${sw('todo', 'Planned')}${sw('doing', 'In progress')}${sw('review', 'In review')}${sw('blocked', 'Blocked')}${sw('done', 'Done')}${sw('dropped', 'Set aside')}</div>`;
   const marks = `<div class="kmarks">${mark('message-circle-question', 'rules', 'Needs a decision')}${mark('construction', 'block', 'Blocked')}${mark('hourglass', 'hold', 'Nothing moved')}${mark('eye', 'ai', 'Waiting in review')}${mark('signpost', 'rules', 'Decided (count)')}${mark('milestone', 'gold', 'Landmark')}${v.mode === 'now' && v.quiet ? mark('moon', 'slate', 'Old and done: quiet') : ''}</div>`;
-  K.innerHTML = `<button class="kh" id="keyh"><span class="row" style="gap:8px">${I('book-marked')}<b>Key</b><span class="meta">height = progress · colour = state · glyph = kind</span></span>${I(open ? 'chevron-down' : 'chevron-up')}</button>${open ? body + states + marks + `<button class="link ksheet" id="keysheet">${I('book-open')} The whole grammar</button>` : body}`;
+  K.innerHTML = `<button class="kh" id="keyh"><span class="row" style="gap:8px">${I('book-marked')}<b>Key</b><span class="meta">${v.iso ? 'height = progress · ' : ''}colour = state · ring = done · icon = problem</span></span>${I(open ? 'chevron-down' : 'chevron-up')}</button>${open ? body + states + marks + `<button class="link ksheet" id="keysheet">${I('book-open')} The whole grammar</button>` : body}`;
   LM.marksIn(K);
   K.querySelector('#keyh').onclick = () => { K.dataset.open = open ? '0' : '1'; K.dataset.state = ''; LM.renderKey(); };
   const sh = K.querySelector('#keysheet'); if (sh) sh.onclick = () => LM.openSheet();

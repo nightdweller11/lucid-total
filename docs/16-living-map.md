@@ -1,6 +1,6 @@
 # Lucid Total — The Living Map (concept)
 
-> The company as a world that grows. Written 2026-10-28 by the lead from the owner's instructions of 2026-10-28 (T30, and the review and extension in T33), extended 2026-10-29 after the owner's review of the first simulation (T34: the layers must be visible, the map must track what is actually happening, and it must continue the v0.2 line), and again the same day after the review of the second (T35: an isometric world, a designed hexagon, a Now view before the timeline, projects above tasks, zoom buttons, a key, and the two game studies in `docs/research/`), after the first map study (`docs/04-mocks/map-study/`) was rejected: it drew five static reliefs of one moment, with no live layers, nothing to zoom into, nothing to open, and no time. This document is the concept; `docs/17-living-map-product-plan.md` is the plan; `docs/04-mocks/living-map/` is the running simulation that shows it moving. It is subordinate to `docs/13-experience.md` (attention doctrine, the Stage, the dock) and replaces the world sections of `docs/03-map-and-views.md` where they differ.
+> The company as a world that grows. Written 2026-10-28 by the lead from the owner's instructions of 2026-10-28 (T30, and the review and extension in T33), extended 2026-10-29 after the owner's review of the first simulation (T34: the layers must be visible, the map must track what is actually happening, and it must continue the v0.2 line), and again the same day after the reviews of the second and the third (T35, T36: three levels each designed for its own information, the land level back on the v0.2 look, large task tiles, flat by default with isometric as an option, a Now view before the timeline, projects above tasks, zoom buttons, a key, and the two game studies in `docs/research/`), after the first map study (`docs/04-mocks/map-study/`) was rejected: it drew five static reliefs of one moment, with no live layers, nothing to zoom into, nothing to open, and no time. This document is the concept; `docs/17-living-map-product-plan.md` is the plan; `docs/04-mocks/living-map/` is the running simulation that shows it moving. It is subordinate to `docs/13-experience.md` (attention doctrine, the Stage, the dock) and replaces the world sections of `docs/03-map-and-views.md` where they differ.
 
 ---
 
@@ -277,9 +277,39 @@ Only an open ask or the owner's recent decision stands as a flag. Everything dec
 
 Buttons: in, out, frame the company, with the depth named between them (sky, land, district, street); the keys `+` `−` `0`; the wheel, a pinch and a double click.
 
+## 17. The third pass: three levels, each designed for its own information (T36)
+
+The second pass put every task on an isometric prism at every depth, and the owner's review named the fault: at any zoom the tiles were small, overlapping and incoherent, because one continuous scene was asked to carry three different kinds of information. The map now has **three levels**, and zooming **transitions in the hierarchy of information** rather than shrinking a picture.
+
+### 17.1 Land: the company as places
+
+Below the first threshold the world is the v0.2 company world (frame 2 of the gallery): coasts, the landmark in its ring, the name beneath, faint sub-contours of the areas inside, the layer as a tint and a chip, one problem icon with a count where something needs a person, and "N to decide" under the name. No tiles. This is where the owner understands things at a high level, with the living-map features kept: the Now panel, the layers, since you last looked, the feed, playback.
+
+### 17.2 Area: the meaning of a group
+
+Inside a place, between the thresholds, its districts (projects, areas, programmes, whatever the lens groups) are **cards** laid out on a grid inside the coast: the name, the done share as a ring with its number (or the laid layer's value), tasks and open, what needs attention (to decide, blocked, still), a strip of its tasks' states, who leads. The ones that need attention come first; the rest fold into one "N more areas" card with their sums. The land under the camera is in full with its name as a header at its top edge; the other lands keep their markers, lighter. Cards never overlap by construction.
+
+### 17.3 Task: large, rich tiles
+
+Past the second threshold the tasks of the area under the camera are **tiles** on their plots, never smaller than about 150 px: kind glyph, state word, the problem or ask as a badge, the title on two lines, the progress bar with its share (or the layer's value as a bar in the layer's colour), who and since, the criteria ring; closer, the subtasks, the links in and out, the cost, the size and the projects; closer still, the product's facade. Hover reads the tile in full; click opens the management view. The plots beneath are quiet footprints; the state lives on the tile's edge.
+
+### 17.4 Transitions
+
+The zoom buttons step through the levels: in from a land to its districts' cards (the land fills the view), in from an area to its tiles (the area fills the view), out the same way; the keys `+` `−` `0`; the wheel and a pinch move continuously and cross the thresholds on the way; a card or a place marker flies in. The level is named between the buttons (Land, Area, Task).
+
+### 17.5 Flat, and the isometric option
+
+Flat is the default: it holds the most information per tile and reads like v0.2. The lab keeps an **isometric** option (height = progress) for the owner to compare; it costs about half the tile height because the rows sit closer, so its tiles are compact. The decision is his (T-O14).
+
+### 17.6 What stays from the second pass
+
+Layers as a greyed base with the value as a ring, a bar or a tint and the key always visible; problems as icons, never colour; decided decisions as one plaque per square; the Now panel and the Time tool; projects, asks and policies; the two studies' lessons (`docs/research/`).
+
 ## 14. Open questions for the owner
 
 Material only (L425). Everything smaller is a platform setting with a default.
 
 - **T-O11** Secession is proposed by the AI and accepted by a person, or automatic above a threshold? (Default: proposed.)
 - **T-O12** Should money overlays be visible to everyone, or by role? (Default: by role; cost visible to owners of the land, revenue to leadership.)
+- **T-O13** The words for the levels of work: project → task → subtask (default), or another family?
+- **T-O14** Flat or isometric at the task level? (Default: flat; isometric stays a lab option.)

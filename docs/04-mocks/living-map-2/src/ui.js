@@ -36,6 +36,7 @@ LM.boot = function boot() {
   root.innerHTML = `
     <canvas id="map"></canvas>
     <div id="places" aria-hidden="true"></div>
+    <div id="tiles" data-level=""></div>
     <div id="cards"></div>
     <nav class="dock" aria-label="Dock">${[['horizon', 'sunrise', 'Horizon'], ['world', 'map', 'World'], ['projects', 'kanban', 'Projects'], ['talk', 'AI', 'Talk'], ['more', 'grip', 'More']].map(([k, ic, l]) => `<button class="d${k === 'world' ? ' on' : ''}${k === 'talk' ? ' tk' : ''}" data-d="${k}" title="${l}" aria-label="${l}">${ic === 'AI' ? AI() : I(ic)}</button>`).join('')}</nav>
     <div class="top" id="top"><div class="toprow"><nav class="crumbc" id="crumbs" aria-label="Where you are"></nav><div class="seg lensseg" id="lenses"></div><div class="tend" id="tend"></div></div><div class="layers" id="overlays"></div></div>
@@ -55,7 +56,7 @@ LM.boot = function boot() {
   marks(root);
   LM.canvas = $('#map'); LM.ctx = LM.canvas.getContext('2d');
   LM.railc = $('#railc'); LM.railctx = LM.railc.getContext('2d');
-  LM.placesEl = $('#places'); LM.cardsEl = $('#cards'); LM.panelEl = $('#panel'); LM.keyEl = $('#key'); LM.tipEl = $('#tip');
+  LM.placesEl = $('#places'); LM.tilesEl = $('#tiles'); LM.cardsEl = $('#cards'); LM.panelEl = $('#panel'); LM.keyEl = $('#key'); LM.tipEl = $('#tip');
   const params = new URLSearchParams(location.search);
   LM.setDataset(params.get('d') === 'example' ? 'example' : 'lucid', params);
   buildChrome();
@@ -92,8 +93,8 @@ LM.fitAt = function fitAt(t) {
   const phone = LM.W <= 720;
   const panelW = LM.view.panel && (LM.W || window.innerWidth) > 1100 ? 350 : 0;
   const W = (LM.W || window.innerWidth) - panelW, H = (LM.H || window.innerHeight) - (phone ? 420 : 250);
-  const k = Math.min((W - (phone ? 36 : 140)) / Math.max(10, maxx - minx + 10), H / Math.max(10, (maxy - miny + 12) * LM.ISO));
-  return { x: (minx + maxx) / 2 + panelW / 2 / k, y: (miny + maxy) / 2 + (phone ? -60 : 30) / (k * LM.ISO), k: Math.max(1.5, Math.min(t === undefined || t >= LM.ds.span[1] ? 10 : 18, k)) };
+  const k = Math.min((W - (phone ? 36 : 140)) / Math.max(10, maxx - minx + 10), H / Math.max(10, (maxy - miny + 12) * LM.YS));
+  return { x: (minx + maxx) / 2 + panelW / 2 / k, y: (miny + maxy) / 2 + (phone ? -60 : 30) / (k * LM.YS), k: Math.max(1.5, Math.min(LM.L1 - 0.5, k)) };
 };
 LM.fitWorld = function fitWorld(t) { LM.cam = LM.fitAt(t === undefined ? LM.ds.span[1] : t); LM.autoFit = false; };
 
@@ -126,7 +127,7 @@ function loop(now) {
     if (p >= 1) { LM.flight = null; writeUrl(); }
     LM.needsFrame = true;
   }
-  if (LM.needsFrame) { LM.needsFrame = false; LM.draw(now); drawRail(); updateCrumbs(); LM.renderPanel(); LM.renderKey(); $('#depth').textContent = ['Sky', 'Land', 'District', 'Street'][LM.lod]; }
+  if (LM.needsFrame) { LM.needsFrame = false; LM.draw(now); drawRail(); updateCrumbs(); LM.renderPanel(); LM.renderKey(); $('#depth').textContent = LM.levelName(LM.lod); }
   LM.updateCards(now);
   if (LM.toastUntil && now > LM.toastUntil) { $('#toast').classList.remove('on'); LM.toastUntil = 0; }
   if (LM.ledgerUntil && now > LM.ledgerUntil) { $('#ledger').classList.remove('on'); LM.ledgerUntil = 0; }
@@ -152,8 +153,8 @@ function buildChrome() {
   $('#tonow').onclick = () => { togglePlay(false); setTime(LM.ds.now); say('Now.'); };
   $('#railx').onclick = () => toggleTime(false);
   $('#dim').onclick = () => select(null);
-  $('#zin').onclick = () => zoomAt(LM.W / 2, LM.H / 2, 1.6, true);
-  $('#zout').onclick = () => zoomAt(LM.W / 2, LM.H / 2, 1 / 1.6, true);
+  $('#zin').onclick = () => zoomStep(1);
+  $('#zout').onclick = () => zoomStep(-1);
   $('#zfit').onclick = () => { select(null); LM.flyTo(null, null, LM.fitAt(LM.view.t).k); };
   const talk = $('#talk');
   talk.addEventListener('keydown', (e) => { if (e.key === 'Enter') { LM.command(talk.value); talk.value = ''; } if (e.key === 'Escape') talk.blur(); });
@@ -164,7 +165,7 @@ function buildChrome() {
     else if (e.key === 'Escape') { clearTrace(); select(null); setProject(null); $('#list').hidden = true; $('#sheet').hidden = true; $('#pop').hidden = true; }
     else if (e.key >= '1' && e.key <= '4') setLens(LENSES[Number(e.key) - 1][0]);
     else if (e.key === '/') { e.preventDefault(); talk.focus(); }
-    else if (e.key === '+' || e.key === '=') zoomAt(LM.W / 2, LM.H / 2, 1.6, true); else if (e.key === '-' || e.key === '_') zoomAt(LM.W / 2, LM.H / 2, 1 / 1.6, true); else if (e.key === '0') LM.flyTo(null, null, LM.fitAt(LM.view.t).k);
+    else if (e.key === '+' || e.key === '=') zoomStep(1); else if (e.key === '-' || e.key === '_') zoomStep(-1); else if (e.key === '0') LM.flyTo(null, null, LM.fitAt(LM.view.t).k);
     else if (e.key.toLowerCase() === 'f') LM.togglePanel();
     else if (e.key.toLowerCase() === 't') toggleTime();
     else if (e.key.toLowerCase() === 's') setSince(LM.view.sinceOn ? null : LM.view.t - LM.ds.win.review);
@@ -252,11 +253,13 @@ function labMenu(e) {
   const p = popAt(e.currentTarget, `<span class="lbl2">Theme</span><div class="seg">${THEMES.map(([k, n, ic]) => `<button class="sg${r.dataset.pt === k ? ' on' : ''}" data-pt="${k}">${I(ic)}<span>${n}</span></button>`).join('')}</div>
     <span class="lbl2">Contrast</span><div class="seg"><button class="sg${r.dataset.hc !== 'high' ? ' on' : ''}" data-hc="std">${I('circle-dot')}<span>Standard</span></button><button class="sg${r.dataset.hc === 'high' ? ' on' : ''}" data-hc="high">${I('contrast')}<span>High</span></button></div>
     <span class="lbl2">Dataset</span><div class="seg dsw">${[['lucid', 'Lucid Chat', 'real'], ['example', 'Example company', 'generated']].map(([k, n, sub]) => `<button class="sg${LM.ds.key === k ? ' on' : ''}" data-ds="${k}"><span>${n}</span><small>${sub}</small></button>`).join('')}</div>
+    <span class="lbl2">View</span><div class="seg"><button class="sg${!LM.view.iso ? ' on' : ''}" data-iso="0">${I('square')}<span>Flat</span></button><button class="sg${LM.view.iso ? ' on' : ''}" data-iso="1">${I('box')}<span>Isometric</span></button></div>
     <span class="lbl2">The past</span><div class="seg"><button class="sg${LM.view.quiet ? ' on' : ''}" data-q="1">${I('moon')}<span>Quiet</span></button><button class="sg${!LM.view.quiet ? ' on' : ''}" data-q="0">${I('sun')}<span>Full</span></button></div>
     <span class="lbl2">Motion</span><div class="seg"><button class="sg${!LM.view.reduce ? ' on' : ''}" data-mo="0">${I('activity')}<span>Full</span></button><button class="sg${LM.view.reduce ? ' on' : ''}" data-mo="1">${I('minus')}<span>Reduced</span></button></div>`);
   for (const b of p.querySelectorAll('[data-pt]')) b.onclick = () => { r.dataset.pt = b.dataset.pt; LM.readTheme(); LM.dirty(); writeUrl(); labMenu(e); };
   for (const b of p.querySelectorAll('[data-hc]')) b.onclick = () => { r.dataset.hc = b.dataset.hc; LM.view.hc = b.dataset.hc === 'high'; LM.readTheme(); LM.dirty(); writeUrl(); labMenu(e); };
   for (const b of p.querySelectorAll('[data-mo]')) b.onclick = () => { LM.view.reduce = b.dataset.mo === '1'; LM.dirty(); labMenu(e); };
+  for (const b of p.querySelectorAll('[data-iso]')) b.onclick = () => { LM.view.iso = b.dataset.iso === '1'; LM.YS = LM.view.iso ? 0.55 : 1; LM.keyEl.dataset.state = ''; LM.dirty(); writeUrl(); labMenu(e); };
   for (const b of p.querySelectorAll('[data-q]')) b.onclick = () => { LM.view.quiet = b.dataset.q === '1'; LM.keyEl.dataset.state = ''; LM.dirty(); labMenu(e); };
   for (const b of p.querySelectorAll('[data-ds]')) b.onclick = () => { if (b.dataset.ds !== LM.ds.key) { LM.setDataset(b.dataset.ds); setTime(LM.ds.now); say(`${LM.ds.name}: ${LM.ds.sub}`); syncChrome(); } p.hidden = true; };
 }
@@ -383,12 +386,10 @@ function bindMap() {
   c.addEventListener('pointermove', (e) => {
     if (pts.has(e.pointerId)) pts.set(e.pointerId, [e.clientX, e.clientY]);
     if (pinch && pts.size === 2) { const [a, b] = [...pts.values()]; const d = Math.hypot(a[0] - b[0], a[1] - b[1]); zoomAt((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (pinch.k * d) / pinch.d / LM.cam.k); moved = true; return; }
-    if (drag) { const dx = e.clientX - drag.x, dy = e.clientY - drag.y; if (Math.hypot(dx, dy) > 3) { moved = true; LM.autoFit = false; } LM.cam.x = drag.cx - dx / LM.cam.k; LM.cam.y = drag.cy - dy / (LM.cam.k * LM.ISO); LM.flight = null; LM.renderTip(null); LM.dirty(); return; }
+    if (drag) { const dx = e.clientX - drag.x, dy = e.clientY - drag.y; if (Math.hypot(dx, dy) > 3) { moved = true; LM.autoFit = false; } LM.cam.x = drag.cx - dx / LM.cam.k; LM.cam.y = drag.cy - dy / (LM.cam.k * LM.YS); LM.flight = null; LM.renderTip(null); LM.dirty(); return; }
     const h = LM.hit(e.clientX, e.clientY);
-    const it = h && h.it ? h.it : h && h.mon ? h : null;
-    if (it !== LM.view.hover) { LM.view.hover = it; LM.dirty(); }
-    c.style.cursor = h && (h.it || h.mon || h.lm || h.district || h.plaque || h.pill) ? 'pointer' : 'grab';
-    LM.renderTip(h, e.clientX, e.clientY);
+    c.style.cursor = h && (h.lm || h.plaque || h.pill || (h.district && LM.lod < 2) || (h.land && LM.lod < 1)) ? 'pointer' : 'grab';
+    LM.renderTip(h && (h.lm || h.plaque || h.pill) ? h : null, e.clientX, e.clientY);
   });
   c.addEventListener('pointerleave', () => { LM.renderTip(null); if (LM.view.hover) { LM.view.hover = null; LM.dirty(); } });
   const up = (e) => { pts.delete(e.pointerId); if (pts.size < 2) pinch = null; if (pts.size === 0) { const wasDrag = drag; drag = null; if (!moved && wasDrag) click(e.clientX, e.clientY); writeUrl(); } };
@@ -410,19 +411,35 @@ LM.flyTo = function flyTo(x, y, k, ms = 800) {
   LM.flight = { x0: LM.cam.x, y0: LM.cam.y, k0: LM.cam.k, x1: x, y1: y, k1: k, t0: performance.now(), ms: LM.view.reduce ? 1 : ms };
   LM.dirty();
 };
-function flyToLand(g) { const L = LM.vis && LM.vis.lands.get(g); if (!L) return; LM.flyTo(L.cx, L.cy + 1, Math.max(12, Math.min(26, 240 / Math.sqrt(L.n + 1)))); }
-function flyToDistrict(d) { const D = LM.vis && LM.vis.districts.get(d); if (!D) return; LM.flyTo(D.cx, D.cy + 0.5, Math.max(28, Math.min(64, 320 / Math.sqrt(D.n + 1)))); }
+/** The extent of a place's cells in world units. */
+function extentOf(S) { let minx = Infinity, maxx = -Infinity, miny = Infinity, maxy = -Infinity; for (const c of S.cells) { const [q, r] = c.split(',').map(Number); const [x, y] = LM.hexXY(q, r); if (x < minx) minx = x; if (x > maxx) maxx = x; if (y < miny) miny = y; if (y > maxy) maxy = y; } return { minx, maxx, miny, maxy, w: maxx - minx + 2, h: maxy - miny + 2 }; }
+const avail = () => ({ W: LM.W - (LM.view.panel && LM.W > 1100 ? 382 : 0) - (LM.W <= 720 ? 24 : 120), H: LM.H - (LM.W <= 720 ? 380 : LM.view.time ? 300 : 230), ox: LM.view.panel && LM.W > 1100 ? -191 : 0 });
+/** Level 2: the land fills the view, its districts as cards. */
+function flyToLand(g) { const L = LM.vis && LM.vis.lands.get(g); if (!L) return; const e = extentOf(L), a = avail(); const k = Math.max(LM.L1 + 2, Math.min(LM.L3 - 10, Math.min(a.W / (e.w + 6), a.H / ((e.h + 8) * LM.YS)))); LM.flyTo((e.minx + e.maxx) / 2 - a.ox / k, (e.miny + e.maxy) / 2 + 20 / (k * LM.YS), k); }
+/** Level 3: the district fills the view, its tasks as tiles (never below the task level). */
+function flyToDistrict(d) { const D = LM.vis && LM.vis.districts.get(d); if (!D) return; const e = extentOf(D), a = avail(); const k = Math.max(LM.L3 + 8, Math.min(170, Math.min(a.W / (e.w + 4), a.H / ((e.h + 5) * LM.YS)))); LM.flyTo((e.minx + e.maxx) / 2 - a.ox / k, (e.miny + e.maxy) / 2 + 20 / (k * LM.YS), k); }
+/** The zoom buttons step through the three levels: into the place under the camera, or back out of it. */
+function zoomStep(dir) {
+  const W = LM.where(); LM.renderTip(null);
+  if (dir > 0) {
+    if (LM.lod === 0) { const L = W.land || [...LM.vis.lands.values()].sort((a, b) => Math.hypot(a.cx - LM.cam.x, a.cy - LM.cam.y) - Math.hypot(b.cx - LM.cam.x, b.cy - LM.cam.y))[0]; if (L) flyToLand(L.key); }
+    else if (LM.lod === 1) { const L = W.land; const D = W.dist || (L && [...LM.vis.districts.values()].filter((x) => x.land === L.key && x.built).sort((a, b) => (b.asks * 4 + b.blocked * 3 + b.n * 0.05) - (a.asks * 4 + a.blocked * 3 + a.n * 0.05))[0]); if (D) flyToDistrict(D.key); }
+    else zoomAt(LM.W / 2, LM.H / 2, 1.4, true);
+  } else {
+    if (LM.lod === 2) { const L = W.land; if (L) flyToLand(L.key); else LM.flyTo(null, null); }
+    else LM.flyTo(null, null);
+  }
+}
+LM.zoomStep = zoomStep;
 function click(sx, sy) {
   const h = LM.hit(sx, sy);
   LM.renderTip(null);
   if (!h) { select(null); return; }
   if (h.pill && !h.it) { const S = h.pill.S; if (h.pill.kind === 'land') flyToLand(S.key); else flyToDistrict(S.key); return; }
   if (h.plaque) { select({ plaque: h.plaque }); return; }
-  if (h.it) { select(h.it); if (LM.lod < 3) LM.flyTo(h.x, h.y + 0.6, 64); return; }
-  if (h.mon) { select({ mon: h.mon, v: h }); if (LM.lod < 2) LM.flyTo(h.x, h.y, 40); return; }
   if (h.lm) { select({ lm: h.lm, v: h }); return; }
-  if (h.district) { if (LM.lod < 2) flyToDistrict(h.district.key); else select({ district: h.district }); return; }
-  if (h.land) { if (LM.lod < 1) flyToLand(h.land.key); else select({ land: h.land }); }
+  if (h.district) { if (LM.lod === 1) flyToDistrict(h.district.key); else if (LM.lod === 0) flyToLand(h.district.land); else select({ district: h.district }); return; }
+  if (h.land) { if (LM.lod === 0) flyToLand(h.land.key); else select({ land: h.land }); }
 }
 
 // ---- selection and the views ----
@@ -452,7 +469,7 @@ function renderView() {
   for (const b of V.querySelectorAll('[data-dec]')) b.onclick = () => { const d = ds.decisions.find((x) => x.id === b.dataset.dec); if (d) { select({ mon: d }); } };
   for (const b of V.querySelectorAll('[data-dist]')) b.onclick = () => { select(null); flyToDistrict(b.dataset.dist); };
   for (const b of V.querySelectorAll('[data-land]')) b.onclick = () => { select(null); flyToLand(b.dataset.land); };
-  for (const b of V.querySelectorAll('[data-open]')) b.onclick = () => { const it = ds.byId.get(b.dataset.open); if (it) { const p = LM.posOf && LM.posOf.get(it.id); if (p) LM.flyTo(p.x, p.y + 0.6, Math.max(LM.cam.k, 64)); select(it); } };
+  for (const b of V.querySelectorAll('[data-open]')) b.onclick = () => { const it = ds.byId.get(b.dataset.open); if (it) { const p = LM.posOf && LM.posOf.get(it.id); if (p) flyToDistrict(p.d); select(it); } };
   for (const b of V.querySelectorAll('[data-proj]')) b.onclick = () => LM.openProject(b.dataset.proj);
   for (const b of V.querySelectorAll('[data-askid]')) b.onclick = () => { const a = ds.asks.find((x) => x.id === b.dataset.askid); if (a) select({ ask: a, it: s.id ? s : null }); };
   for (const b of V.querySelectorAll('[data-t]')) b.onclick = () => { if (!v.time) toggleTime(true); setTime(Number(b.dataset.t)); say(`${LM.fmtDate(Number(b.dataset.t), ds.key === 'lucid')}: the map as it was at this moment.`); };
@@ -464,7 +481,7 @@ function renderView() {
     else if (a === 'flyD') { select(null); flyToDistrict(s.district.key); } else if (a === 'playD') { select(null); if (!v.time) toggleTime(true); const first = Math.min(...s.district.items.map((x) => x.t || x.it.b)); setTime(first); togglePlay(true); }
     else if (a === 'flyL') { select(null); flyToLand(s.land.key); } else if (a === 'playL') { select(null); if (!v.time) toggleTime(true); const first = Math.min(...s.land.items.map((x) => x.t || x.it.b)); setTime(first); togglePlay(true); }
     else if (a === 'sinceHere') { select(null); setSince(LM.view.t - LM.ds.win.review); }
-    else if (a === 'mapProj') { select(null); setProject(s.project.id); const pts = s.project.items.map((id) => LM.posOf && LM.posOf.get(id)).filter(Boolean); if (pts.length) { const xs = pts.map((p) => p.x), ys = pts.map((p) => p.y); const w = Math.max(...xs) - Math.min(...xs) + 6, h = (Math.max(...ys) - Math.min(...ys) + 6) * LM.ISO; const k = Math.max(4, Math.min(40, Math.min((LM.W - (v.panel ? 420 : 80)) / w, (LM.H - 260) / h))); LM.flyTo((Math.min(...xs) + Math.max(...xs)) / 2 + (v.panel && LM.W > 1100 ? 160 / k : 0), (Math.min(...ys) + Math.max(...ys)) / 2, k); } say(`<b>${LM.esc(s.project.short)}</b> on the map: its tasks in full, the rest dimmed, its thread in gold. Esc clears.`, 6000); }
+    else if (a === 'mapProj') { select(null); setProject(s.project.id); const pts = s.project.items.map((id) => LM.posOf && LM.posOf.get(id)).filter(Boolean); if (pts.length) { const xs = pts.map((p) => p.x), ys = pts.map((p) => p.y); const w = Math.max(...xs) - Math.min(...xs) + 6, h = (Math.max(...ys) - Math.min(...ys) + 6) * LM.YS; const k = Math.max(4, Math.min(40, Math.min((LM.W - (v.panel ? 420 : 80)) / w, (LM.H - 260) / h))); LM.flyTo((Math.min(...xs) + Math.max(...xs)) / 2 + (v.panel && LM.W > 1100 ? 160 / k : 0), (Math.min(...ys) + Math.max(...ys)) / 2, k); } say(`<b>${LM.esc(s.project.short)}</b> on the map: its tasks in full, the rest dimmed, its thread in gold. Esc clears.`, 6000); }
     else if (a === 'playProj') { select(null); if (!v.time) toggleTime(true); setProject(s.project.id); setTime(s.project.b); togglePlay(true); }
     else if (a === 'openParent') { const p = ds.byId.get(s.parent); if (p) select(p); }
     else if (a === 'decideYes' || a === 'decideNo' || a === 'decideLater') { const ask = s.ask; ask.open = false; ask.answer = a === 'decideYes' ? 'yes' : a === 'decideNo' ? 'no' : 'later'; if (a === 'decideLater') { ask.open = true; LM.dismissed.add('A:' + ask.id); } select(null); LM.panelState.key = ''; say(`<b>${a === 'decideYes' ? 'Decided' : a === 'decideNo' ? 'Declined' : 'Later'}</b> · ${LM.esc(ask.short)} — recorded as a decision in the product; here the flag comes down.`, 5000); LM.dirty(); }
@@ -706,7 +723,7 @@ function tileSample(ctx, cx, cy, k, status, T, opts = {}) {
   const top = T.state[status] || T.state.doing;
   LM.prism(ctx, cx, cy, k, 0.86, Hpx, opts.grey ? LM.grey(top, 0.75) : top, status === 'todo' ? 0.7 : 0.96, T, T.light ? 'rgba(15,31,58,.35)' : T.ink(0.3), status === 'blocked' ? 1.5 : 1, status === 'todo' ? [3, 3] : null);
   const r = Math.max(5, k * 0.17), faceY = cy - Hpx, fw = 0.86 * k * 1.7;
-  if (opts.slab) { const col = opts.slab; const P = [0, 1, 2].map((i) => [cx + Math.cos(Math.PI / 6 + (Math.PI / 3) * i) * 0.67 * k, faceY + Math.sin(Math.PI / 6 + (Math.PI / 3) * i) * 0.67 * k * LM.ISO]); const Spx = k * 0.9; const side = (a, b, al) => { ctx.beginPath(); ctx.moveTo(P[a][0], P[a][1]); ctx.lineTo(P[b][0], P[b][1]); ctx.lineTo(P[b][0], P[b][1] - Spx); ctx.lineTo(P[a][0], P[a][1] - Spx); ctx.closePath(); ctx.fillStyle = LM.rgba(col, al); ctx.fill(); }; side(1, 2, 0.34); side(0, 1, 0.26); LM.hexPath(ctx, cx, faceY, k, 0.67, Spx); ctx.fillStyle = LM.rgba(LM.mix(col, T.paper, 0.25), 0.55); ctx.fill(); ctx.strokeStyle = LM.rgba(LM.mix(col, T.paper, 0.5), 0.8); ctx.lineWidth = 1; ctx.stroke(); return; }
+  if (opts.slab) { const col = opts.slab; const P = [0, 1, 2].map((i) => [cx + Math.cos(Math.PI / 6 + (Math.PI / 3) * i) * 0.67 * k, faceY + Math.sin(Math.PI / 6 + (Math.PI / 3) * i) * 0.67 * k * LM.YS]); const Spx = k * 0.9; const side = (a, b, al) => { ctx.beginPath(); ctx.moveTo(P[a][0], P[a][1]); ctx.lineTo(P[b][0], P[b][1]); ctx.lineTo(P[b][0], P[b][1] - Spx); ctx.lineTo(P[a][0], P[a][1] - Spx); ctx.closePath(); ctx.fillStyle = LM.rgba(col, al); ctx.fill(); }; side(1, 2, 0.34); side(0, 1, 0.26); LM.hexPath(ctx, cx, faceY, k, 0.67, Spx); ctx.fillStyle = LM.rgba(LM.mix(col, T.paper, 0.25), 0.55); ctx.fill(); ctx.strokeStyle = LM.rgba(LM.mix(col, T.paper, 0.5), 0.8); ctx.lineWidth = 1; ctx.stroke(); return; }
   if (!opts.plain) { ctx.beginPath(); ctx.arc(cx - fw / 2 + r * 1.15, faceY - r * 0.6, r, 0, Math.PI * 2); ctx.fillStyle = LM.rgba(LM.mix(T.hues.sky, T.light ? T.paper : T.sea, 0.7), 0.96); ctx.fill(); LM.icon(ctx, 'square-check-big', cx - fw / 2 + r * 1.15, faceY - r * 0.6, r * 1.2, LM.rgba(T.hues.sky, 1), 2.2); }
   if (opts.icon) LM.pillIcon(ctx, cx, faceY - k * 0.7, Math.max(6, k * 0.2), opts.icon[0], T.hues[opts.icon[1]], T);
 }
@@ -773,7 +790,8 @@ LM.command = function command(text) {
   const dm = /(\d{4}-\d{2}-\d{2})|\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+(\d{1,2})(?:,?\s*(\d{4}))?/.exec(q);
   if (dm && !sm) { const t = dm[1] ? Date.parse(dm[1] + 'T12:00:00') : Date.parse(`${dm[2]} ${dm[3]} ${dm[4] || new Date(ds.now).getFullYear()} 12:00`); if (!isNaN(t)) { if (!LM.view.time) toggleTime(true); setTime(t); said.push(LM.fmtDate(t)); } }
   if (has(/\b(play|run|animate)\b/) && !has(/from here/)) { togglePlay(true); said.push('playing'); }
-  if (has(/\bzoom in\b/)) { zoomAt(LM.W / 2, LM.H / 2, 1.8, true); said.push('closer'); } if (has(/\bzoom out\b/)) { zoomAt(LM.W / 2, LM.H / 2, 1 / 1.8, true); said.push('farther'); }
+  if (has(/\bzoom in\b|\bcloser\b|\bdive\b/)) { zoomStep(1); said.push('one level in'); } if (has(/\bzoom out\b|\bfarther\b|\bback out\b/)) { zoomStep(-1); said.push('one level out'); }
+  if (has(/\bisometric\b|\b3d\b/)) { LM.view.iso = !has(/\boff\b|\bflat\b/); LM.YS = LM.view.iso ? 0.55 : 1; said.push(LM.view.iso ? 'isometric' : 'flat'); } else if (has(/\bflat\b/)) { LM.view.iso = false; LM.YS = 1; said.push('flat'); }
   const tm = /\b(trace|cause|caused|effects? of)\b\s*(.*)$/.exec(q);
   if (tm) { const key = (tm[2] || '').replace(/^(of|the)\s+/, '').trim(); const d = ds.decisions.find((x) => x.id.toLowerCase() === key) || ds.decisions.filter((x) => key && x.n.toLowerCase().includes(key)).sort((a, b) => b.lin.size - a.lin.size)[0]; if (d) { setTrace('decision', d); const c = LM.worlds[LM.view.lens].claims.find((cc) => cc.dec === d); if (c) { const [x, y] = LM.hexXY(c.q, c.r); LM.flyTo(x, y, Math.max(LM.cam.k, 16)); } said.push(`tracing ${LM.esc(d.n.replace(/\*\*/g, ''))}`); } else if (key) said.push(`no decision matches "${LM.esc(key)}"`); }
   const om = /\b(open|show|go to|fly to|find|zoom (?:in )?(?:to|on))\b\s+(.*)$/.exec(q);
@@ -785,7 +803,7 @@ LM.command = function command(text) {
     const item = !land && !dist && vis.items.find((x) => x.it && x.it.n.toLowerCase().includes(key));
     if (land) { flyToLand(land.key); said.push(`flying to ${LM.esc(LM.landInfo(ds, LM.view.lens, land.key).name)}`); }
     else if (dist) { flyToDistrict(dist.key); said.push(`flying to ${LM.esc(LM.shortName(LM.distName(ds, LM.view.lens, dist.key)))}`); }
-    else if (item) { select(item.it); LM.flyTo(item.x, item.y + 0.6, 64); said.push(`opening ${LM.esc(item.it.short)}`); }
+    else if (item) { flyToDistrict(item.d); select(item.it); said.push(`opening ${LM.esc(item.it.short)}`); }
     else if (key && !said.length) said.push(`nothing here is called "${LM.esc(key)}"`);
   }
   if (has(/\b(sky|whole|everything|zoom all|company)\b/) && !om && !has(/zoom (in|out)/)) { select(null); LM.flyTo(null, null, 3.6); said.push('the whole world'); }
@@ -805,6 +823,7 @@ function applyParams(p) {
   if (p.get('panel') === '0') v.panel = false; if (p.get('panel') === '1') v.panel = true;
   if (p.get('time') === '1' || (p.get('t') && v.mode === 'then')) v.time = true;
   if (p.get('quiet') === '0') v.quiet = false;
+  if (p.get('iso') === '1') { v.iso = true; LM.YS = 0.55; }
   if (p.get('filter')) LM.panelState.filter = p.get('filter');
   if (p.get('scope')) LM.panelState.scope = p.get('scope');
   LM.readTheme();
@@ -827,7 +846,7 @@ function writeUrl() {
     p.set('t', new Date(v.t).toISOString().slice(0, 16)); p.set('x', LM.cam.x.toFixed(1)); p.set('y', LM.cam.y.toFixed(1)); p.set('k', LM.cam.k.toFixed(2));
     if (v.sel && v.sel.id) p.set('sel', v.sel.id); if (v.trace && v.trace.dec) p.set('trace', v.trace.dec.id);
     if (v.sinceOn) p.set('since', new Date(v.since).toISOString().slice(0, 16));
-    if (!v.panel) p.set('panel', '0'); if (v.time) p.set('time', '1'); if (v.proj) p.set('proj', v.proj); if (!v.quiet) p.set('quiet', '0');
+    if (!v.panel) p.set('panel', '0'); if (v.time) p.set('time', '1'); if (v.proj) p.set('proj', v.proj); if (!v.quiet) p.set('quiet', '0'); if (v.iso) p.set('iso', '1');
     if (LM.panelState.filter !== 'all') p.set('filter', LM.panelState.filter); if (LM.panelState.scope !== 'here') p.set('scope', LM.panelState.scope);
     if (document.documentElement.dataset.pt !== 'deep') p.set('pt', document.documentElement.dataset.pt); if (v.hc) p.set('hc', '1');
     history.replaceState(null, '', '?' + p.toString());

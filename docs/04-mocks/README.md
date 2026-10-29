@@ -67,6 +67,10 @@ Counts are measured by the attention check (`node gen/shoot.mjs --check`, below)
 | 35 | Phone place: Engineering | Engineering's programs | 0 · 1 · 3 | UC-A2 UC-Q2 · 13§10 |
 | 36 | Phone product view and Fork | the slider; the lit path | 1 · 3 · 10 | UC-R1 UC-Q3 · 13§10 |
 | 37 | Phone Refocus and Talk | the sliders; the composed answer | 0 · 0 · 9 | UC-R2 UC-T4 · 13§10 |
+| **J** | **Projects and policies (T35, 2026-10-29)** | | | |
+| 41 | Project view | the Private beta project | 1 · 6 · 14 | UC-A4 UC-Q3 UC-R5 · 13§6, 02§4.2 |
+| 42 | The project on the world | Private beta across four places | 2 · 6 · 8 | UC-A4 UC-A3 · 16§16.6 |
+| 43 | Policies, and adopting one | adopting “No release on a Friday” | 1 · 7 · 6 | UC-R1 UC-S6 · 18§3 |
 | **I** | **Variants and legend** | | | |
 | 38 | RTL and high contrast | the mirrored programs; the three cards | 3 · 4 · 4 | UC-Q2 · 13§11 |
 | 39 | The world as a tree | the focused row | 0 · 1 · 18 | UC-A1 · 13§11 |
@@ -158,6 +162,9 @@ Columns: 1 focal subject named in two seconds · 2 at most three things need the
 | 38 | ✓ | ✓ | ✓ | ✓ | n/a | ✓ | ✓ |
 | 39 | ✓ | ✓ | ✓ | ✓ | n/a | ✓ (the list equivalent, by design) | ✓ |
 | 40 | ✓ | ✓ | ✓ | ✓ | n/a | ✓ | ✓ |
+| 41 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 42 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 43 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 
 Criterion 3 exceptions follow the lead's ruling (names appear only when legible; `docs/13` §14.3 is being amended). Criterion 7 is measured in Deep Blue, LTR, desktop; Sky Glass and the four Aqua Dusk frames were checked by eye from the screenshots, RTL and high contrast on frames 2 and 38, and the phone layouts on frames 34–37.
 

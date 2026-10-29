@@ -204,17 +204,19 @@ Rewritten in T35: a layer greys the city and raises a translucent slab of its co
 | LM-V-4 | The grammar sheet draws its samples with the renderer; elements, depths, lenses, layers, badges, actions | Still `lucid-legend-sheet` |
 | LM-V-5 | The lab: three themes, two contrasts, motion, dataset; all URL state | Stills `lucid-sky-glass`, `lucid-aqua`, `lucid-hc` |
 
-### 2.18 The isometric world and the tile (LM-I)
+### 2.18 The three levels and the tile (LM-I)
+
+Rewritten in T36: three levels, each designed for its own information; flat by default; the isometric option kept for comparison.
 
 | ID | Requirement |
 |---|---|
-| LM-I-1 | The ground is seen from the south at an isometric tilt (y squashed to 0.55); lands are glass plates with a thickness; districts tints; no terrain. |
-| LM-I-2 | A task is a prism whose height is its progress: planned flat and dashed; in progress rising with its share; blocked coral and frozen; done full and green; set aside a park. Height and colour are the only carriers of progress and state. |
-| LM-I-3 | The top face has fixed slots: glyph top-left, the one number top-right, the title beneath, the criteria ring at the right, who and since at the street. Detail by depth: sky colour only; land colour and glyph; district glyph, number, one-line title; street everything plus the facade on the front face. |
-| LM-I-4 | Hover reads the tile in full in a fixed order (identity, state and since, the layer's value, place, who, criteria, size and cost, waits on and frees, subtasks, parent, projects, open asks); click opens the management view. |
-| LM-I-5 | Problems float as icons above tiles (asked, blocked, nothing moved, waiting in review); at the sky and when they would cover the view they gather per place into one icon with a count. |
-| LM-I-6 | Decided decisions gather on the square as one plaque with a count; a flag stands only for an open ask or the owner's recent decision. |
-| LM-I-7 | Zoom buttons (in, out, frame) with the depth named; keys `+` `−` `0`; wheel, pinch, double click. |
+| LM-I-1 | **Land** (k below the first threshold): the company as places on the v0.2 look: coasts, landmark in its ring, name, faint sub-contours, the layer as a tint and a chip, one problem icon with a count per place, "N to decide" under the name. No tiles. |
+| LM-I-2 | **Area** (between the thresholds): the districts of the land under the camera as cards on a grid inside its coast: name, done share as a ring with its number or the layer's value, tasks and open, what needs attention, a strip of task states, who leads; the ones that need attention first; the rest folded into one card with their sums; never overlapping. Other lands keep their markers, lighter. |
+| LM-I-3 | **Task** (above the second threshold): the tasks of the area under the camera as tiles of at least ~150 px on their plots: glyph, state word, problem or ask badge, title on two lines, progress bar with its share or the layer's value, who and since, criteria ring; closer: subtasks, links, cost, size, projects; closer still: the facade. Plots beneath are quiet footprints. |
+| LM-I-4 | Hover reads a tile in full in a fixed order; click opens the management view; a card click flies into its area. |
+| LM-I-5 | Zoom buttons step through the levels (the place under the camera fills the view); keys `+` `−` `0`; the wheel and a pinch move continuously; the level is named. The transition between levels fades the old level's cards or tiles out and the new ones in. |
+| LM-I-6 | Flat is the default; the isometric option (height = progress) stays in the lab with compact tiles (T-O14). |
+| LM-I-7 | Decided decisions gather on the square as one plaque with a count at the task level; a flag stands only for an open ask or the owner's recent decision. |
 
 ### 2.19 The Now view (LM-N)
 

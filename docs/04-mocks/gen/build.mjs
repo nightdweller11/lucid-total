@@ -14,6 +14,7 @@ const SEC = [
   ['system', 'F · The system', 'Lucid Total runs itself: its subsystems as a place, repairs as visible loops with evidence, AI processes as quiet cards with four states, models as classes and decisions, autonomy as a trust layer on the world.', './framesF.mjs', 'sectionF'],
   ['channels', 'G · Channels', 'The system where people already are: a verified contact in Lucid Chat, decisions by email reply, a quiet member of Slack channels.', './framesG.mjs', 'sectionG'],
   ['phone', 'H · Phone', 'The phone is its own surface: one place or one decision at a time, full-bleed, hold to confirm and hold to talk.', './framesH.mjs', 'sectionH'],
+  ['projects', 'J · Projects and policies', 'The divisible level above a task, with and without the map; and policies, the behavioural decisions that reach into the day to day (T35).', './framesJ.mjs', 'sectionJ'],
   ['variants', 'I · Variants and legend', 'Right to left, high contrast, the list equivalent, and the reference sheet of the mark, the landmarks and the grammar.', './framesI.mjs', 'sectionI'],
 ];
 const secs = [];

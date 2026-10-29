@@ -128,6 +128,8 @@ Recurrence applies to `chore`, `task`, `reminder`, `meeting` (rule, next occurre
 
 ### 4.2 Groupings
 
+**The levels of work (T35/T36).** The owner's instruction: a higher level above a task, divisible. The default words are **project → task → subtask** (T-O13 may rename them): someone says "start a new product" and that yields a project, which divides into tasks, which divide into subtasks. A task may belong to several projects (a phase's workstream and the project a decision opened share tasks); a subtask lives where its parent lives. A project has a view with and without the map (`docs/16` §16.6; mocks v0.2 frames 41–42): the done share by size, tasks, open, blocked, to decide, health, the asks that wait on it, every task's life in time, tasks by state, dependencies that reach outside it, the projects it shares tasks with; on the world its tasks stay lit while the rest dims. `program`, `epic`, `release`, `campaign`, `wave`, `objective` and `collection` remain available groupings; a project is the one a person reaches for first.
+
 `domain`, `program`, `project`, `epic`, `release`, `campaign`, `wave`, `objective`, `collection` (a free grouping, e.g. "Europe"). Many-to-many with items and with each other (a program spans domains; an epic belongs to a program and a release). Each grouping has: lead, description, state roll-up (counts by state, done share counting subtasks, UC-G4), forecast, health (on track / at risk / stuck, with reasons), dates (optional), metrics[], and a map placement (`docs/03`).
 
 ### 4.3 Relations
@@ -199,6 +201,8 @@ All views are over the same model; each remembers its layout per person. The exp
 - **The dock**: Horizon · World · Me · Talk · More; folded at the edge; no section rail.
 
 ### 5.1 The world (the map)
+
+**Three levels, each designed for its own information (T36; `docs/16` §17).** Land: the company as places on the v0.2 look. Area: inside a place, its projects and areas as cards with their state. Task: the tasks of an area as large, rich tiles. Zoom buttons step between the levels; the wheel moves within them.
 
 The company as terrain of **places with identity** (name, subject, glyph, hue, landmark illustration, stable position) that contain their own sub-maps, visible faintly before you zoom; items are **buildings** whose facades show the product (expected as a ghost, actual when built, criteria as a ring); goals are the horizon; dependencies are roads; risks are weather; decisions waiting are flags; people and agents are presence; parties are embassies at the coast. Zoom: company → domain → program/epic → building → evidence, continuous, revealing rather than replacing. Perspective and the meeting re-arrange and re-emphasise, never hide. Full design in `docs/13` §5 and `docs/03`.
 
