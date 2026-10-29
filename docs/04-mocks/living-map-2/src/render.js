@@ -272,11 +272,13 @@ LM.draw = function draw(now) {
   ctx.clearRect(0, 0, W, H);
   const world = LM.worlds[view.lens];
   if (!world.poleCache) world.poleCache = new Map();
-  const vis = (LM.vis = LM.visible(world, view.t));
+  if (!world.visCache || world.visCache.t !== view.t) world.visCache = { t: view.t, vis: LM.visible(world, view.t) };
+  const vis = (LM.vis = world.visCache.vis);
   LM.shapes = LM.landShapes(world, vis);
+  LM.hits = [];
   const O = view.overlays;
   const layer = [...O].find((o) => o !== 'deps') || null;
-  const stats = (LM.stats = overlayStats(ds, vis));
+  const stats = (LM.stats = vis.stats || (vis.stats = overlayStats(ds, vis)));
   const traceSet = view.trace ? view.trace.set : null;
   const traceLands = view.trace ? view.trace.lands : null;
   const proj = view.proj ? ds.byProject.get(view.proj) : null;
@@ -286,8 +288,8 @@ LM.draw = function draw(now) {
   const since = view.sinceOn ? (LM.sinceCache && LM.sinceCache.t0 === view.since && LM.sinceCache.t1 === view.t && LM.sinceCache.lens === view.lens ? LM.sinceCache : (LM.sinceCache = Object.assign(LM.changes(ds, view.lens, view.since, view.t), { lens: view.lens }))) : null;
   LM.since = since;
   const nowMode = view.mode === 'now';
-  const asksAt = LM.openAsks(ds, view.t);
-  const askByItem = new Map(); for (const a of asksAt) { const p = LM.askPlace(ds, a, view.lens, view.t); if (p.it) { if (!askByItem.has(p.it.id)) askByItem.set(p.it.id, []); askByItem.get(p.it.id).push(a); } }
+  if (!vis.askMaps || vis.askMaps.lens !== view.lens) { const asksAt0 = LM.openAsks(ds, view.t); const m = new Map(); for (const a of asksAt0) { const p = LM.askPlace(ds, a, view.lens, view.t); if (p.it) { if (!m.has(p.it.id)) m.set(p.it.id, []); m.get(p.it.id).push(a); } } vis.askMaps = { lens: view.lens, asksAt: asksAt0, askByItem: m }; }
+  const asksAt = vis.askMaps.asksAt, askByItem = vis.askMaps.askByItem;
   LM.askByItem = askByItem;
   for (const S of [...vis.lands.values(), ...vis.districts.values()]) { S.asks = 0; S.proj = 0; }
   for (const S of [...vis.lands.values(), ...vis.districts.values()]) S.askList = [];
@@ -496,9 +498,11 @@ LM.draw = function draw(now) {
       ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(cx, cy, R, R * LM.YS, 0, 0, Math.PI * 2); ctx.fill();
     }
   }
+  LM.labelRects = [];
+  if (lod <= 1) LM.drawSummaries(ctx, vis, world, lod, stats, since, layer, projSet, traceLands);
   ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
   const lmLab = [];
-  for (const m of LM.lmPos) { if (lmLab.some(([x, y]) => Math.abs(x - m.sx) < 60 && Math.abs(y - m.sy) < 30)) continue; lmLab.push([m.sx, m.sy]); ctx.font = `600 13px Figtree, system-ui, sans-serif`; ctx.lineWidth = 4; ctx.strokeStyle = rgba(T.black, T.light ? 0.9 : 0.7); ctx.lineJoin = 'round'; ctx.strokeText(m.v.lm.n, m.sx, m.sy - m.size - 6); ctx.fillStyle = rgba(T.gold, 1); ctx.fillText(m.v.lm.n, m.sx, m.sy - m.size - 6); }
+  for (const m of LM.lmPos) { if (lmLab.some(([x, y]) => Math.abs(x - m.sx) < 60 && Math.abs(y - m.sy) < 30)) continue; ctx.font = `600 13px Figtree, system-ui, sans-serif`; const tw = ctx.measureText(m.v.lm.n).width; const R = { x0: m.sx - tw / 2, y0: m.sy - m.size - 20, x1: m.sx + tw / 2, y1: m.sy - m.size + 4 }; if (LM.labelRects.some((o) => R.x0 < o.x1 && R.x1 > o.x0 && R.y0 < o.y1 && R.y1 > o.y0)) continue; lmLab.push([m.sx, m.sy]); LM.labelRects.push(R); ctx.lineWidth = 4; ctx.strokeStyle = rgba(T.black, T.light ? 0.9 : 0.7); ctx.lineJoin = 'round'; ctx.strokeText(m.v.lm.n, m.sx, m.sy - m.size - 6); ctx.fillStyle = rgba(T.gold, 1); ctx.fillText(m.v.lm.n, m.sx, m.sy - m.size - 6); }
 
   LM.syncOverlays(vis, world, lod, stats, since, layer, nowMode, projSet, traceSet, traceLands);
   for (const [ax, ay, bx, by] of LM.leaders || []) { ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.lineWidth = 1.4; ctx.strokeStyle = T.ink(0.55); ctx.setLineDash([3, 4]); ctx.stroke(); ctx.setLineDash([]); ctx.beginPath(); ctx.arc(bx, by, 3.5, 0, Math.PI * 2); ctx.fillStyle = T.ink(0.8); ctx.fill(); }
@@ -577,6 +581,155 @@ function spread(items) {
   }
 }
 
+// ---- the summaries typeset into the map at the land and area levels (T40): the land's own lettering, no overlay ----
+const FONT_D = 'Sora, Figtree, system-ui, sans-serif', FONT_T = 'Figtree, system-ui, sans-serif';
+function haloText(ctx, T, text, x, y, size, weight, color, align = 'center', maxW, display) {
+  ctx.font = `${weight} ${size}px ${display ? FONT_D : FONT_T}`; ctx.textAlign = align; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round';
+  ctx.lineWidth = Math.max(3, size * 0.3); ctx.strokeStyle = rgba(T.light ? T.paper : T.ink0, T.light ? 0.9 : 0.7); ctx.strokeText(text, x, y, maxW);
+  ctx.fillStyle = color; ctx.fillText(text, x, y, maxW);
+}
+const ellip = (ctx, text, maxW) => { if (ctx.measureText(text).width <= maxW) return text; let lo = 0, hi = text.length; while (lo < hi) { const mid = (lo + hi + 1) >> 1; if (ctx.measureText(text.slice(0, mid) + '…').width <= maxW) lo = mid; else hi = mid - 1; } return text.slice(0, Math.max(1, lo)).trimEnd() + '…'; };
+const hitBox = (x0, y0, x1, y1, act) => LM.hits.push({ x0, y0, x1, y1, act });
+LM.drawSummaries = function drawSummaries(ctx, vis, world, lod, stats, since, layer, projSet, traceLands) {
+  const T = LM.theme, ds = LM.ds, view = LM.view, k = LM.cam.k, ys = LM.YS;
+  const pic = view.pic || 'thumb';
+  const panelW = view.panel && LM.W > 1100 ? 382 : 0;
+  const free = { x0: 0, y0: LM.W <= 720 ? 150 : 175, x1: LM.W - panelW, y1: LM.H - (LM.W <= 720 ? 300 : 100) };
+  const fracIn = (bb) => { const ix = Math.max(0, Math.min(bb.x1, free.x1) - Math.max(bb.x0, free.x0)), iy = Math.max(0, Math.min(bb.y1, free.y1) - Math.max(bb.y0, free.y0)); return (ix * iy) / Math.max(1, (bb.x1 - bb.x0) * (bb.y1 - bb.y0)); };
+  const screenBox = (rings) => { let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity; for (const ring of rings) for (const [x, y] of ring) { const [sx, sy] = LM.toScreen(x, y); if (sx < x0) x0 = sx; if (sx > x1) x1 = sx; if (sy < y0) y0 = sy; if (sy > y1) y1 = sy; } return { x0, y0, x1, y1 }; };
+  for (const S of [...vis.lands.values(), ...vis.districts.values()]) if (S.review0 === undefined) { S.review0 = 0; for (const v of S.items) if (v.it && v.st.s === 'review') S.review0++; }
+  const here = lod === 1 ? LM.hereLand : null;
+  LM.labelRects = [];
+  const TIERS = ['name', 'xs', 's', 'm', 'l'];
+  const stateOrder = ['done', 'review', 'doing', 'blocked', 'todo'];
+  const phone = LM.W <= 720;
+  const drawPlace = (S, kind, shape, info, cap, dim) => {
+    const rings = LM.hullOf(world, shape);
+    const bb = screenBox(rings);
+    if (bb.x1 < -40 || bb.x0 > LM.W + 40 || bb.y1 < -40 || bb.y0 > LM.H + 40) return;
+    const frac = fracIn(bb);
+    const pole = LM.poleOf(world, shape); const [px, py] = LM.toScreen(pole.x, pole.y);
+    const wide = LM.fitBox(world, shape, 1.4), xsBox = LM.fitBox(world, shape, 2.6);
+    const bw = wide.w * k, bh = wide.h * k * ys, xw = xsBox.w * k, xh = xsBox.h * k * ys;
+    const name = kind === 'land' ? info.name : LM.shortName(LM.distName(ds, view.lens, S.key));
+    const pct = S.size ? S.doneSize / S.size : 0, open = (S.built || 0) - (S.done || 0) - (S.dropped || 0);
+    const pv = layer ? LM.placeValue(S, layer, stats, kind === 'land') : null;
+    const ch = since ? (kind === 'land' ? since.places : since.districts).get(S.key) : null;
+    const asks = (S.askList || []).slice().sort((a, b) => (b.to === 'owner') - (a.to === 'owner') || b.b - a.b);
+    const atl = [asks.length ? { ic: 'message-circle-question', col: T.rules, text: `${asks.length} to decide`, go: 'ask' } : null, S.blocked ? { ic: 'construction', col: T.coral, text: `${S.blocked} blocked`, go: 'blocked' } : null, S.stale && !S.blocked ? { ic: 'hourglass', col: T.amber, text: `${S.stale} still`, go: 'blocked' } : null, S.review0 ? { ic: 'eye', col: T.ai, text: `${S.review0} in review`, go: 'review' } : null, ch ? { ic: 'history', col: T.heat, text: `${ch.n} changed`, go: 'new' } : null].filter(Boolean);
+    if (phone) atl.length = 0;
+    const crewList = (() => { const m = new Map(); for (const v of S.items) if (v.it && !v.st.closed) { const w = LM.who(v.it); const c = m.get(w.name) || { w, n: 0 }; c.n++; m.set(w.name, c); } return [...m.values()].sort((a, b) => (a.w.agent - b.w.agent) || b.n - a.n); })();
+    const made = pic !== 'off' ? S.items.filter((v) => v.it && !v.st.dropped && (v.st.done || v.st.s === 'doing' || v.st.s === 'review')).sort((p, q) => q.st.since - p.st.since).slice(0, 3) : [];
+    const tops = kind === 'land' ? [...vis.districts.values()].filter((D) => D.land === S.key && D.built >= 2).sort((a, b) => (b.asks * 4 + b.blocked * 3 + b.n * 0.05) - (a.asks * 4 + a.blocked * 3 + a.n * 0.05)).slice(0, 3) : [];
+    const A = atl.length ? 20 : 0;
+    const H = { name: 24 + A, xs: 24 + 18 + A, s: 26 + 12 + 18 + A + 12, m: 30 + 12 + 18 + (asks.length ? 24 : 0) + A + (crewList.length ? 26 : 0) + 20, l: 72 + 12 + 20 + (made.length ? 48 : 0) + Math.min(2, asks.length) * 24 + A + (crewList.length ? 26 : 0) + (tops.length ? 20 : 0) + 36 };
+    const Wn = { name: 90, xs: 118, s: 136, m: 200, l: 280 };
+    let tier = 'name', box = xsBox;
+    if (frac >= 0.6) for (const tn of ['l', 'm', 's', 'xs']) { if (TIERS.indexOf(tn) > TIERS.indexOf(cap)) continue; const w0 = tn === 'xs' ? xw : bw, h0 = tn === 'xs' ? xh : bh; if (w0 >= Wn[tn] && h0 >= H[tn]) { tier = tn; box = tn === 'xs' ? xsBox : wide; break; } }
+    let cx, cy, boxW;
+    if (tier === 'name') { if (!(px > -120 && px < LM.W + 120 && py > -40 && py < LM.H + 40)) return; cx = px; cy = py; boxW = Math.max(120, xw); } else { [cx, cy] = LM.toScreen(box.x, box.y); boxW = box.w * k; }
+    // a map drops a label that would land on another
+    const rw = (tier === 'name' || tier === 'xs') ? Math.max(130, Math.min(190, boxW)) : boxW, rh = H[tier];
+    const R = { x0: cx - rw / 2, y0: cy - rh / 2 - 2, x1: cx + rw / 2, y1: cy + rh / 2 + 2 };
+    if ((tier === 'name' || tier === 'xs') && LM.labelRects.some((o) => R.x0 < o.x1 && R.x1 > o.x0 && R.y0 < o.y1 && R.y1 > o.y0)) return;
+    LM.labelRects.push(R);
+    const hue = T.hues[info.hue] || T.hues.slate;
+    ctx.save(); ctx.globalAlpha = dim;
+    if (pic === 'full' && tier !== 'name') { rrect(ctx, cx - boxW / 2 - 6, cy - H[tier] / 2 - 8, boxW + 12, H[tier] + 16, 14); ctx.fillStyle = rgba(T.sea, T.light ? 0.75 : 0.72); ctx.fill(); }
+    let y = cy - H[tier] / 2;
+    const fg = rgba(T.fg, 1), mut = rgba(T.fg, 0.78);
+    // the head: landmark and name (a pin and name for an area)
+    if (kind === 'land' && tier === 'l') {
+      const r = 22; ctx.beginPath(); ctx.arc(cx, y + r, r, 0, Math.PI * 2); ctx.fillStyle = rgba(hue, 0.28); ctx.fill(); ctx.lineWidth = 1.5; ctx.strokeStyle = rgba(hue, 0.75); ctx.stroke();
+      LM.landmark(ctx, info.lm, cx, y + r, 30, rgba(hue, 1), 1.8);
+      haloText(ctx, T, name, cx, y + 2 * r + 16, 21, 600, fg, 'center', boxW - 10, true);
+      y += 72;
+    } else {
+      let size = tier === 'm' ? 18 : tier === 's' ? 16 : tier === 'xs' ? 14.5 : 14;
+      const r = kind === 'land' ? (tier === 'm' ? 13 : tier === 's' ? 11 : 9) : 0;
+      const roomW = Math.max(boxW, tier === 'name' || tier === 'xs' ? 170 : 0) - (r ? 2 * r + 10 : 20) - 6;
+      ctx.font = `600 ${size}px ${FONT_D}`;
+      while (size > 12 && ctx.measureText(name).width > roomW) { size -= 0.5; ctx.font = `600 ${size}px ${FONT_D}`; }
+      const label = ellip(ctx, name, roomW);
+      const tw = ctx.measureText(label).width, iw = kind === 'land' ? 2 * r + 8 : 18;
+      const x0 = cx - (tw + iw) / 2;
+      if (kind === 'land') { ctx.beginPath(); ctx.arc(x0 + r, y + 12, r, 0, Math.PI * 2); ctx.fillStyle = rgba(hue, 0.3); ctx.fill(); ctx.lineWidth = 1.2; ctx.strokeStyle = rgba(hue, 0.75); ctx.stroke(); LM.landmark(ctx, info.lm, x0 + r, y + 12, r * 1.35, rgba(hue, 1), 1.6); }
+      else LM.icon(ctx, 'map-pin', x0 + 7, y + 12, 14, rgba(hue, 1), 2);
+      haloText(ctx, T, label, x0 + iw, y + 12, size, 600, fg, 'left', undefined, true);
+      y += tier === 'm' ? 30 : tier === 's' ? 26 : 24;
+    }
+    const rowGap = tier === 'l' ? 8 : 6;
+    if (tier !== 'name') {
+      if (tier !== 'xs') {
+        // the bar: tasks by state, or the layer's value, drawn into the ground
+        const W = Math.min(boxW - 24, tier === 'l' ? 220 : tier === 'm' ? 180 : 140), x0 = cx - W / 2, hb = tier === 'l' ? 7 : 6;
+        rrect(ctx, x0, y, W, hb, hb / 2); ctx.fillStyle = rgba(T.light ? T.ink0 : T.paper, 0.18); ctx.fill();
+        if (pv) { rrect(ctx, x0, y, Math.max(hb, W * pv.v), hb, hb / 2); ctx.fillStyle = rgba(LM.layerColor(layer, T), 0.95); ctx.fill(); }
+        else { const n = Math.max(1, S.built || 0); const c = { done: S.done || 0, review: 0, doing: 0, blocked: S.blocked || 0, todo: 0 }; for (const v of S.items) if (v.it) { if (v.st.s === 'review') c.review++; else if (v.st.s === 'doing') c.doing++; else if (v.st.s === 'todo') c.todo++; } let xx = x0; for (const st of stateOrder) { const w = (c[st] / n) * W; if (w < 0.5) continue; ctx.fillStyle = rgba(T.state[st], st === 'todo' ? 0.35 : 0.95); ctx.fillRect(xx, y, w, hb); xx += w; } }
+        y += hb + rowGap;
+      }
+      // the line
+      const line = pv ? `${pv.text} ${LM.OV_INFO[layer][0].toLowerCase()} · ${S.built} · ${open} open` : `${Math.round(pct * 100)} % · ${S.built} · ${open} open`;
+      haloText(ctx, T, line, cx, y + 8, tier === 'l' ? 14 : tier === 'xs' ? 12 : 13, 600, fg, 'center', boxW - 8);
+      y += 18 + rowGap;
+      // pictures of what it made lately
+      if (tier === 'l' && made.length) { const pw = 56, ph = 42, gap = 6; let xx = cx - (made.length * pw + (made.length - 1) * gap) / 2; for (const v of made) { ctx.save(); rrect(ctx, xx, y, pw, ph, 6); ctx.clip(); LM.drawPic(ctx, v.it, v.st, xx, y, pw, ph, 1); ctx.restore(); rrect(ctx, xx, y, pw, ph, 6); ctx.lineWidth = 1; ctx.strokeStyle = rgba(T.paper, 0.35); ctx.stroke(); hitBox(xx, y, xx + pw, y + ph, { it: v.it, title: v.it.n }); xx += pw + gap; } y += ph + rowGap; }
+      // the open asks as flags
+      const nFlags = tier === 'l' ? Math.min(2, asks.length) : tier === 'm' ? Math.min(1, asks.length) : 0;
+      for (let i = 0; i < nFlags; i++) {
+        const a = asks[i]; const W = Math.min(boxW - 16, tier === 'l' ? 250 : 190), x0 = cx - W / 2;
+        ctx.beginPath(); ctx.moveTo(x0, y - 2); ctx.lineTo(x0, y + 20); ctx.lineWidth = 2; ctx.strokeStyle = rgba(T.fg, 0.85); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(x0 + 2, y); ctx.lineTo(x0 + W, y); ctx.lineTo(x0 + W - 8, y + 9); ctx.lineTo(x0 + W, y + 18); ctx.lineTo(x0 + 2, y + 18); ctx.closePath();
+        ctx.fillStyle = rgba(a.to === 'owner' ? [90, 108, 240] : T.rules, 0.96); ctx.fill(); if (a.to === 'owner') { ctx.lineWidth = 1.5; ctx.strokeStyle = rgba(T.gold, 0.9); ctx.stroke(); }
+        LM.icon(ctx, a.kind === 'approve' ? 'badge-check' : a.kind === 'unblock' ? 'construction' : 'message-circle-question', x0 + 12, y + 9, 12, 'rgba(255,255,255,.95)', 2);
+        ctx.font = `600 12px ${FONT_T}`; ctx.fillStyle = '#fff'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText(ellip(ctx, a.n, W - 34), x0 + 22, y + 9);
+        hitBox(x0, y - 2, x0 + W, y + 20, { ask: a, title: a.n }); y += 24;
+      }
+      if (asks.length > nFlags && tier !== 's' && tier !== 'xs' && !atl.some((x) => x.go === 'ask')) atl.unshift({ ic: 'message-circle-question', col: T.rules, text: `+${asks.length - nFlags} more to decide`, go: 'ask' });
+      else if (nFlags && atl[0] && atl[0].go === 'ask') { if (asks.length > nFlags) atl[0].text = `+${asks.length - nFlags} more to decide`; else atl.shift(); }
+    }
+    // the attention, as map symbols with their counts
+    if (atl.length) {
+      ctx.font = `600 12.5px ${FONT_T}`;
+      const ws = atl.map((x) => 16 + ctx.measureText(x.text).width); const total = ws.reduce((p, q) => p + q, 0) + (atl.length - 1) * 10;
+      let xx = cx - total / 2;
+      atl.forEach((x, i) => { LM.icon(ctx, x.ic, xx + 6.5, y + 9, 13, rgba(x.col, 1), 2.2); haloText(ctx, T, x.text, xx + 16, y + 9, 12.5, 600, rgba(x.col, 1), 'left'); hitBox(xx - 4, y - 2, xx + ws[i] + 4, y + 20, { go: x.go, S, kind, title: x.text }); xx += ws[i] + 10; });
+      y += 20;
+    }
+    if ((tier === 'l' || tier === 'm') && crewList.length) {
+      const r = 10, n = Math.min(3, crewList.length), extra = crewList.length - n; const total = n * 22 + (extra ? 24 : 0) - 2; let xx = cx - total / 2 + r;
+      for (let i = 0; i < n; i++) { const { w } = crewList[i]; ctx.beginPath(); ctx.arc(xx, y + 12, r, 0, Math.PI * 2); ctx.fillStyle = rgba(w.agent ? T.ai : T.acc, 0.35); ctx.fill(); ctx.lineWidth = 1.5; ctx.strokeStyle = rgba(T.sea, 0.9); ctx.stroke(); if (w.agent) LM.icon(ctx, 'bot', xx, y + 12, 11, fg, 2); else { ctx.font = `700 10px ${FONT_T}`; ctx.fillStyle = fg; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(w.initial, xx, y + 12.5); } hitBox(xx - r, y + 2, xx + r, y + 22, { go: 'all', S, kind, title: `${w.name} · ${crewList[i].n} open` }); xx += 22; }
+      if (extra) { ctx.font = `600 11px ${FONT_T}`; ctx.fillStyle = mut; ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText(`+${extra}`, xx - r + 2, y + 12); }
+      y += 26;
+    }
+    if (tier === 'l' && tops.length) {
+      ctx.font = `500 12px ${FONT_T}`;
+      const parts = tops.map((D) => ({ D, text: `${ellip(ctx, LM.shortName(LM.distName(ds, view.lens, D.key)), 90)} ${Math.round((D.size ? D.doneSize / D.size : 0) * 100)} %` }));
+      const ws = parts.map((x) => ctx.measureText(x.text).width); const total = ws.reduce((p, q) => p + q, 0) + (parts.length - 1) * 14;
+      let xx = cx - total / 2;
+      parts.forEach((x, i) => { haloText(ctx, T, x.text, xx, y + 9, 12, 500, mut, 'left'); hitBox(xx - 3, y, xx + ws[i] + 3, y + 18, { dist: x.D.key, title: x.text }); if (i < parts.length - 1) { ctx.fillStyle = rgba(T.fg, 0.4); ctx.fillText('·', xx + ws[i] + 4, y + 9); } xx += ws[i] + 14; });
+      y += 20;
+    }
+    ctx.restore();
+  };
+  for (const L of vis.lands.values()) {
+    if (here && here.key === L.key) continue;
+    const info = LM.landInfo(ds, view.lens, L.key);
+    const dim = (traceLands && !traceLands.has(L.key) ? 0.35 : 1) * (projSet && !L.proj ? 0.45 : 1) * (lod === 1 ? 0.55 : 1);
+    drawPlace(L, 'land', LM.shapeOf(L), info, lod === 1 ? 's' : 'l', dim);
+  }
+  if (here) {
+    const L = here, info = LM.landInfo(ds, view.lens, L.key), hue = T.hues[info.hue] || T.hues.slate;
+    const bb = screenBox(LM.hullOf(world, LM.shapeOf(L)));
+    const lx = (bb.x0 + bb.x1) / 2, ly = Math.max(free.y0 + 26, bb.y0 + 30);
+    ctx.save(); ctx.letterSpacing = '0.14em'; ctx.font = `600 15px ${FONT_D}`; const tw = ctx.measureText(info.name.toUpperCase()).width; ctx.letterSpacing = '0px';
+    const x0 = lx - (tw + 40) / 2; ctx.beginPath(); ctx.arc(x0 + 15, ly, 15, 0, Math.PI * 2); ctx.fillStyle = rgba(hue, 0.3); ctx.fill(); ctx.lineWidth = 1.2; ctx.strokeStyle = rgba(hue, 0.75); ctx.stroke(); LM.landmark(ctx, info.lm, x0 + 15, ly, 20, rgba(hue, 1), 1.6);
+    ctx.letterSpacing = '0.14em'; haloText(ctx, T, info.name.toUpperCase(), x0 + 40, ly, 15, 600, rgba(T.fg, 0.9), 'left', undefined, true); ctx.letterSpacing = '0px'; ctx.restore();
+    hitBox(x0, ly - 16, x0 + tw + 40, ly + 16, { land: L, title: info.name });
+    for (const D of vis.districts.values()) { if (D.land !== L.key || !D.built) continue; drawPlace(D, 'district', D, info, 'm', projSet && !D.proj ? 0.3 : 1); }
+  }
+};
+
 LM.syncOverlays = function syncOverlays(vis, world, lod, stats, since, layer, nowMode, projSet, traceSet, traceLands) {
   const root = LM.tilesEl; if (!root) return;
   const ds = LM.ds, view = LM.view, k = LM.cam.k;
@@ -609,73 +762,6 @@ LM.syncOverlays = function syncOverlays(vis, world, lod, stats, since, layer, no
   for (const S of [...vis.lands.values(), ...vis.districts.values()]) { S.review0 = 0; for (const v of S.items) if (v.it && v.st.s === 'review') S.review0++; }
   const base = { ds, lens: view.lens, layer, stats, since, projSet };
 
-  // ---- the territory is the card: each place's hull as a clipped element with its summary laid in the box that fits it;
-  //      the tier by that room; only places in (nearly) full view speak; a callout, with a leader, only where there is no
-  //      room and something waits (T39) ----
-  const TIERS = ['name', 'xs', 's', 'm', 'l'];
-  const NEED = { land: { l: [300, 250], m: [205, 150], s: [128, 82] }, district: { m: [200, 150], s: [128, 82] } };
-  const panelW = view.panel && LM.W > 1100 ? 382 : 0;
-  const free = { x0: 0, y0: LM.W <= 720 ? 150 : 175, x1: LM.W - panelW, y1: LM.H - (LM.W <= 720 ? 300 : 100) };
-  const fracIn = (bb) => { const ix = Math.max(0, Math.min(bb.x1, free.x1) - Math.max(bb.x0, free.x0)), iy = Math.max(0, Math.min(bb.y1, free.y1) - Math.max(bb.y0, free.y0)); return (ix * iy) / Math.max(1, (bb.x1 - bb.x0) * (bb.y1 - bb.y0)); };
-  const ys = LM.YS;
-  const screenBox = (rings) => { let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity; for (const ring of rings) for (const [x, y] of ring) { const [sx, sy] = LM.toScreen(x, y); if (sx < x0) x0 = sx; if (sx > x1) x1 = sx; if (sy < y0) y0 = sy; if (sy > y1) y1 = sy; } return { x0, y0, x1, y1 }; };
-  const clipPath = (rings, bx, by) => rings.map((ring) => { const P = ring.map(([x, y]) => { const [sx, sy] = LM.toScreen(x, y); return [sx - bx, sy - by]; }); const n = P.length; const mid = (p, q) => [(p[0] + q[0]) / 2, (p[1] + q[1]) / 2]; let d = 'M' + mid(P[0], P[1]).map((v) => v.toFixed(1)).join(' '); for (let i = 1; i <= n; i++) { const p = P[i % n], q = P[(i + 1) % n]; const m = mid(p, q); d += `Q${p[0].toFixed(1)} ${p[1].toFixed(1)} ${m[0].toFixed(1)} ${m[1].toFixed(1)}`; } return d + 'Z'; }).join('');
-  const tierFor = (kind, box) => { const w = box.w * k, h = box.h * k * ys; const N = NEED[kind]; for (const tn of Object.keys(N)) if (w >= N[tn][0] && h >= N[tn][1]) return tn; return null; };
-  const madeOf = (S, n) => S.items.filter((v) => v.it && !v.st.dropped && (v.st.done || v.st.s === 'doing' || v.st.s === 'review')).sort((p, q) => q.st.since - p.st.since).slice(0, n);
-  const terrs = [];
-  const territory = (S, kind, shape, info, name, o) => {
-    const rings = LM.hullOf(world, shape);
-    const bb = screenBox(rings);
-    if (bb.x1 < -40 || bb.x0 > LM.W + 40 || bb.y1 < -40 || bb.y0 > LM.H + 40) return null;
-    const frac = fracIn(bb);
-    const pole = LM.poleOf(world, shape); const [px, py] = LM.toScreen(pole.x, pole.y);
-    const wide = LM.fitBox(world, shape, 1.4), xsBox = LM.fitBox(world, shape, 2.6);
-    let tier = frac >= 0.6 ? tierFor(kind, wide) : null, box = wide;
-    if (!tier && frac >= 0.6 && xsBox.w * k >= 110 && xsBox.h * k * ys >= 40) { tier = 'xs'; box = xsBox; }
-    if (!tier) { tier = 'name'; box = xsBox; }
-    if (o.cap && TIERS.indexOf(tier) > TIERS.indexOf(o.cap)) { tier = o.cap; box = tier === 'xs' || tier === 'name' ? xsBox : wide; }
-    const made = view.pic !== 'off' && ((kind === 'land' && tier === 'l') || (kind === 'district' && tier === 'm')) ? madeOf(S, 3) : null;
-    const html = placeSummary(S, kind, tier, { ...base, info, name, tops: tier === 'l' ? o.tops : null, made });
-    const [bx, by] = LM.toScreen(box.x, box.y); const bw = Math.max(0, box.w * k), bh = Math.max(0, box.h * k * ys);
-    let m;
-    if (tier === 'name' || tier === 'xs') {
-      // too little room for a box inside the coast: the name (and the one line) stands free at the pole, unclipped
-      if (!(px > -120 && px < LM.W + 120 && py > -60 && py < LM.H + 60)) return null;
-      m = want(o.key, `plabel ${kind === 'land' ? 'lsum' : 'dsum'} ${tier} h-${info.hue} hl-${healthOf(S)}${o.cls || ''}`, html, tier === 'xs' ? bx : px, tier === 'xs' ? by : py, 0, 0, { bind: (el) => bindPlace(el, S, kind), op: o.dim === undefined ? 1 : o.dim });
-    } else {
-      const inner = `<div class="sum ${kind === 'land' ? 'lsum' : 'dsum'} ${tier}" style="left:${(bx - bb.x0 - bw / 2).toFixed(0)}px;top:${(by - bb.y0 - bh / 2).toFixed(0)}px;width:${bw.toFixed(0)}px;height:${bh.toFixed(0)}px">${html}</div>`;
-      const w = bb.x1 - bb.x0, h = bb.y1 - bb.y0;
-      m = want(o.key, `terr ${kind} t-${tier} h-${info.hue} hl-${healthOf(S)}${o.cls || ''}`, inner, (bb.x0 + bb.x1) / 2, (bb.y0 + bb.y1) / 2, w, h, { bind: (el) => bindPlace(el, S, kind), op: o.dim === undefined ? 1 : o.dim });
-      const ck = `${shape.key}|${shape.n}|${k.toFixed(2)}|${ys.toFixed(2)}`;
-      if (m.clipKey !== ck) { m.clipKey = ck; m.el.style.clipPath = `path(evenodd, "${clipPath(rings, bb.x0, bb.y0)}")`; }
-    }
-    m.el.title = o.title || '';
-    const T = { S, kind, tier, frac, px, py, bb, info, name, origin: o.origin };
-    terrs.push(T);
-    return T;
-  };
-  if (lod <= 1) {
-    const here = lod === 1 ? LM.hereLand : null;
-    for (const L of vis.lands.values()) {
-      if (here && here.key === L.key) continue;
-      const info = LM.landInfo(ds, view.lens, L.key);
-      const tops = [...vis.districts.values()].filter((D) => D.land === L.key && D.built >= 2).sort((a, b) => (b.asks * 4 + b.blocked * 3 + b.working * 0.5 + b.n * 0.05) - (a.asks * 4 + a.blocked * 3 + a.working * 0.5 + a.n * 0.05)).slice(0, 3);
-      const dim = (traceLands && !traceLands.has(L.key) ? 0.35 : 1) * (projSet && !L.proj ? 0.45 : 1) * (lod === 1 ? 0.55 : 1);
-      territory(L, 'land', LM.shapeOf(L), info, info.name, { key: 'L:' + L.key, tops, dim: dim.toFixed(2), cap: lod === 1 ? 's' : null, title: `${info.name}${info.sub ? ': ' + info.sub : ''}`, origin: [0, 0] });
-    }
-    if (here) {
-      // the land under the camera speaks through its areas; its name stands along its north coast
-      const L = here, info = LM.landInfo(ds, view.lens, L.key);
-      const shape = LM.shapeOf(L), bb = screenBox(LM.hullOf(world, shape));
-      want('R:' + L.key, `region h-${info.hue}`, `<span class="disc h-${info.hue}"><svg class="lm" viewBox="0 0 48 48"><path d="${LM.LANDMARKS[LM.lmKey(info.lm)].d}"/></svg></span><span>${esc(info.name)}</span>`, (bb.x0 + bb.x1) / 2, Math.max(free.y0 + 26, bb.y0 + 30), 0, 0, { bind: (el) => bindPlace(el, L, 'land') });
-      const pole = LM.poleOf(world, L); const [ox, oy] = LM.toScreen(pole.x, pole.y);
-      for (const D of vis.districts.values()) {
-        if (D.land !== L.key || !D.built) continue;
-        territory(D, 'district', D, info, LM.shortName(LM.distName(ds, view.lens, D.key)), { key: 'D:' + D.key, cls: projSet && !D.proj ? ' dimmed' : '', title: LM.distName(ds, view.lens, D.key), origin: [ox, oy] });
-      }
-    }
-    // no callout cards: a place without room carries its name and its attention line, unclipped, at its pole
-  }
   if (lod === 2) {
     // ---- hexagonal tiles: the task inside the shape ----
     const r = 0.93, hw = Math.sqrt(3) / 2 * r * k, hh = r * k * LM.YS;
@@ -692,27 +778,31 @@ LM.syncOverlays = function syncOverlays(vis, world, lod, stats, since, layer, no
       const rooms = LM.rooms(it, st), met = rooms.filter((x) => x.st === 'met').length;
       const ch = since ? since.items.get(it.id) : null;
       const stateWord = st.dropped ? 'Set aside' : LM.STATUS_WORD[st.s];
-      const val = p.tv ? `<b>${esc(p.tv.text)}</b><small>${LM.OV_INFO[layer][0].toLowerCase()}</small>` : st.done ? `<b>done</b>` : st.dropped ? '' : st.s === 'todo' ? `<b>0 %</b>` : `<b>${Math.round(st.h * 100)} %</b>`;
+      const val = p.tv ? `<b>${esc(p.tv.text)}</b><small>${LM.OV_INFO[layer][0].toLowerCase()}</small>` : st.done ? `<b>${LM.rel(it.doneAt || st.since, view.t)}</b>` : st.dropped ? '' : st.s === 'todo' ? `<b>0 %</b>` : `<b>${Math.round(st.h * 100)} %</b>`;
       const downs = ds.items.filter((o) => o.dep.includes(it.id)).length;
       const proj = it.projects.length ? ds.byProject.get(it.projects[0]) : null;
       const land = LM.landInfo(ds, view.lens, v.g);
       const pic = view.pic || 'thumb';
-      const facade = pic === 'thumb' && tier !== 's' && !st.dropped ? `<span class="fc">${LM.picSvg(it, st)}</span>` : '';
-      const pbg = pic === 'full' ? LM.picSvg(it, st, 'pbg') : '';
+      // the tile: a cover (the picture, or the kind on its state colour) in the pointed top, the strip on its lower edge,
+      // the title and the aligned facts in the wide middle, who and since in the pointed foot
+      const cover = pic !== 'off' && !st.dropped ? LM.picSvg(it, st, 'cv') : `<span class="kglyph f-${kind[0]}">${Iw(kind[1])}</span>`;
       const banner = asks ? `<div class="askban${asks.some((a) => a.to === 'owner') ? ' you' : ''}" data-ask="${asks[0].id}" title="${esc(asks[0].n)}">${Iw(asks[0].kind === 'approve' ? 'badge-check' : asks[0].kind === 'unblock' ? 'construction' : 'message-circle-question')}<span>${esc(asks[0].n)}</span></div>` : '';
-      const why = tier === 'xl' && (view.pic || 'thumb') !== 'full' ? `<div class="why">${Iw('target')}<span>Serves ${esc(land.name)}${proj ? ` · ${esc(proj.short)}` : ''}</span></div>` : '';
-      const html = `${pbg}<div class="th"><span class="g f-${kind[0]} sm">${Iw(kind[1])}</span><span class="stw st-${st.dropped ? 'dropped' : st.s}">${stateWord}</span><span class="val">${val}</span>${prob && prob !== 'ask' ? `<span class="pb f-${PROBLEM[prob][1]}" title="${prob}">${Iw(PROBLEM[prob][0])}</span>` : ch ? `<span class="pb f-${badgeOf(ch.kind)[1]}" title="changed since you last looked">${Iw(badgeOf(ch.kind)[0])}</span>` : ''}</div>
+      const fact = (ic, v2, lbl, title) => `<span class="f" title="${title || lbl}">${ic}<em>${v2}</em><small>${lbl}</small></span>`;
+      const facts = tier === 's' ? '' : `<div class="facts">${fact(segRingHtml(18, rooms.map((x) => x.st), 3), `${met}/${rooms.length}`, 'criteria', `${met} of ${rooms.length} criteria met`)}${fact(sizeDots(it.s), '', 'size', `size ${it.s} of 5`)}${tier === 'm' ? '' : fact(Iw('route'), `${it.dep.length}→${downs}`, 'links', `waits on ${it.dep.length} · frees ${downs}`) + (it.cost ? fact(Iw('flame'), LM.fmtMoney(st.cost), 'cost') : it.children.length ? fact(Iw('git-branch'), it.children.length, 'parts', `${it.children.length} subtasks`) : '')}</div>`;
+      const why = tier === 'xl' ? `<div class="why">${Iw('target')}<span>Serves ${esc(land.name)}${proj ? ` · ${esc(proj.short)}` : ''}</span></div>` : '';
+      const html = `<div class="cov">${cover}</div>
+        <div class="strip"><span class="g f-${kind[0]} sm">${Iw(kind[1])}</span><span class="stw st-${st.dropped ? 'dropped' : st.s}">${stateWord}</span><span class="val">${val}</span>${prob && prob !== 'ask' ? `<span class="pb f-${PROBLEM[prob][1]}" title="${prob}">${Iw(PROBLEM[prob][0])}</span>` : ch ? `<span class="pb f-${badgeOf(ch.kind)[1]}" title="changed since you last looked">${Iw(badgeOf(ch.kind)[0])}</span>` : ''}</div>
         ${banner}
-        <div class="tb">${facade}<div class="tt">${esc(it.n)}</div></div>
-        <div class="tm"><span class="cr" title="${met} of ${rooms.length} criteria">${segRingHtml(22, rooms.map((x) => x.st), 3.5)}<em>${met}/${rooms.length}</em></span>${sizeDots(it.s)}${it.dep.length || downs ? `<span class="x" title="waits on ${it.dep.length} · frees ${downs}">${Iw('route')}${it.dep.length}→${downs}</span>` : ''}${it.cost ? `<span class="x">${Iw('flame')}${LM.fmtMoney(st.cost)}</span>` : ''}${it.children.length ? `<span class="x">${Iw('git-branch')}${it.children.length}</span>` : ''}</div>
-        <div class="tf"><span class="av ${who.agent ? 'ag' : who.cls}" title="${esc(who.name)}">${who.agent ? Iw('bot') : who.initial}</span><span class="tw">${tier === 's' ? '' : esc(who.name.length > 14 ? who.initial : who.name) + ' · '}${LM.rel(st.since, view.t)}</span>${proj && tier !== 's' ? `<span class="pt" title="${esc(proj.n)}">${Iw('kanban')}${esc(proj.short.length > 18 ? proj.short.slice(0, 16) + '…' : proj.short)}</span>` : ''}</div>${why}`;
+        <div class="tt">${esc(it.n)}</div>
+        ${facts}
+        <div class="tf"><span class="av ${who.agent ? 'ag' : who.cls}" title="${esc(who.name)}">${who.agent ? Iw('bot') : who.initial}</span><span class="tw">${tier === 's' ? '' : esc(who.name.length > 14 ? who.initial : who.name) + ' · '}${LM.rel(st.since, view.t)}</span>${proj && tier !== 's' && tier !== 'm' ? `<span class="pt" title="${esc(proj.n)}">${Iw('kanban')}${esc(proj.short.length > 16 ? proj.short.slice(0, 14) + '…' : proj.short)}</span>` : ''}</div>${why}`;
       const quiet = nowMode && view.quiet && st.old && !ch && !projSet && !traceSet;
       const col = p.tv ? LM.hueVar(LM.layerHue(layer)) : '';
-      const cls = `hex ${tier}${view.sel === it ? ' sel' : ''}${st.dropped ? ' park' : ''}${quiet ? ' quiet' : ''} st-${st.dropped ? 'dropped' : st.s}${asks ? ' asked' : ''}${layer ? ' lay' : ''}${pic === 'full' ? ' pic' : ''}`;
-      const m = want('T:' + id, cls, html, p.x, p.y, w, h, { bind: (el) => { el.addEventListener('click', (e) => { e.stopPropagation(); const ask = e.target.closest('[data-ask]'); if (ask) { const a = ds.asks.find((x) => x.id === ask.dataset.ask); if (a) { LM.select({ ask: a, it }); return; } } LM.select(it); }); el.addEventListener('pointerenter', (e) => { LM.view.hover = it; LM.renderTip({ it }, e.clientX, e.clientY); LM.dirty(); }); el.addEventListener('pointermove', (e) => LM.renderTip({ it }, e.clientX, e.clientY)); el.addEventListener('pointerleave', () => { LM.view.hover = null; LM.renderTip(null); LM.dirty(); }); }, op: p.dim.toFixed(2) });
+      const cls = `hex ${tier}${view.sel === it ? ' sel' : ''}${st.dropped ? ' park' : ''}${quiet ? ' quiet' : ''} st-${st.dropped ? 'dropped' : st.s}${asks ? ' asked' : ''}${layer ? ' lay' : ''} pic-${pic}`;
+      const m = want('T:' + id, cls, html, p.x, p.y, w, h, { bind: (el) => { el.addEventListener('click', (e) => { if (LM.dragMoved) return; e.stopPropagation(); const ask = e.target.closest('[data-ask]'); if (ask) { const a = ds.asks.find((x) => x.id === ask.dataset.ask); if (a) { LM.select({ ask: a, it }); return; } } LM.select(it); }); el.addEventListener('pointerenter', (e) => { if (LM.dragging) return; LM.view.hover = it; LM.renderTip({ it }, e.clientX, e.clientY); LM.dirty(); }); el.addEventListener('pointermove', (e) => { if (!LM.dragging) LM.renderTip({ it }, e.clientX, e.clientY); }); el.addEventListener('pointerleave', () => { LM.view.hover = null; LM.renderTip(null); LM.dirty(); }); }, op: p.dim.toFixed(2) });
       if (col) m.el.style.setProperty('--lc', col); else m.el.style.removeProperty('--lc');
       m.el.style.setProperty('--fill', p.fill.toFixed(2));
-      m.el.style.padding = `${(h * (tier === 's' ? 0.18 : pic === 'full' ? 0.09 : 0.11)).toFixed(0)}px ${(w * 0.07).toFixed(0)}px ${(h * (pic === 'full' ? 0.1 : 0.13)).toFixed(0)}px`;
+      const pad = `${(w * 0.08).toFixed(0)}px`; if (m.pad !== pad) { m.pad = pad; m.el.style.setProperty('--px', pad); }
     }
     // ---- council tiles: the decisions decided on a square, the latest written out ----
     for (const S of (LM.squares || new Map()).values()) {
@@ -731,6 +821,7 @@ LM.syncMarkers = () => {};
 /** Hit test on the canvas (what the DOM did not catch): a plaque, a landmark, else the district, else the land. */
 LM.hit = function hit(sx, sy) {
   const vis = LM.vis; if (!vis) return null;
+  for (let i = (LM.hits || []).length - 1; i >= 0; i--) { const h = LM.hits[i]; if (sx >= h.x0 && sx <= h.x1 && sy >= h.y0 && sy <= h.y1) return { act: h.act }; }
   for (const m of LM.lmPos || []) if (Math.hypot(m.sx - sx, m.sy - m.size * 0.45 - sy) <= m.size * 0.55) return m.v;
   const [wx, wy] = LM.toWorld(sx, sy);
   const [q, r] = LM.xyHex(wx, wy);

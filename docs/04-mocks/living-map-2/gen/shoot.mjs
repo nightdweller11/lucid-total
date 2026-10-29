@@ -48,6 +48,9 @@ export const FRAMES = {
   'pic-example-area': { q: 'd=example&lens=dept&pic=full', after: async (p) => p.evaluate(bigLand) },
   'pic-example-task': { q: 'd=example&lens=dept&pic=full', after: async (p) => p.evaluate(richDistrict) },
   'nopic-task-rich': { q: 'd=lucid&lens=dept&pic=off', after: async (p) => p.evaluate(richDistrict) },
+  // the panel as the context of what was clicked
+  'ctx-land': { q: 'd=lucid&lens=dept', after: async (p) => p.evaluate(() => { const L = [...LM.vis.lands.values()].sort((a, b) => (b.asks * 3 + b.blocked) - (a.asks * 3 + a.blocked) || b.n - a.n)[0]; LM.select({ land: L }); }) },
+  'ctx-task': { q: 'd=lucid&lens=dept', after: async (p) => { await p.evaluate(richDistrict); await p.evaluate(() => { const v = [...LM.tilePos.values()].filter((t) => t.x > 300 && t.x < LM.W - 420 && t.y > 200 && t.y < LM.H - 200).sort((a, b) => b.v.it.s - a.v.it.s)[0]; if (v) LM.select(v.v.it); }); } },
   'now-task-hover': { q: 'd=lucid&lens=dept', after: async (p) => { await p.evaluate(askedDistrict); await p.waitForTimeout(300); await hoverTile(p); } },
   'now-task-view': { q: 'd=lucid&lens=dept', after: async (p) => p.evaluate(() => { const it = LM.ds.items.filter((o) => o.children.length >= 2 && o.s >= 3 && o.doneAt).sort((a, b) => b.b - a.b)[0] || LM.ds.items.filter((o) => o.s >= 4 && o.doneAt)[0]; const v = LM.posOf.get(it.id); LM.flyToDistrict(v.d); snap(); LM.select(it); }) },
   'now-task-view-rising': { q: 'd=lucid&lens=dept', after: async (p) => p.evaluate(() => { const v = LM.vis.items.filter((v) => v.it && (v.st.s === 'review' || v.st.s === 'doing') && v.it.s >= 3).sort((a, b) => b.it.b - a.it.b)[0]; LM.flyToDistrict(v.d); snap(); LM.select(v.it); }) },

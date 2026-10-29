@@ -347,6 +347,20 @@ The fifth pass put the data on plates again. The owner's rule: the data is embed
 
 **Lead decisions (T39):** callout cards are gone entirely (the unclipped label replaces them); the lucid rows' subjects are parsed heuristically and will be wrong for some rows until the product records the artifact; pictures as the tile force the flat task level; the land shapes are a display concern (growth cap 3–9 rings by size, two-cell channel), a platform setting later.
 
+## 21. The seventh pass: the data is the map (T40)
+
+The sixth pass still laid HTML over the canvas. The owner's rule, again: the data is part of the map area, like a real map; the map moves smoothly; clicking anything leads to the thing; the right side is the context of what was clicked.
+
+**Lettering, not overlays.** At the land and area levels nothing is HTML any more. Each place's summary is typeset into the canvas with a map's own rules: the landmark and the name with a halo of ground colour, the state bar drawn as a strip into the terrain, the share line, the attention as map symbols with their counts, the open asks as pennants, the crew as small discs, the latest pictures as small frames; every one a hit area that leads to what it names. The tier still follows the room inside the coast; a name that would not fit shrinks before it is cut; a label that would land on another is dropped, as a map drops it. The land under the camera carries its name along its north coast in letter-spaced capitals.
+
+**The map moves.** Visible state, the layer statistics and the open asks are computed once per moment, not per frame. While the map pans, zooms or flies, the glass surfaces stop blurring (the compositor's cost at retina scale) and come back when it rests. Dragging starts anywhere, on the ground or on a tile; a drag never becomes a click; the wheel zooms over anything.
+
+**The tile is a card in a hexagon.** Its cover is the picture (or the kind on its state colour) in the pointed top; a strip on the cover's lower edge carries the kind, the state and the one number; the title and a row of aligned facts (criteria, size, links, cost or parts) fill the wide middle; who and since stand in the pointed foot. *As the tile* makes the cover the whole hexagon with the strip and the facts on a scrim.
+
+**The right side is the context.** Clicking a land, an area, a task, an ask, a decision, a square or a landmark renders it into the panel: a place with everything that waits in it written out in full (every decision, every stuck task, every review, grouped, with the Now filters), its areas and who works there; a task with its view (criteria, moments, dependencies, what it changed); an ask with its decide buttons. *Now* returns to the attention list. Only the project view and the lists keep the floating sheet.
+
+**Lead decisions (T40):** the rows' caps in the Now list stay (twelve per group, six for new and done, "filter to see them"), the context of a clicked place has no cap; labels collide by rectangle, the simplest rule that reads right; the moving state lasts 220 ms after the last movement.
+
 ## 14. Open questions for the owner
 
 Material only (L425). Everything smaller is a platform setting with a default.

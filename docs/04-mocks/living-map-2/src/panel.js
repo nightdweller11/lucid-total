@@ -31,15 +31,68 @@ const KIND_OF_FILTER = { ask: ['ask'], blocked: ['blocked', 'stale'], review: ['
 const GROUPS = [['ask', 'Needs a decision', 'message-circle-question'], ['blocked', 'Stuck', 'construction'], ['stale', 'Nothing moved for a while', 'hourglass'], ['review', 'Waiting in review', 'eye'], ['milestone', 'Landmarks', 'milestone'], ['policy', 'Policies', 'scale'], ['decision', 'Decided', 'signpost'], ['new', 'New', 'sprout'], ['done', 'Done', 'circle-check-big']];
 
 /** Render the panel: the Now list, or the feed in Then mode. */
+/** The context of what was clicked: a place with everything that waits in it, written out in full; a task, an ask, a
+ *  decision, a square or a landmark with its view. The "news" area of T40. */
+function renderContext(P, sel, S, v, ds, W, t0) {
+  const I = LM.I;
+  const back = `<button class="chip sm" id="pback" title="Back to Now">${I('arrow-left')}<span>Now</span></button>`;
+  if (sel.land || sel.district) {
+    const kind = sel.land ? 'land' : 'district', Sx = sel.land || sel.district;
+    const info = kind === 'land' ? LM.landInfo(ds, v.lens, Sx.key) : LM.landInfo(ds, v.lens, Sx.land);
+    const name = kind === 'land' ? info.name : LM.shortName(LM.distName(ds, v.lens, Sx.key));
+    const scope = kind === 'land' ? { land: Sx.key } : { land: Sx.land, district: Sx.key };
+    const all = LM.attention(ds, v.lens, v.t, t0, scope);
+    const want = S.filter === 'all' ? null : new Set(KIND_OF_FILTER[S.filter] || [S.filter]);
+    const list = all.filter((x) => (!want || want.has(x.kind)) && !LM.dismissed.has(x.key));
+    const counts = { ask: 0, blocked: 0, review: 0, new: 0, done: 0 };
+    for (const x of all) { if (x.kind === 'ask') counts.ask++; else if (x.kind === 'blocked' || x.kind === 'stale') counts.blocked++; else if (x.kind === 'review') counts.review++; else if (x.kind === 'new') counts.new++; else if (x.kind === 'done' || x.kind === 'milestone') counts.done++; }
+    const pct = Sx.size ? Sx.doneSize / Sx.size : 0, open = (Sx.built || 0) - (Sx.done || 0) - (Sx.dropped || 0);
+    const head = `<div class="fh"><span class="disc h-${info.hue}" style="width:40px;height:40px;flex:none;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--h) 20%,var(--g1))"><svg class="lm" viewBox="0 0 48 48" style="width:26px;height:26px"><path d="${LM.LANDMARKS[LM.lmKey(info.lm)].d}"/></svg></span><div class="fhl"><span class="lbl2">${kind === 'land' ? 'Land' : 'Area'}${kind === 'district' ? ' · ' + LM.esc(info.name) : ''}</span><span class="ttl t2">${LM.esc(name)}</span></div>${back}</div>`;
+    const sum = `<div class="fsum"><span class="k mut">${I('sun-medium')}${Math.round(pct * 100)} % done · ${Sx.built || 0} tasks · ${open} open</span>${counts.ask ? `<span class="k rules">${I('message-circle-question')}${counts.ask} to decide</span>` : ''}${counts.blocked ? `<span class="k block">${I('construction')}${counts.blocked} stuck</span>` : ''}${counts.review ? `<span class="k ai">${I('eye')}${counts.review} in review</span>` : ''}${counts.new ? `<span class="k lime">${I('sprout')}${counts.new} new</span>` : ''}${counts.done ? `<span class="k good">${I('circle-check-big')}${counts.done} done</span>` : ''}</div>`;
+    const filters = `<div class="seg fseg">${NOW_FILTERS.map(([k, n, ic]) => `<span class="${S.filter === k ? 'on' : ''}" data-f="${k}">${I(ic)}<span>${n}</span>${k !== 'all' && counts[k] ? `<small>${counts[k]}</small>` : ''}</span>`).join('')}</div>`;
+    let rows = '';
+    const byKind = new Map();
+    for (const x of list) { if (!byKind.has(x.kind)) byKind.set(x.kind, []); byKind.get(x.kind).push(x); }
+    for (const [kind2, name2, ic] of GROUPS) { const xs = byKind.get(kind2); if (!xs || !xs.length) continue; rows += `<div class="fgroup"><span class="lbl2 row" style="gap:6px">${I(ic)}${name2} <em class="n">${xs.length}</em></span>${xs.map((x) => rowHtml(x, v.t)).join('')}</div>`; }
+    if (!rows) rows = `<div class="fempty">${I('check')}<span>${S.filter === 'all' ? 'Nothing waits here.' : 'Nothing in this filter.'}</span></div>`;
+    // the areas of a land, and who works here
+    if (kind === 'land' && S.filter === 'all') {
+      const Ds = [...LM.vis.districts.values()].filter((D) => D.land === Sx.key && D.built).sort((a, b) => (b.asks * 4 + b.blocked * 3) - (a.asks * 4 + a.blocked * 3) || b.n - a.n);
+      if (Ds.length) rows += `<div class="fgroup"><span class="lbl2 row" style="gap:6px">${I('map-pin')}Areas <em class="n">${Ds.length}</em></span>${Ds.map((D) => { const p2 = D.size ? D.doneSize / D.size : 0; return `<button class="fc frow" data-dist="${D.key}"><span class="g f-${info.hue} sm">${I('map-pin')}</span><span class="fb"><span class="ft">${LM.esc(LM.shortName(LM.distName(ds, v.lens, D.key)))}</span><span class="fm">${Math.round(p2 * 100)} % · ${D.built} tasks · ${(D.built || 0) - (D.done || 0) - (D.dropped || 0)} open${D.asks ? ` · <em class="rules">${D.asks} to decide</em>` : ''}${D.blocked ? ` · <em class="block">${D.blocked} blocked</em>` : ''}</span></span></button>`; }).join('')}</div>`;
+    }
+    if (S.filter === 'all') {
+      const m = new Map(); for (const x of Sx.items) if (x.it && !x.st.closed) { const w = LM.who(x.it); const c = m.get(w.name) || { w, n: 0 }; c.n++; m.set(w.name, c); }
+      const crew = [...m.values()].sort((a, b) => (a.w.agent - b.w.agent) || b.n - a.n);
+      if (crew.length) rows += `<div class="fgroup"><span class="lbl2 row" style="gap:6px">${I('users')}Who works here <em class="n">${crew.length}</em></span><div class="row" style="gap:10px;flex-wrap:wrap;padding:4px 8px">${crew.slice(0, 8).map(({ w, n }) => `<span class="row" style="gap:6px"><span class="av ${w.agent ? 'ag' : w.cls}">${w.agent ? I('bot') : w.initial}</span><span>${LM.esc(w.name)} <em class="mut">· ${n}</em></span></span>`).join('')}</div></div>`;
+    }
+    P.innerHTML = head + sum + filters + `<div class="fl2" id="plist">${rows}</div>`;
+    LM.marksIn(P);
+    for (const b of P.querySelectorAll('[data-f]')) b.onclick = () => { S.filter = b.dataset.f; LM.renderPanel(true); };
+    for (const b of P.querySelectorAll('.fc[data-key]')) { b.onclick = (e) => { if (e.target.closest('.dis')) return; const x = list.find((y) => y.key === b.dataset.key); if (x) LM.goToAttention(x); }; }
+    for (const b of P.querySelectorAll('[data-dist]')) b.onclick = () => { const D = LM.vis.districts.get(b.dataset.dist); if (D) LM.select({ district: D }); LM.flyToDistrict(b.dataset.dist); };
+    P.querySelector('#pback').onclick = () => LM.select(null);
+    return;
+  }
+  const label = sel.id ? 'Task' : sel.ask ? 'Needs a decision' : sel.mon ? 'Decision' : sel.plaque ? 'Decided here' : 'Landmark';
+  const head = `<div class="fh"><span class="g f-${sel.id ? 'acc' : sel.lm ? 'gold' : 'rules'}">${I(sel.id ? 'square-check-big' : sel.ask ? 'message-circle-question' : sel.lm ? 'milestone' : 'signpost')}</span><div class="fhl"><span class="lbl2">${label}</span><span class="ttl t2">${LM.esc(sel.id ? sel.short : sel.ask ? sel.ask.short || sel.ask.n : sel.mon ? sel.mon.id : sel.plaque ? sel.plaque.n + ' decisions' : sel.lm.n)}</span></div>${back}</div>`;
+  P.innerHTML = head + `<div class="fl2 pvin" id="plist">${LM.contextHtml(sel)}</div>`;
+  LM.marksIn(P);
+  LM.bindView(P, sel);
+  P.querySelector('#pback').onclick = () => LM.select(null);
+}
+
 LM.renderPanel = function renderPanel(force) {
   const P = LM.panelEl; if (!P || !LM.vis) return;
   const v = LM.view, ds = LM.ds, S = LM.panelState;
   const W = LM.where();
   const thenMode = v.mode === 'then';
   const t0 = v.sinceOn ? v.since : v.t - ds.win.review;
-  const key = [v.mode, W.level, W.key, Math.round(v.t / 60e3), Math.round(t0 / 60e3), v.lens, S.filter, S.scope, LM.dismissed.size, LM.W].join('|');
+  const sel = v.sel && !v.sel.project ? v.sel : null;
+  const selKey = sel ? (sel.id || (sel.ask && 'A' + sel.ask.id) || (sel.mon && 'M' + sel.mon.id) || (sel.plaque && 'P' + sel.plaque.key) || (sel.lm && 'L' + sel.lm.n) || (sel.land && 'G' + sel.land.key) || (sel.district && 'D' + sel.district.key) || '?') : '';
+  const key = [v.mode, W.level, W.key, Math.round(v.t / 60e3), Math.round(t0 / 60e3), v.lens, S.filter, S.scope, LM.dismissed.size, LM.W, selKey].join('|');
   if (!force && key === S.key && performance.now() - S.lastRender < 400) return;
   S.key = key; S.lastRender = performance.now();
+  if (sel) { renderContext(P, sel, S, v, ds, W, t0); return; }
   const scope = S.scope === 'here' ? { land: W.level !== 'company' ? W.key && W.land && W.land.key : null, district: W.level === 'district' ? W.key : null } : {};
   const title = S.scope === 'here' ? W.name : ds.name;
   const I = LM.I;
@@ -117,7 +170,8 @@ LM.goToEvent = function goToEvent(e) {
 // ---- the tooltip: a tile, a place or an ask read in full on hover ----
 LM.renderTip = function renderTip(h, sx, sy) {
   const T = LM.tipEl; if (!T) return;
-  if (!h || LM.view.sel || (!h.it && !h.plaque && !h.lm && !h.pill)) { if (!T.hidden) T.hidden = true; return; }
+  if (!h || (!h.it && !h.plaque && !h.lm && !h.pill && !h.text)) { if (!T.hidden) T.hidden = true; return; }
+  if (h.text) { T.innerHTML = `<div class="tl">${LM.esc(h.text)}</div>`; T.hidden = false; T.style.left = Math.min(LM.W - 260, sx + 14) + 'px'; T.style.top = Math.min(LM.H - 60, sy + 14) + 'px'; return; }
   const ds = LM.ds, v = LM.view, I = LM.I;
   let html = '';
   if (h.it) {

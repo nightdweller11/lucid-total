@@ -729,3 +729,61 @@ details .frow.sm{padding-inline-start:18px}
 .lab .lbl3,#pop .lbl3{display:block;font-size:11.5px;color:var(--muted);margin:-2px 0 6px}
 
 @media (max-width:720px){#tiles>.plabel .atl,#tiles>.plabel .ln{display:none}#tiles>.plabel .nm{font-size:14px}}
+
+/* ---- the seventh pass: the map moves, the data is the map, the tile is a card in a hexagon, the panel is the context ---- */
+.moving .gl,.moving .pv,.moving .sheet,.moving #tip,.moving .zoomc,.moving .dock{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.moving .gl{background:color-mix(in srgb,var(--ground-base) 78%,var(--g2))}
+.moving #tiles>*{animation:none}
+#tiles>.terr,#tiles>.plabel,#tiles>.region,#tiles>.dcall{display:none}
+.hex{padding:0!important;gap:0;display:flex;flex-direction:column;justify-content:flex-start;--px:24px}
+.hex .cov{flex:none;height:30%;position:relative;overflow:hidden;background:color-mix(in srgb,var(--sc) 24%,var(--g1));display:grid;place-items:center}
+.hex.l .cov,.hex.xl .cov{height:34%}
+.hex .cov svg.cv{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hex .cov::after{content:"";position:absolute;inset:auto 0 0 0;height:46%;background:linear-gradient(to bottom,transparent,color-mix(in srgb,var(--ground-base) 70%,transparent))}
+.hex .cov .kglyph{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--h,var(--sc)) 26%,transparent);color:var(--fg)}
+.hex .cov .kglyph .ic{width:22px;height:22px}
+.hex.s .cov .kglyph{width:30px;height:30px}.hex.s .cov .kglyph .ic{width:16px;height:16px}
+.hex .strip{display:flex;align-items:center;gap:6px;flex:none;margin:-14px var(--px) 0;position:relative;z-index:1}
+.hex .strip .g.sm{width:22px;height:22px;box-shadow:0 2px 8px var(--shadow)}.hex .strip .g.sm .ic{width:12px;height:12px}
+.hex .strip .stw{flex:1;font-size:11px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+.hex .strip .val{display:inline-flex;align-items:baseline;gap:3px;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.hex .strip .val small{font-size:10px;color:var(--muted);text-transform:none;letter-spacing:0}
+.hex .strip .pb{--h:var(--f-rules);width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--h);color:#fff;flex:none;box-shadow:0 4px 10px var(--shadow)}
+.hex .strip .pb .ic{width:12px;height:12px}
+.hex .askban{margin:6px var(--px) 0}
+.hex .tt{margin:6px var(--px) 0;flex:none;font-weight:600;font-size:12.5px;line-height:1.28;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-align:start}
+.hex.m .tt{font-size:13px;-webkit-line-clamp:2}.hex.l .tt{font-size:14px;-webkit-line-clamp:3}.hex.xl .tt{font-size:15px;-webkit-line-clamp:3}
+.hex .facts{display:flex;justify-content:space-between;align-items:flex-end;margin:auto var(--px) 0;padding-top:6px;flex:none;gap:6px}
+.hex .facts .f{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}
+.hex .facts .f em{font-style:normal;font-weight:700;font-size:12px;font-variant-numeric:tabular-nums;line-height:1}
+.hex .facts .f small{font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;line-height:1}
+.hex .facts .f .ic{width:14px;height:14px;color:var(--fg)}
+.hex .facts .f .dots{margin-bottom:3px}
+.hex .tf{display:flex;align-items:center;justify-content:center;gap:6px;flex:none;margin:6px calc(var(--px) * 1.6) 0;min-width:0}
+.hex .tf .tw{flex:none;max-width:60%}
+.hex.s .tf{margin-top:auto;margin-bottom:12%}.hex.m .tf{margin-bottom:11%}.hex.l .tf,.hex.xl .tf{margin-bottom:10%}
+.hex .why{margin:2px var(--px) 9%;justify-content:center}
+.hex.xl .tf{margin-bottom:2px}
+.hex.s .strip .val{font-size:12px}
+.hex.pic-full .cov{position:absolute;inset:0;height:100%;background:#0b1020}
+.hex.pic-full .cov::after{inset:0;height:100%;background:linear-gradient(to bottom,rgba(8,12,28,.2) 0,rgba(8,12,28,.25) 28%,rgba(8,12,28,.86) 42%,rgba(8,12,28,.9) 100%)}
+.hex.pic-full>*:not(.cov){position:relative;z-index:1}
+.hex.pic-full .strip{margin-top:30%}
+.hex.pic-full.l .strip,.hex.pic-full.xl .strip{margin-top:34%}
+.hex.pic-full{color:#fff}.hex.pic-full .facts .f small,.hex.pic-full .strip .stw,.hex.pic-full .tf .tw{color:#c9d4ea}
+.hex.pic-full .tt{text-shadow:0 1px 6px rgba(0,0,0,.8)}
+.hex.pic-full.lay::after{content:"";position:absolute;left:0;right:0;bottom:0;height:calc(var(--fill) * 100%);background:color-mix(in srgb,var(--lc,var(--f-slate)) 45%,transparent);z-index:0;pointer-events:none}
+/* the panel as the context of what was clicked */
+.feed .pvin{gap:16px;padding-top:4px}
+.feed .pvin .pvg{display:flex;flex-direction:column;gap:18px}
+.feed .pvin .pvl,.feed .pvin .pvr{width:100%}
+.feed .pvin .ttl.t4{font-size:var(--t3)}
+.feed .pvin .cmp{height:150px}
+.feed .pvin .critr .ring{width:96px;height:96px}
+.feed .pvin .row[style*="gap:22px"]{flex-direction:column;gap:12px!important}
+.feed .pvin .acts{flex-wrap:wrap}
+.feed .pvin .say{font-size:13.5px}
+.feed .pvin .cut{height:220px!important}
+.feed .fsum .k.mut{color:var(--muted)}
+.feed .fm em.rules{color:var(--f-rules);font-style:normal}.feed .fm em.block{color:var(--block-h);font-style:normal}
+.feed .fgroup .frow.fc{text-align:start}

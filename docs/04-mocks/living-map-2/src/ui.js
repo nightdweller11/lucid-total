@@ -124,6 +124,7 @@ function loop(now) {
   if (LM.flight) {
     const f = LM.flight, p = Math.min(1, (now - f.t0) / f.ms), e = 1 - Math.pow(1 - p, 3);
     LM.cam.x = f.x0 + (f.x1 - f.x0) * e; LM.cam.y = f.y0 + (f.y1 - f.y0) * e; LM.cam.k = Math.exp(Math.log(f.k0) + (Math.log(f.k1) - Math.log(f.k0)) * e);
+    if (f.ms > 1) LM.moving();
     if (p >= 1) { LM.flight = null; writeUrl(); }
     LM.needsFrame = true;
   }
@@ -382,25 +383,30 @@ function bindRail() {
 
 // ---- the map ----
 function bindMap() {
-  const c = LM.canvas;
+  const c = LM.canvas, root = LM.tilesEl;
   let drag = null, pinch = null, moved = false;
   const pts = new Map();
-  c.addEventListener('pointerdown', (e) => { pts.set(e.pointerId, [e.clientX, e.clientY]); c.setPointerCapture(e.pointerId); moved = false; if (pts.size === 1) drag = { x: e.clientX, y: e.clientY, cx: LM.cam.x, cy: LM.cam.y }; else if (pts.size === 2) { const [a, b] = [...pts.values()]; pinch = { d: Math.hypot(a[0] - b[0], a[1] - b[1]), k: LM.cam.k }; drag = null; } });
-  c.addEventListener('pointermove', (e) => {
+  const down = (e) => { if (e.button !== undefined && e.button !== 0 && e.pointerType === 'mouse') return; pts.set(e.pointerId, [e.clientX, e.clientY]); e.currentTarget.setPointerCapture(e.pointerId); moved = false; LM.dragMoved = false; if (pts.size === 1) drag = { x: e.clientX, y: e.clientY, cx: LM.cam.x, cy: LM.cam.y }; else if (pts.size === 2) { const [a, b] = [...pts.values()]; pinch = { d: Math.hypot(a[0] - b[0], a[1] - b[1]), k: LM.cam.k }; drag = null; } };
+  const move = (e) => {
     if (pts.has(e.pointerId)) pts.set(e.pointerId, [e.clientX, e.clientY]);
-    if (pinch && pts.size === 2) { const [a, b] = [...pts.values()]; const d = Math.hypot(a[0] - b[0], a[1] - b[1]); zoomAt((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (pinch.k * d) / pinch.d / LM.cam.k); moved = true; return; }
-    if (drag) { const dx = e.clientX - drag.x, dy = e.clientY - drag.y; if (Math.hypot(dx, dy) > 3) { moved = true; LM.autoFit = false; } LM.cam.x = drag.cx - dx / LM.cam.k; LM.cam.y = drag.cy - dy / (LM.cam.k * LM.YS); LM.flight = null; LM.renderTip(null); LM.dirty(); return; }
+    if (pinch && pts.size === 2) { const [a, b] = [...pts.values()]; const d = Math.hypot(a[0] - b[0], a[1] - b[1]); zoomAt((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (pinch.k * d) / pinch.d / LM.cam.k); moved = true; LM.dragMoved = true; return; }
+    if (drag) { const dx = e.clientX - drag.x, dy = e.clientY - drag.y; if (!moved && Math.hypot(dx, dy) > 4) { moved = true; LM.dragMoved = true; LM.dragging = true; LM.autoFit = false; LM.renderTip(null); LM.moving(); } if (!moved) return; LM.cam.x = drag.cx - dx / LM.cam.k; LM.cam.y = drag.cy - dy / (LM.cam.k * LM.YS); LM.flight = null; LM.moving(); LM.dirty(); return; }
+    if (e.currentTarget !== c) return;
     const h = LM.hit(e.clientX, e.clientY);
-    c.style.cursor = h && (h.lm || h.plaque || h.pill || (h.district && LM.lod < 2) || (h.land && LM.lod < 1)) ? 'pointer' : 'grab';
-    LM.renderTip(h && (h.lm || h.plaque || h.pill) ? h : null, e.clientX, e.clientY);
-  });
+    c.style.cursor = h && (h.act || h.lm || h.plaque || h.pill || (h.district && LM.lod < 2) || (h.land && LM.lod < 1)) ? 'pointer' : 'grab';
+    LM.renderTip(h && (h.lm || h.plaque || h.pill || (h.act && h.act.title)) ? (h.act ? { text: h.act.title } : h) : null, e.clientX, e.clientY);
+  };
+  const up = (e) => { pts.delete(e.pointerId); if (pts.size < 2) pinch = null; if (pts.size === 0) { const wasDrag = drag; drag = null; LM.dragging = false; if (!moved && wasDrag && e.currentTarget === c) click(e.clientX, e.clientY); if (moved) { LM.dragMoved = true; setTimeout(() => { LM.dragMoved = false; }, 0); } writeUrl(); } };
+  for (const el of [c, root]) { el.addEventListener('pointerdown', down); el.addEventListener('pointermove', move); el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up); }
   c.addEventListener('pointerleave', () => { LM.renderTip(null); if (LM.view.hover) { LM.view.hover = null; LM.dirty(); } });
-  const up = (e) => { pts.delete(e.pointerId); if (pts.size < 2) pinch = null; if (pts.size === 0) { const wasDrag = drag; drag = null; if (!moved && wasDrag) click(e.clientX, e.clientY); writeUrl(); } };
-  c.addEventListener('pointerup', up); c.addEventListener('pointercancel', up);
-  c.addEventListener('wheel', (e) => { e.preventDefault(); const f = Math.exp(-e.deltaY * 0.0012); zoomAt(e.clientX, e.clientY, f); }, { passive: false });
-  LM.tilesEl.addEventListener('wheel', (e) => { e.preventDefault(); const f = Math.exp(-e.deltaY * 0.0012); zoomAt(e.clientX, e.clientY, f); }, { passive: false });
+  const wheel = (e) => { e.preventDefault(); const f = Math.exp(-e.deltaY * 0.0012); LM.moving(); zoomAt(e.clientX, e.clientY, f); };
+  c.addEventListener('wheel', wheel, { passive: false });
+  root.addEventListener('wheel', wheel, { passive: false });
   c.addEventListener('dblclick', (e) => { const [wx, wy] = LM.toWorld(e.clientX, e.clientY); LM.flyTo(wx, wy, LM.cam.k * 2.2); });
 }
+/** While the map moves the glass stops blurring (the compositor's cost); it comes back when the map rests. */
+let movingTimer = 0;
+LM.moving = () => { if (!document.documentElement.classList.contains('moving')) document.documentElement.classList.add('moving'); clearTimeout(movingTimer); movingTimer = setTimeout(() => document.documentElement.classList.remove('moving'), 220); };
 function zoomAt(sx, sy, f, smooth) {
   LM.autoFit = false; LM.renderTip(null);
   if (smooth) { const [wx, wy] = LM.toWorld(sx, sy); const k1 = Math.max(1.2, Math.min(160, LM.cam.k * f)); const cx = LM.cam.x + (wx - LM.cam.x) * (1 - LM.cam.k / k1), cy = LM.cam.y + (wy - LM.cam.y) * (1 - LM.cam.k / k1); LM.flyTo(cx, cy, k1, 420); return; }
@@ -423,7 +429,7 @@ function flyToLand(g) { const L = LM.vis && LM.vis.lands.get(g); if (!L) return;
 /** Level 3: the district fills the view, its tasks as tiles (never below the task level). */
 function flyToDistrict(d) { const D = LM.vis && LM.vis.districts.get(d); if (!D) return; const e = extentOf(D), a = avail(); const ys = LM.view.iso ? 0.55 : 1; const k = Math.max(LM.L3 + 4, Math.min(190, Math.min(a.W / (e.w + 2), a.H / ((e.h + 3) * ys + 0.6)))); LM.flyTo((e.minx + e.maxx) / 2 - a.ox / k, (e.miny + e.maxy) / 2 + a.oy / (k * ys), k); }
 /** A chip on a summary leads to what it counts: the panel scoped to the place with that filter, and the place in view. */
-LM.focusPanel = function focusPanel(filter, S, kind) { LM.panelState.filter = filter; LM.panelState.scope = 'here'; LM.togglePanel(true); if (kind === 'land') flyToLand(S.key); else flyToDistrict(S.key); say(`<b>${filter === 'ask' ? 'To decide' : filter === 'blocked' ? 'Stuck' : filter === 'review' ? 'In review' : 'Changed'}</b> in ${LM.esc(kind === 'land' ? LM.landInfo(LM.ds, LM.view.lens, S.key).name : LM.shortName(LM.distName(LM.ds, LM.view.lens, S.key)))}: listed in the panel, flagged on the map.`, 5000); };
+LM.focusPanel = function focusPanel(filter, S, kind) { LM.panelState.filter = filter; LM.panelState.scope = 'here'; LM.view.sel = kind === 'land' ? { land: S } : { district: S }; renderView(); LM.togglePanel(true); if (kind === 'land') flyToLand(S.key); else flyToDistrict(S.key); say(`<b>${filter === 'ask' ? 'To decide' : filter === 'blocked' ? 'Stuck' : filter === 'review' ? 'In review' : 'Changed'}</b> in ${LM.esc(kind === 'land' ? LM.landInfo(LM.ds, LM.view.lens, S.key).name : LM.shortName(LM.distName(LM.ds, LM.view.lens, S.key)))}: listed in the panel, flagged on the map.`, 5000); };
 /** The zoom buttons step through the three levels: into the place under the camera, or back out of it. */
 function zoomStep(dir) {
   const W = LM.where(); LM.renderTip(null);
@@ -450,11 +456,12 @@ function click(sx, sy) {
   const h = LM.hit(sx, sy);
   LM.renderTip(null);
   if (!h) { select(null); return; }
+  if (h.act) { const a = h.act; if (a.ask) select({ ask: a.ask, it: a.it || null }); else if (a.it) { const p = LM.posOf && LM.posOf.get(a.it.id); if (p && LM.lod < 2) flyToDistrict(p.d); select(a.it); } else if (a.dist) { const D = LM.vis.districts.get(a.dist); if (D) select({ district: D }); flyToDistrict(a.dist); } else if (a.go) LM.focusPanel(a.go, a.S, a.kind); else if (a.land) { select({ land: a.land }); } return; }
   if (h.pill && !h.it) { const S = h.pill.S; if (h.pill.kind === 'land') flyToLand(S.key); else flyToDistrict(S.key); return; }
   if (h.plaque) { select({ plaque: h.plaque }); return; }
   if (h.lm) { select({ lm: h.lm, v: h }); return; }
-  if (h.district) { if (LM.lod === 1) flyToDistrict(h.district.key); else if (LM.lod === 0) flyToLand(h.district.land); else select({ district: h.district }); return; }
-  if (h.land) { if (LM.lod === 0) flyToLand(h.land.key); else select({ land: h.land }); }
+  if (h.district) { if (LM.lod === 1) { select({ district: h.district }); flyToDistrict(h.district.key); } else if (LM.lod === 0) { const L = LM.vis.lands.get(h.district.land); select(L ? { land: L } : null); flyToLand(h.district.land); } else select({ district: h.district }); return; }
+  if (h.land) { select({ land: h.land }); if (LM.lod === 0) flyToLand(h.land.key); }
 }
 
 // ---- selection and the views ----
@@ -466,8 +473,9 @@ function act(name) { say(`<b>${name}</b> — in the product this acts (docs/17 L
 const facadeBig = (f, cls = '') => `<span class="fac ${cls}">${LM.FACADES[LM.FACADES[f] ? f : 'doc']}</span>`;
 function renderView() {
   const V = $('#pv'), s = LM.view.sel, ds = LM.ds, v = LM.view;
-  $('#dim').hidden = !s;
-  if (!s) { V.hidden = true; return; }
+  const inPanel = s && !s.project;
+  $('#dim').hidden = !s || inPanel;
+  if (!s || inPanel) { V.hidden = true; if (inPanel) { LM.panelState.key = ''; LM.togglePanel(true); LM.renderPanel(true); } else LM.renderPanel(true); return; }
   const close = `<button class="ic x" id="pvx" title="Close">${I('x')}</button>`;
   const acts = (list) => `<div class="acts">${list.map(([ico, n, fn, cls]) => `<button class="pill${cls ? ' ' + cls : ''}" data-a="${fn}">${I(ico)}<span>${n}</span></button>`).join('')}</div>`;
   let html = '';
@@ -480,7 +488,22 @@ function renderView() {
   else if (s.district) html = placeView(s.district, 'district', close, acts);
   else if (s.land) html = placeView(s.land, 'land', close, acts);
   V.innerHTML = html; V.hidden = false; marks(V);
-  $('#pvx').onclick = () => select(null);
+  bindView(V, s);
+}
+/** The context views for the panel: the same views, for the right side. */
+LM.contextHtml = function contextHtml(s) {
+  const acts = (list) => `<div class="acts">${list.map(([ico, n, fn, cls]) => `<button class="pill${cls ? ' ' + cls : ''}" data-a="${fn}">${I(ico)}<span>${n}</span></button>`).join('')}</div>`;
+  if (s.id) return itemView(s, '', acts);
+  if (s.ask) return askView(s.ask, s.it, '', acts);
+  if (s.mon) return flagView(s.mon, '', acts);
+  if (s.plaque) return plaqueView(s.plaque, '', acts);
+  if (s.lm) return `<div class="pvh">${gl2('milestone', 'gold', 'lg')}<div><span class="lbl2">Landmark · ${LM.fmtDate(s.lm.t)}</span><span class="ttl t4">${LM.esc(s.lm.n)}</span></div></div><div class="line1">${gl2('milestone', 'gold')}<span>A milestone met. It stays on the skyline for ever: finished things stay visible.</span></div>${acts([['play', 'Play from here', 'playLm'], ['message-circle-question', 'Ask', 'ask']])}`;
+  return '';
+};
+LM.bindView = (root, s) => bindView(root, s);
+function bindView(V, s) {
+  const ds = LM.ds, v = LM.view;
+  const x = V.querySelector('#pvx'); if (x) x.onclick = () => select(null);
   for (const b of V.querySelectorAll('[data-dec]')) b.onclick = () => { const d = ds.decisions.find((x) => x.id === b.dataset.dec); if (d) { select({ mon: d }); } };
   for (const b of V.querySelectorAll('[data-dist]')) b.onclick = () => { select(null); flyToDistrict(b.dataset.dist); };
   for (const b of V.querySelectorAll('[data-land]')) b.onclick = () => { select(null); flyToLand(b.dataset.land); };
