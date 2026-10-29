@@ -253,13 +253,13 @@ function labMenu(e) {
   const p = popAt(e.currentTarget, `<span class="lbl2">Theme</span><div class="seg">${THEMES.map(([k, n, ic]) => `<button class="sg${r.dataset.pt === k ? ' on' : ''}" data-pt="${k}">${I(ic)}<span>${n}</span></button>`).join('')}</div>
     <span class="lbl2">Contrast</span><div class="seg"><button class="sg${r.dataset.hc !== 'high' ? ' on' : ''}" data-hc="std">${I('circle-dot')}<span>Standard</span></button><button class="sg${r.dataset.hc === 'high' ? ' on' : ''}" data-hc="high">${I('contrast')}<span>High</span></button></div>
     <span class="lbl2">Dataset</span><div class="seg dsw">${[['lucid', 'Lucid Chat', 'real'], ['example', 'Example company', 'generated']].map(([k, n, sub]) => `<button class="sg${LM.ds.key === k ? ' on' : ''}" data-ds="${k}"><span>${n}</span><small>${sub}</small></button>`).join('')}</div>
-    <span class="lbl2">View</span><div class="seg"><button class="sg${!LM.view.iso ? ' on' : ''}" data-iso="0">${I('square')}<span>Flat</span></button><button class="sg${LM.view.iso ? ' on' : ''}" data-iso="1">${I('box')}<span>Isometric</span></button></div>
+    <span class="lbl2">The task level</span><div class="seg"><button class="sg${LM.view.iso ? ' on' : ''}" data-iso="1">${I('box')}<span>Tilts in (isometric)</span></button><button class="sg${!LM.view.iso ? ' on' : ''}" data-iso="0">${I('square')}<span>Stays flat</span></button></div>
     <span class="lbl2">The past</span><div class="seg"><button class="sg${LM.view.quiet ? ' on' : ''}" data-q="1">${I('moon')}<span>Quiet</span></button><button class="sg${!LM.view.quiet ? ' on' : ''}" data-q="0">${I('sun')}<span>Full</span></button></div>
     <span class="lbl2">Motion</span><div class="seg"><button class="sg${!LM.view.reduce ? ' on' : ''}" data-mo="0">${I('activity')}<span>Full</span></button><button class="sg${LM.view.reduce ? ' on' : ''}" data-mo="1">${I('minus')}<span>Reduced</span></button></div>`);
   for (const b of p.querySelectorAll('[data-pt]')) b.onclick = () => { r.dataset.pt = b.dataset.pt; LM.readTheme(); LM.dirty(); writeUrl(); labMenu(e); };
   for (const b of p.querySelectorAll('[data-hc]')) b.onclick = () => { r.dataset.hc = b.dataset.hc; LM.view.hc = b.dataset.hc === 'high'; LM.readTheme(); LM.dirty(); writeUrl(); labMenu(e); };
   for (const b of p.querySelectorAll('[data-mo]')) b.onclick = () => { LM.view.reduce = b.dataset.mo === '1'; LM.dirty(); labMenu(e); };
-  for (const b of p.querySelectorAll('[data-iso]')) b.onclick = () => { LM.view.iso = b.dataset.iso === '1'; LM.YS = LM.view.iso ? 0.55 : 1; LM.keyEl.dataset.state = ''; LM.dirty(); writeUrl(); labMenu(e); };
+  for (const b of p.querySelectorAll('[data-iso]')) b.onclick = () => { LM.view.iso = b.dataset.iso === '1'; LM.keyEl.dataset.state = ''; LM.dirty(); writeUrl(); labMenu(e); };
   for (const b of p.querySelectorAll('[data-q]')) b.onclick = () => { LM.view.quiet = b.dataset.q === '1'; LM.keyEl.dataset.state = ''; LM.dirty(); labMenu(e); };
   for (const b of p.querySelectorAll('[data-ds]')) b.onclick = () => { if (b.dataset.ds !== LM.ds.key) { LM.setDataset(b.dataset.ds); setTime(LM.ds.now); say(`${LM.ds.name}: ${LM.ds.sub}`); syncChrome(); } p.hidden = true; };
 }
@@ -415,9 +415,11 @@ LM.flyTo = function flyTo(x, y, k, ms = 800) {
 function extentOf(S) { let minx = Infinity, maxx = -Infinity, miny = Infinity, maxy = -Infinity; for (const c of S.cells) { const [q, r] = c.split(',').map(Number); const [x, y] = LM.hexXY(q, r); if (x < minx) minx = x; if (x > maxx) maxx = x; if (y < miny) miny = y; if (y > maxy) maxy = y; } return { minx, maxx, miny, maxy, w: maxx - minx + 2, h: maxy - miny + 2 }; }
 const avail = () => ({ W: LM.W - (LM.view.panel && LM.W > 1100 ? 382 : 0) - (LM.W <= 720 ? 24 : 120), H: LM.H - (LM.W <= 720 ? 380 : LM.view.time ? 300 : 230), ox: LM.view.panel && LM.W > 1100 ? -191 : 0 });
 /** Level 2: the land fills the view, its districts as cards. */
-function flyToLand(g) { const L = LM.vis && LM.vis.lands.get(g); if (!L) return; const e = extentOf(L), a = avail(); const k = Math.max(LM.L1 + 2, Math.min(LM.L3 - 10, Math.min(a.W / (e.w + 6), a.H / ((e.h + 8) * LM.YS)))); LM.flyTo((e.minx + e.maxx) / 2 - a.ox / k, (e.miny + e.maxy) / 2 + 20 / (k * LM.YS), k); }
+function flyToLand(g) { const L = LM.vis && LM.vis.lands.get(g); if (!L) return; const e = extentOf(L), a = avail(); const k = Math.max(LM.L1 + 2, Math.min(LM.L3 - 10, Math.min(a.W / (e.w + 6), a.H / (e.h + 8)))); LM.flyTo((e.minx + e.maxx) / 2 - a.ox / k, (e.miny + e.maxy) / 2 + 20 / k, k); }
 /** Level 3: the district fills the view, its tasks as tiles (never below the task level). */
-function flyToDistrict(d) { const D = LM.vis && LM.vis.districts.get(d); if (!D) return; const e = extentOf(D), a = avail(); const k = Math.max(LM.L3 + 8, Math.min(170, Math.min(a.W / (e.w + 4), a.H / ((e.h + 5) * LM.YS)))); LM.flyTo((e.minx + e.maxx) / 2 - a.ox / k, (e.miny + e.maxy) / 2 + 20 / (k * LM.YS), k); }
+function flyToDistrict(d) { const D = LM.vis && LM.vis.districts.get(d); if (!D) return; const e = extentOf(D), a = avail(); const ys = LM.view.iso ? 0.55 : 1; const k = Math.max(LM.L3 + 14, Math.min(190, Math.min(a.W / (e.w + 4), a.H / ((e.h + 5) * ys + 0.6)))); LM.flyTo((e.minx + e.maxx) / 2 - a.ox / k, (e.miny + e.maxy) / 2 + 20 / (k * ys), k); }
+/** A chip on a summary leads to what it counts: the panel scoped to the place with that filter, and the place in view. */
+LM.focusPanel = function focusPanel(filter, S, kind) { LM.panelState.filter = filter; LM.panelState.scope = 'here'; LM.togglePanel(true); if (kind === 'land') flyToLand(S.key); else flyToDistrict(S.key); say(`<b>${filter === 'ask' ? 'To decide' : filter === 'blocked' ? 'Stuck' : filter === 'review' ? 'In review' : 'Changed'}</b> in ${LM.esc(kind === 'land' ? LM.landInfo(LM.ds, LM.view.lens, S.key).name : LM.shortName(LM.distName(LM.ds, LM.view.lens, S.key)))}: listed in the panel, flagged on the map.`, 5000); };
 /** The zoom buttons step through the three levels: into the place under the camera, or back out of it. */
 function zoomStep(dir) {
   const W = LM.where(); LM.renderTip(null);
@@ -717,32 +719,30 @@ function thumb(draw, w = 96, h = 72) {
   const ctx = c.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); draw(ctx, w, h, LM.theme); return c;
 }
 function tileSample(ctx, cx, cy, k, status, T, opts = {}) {
-  const prog = status === 'done' ? 1 : status === 'todo' ? 0.06 : status === 'blocked' ? 0.45 : status === 'review' ? 0.9 : 0.55;
+  const prog = status === 'done' ? 1 : status === 'todo' ? 0.04 : status === 'blocked' ? 0.45 : status === 'review' ? 0.9 : 0.55;
   if (status === 'park') { LM.hexPath(ctx, cx, cy, k, 0.86); ctx.fillStyle = LM.rgba(T.lime, 0.14); ctx.fill(); ctx.strokeStyle = LM.rgba(T.lime, 0.3); ctx.stroke(); LM.icon(ctx, 'trees', cx, cy, k * 0.5, LM.rgba(T.lime, 0.7), 1.8); return; }
-  const Hpx = (0.3 + 0.16 * 3) * prog * k;
-  const top = T.state[status] || T.state.doing;
-  LM.prism(ctx, cx, cy, k, 0.86, Hpx, opts.grey ? LM.grey(top, 0.75) : top, status === 'todo' ? 0.7 : 0.96, T, T.light ? 'rgba(15,31,58,.35)' : T.ink(0.3), status === 'blocked' ? 1.5 : 1, status === 'todo' ? [3, 3] : null);
-  const r = Math.max(5, k * 0.17), faceY = cy - Hpx, fw = 0.86 * k * 1.7;
-  if (opts.slab) { const col = opts.slab; const P = [0, 1, 2].map((i) => [cx + Math.cos(Math.PI / 6 + (Math.PI / 3) * i) * 0.67 * k, faceY + Math.sin(Math.PI / 6 + (Math.PI / 3) * i) * 0.67 * k * LM.YS]); const Spx = k * 0.9; const side = (a, b, al) => { ctx.beginPath(); ctx.moveTo(P[a][0], P[a][1]); ctx.lineTo(P[b][0], P[b][1]); ctx.lineTo(P[b][0], P[b][1] - Spx); ctx.lineTo(P[a][0], P[a][1] - Spx); ctx.closePath(); ctx.fillStyle = LM.rgba(col, al); ctx.fill(); }; side(1, 2, 0.34); side(0, 1, 0.26); LM.hexPath(ctx, cx, faceY, k, 0.67, Spx); ctx.fillStyle = LM.rgba(LM.mix(col, T.paper, 0.25), 0.55); ctx.fill(); ctx.strokeStyle = LM.rgba(LM.mix(col, T.paper, 0.5), 0.8); ctx.lineWidth = 1; ctx.stroke(); return; }
-  if (!opts.plain) { ctx.beginPath(); ctx.arc(cx - fw / 2 + r * 1.15, faceY - r * 0.6, r, 0, Math.PI * 2); ctx.fillStyle = LM.rgba(LM.mix(T.hues.sky, T.light ? T.paper : T.sea, 0.7), 0.96); ctx.fill(); LM.icon(ctx, 'square-check-big', cx - fw / 2 + r * 1.15, faceY - r * 0.6, r * 1.2, LM.rgba(T.hues.sky, 1), 2.2); }
-  if (opts.icon) LM.pillIcon(ctx, cx, faceY - k * 0.7, Math.max(6, k * 0.2), opts.icon[0], T.hues[opts.icon[1]], T);
+  const col = opts.slab || T.state[status] || T.state.doing;
+  const saved = LM.YS; LM.YS = 0.55;
+  LM.prism(ctx, cx, cy, k, 0.86, k * 0.42, opts.slab ? 0.6 : prog, col, T, status === 'todo' && !opts.slab ? T.ink(0.4) : LM.rgba(col, 0.75), status === 'todo' && !opts.slab ? [3, 3] : null);
+  LM.YS = saved;
+  if (opts.icon) LM.pillIcon(ctx, cx, cy - k * 0.42 - k * 0.55, Math.max(6, k * 0.2), opts.icon[0], T.hues[opts.icon[1]], T);
 }
 LM.openSheet = function openSheet() {
   const S = $('#sheet'); if (!S.hidden) { S.hidden = true; return; }
   const T = LM.theme;
   const item = (label, meta, draw) => { const d = document.createElement('div'); d.className = 'li'; d.innerHTML = `<span class="th"></span><b>${label}</b><span class="meta">${meta}</span>`; d.querySelector('.th').appendChild(thumb(draw)); return d; };
   const grid = (cls = '') => { const g = document.createElement('div'); g.className = 'lgrid ' + cls; return g; };
-  S.innerHTML = `<button class="ic x" id="shx">${I('x')}</button><div class="pvh">${gl2('book-open', 'ai', 'lg')}<div><span class="lbl2">The grammar of the map</span><span class="ttl t4">How to read it</span><span class="mut" style="display:block;margin-top:6px">One channel, one meaning: <b>height</b> is progress, <b>colour</b> is state, the <b>glyph</b> is the kind, the <b>one number</b> is the laid layer's value, the <b>slab</b> is that value as a volume; <b>problems</b> float as icons. Hover reads a tile in full; click opens its management view.</span></div></div>`;
+  S.innerHTML = `<button class="ic x" id="shx">${I('x')}</button><div class="pvh">${gl2('book-open', 'ai', 'lg')}<div><span class="lbl2">The grammar of the map</span><span class="ttl t4">How to read it</span><span class="mut" style="display:block;margin-top:6px">One channel, one meaning: <b>colour</b> is state, the <b>fill</b> is progress (or the laid layer's value in its colour), the <b>glyph</b> is the kind, the <b>one number</b> says it; <b>problems</b> are icons. Every place carries its summary on its territory: a stacked bar of its tasks by state, the counts, what needs attention. Hover reads a tile in full; click opens its management view.</span></div></div>`;
   const sec = (title, sub) => { const h = document.createElement('div'); h.innerHTML = `<span class="lbl2">${title}</span>${sub ? `<span class="meta">${sub}</span>` : ''}`; S.appendChild(h); };
-  sec('A tile is a task', 'Its height is its progress; planned is flat and dashed; blocked is coral and frozen; done stands full.');
+  sec('A tile is a task', 'A hexagonal prism whose fill is its progress: planned is empty and dashed; blocked is coral; done is full.');
   const g1 = grid();
-  for (const [st, name, meta] of [['todo', 'Planned', 'flat, dashed'], ['doing', 'In progress', 'rising with its share'], ['review', 'In review', 'teal, almost full'], ['blocked', 'Blocked', 'coral, frozen'], ['done', 'Done', 'green, full height'], ['park', 'Set aside', 'a park on its plot']]) g1.appendChild(item(name, meta, (ctx, w, h, T) => tileSample(ctx, w / 2, h * 0.72, 28, st, T)));
+  for (const [st, name, meta] of [['todo', 'Planned', 'empty, dashed'], ['doing', 'In progress', 'filling with its share'], ['review', 'In review', 'teal, almost full'], ['blocked', 'Blocked', 'coral, frozen'], ['done', 'Done', 'green, full'], ['park', 'Set aside', 'a park on its plot']]) g1.appendChild(item(name, meta, (ctx, w, h, T) => tileSample(ctx, w / 2, h * 0.72, 28, st, T)));
   S.appendChild(g1);
-  sec('Problems float above tiles', 'Data is colour and height; a problem is an icon. At the sky they gather per land with a count.');
+  sec('Problems are icons', 'Data is colour and fill; a problem is an icon on the tile, a chip on the place; each chip leads to what it counts.');
   const g2 = grid();
   for (const [kind, name, meta] of [['ask', 'Needs a decision', 'a question waits for someone'], ['blocked', 'Blocked', 'a barrier'], ['stale', 'Nothing moved', 'still for too long'], ['review', 'Waiting in review', 'done, not yet approved']]) g2.appendChild(item(name, meta, (ctx, w, h, T) => tileSample(ctx, w / 2, h * 0.8, 24, kind === 'blocked' ? 'blocked' : kind === 'review' ? 'review' : 'doing', T, { icon: LM.PROBLEM[kind] })));
   S.appendChild(g2);
-  sec('A layer greys the city and raises its value as a slab', 'One layer at a time; the key beside it says what the colour and the height mean, and which places lead.');
+  sec('A layer fills every tile with its value', 'One layer at a time; the tile fills with the layer\'s value in the layer\'s colour; the key beside it says what the colour means, and which places lead.');
   const g3 = grid('ov');
   for (const [k, name] of LAYERS) { if (k === 'deps' || (k === 'revenue' && !LM.ds.revenue.length)) continue; const d = document.createElement('div'); d.className = 'li' + (LM.view.overlays.has(k) ? ' on' : ''); d.innerHTML = `<span class="th"></span><b>${I(LAYERS.find((x) => x[0] === k)[2])} ${name}</b><span class="meta">${LM.OV_INFO[k][1]}</span>`; d.querySelector('.th').appendChild(thumb((ctx, w, h, T) => tileSample(ctx, w / 2, h * 0.82, 26, 'doing', T, { grey: true, slab: LM.layerColor(k, T), plain: true }))); d.onclick = () => { toggleOverlay(k); S.hidden = true; }; g3.appendChild(d); }
   S.appendChild(g3);
@@ -791,7 +791,7 @@ LM.command = function command(text) {
   if (dm && !sm) { const t = dm[1] ? Date.parse(dm[1] + 'T12:00:00') : Date.parse(`${dm[2]} ${dm[3]} ${dm[4] || new Date(ds.now).getFullYear()} 12:00`); if (!isNaN(t)) { if (!LM.view.time) toggleTime(true); setTime(t); said.push(LM.fmtDate(t)); } }
   if (has(/\b(play|run|animate)\b/) && !has(/from here/)) { togglePlay(true); said.push('playing'); }
   if (has(/\bzoom in\b|\bcloser\b|\bdive\b/)) { zoomStep(1); said.push('one level in'); } if (has(/\bzoom out\b|\bfarther\b|\bback out\b/)) { zoomStep(-1); said.push('one level out'); }
-  if (has(/\bisometric\b|\b3d\b/)) { LM.view.iso = !has(/\boff\b|\bflat\b/); LM.YS = LM.view.iso ? 0.55 : 1; said.push(LM.view.iso ? 'isometric' : 'flat'); } else if (has(/\bflat\b/)) { LM.view.iso = false; LM.YS = 1; said.push('flat'); }
+  if (has(/\bisometric\b|\b3d\b|\btilt\b/)) { LM.view.iso = !has(/\boff\b|\bflat\b/); said.push(LM.view.iso ? 'the task level tilts in' : 'flat'); } else if (has(/\bflat\b/)) { LM.view.iso = false; said.push('flat'); }
   const tm = /\b(trace|cause|caused|effects? of)\b\s*(.*)$/.exec(q);
   if (tm) { const key = (tm[2] || '').replace(/^(of|the)\s+/, '').trim(); const d = ds.decisions.find((x) => x.id.toLowerCase() === key) || ds.decisions.filter((x) => key && x.n.toLowerCase().includes(key)).sort((a, b) => b.lin.size - a.lin.size)[0]; if (d) { setTrace('decision', d); const c = LM.worlds[LM.view.lens].claims.find((cc) => cc.dec === d); if (c) { const [x, y] = LM.hexXY(c.q, c.r); LM.flyTo(x, y, Math.max(LM.cam.k, 16)); } said.push(`tracing ${LM.esc(d.n.replace(/\*\*/g, ''))}`); } else if (key) said.push(`no decision matches "${LM.esc(key)}"`); }
   const om = /\b(open|show|go to|fly to|find|zoom (?:in )?(?:to|on))\b\s+(.*)$/.exec(q);
@@ -823,7 +823,7 @@ function applyParams(p) {
   if (p.get('panel') === '0') v.panel = false; if (p.get('panel') === '1') v.panel = true;
   if (p.get('time') === '1' || (p.get('t') && v.mode === 'then')) v.time = true;
   if (p.get('quiet') === '0') v.quiet = false;
-  if (p.get('iso') === '1') { v.iso = true; LM.YS = 0.55; }
+  if (p.get('iso') === '0') v.iso = false; if (p.get('iso') === '1') v.iso = true;
   if (p.get('filter')) LM.panelState.filter = p.get('filter');
   if (p.get('scope')) LM.panelState.scope = p.get('scope');
   LM.readTheme();
@@ -846,7 +846,7 @@ function writeUrl() {
     p.set('t', new Date(v.t).toISOString().slice(0, 16)); p.set('x', LM.cam.x.toFixed(1)); p.set('y', LM.cam.y.toFixed(1)); p.set('k', LM.cam.k.toFixed(2));
     if (v.sel && v.sel.id) p.set('sel', v.sel.id); if (v.trace && v.trace.dec) p.set('trace', v.trace.dec.id);
     if (v.sinceOn) p.set('since', new Date(v.since).toISOString().slice(0, 16));
-    if (!v.panel) p.set('panel', '0'); if (v.time) p.set('time', '1'); if (v.proj) p.set('proj', v.proj); if (!v.quiet) p.set('quiet', '0'); if (v.iso) p.set('iso', '1');
+    if (!v.panel) p.set('panel', '0'); if (v.time) p.set('time', '1'); if (v.proj) p.set('proj', v.proj); if (!v.quiet) p.set('quiet', '0'); if (!v.iso) p.set('iso', '0');
     if (LM.panelState.filter !== 'all') p.set('filter', LM.panelState.filter); if (LM.panelState.scope !== 'here') p.set('scope', LM.panelState.scope);
     if (document.documentElement.dataset.pt !== 'deep') p.set('pt', document.documentElement.dataset.pt); if (v.hc) p.set('hc', '1');
     history.replaceState(null, '', '?' + p.toString());

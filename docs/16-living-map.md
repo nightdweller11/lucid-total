@@ -305,6 +305,26 @@ Flat is the default: it holds the most information per tile and reads like v0.2.
 
 Layers as a greyed base with the value as a ring, a bar or a tint and the key always visible; problems as icons, never colour; decided decisions as one plaque per square; the Now panel and the Time tool; projects, asks and policies; the two studies' lessons (`docs/research/`).
 
+## 18. The fourth pass: the information on the territories (T37)
+
+The owner's review of the third pass: the land markers sat beside their lands, not on them; a chip like "2 to decide" led nowhere in particular; the ring said nothing he could use; the top level showed too little; the area level popped cards over the map instead of saying things on the map; tiles were squares laid over hexagons; the layer's value was a bar inside the tile instead of the tile's own fill; titles were cut even at the deepest zoom; and the isometric view, which showed fill, had gone.
+
+### 18.1 Summaries overlaid on the territories
+
+Every place now speaks from its **pole of inaccessibility** (the point of the territory farthest from its edge), not its centroid, so the summary sits inside the shape. A land's summary: the landmark in its disc, the name, a **stacked bar of its tasks by state** (done, in review, in progress, blocked, planned) with the done share and the counts beneath, the attention chips, and the three leading areas as chips; with a layer laid, the bar is the layer's value in the layer's colour. Each attention chip **leads to what it counts**: it scopes the panel to the place with that filter and flies in, where the counted things are flagged. The size of the summary follows the room the territory has.
+
+### 18.2 The area level is the map itself
+
+Inside a land, the districts are drawn as distinct territories (alternating tints of the land's hue, their own outlines) and each carries its summary **on its territory**: the name, the bar, the share and the count, the attention. A district that has no room but something to say gets a **callout** outside the coast, stacked on the free side, with a leader line and a dot on its territory. The land's own header stands at the top edge of its coast. There are no cards over the map.
+
+### 18.3 The tile is the hexagon
+
+At the task level the tile is the hexagon itself: the information is laid inside the shape (kind glyph, state, the one number, the problem or ask badge, the title in full, who and since, the criteria ring; closer, subtasks, links and cost). The map **tilts into isometric on the way in** (the transition the owner asked for), and each tile becomes a prism whose **fill rises with its progress**; with a layer laid, the fill is the layer's value in the layer's colour (cost fills in heat, recency in lime). Titles wrap over as many lines as the tile has room for, up to seven at the deepest zoom; the tooltip carries the rest. The lab keeps "stays flat" for comparison (T-O14).
+
+### 18.4 What the levels share
+
+Every level carries a summary of the level below: the land's bar and leading areas, the area's bar and attention, the task's criteria ring and subtask count. Zooming in expands the detail of the place under the camera, never the whole scene.
+
 ## 14. Open questions for the owner
 
 Material only (L425). Everything smaller is a platform setting with a default.

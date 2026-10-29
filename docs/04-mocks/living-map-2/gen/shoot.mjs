@@ -133,7 +133,7 @@ for (const name of list) {
   const png = path.join(ROOT, 'shots', `${name}.png`);
   await page.screenshot({ path: png });
   try { execFileSync('cwebp', ['-quiet', '-q', '88', png, '-o', png.replace(/\.png$/, '.webp')]); unlinkSync(png); } catch { /* no cwebp: keep the png */ }
-  const info = await page.evaluate(() => ({ lod: LM.lod, k: LM.cam.k.toFixed(1), lands: LM.vis.lands.size, tiles: LM.tiles.size }));
+  const info = await page.evaluate(() => ({ lod: LM.lod, k: LM.cam.k.toFixed(1), lands: LM.vis.lands.size, tiles: LM.overlays.size }));
   console.log(`${name}  k=${info.k} level=${info.lod + 1} lands=${info.lands} dom=${info.tiles}${errors.length ? '  ERRORS: ' + errors.join(' | ') : ''}`);
   await page.close();
 }
