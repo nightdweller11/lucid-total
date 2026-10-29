@@ -151,6 +151,58 @@
 | LM-C-3 | A new overlay or lens can be added without touching the renderer core: an overlay is a function from (building, time, role) to a channel value; a lens is a grouping function. |
 | LM-C-4 | Generated images (`docs/13` §8.2) may be used as landmark illustrations and facade art, never as data. |
 
+### 2.13 Tiles and depth (LM-H)
+
+| ID | Requirement | Acceptance |
+|---|---|---|
+| LM-H-1 | A plot always shows its task's kind glyph from land depth down; the glyph families and icons are those of `docs/04-mocks` (Lucide) | No depth from Z1 down shows a plain hexagon |
+| LM-H-2 | At district depth a tile shows its glyph disc, its progress ring and its short title; at street depth its facade card with the criteria ring, title, who and since | Stills `lucid-district`, `lucid-street` |
+| LM-H-3 | A tile's edge is its state: dashed planned, green lit, coral blocked, teal in review; a barrier marks a clog; a park marks set-aside work | The grammar sheet samples match the map |
+| LM-H-4 | Titles never truncate below nine characters; when there is no room they are not drawn | No "in the…" stubs at any zoom |
+| LM-H-5 | Place markers (landmark in its ring, the name beneath) are drawn for lands at Z0–Z1 and for the ten largest districts in view at Z1–Z2; their count obeys the attention budget | ≤ 12 names above body size on any still |
+
+### 2.14 Layers as a visible concept (LM-Y)
+
+| ID | Requirement | Acceptance |
+|---|---|---|
+| LM-Y-1 | Layers are a named, iconed row under the lens control; one channel at a time (ground, relief, air, lines, light) | Toggling a ground layer replaces the other ground layer |
+| LM-Y-2 | A laid layer floats its value under every place marker in view (≤ 12 chips) | Stills `lucid-cost`, `lucid-progress`, `example-revenue` |
+| LM-Y-3 | A laid layer opens the legend card: meaning, scale, the three leading places as chips that fly there | Still `example-cost` |
+| LM-Y-4 | The Growth layer tints plots and places by how recently they were claimed, so the shifting of regions is visible | Still `example-growth` |
+| LM-Y-5 | Every layer's meaning is one sentence in `LM.OV_INFO`, used by the chips, the legend card, the grammar sheet and Talk | One source of truth |
+
+### 2.15 Since you last looked (LM-S)
+
+| ID | Requirement | Acceptance |
+|---|---|---|
+| LM-S-1 | A since moment per viewer, set from a menu (relative windows scaled to the dataset), by "mark now as reviewed", by dragging the handle on the rail, or by Talk ("what changed since last week") | Still `lucid-since-menu` |
+| LM-S-2 | With a since moment set, changed buildings carry a badge (new, moved on, in review, lit, blocked, moved land, set aside) and unchanged ones dim to 28 % | Stills `lucid-since-sky`, `lucid-since-district` |
+| LM-S-3 | Place markers show "N changed"; heat halos sit on the districts that moved most; the legend card lists the badges with counts | Still `lucid-since-land` |
+| LM-S-4 | The product and place views open on what changed in the window | Place view shows the since line |
+| LM-S-5 | The since moment is URL state (`since=`) and is reproducible | Every since still has a URL |
+
+### 2.16 The feed and the in-place cards (LM-F)
+
+| ID | Requirement | Acceptance |
+|---|---|---|
+| LM-F-1 | A feed at the end edge, scoped to the camera's place (company, land, district) and to the window since the person last looked (or the dataset's review window) | The feed head names the scope and the window |
+| LM-F-2 | Importance per event (0–100): landmarks, storms, secessions and owner decisions at the top; lands founded; large completions and blocks; births and rises at the bottom; the scope sets the floor (company 58, land 30, district 0) | `LM.feedEvents` |
+| LM-F-3 | The feed head sums the window (new, moved on, lit, stuck, decided); filters All, Decisions, Lit, Stuck, New | Still `lucid-sky` |
+| LM-F-4 | A feed card flies to its subject and opens it; hovering a card highlights its building | Click a card |
+| LM-F-5 | During playback important events appear as cards anchored where they happened, open (320 ms), hold (2.3 s) and fold into their anchor (650 ms); at most three live; the importance floor rises with speed | Stills `example-play-*`, `lucid-play` |
+| LM-F-6 | The feed folds away (chip, `F`, `feed=0`) and on the phone is a sheet from the bottom | Stills `lucid-phone-feed` |
+| LM-F-7 | Playback from the start lets the camera follow the young city (auto-fit) until the person moves it | Still `example-play-2` |
+
+### 2.17 The views (LM-V)
+
+| ID | Requirement | Acceptance |
+|---|---|---|
+| LM-V-1 | A building opens into the product view of `docs/13` §6 in the v0.2 layout: product large (expected against actual under a split at the done share), goal, done rule, context chips, criteria ring with named segments, the talk, the roads, actions; a done building opens on what it changed | Stills `lucid-product-view`, `lucid-product-view-rising` |
+| LM-V-2 | A land or district opens into the place view: landmark large in its ring, subject, counts, how the coast grew, districts with rings, who is here, what is stuck, decisions standing in it, actions | Still `lucid-land-view` |
+| LM-V-3 | A flag opens into the decision view: what grew from it with each building's state; trace, play from here, ask | Still `lucid-flag-view` |
+| LM-V-4 | The grammar sheet draws its samples with the renderer; elements, depths, lenses, layers, badges, actions | Still `lucid-legend-sheet` |
+| LM-V-5 | The lab: three themes, two contrasts, motion, dataset; all URL state | Stills `lucid-sky-glass`, `lucid-aqua`, `lucid-hc` |
+
 ## 3. How things move over time: the motion table
 
 | Event | Motion | Minimum visible duration | Sound of it in the ledger |
@@ -202,7 +254,7 @@ Outside playback only live flow, slow weather drift and the breath of buildings 
 | Phase | Deliverable | Gate |
 |---|---|---|
 | 0 | The simulation (`docs/04-mocks/living-map/`) as the reference; `packages/scene` world layout: plots, claiming, hulls, time derivation; the Departments lens; Progress and Pipes overlays; Z0–Z2 | The real Lucid Chat log grows the same world as the simulation |
-| 1 | Lenses (Projects, Products, People) with the walk; Cost, Issues, Freshness, Power; Z3 cutaways; the rail and playback; tracing | Acceptance §5 items 1–6 on real data |
+| 1 | Lenses (Projects, Products, People) with the walk; Cost, Issues, Freshness, Power, Growth; the product, place and decision views; the since layer; the feed and the in-place cards; the rail and playback; tracing | Acceptance §5 items 1–6 on real data; LM-H, LM-Y, LM-S, LM-F, LM-V |
 | 2 | Secession Forks; Refocus on the map; forecast ghost and Futures; Revenue, Load, AI, Risk; phone; accessibility; the mechanism library with oversight | Full §5; attention validator in CI |
 | 3 | Customers and Money lenses; generated landmark art; company-scale tuning at 20,000 buildings | LM-R-1 at scale |
 

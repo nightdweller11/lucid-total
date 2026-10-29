@@ -1,6 +1,6 @@
 # Lucid Total — The Living Map (concept)
 
-> The company as a world that grows. Written 2026-10-28 by the lead from the owner's instructions of 2026-10-28 (T30, and the review and extension in T33), after the first map study (`docs/04-mocks/map-study/`) was rejected: it drew five static reliefs of one moment, with no live layers, nothing to zoom into, nothing to open, and no time. This document is the concept; `docs/17-living-map-product-plan.md` is the plan; `docs/04-mocks/living-map/` is the running simulation that shows it moving. It is subordinate to `docs/13-experience.md` (attention doctrine, the Stage, the dock) and replaces the world sections of `docs/03-map-and-views.md` where they differ.
+> The company as a world that grows. Written 2026-10-28 by the lead from the owner's instructions of 2026-10-28 (T30, and the review and extension in T33), extended 2026-10-29 after the owner's review of the first simulation (T34: the layers must be visible, the map must track what is actually happening, and it must continue the v0.2 line), after the first map study (`docs/04-mocks/map-study/`) was rejected: it drew five static reliefs of one moment, with no live layers, nothing to zoom into, nothing to open, and no time. This document is the concept; `docs/17-living-map-product-plan.md` is the plan; `docs/04-mocks/living-map/` is the running simulation that shows it moving. It is subordinate to `docs/13-experience.md` (attention doctrine, the Stage, the dock) and replaces the world sections of `docs/03-map-and-views.md` where they differ.
 
 ---
 
@@ -10,7 +10,9 @@
 
 > "Things evolve over time. Areas are created, tasks are added, things the company has to worry about, projects, departments are formed and grow. The company can have multiple products, or lines of business, and we need that perspective as well. There are many ways to map out and view the organisation. They all must grow, organically. I want simulations of a city or a country growing that represent the timeline. A timeline and a playback of the company. Trace the progress of projects and tasks over time and see how the map grows and changes. Go back and trace a decision and its subsequent effects and how it grows. A new territory project starts small, maybe as part of a different entity, and grows until it is big enough to be its own land. Zoom in and out. Gamified, but a truly functional and useful interface where you can understand, follow, trace, zoom in and manage things. Transform the view from a departmental map to a project map, a product map, a responsibility and ownership map. Some things are overlays, like revenue and cost, over every view."
 
-Everything below is in service of those two paragraphs.
+> (2026-10-29, on the first simulation) "I don't see any concept of overlay, I don't see theme switching, and most importantly it lacks any tracking of what is actually happening. It just grows, but nothing about tasks that are added or any context. I want the layering, I want to be able to understand what is going on, not just some growth timeline. Think also about 'last week' or whatever was the last time that I reviewed: I want to see task highlights, things that progressed. Layers, dependencies, transformations, overlaid over the map, and also a news feed of important events, with focus (the events can appear in context of the map on the region and place, then fade into things), so I see an expanded event or task and it folds into the map. Plus a more standard feed in context of the map and view on the right side that highlights tasks and more macro events, relevant at the zoom and dive level I am seeing. We can't just pre-allocate regions; they will shift as they grow. The hexagons should have some level of data on the related task, and more should be visible as we zoom in. Colours, icons, visual context and clarity of context just like we did in v2: large, clean, a dedicated infographic understanding of the organisation, its elements, actions, views and overlays. v2 is the line, and the map must continue in v2 style."
+
+Everything below is in service of those three paragraphs.
 
 ## 1. The idea
 
@@ -168,10 +170,13 @@ The plumbing and power pictures are the owner's SimCity analogy made literal: a 
 
 | Depth | What is drawn | Labels | Reveals, faintly, the next |
 |---|---|---|---|
-| **Z0 Sky** | The world: lands as shaped countries with coast, hue and landmark; sea between; weather; the main roads; goal beacons | Land names | District quarters as tone changes inside each land |
-| **Z1 Land** | One land fills the view with its neighbours at the edges: districts as quarters with squares and monuments; buildings as blocks; pipes between districts | Districts; the landmark | Building height and light |
-| **Z2 District** | Buildings with facades and lights; pipes and power into each; the square and its monuments; crew lights; rooms visible through lit windows | Buildings (when legible) | Rooms through the windows |
-| **Z3 Building** | The cutaway: rooms (criteria, tests, docs, walkthrough), the crew, in- and out-pipes with their state, the wall chart (history strip), the monument it came from, what it unlocks; actions | Rooms | — |
+| **Z0 Sky** | The world: lands as shaped countries with coast, shore, hue wash and light; each land's **place marker** (its landmark inside its progress ring, the name beneath); weather fronts; the main roads; buildings as city lights | Land names; the overlay's value as a chip under each marker | District quarters as faint contours inside each land |
+| **Z1 Land** | One land fills the view: districts as quarters with their own markers (small ring, name); every plot is a **tile** carrying its kind glyph; blocked tiles carry a dot; pipes between districts | Districts; the overlay's value per district | The tile's ring and title |
+| **Z2 District** | Every tile shows its **kind glyph in a disc, its progress ring and its short title**; blocked tiles carry a barrier; flags on the square; pipes and power into each tile; the change badge of the since layer | Tiles; flags of the owner; landmarks | The facade |
+| **Z3 Street** | Every tile holds its **facade card**: the product's image, the kind glyph, the criteria ring, the title, who holds it and since when; barriers on clogged pipes; parks with their trees | Everything | The product view |
+| **Opened** | The **product view** (docs/13 §6): the product large with expected against actual under a split at the done share; the goal and the done rule; the context chips (land, district, the flag that spawned it, who, state, since, cost, size); the criteria ring with its named segments; the talk (its history and Lucid's reading); the roads in and out; when done, what it changed first | — | — |
+
+The same rule holds for places: a land or a district opens into its **place view** (the landmark large in its ring, the subject, how its coast grew, its districts with their rings, who is here, what is stuck, the decisions standing in it) and a flag opens into its **decision view** (what grew from it, with trace and play-from-here).
 
 Zoom is continuous: the wheel, the pinch, a click on a place ("fly to"), or a sentence ("show me the dispatcher"). The camera never cuts; it flies. The Horizon of `docs/13` §4 stays above the world at every depth, and the breadcrumb (Company › Engineering › Private beta › Dispatcher) is the way back up.
 
@@ -202,7 +207,39 @@ Motion only where something changed: outside playback the world is still except 
 
 ## 13. The simulation
 
-`docs/04-mocks/living-map/index.html` is the working model of this document: one world, four lenses, the overlays of §7, continuous zoom with the cutaway of §9, the timeline with playback, tracing of decisions and tasks, and two datasets: the real event log of Lucid Chat's build extracted from its git history (every checklist row's birth and status changes, every numbered decision), and a generated three-year company with revenue, several products, a secession and a crisis. Its stills are in `shots/`; the generator in `gen/`.
+`docs/04-mocks/living-map/index.html` is the working model of this document: one world, four lenses, the layers of §7 with their legend and floating values, continuous zoom with the depths of §8, the product, place and decision views, the since layer and the feed of §15, the timeline with playback and in-place event cards, tracing of decisions and tasks, the lab (three themes, high contrast, motion, dataset), and two datasets: the real event log of Lucid Chat's build extracted from its git history (every checklist row's birth and status changes, every numbered decision), and a generated three-year company with revenue, several products, a secession and a crisis. Its stills are in `shots/`; the generator in `gen/`; how to read it in its `README.md`.
+
+## 15. What is happening: the layers of attention (T34)
+
+The first simulation grew, and showed nothing of what was happening. The owner's review named the gap: the map must carry context at every depth, say what changed since the person last looked, and tell the news in place. These are the mechanisms, all drawn in the v0.2 vocabulary of `docs/04-mocks/README.md` (glass, landmarks in rings, kind glyphs, facades, flags, roads, the dock, Talk).
+
+### 15.1 Tiles carry their task, more as you descend
+
+A plot is never an empty hexagon. At land depth it carries the kind glyph of its task (task, story, bug, chore, decision item, goal); at district depth the glyph sits in its disc with the progress ring around it and the short title beneath; at street depth the plot holds the facade card (the product image, the criteria ring, the title, who and since). Its state is its edge: dashed when planned, green when lit, coral when blocked, teal in review; a barrier marks a clog; a park marks what was set aside. The depth table of §8 is binding.
+
+### 15.2 Layers are a concept the person can see
+
+A layer is chosen from one row of named, iconed chips under the lens control. Laying one does three things at once: it recolours the ground, the light, the air or the lines (§7); it floats the layer's number under every place marker in view (the cost of a land, the done share of a district, how many buildings are blocked, how many agents built it); and it opens the **legend card**: what the colour means, its scale from low to high, and the three places that lead it, each a chip that flies there. Layers on the same channel replace each other; two layers on different channels combine. A **Growth** layer (lime where plots were claimed most recently) shows how the regions shifted as they grew; nothing is pre-allocated, and the growth layer is the proof.
+
+### 15.3 Since you last looked
+
+A **since** moment is a chip and a handle on the rail. When it is set, every building that changed between that moment and the playhead carries a **change badge** (new, moved on, in review, lit, blocked, moved land, set aside) and the rest of the world dims to ambient; place markers carry "N changed"; heat halos sit over the districts where most moved; the legend card shows the six badges with their counts; the product and place views open on what changed. The since menu offers yesterday, the last week, month, quarter or year (the choices scale with the dataset), "mark now as reviewed", and off. "What changed since last week" in Talk does the same.
+
+### 15.4 The feed, scoped to where you are
+
+A glass column at the end edge tells what is happening in the place the camera is over, in the window since the person last looked: at the sky, the company's macro events (decisions, landmarks, storms, secessions, lands founded, the big completions); over a land, that land's decisions, districts formed and notable buildings; over a district, every building that was born, rose, was reviewed, lit, blocked or moved. The head of the feed sums the window (N new, moved on, lit, stuck, decided); filters narrow it to decisions, lit, stuck or new; each card names the event, the place and when, and flies to it when touched (the building opens, the flag traces, the land focuses). The feed folds away with one tap and comes back with `F`.
+
+### 15.5 Events appear in place and fold into the map
+
+During playback an important event appears as a card at the place it happened (a decision at its flag, a landmark on its land, a completion at its building, a storm over its district): it opens, holds a beat, and folds into its building. At most three cards live at once; what counts as important rises with the playback speed (owner decisions, landmarks, storms, secessions and lands founded at any speed; large completions and blocks at the slower speeds). The ledger pills above the map count the rest per land. The camera follows a young city as it grows (play from the start) and holds still once the person has moved it.
+
+### 15.6 The grammar sheet
+
+The **Legend** opens a sheet that explains the map with live samples drawn by the renderer itself: the elements (land, district, the six states of a tile, the facade, the flag, the landmark, pipes, barriers, weather, heat, causeways), the four depths, the four lenses, the eleven layers with their scales, the seven change badges, and the actions. It is the dedicated infographic the owner asked for, and it is generated from the same code that draws the map, so it cannot drift.
+
+### 15.7 The lab
+
+Theme (Deep Blue, Aqua Dusk, Sky Glass), contrast (standard, high), motion (full, reduced) and the dataset are one popover; every still of the gallery can be reproduced in any of them from its URL.
 
 ## 14. Open questions for the owner
 

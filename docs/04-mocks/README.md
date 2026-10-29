@@ -6,7 +6,7 @@ The company operating system, drawn from the experience doctrine (`docs/13-exper
 
 ## How to view
 
-**Online:** https://totalmocks.belucid.chat (the gallery), https://totalmocks.belucid.chat/map-study/ (the map study), https://totalmocks.belucid.chat/v0.1/ (the archived first wave); republished with `node infra/mocks-site/publish.mjs` (`infra/mocks-site/README.md`).
+**Online:** https://totalmocks.belucid.chat (the gallery), https://totalmocks.belucid.chat/living-map/ (the living map, the time-based simulation on this vocabulary; `living-map/README.md`), https://totalmocks.belucid.chat/map-study/ (the rejected map study, kept for the record), https://totalmocks.belucid.chat/v0.1/ (the archived first wave); republished with `node infra/mocks-site/publish.mjs` (`infra/mocks-site/README.md`).
 
 Locally: open `index.html` in a desktop browser. It loads Sora, Figtree and Heebo from Google Fonts and Lucide 1.59.0 from jsDelivr, so it needs a network connection; everything else is inline SVG and CSS (about 4.3 MB). Each frame is drawn at its real size (1440 × 900 desktop, 390 × 844 phone) and scaled to fit the window. Every caption says what the frame shows, its focal subject, its attention counts (needs-you · text above body size · numbers), the use cases (`docs/01`) and the doctrine sections it realises.
 

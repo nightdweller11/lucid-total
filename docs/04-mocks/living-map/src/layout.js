@@ -194,8 +194,8 @@ LM.visible = function visible(world, t) {
   const items = [];
   const lands = new Map();
   const districts = new Map();
-  const landOf = (g) => { let L = lands.get(g); if (!L) { const W = world.lands.get(g); L = { key: g, cells: new Set(), sx: 0, sy: 0, n: 0, done: 0, blocked: 0, working: 0, fresh: 0, stale: 0, cost: 0, items: [], seed: W.seed, order: W.order, ghost: 0 }; lands.set(g, L); } return L; };
-  const distOf = (d, g) => { let D = districts.get(d); if (!D) { const W = world.districts.get(d); D = { key: d, land: g, cells: new Set(), sx: 0, sy: 0, n: 0, done: 0, blocked: 0, working: 0, fresh: 0, stale: 0, cost: 0, items: [], square: W.square, remaining: 0, ghost: 0 }; districts.set(d, D); } return D; };
+  const landOf = (g) => { let L = lands.get(g); if (!L) { const W = world.lands.get(g); L = { key: g, cells: new Set(), sx: 0, sy: 0, n: 0, done: 0, blocked: 0, working: 0, fresh: 0, stale: 0, cost: 0, items: [], seed: W.seed, order: W.order, ghost: 0, age: 0, size: 0, doneSize: 0, agent: 0, parent: W.parent }; lands.set(g, L); } return L; };
+  const distOf = (d, g) => { let D = districts.get(d); if (!D) { const W = world.districts.get(d); D = { key: d, land: g, cells: new Set(), sx: 0, sy: 0, n: 0, done: 0, blocked: 0, working: 0, fresh: 0, stale: 0, cost: 0, items: [], square: W.square, remaining: 0, ghost: 0, age: 0, size: 0, doneSize: 0, agent: 0, born: W.born }; districts.set(d, D); } return D; };
   const addCell = (S, q, r) => { const [x, y] = LM.hexXY(q, r); S.cells.add(key(q, r)); S.sx += x; S.sy += y; S.n++; };
   for (const c of world.claims) {
     if (c.t > t) break;
@@ -221,12 +221,12 @@ LM.visible = function visible(world, t) {
     const [x, y] = LM.hexXY(c.q, c.r);
     const L = landOf(c.g), D = distOf(c.d, c.g);
     addCell(L, c.q, c.r); addCell(D, c.q, c.r);
-    const v = { it, st, q: c.q, r: c.r, x, y, g: c.g, d: c.d };
+    const v = { it, st, q: c.q, r: c.r, x, y, g: c.g, d: c.d, t: c.t };
     items.push(v); L.items.push(v); D.items.push(v);
     for (const S of [L, D]) {
       S.built = (S.built || 0) + 1;
       if (st.done) S.done++; if (st.blocked) S.blocked++; if (st.working) S.working++; if (st.fresh) S.fresh++; if (st.stale) S.stale++; if (st.ghost) S.ghost++;
-      S.cost += st.cost; S.remaining = (S.remaining || 0) + (st.dropped ? 0 : (1 - st.h) * it.s);
+      S.cost += st.cost; S.remaining = (S.remaining || 0) + (st.dropped ? 0 : (1 - st.h) * it.s); S.age += t - c.t; S.size += it.s; S.doneSize += st.done ? it.s : it.s * st.h; S.agent += it.agent ? 1 : 0;
     }
   }
   for (const p of world.parks) {
@@ -234,7 +234,7 @@ LM.visible = function visible(world, t) {
     const L = lands.get(p.g), D = districts.get(p.d);
     if (L) addCell(L, p.q, p.r);
     if (D) addCell(D, p.q, p.r);
-    items.push({ park: true, q: p.q, r: p.r, x: LM.hexXY(p.q, p.r)[0], y: LM.hexXY(p.q, p.r)[1], g: p.g, d: p.d });
+    items.push({ park: true, q: p.q, r: p.r, x: LM.hexXY(p.q, p.r)[0], y: LM.hexXY(p.q, p.r)[1], g: p.g, d: p.d, t: p.t });
   }
   for (const S of [...lands.values(), ...districts.values()]) { S.cx = S.sx / S.n; S.cy = S.sy / S.n; }
   return { t, items, lands, districts };
