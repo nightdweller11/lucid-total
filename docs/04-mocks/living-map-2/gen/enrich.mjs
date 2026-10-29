@@ -126,6 +126,37 @@ export function enrich(ds) {
   }
   ds.asks = asks;
 
+
+  // ---- artifacts: what each task makes, from its own words (the picture's kind and subject; T39) ----
+  const F2A = { screens: 'screen', doc: 'doc', chart: 'chart', bars: 'chart', code: 'code', term: 'term', infra: 'infra', build: 'build', listing: 'listing', report: 'report', poster: 'listing', video: 'listing', account: 'screen', envelope: 'doc', trophy: 'build' };
+  const RULES = /** @type {[RegExp, string][]} */ ([
+    [/\b(runbook|checklist|rotate|rotation|token|licen[cs]e|install|hygiene|clean[- ]?up|chore|housekeeping)\b/i, 'check'],
+    [/\b(mocks?|theme|theming|style guide|icons?|glyphs?|illustration|design language|tokens page)\b/i, 'design'],
+    [/\b(tests?|e2e|walkthrough|load[- ]?test|k6|evals?|suite|playwright|maestro|smoke)\b/i, 'test'],
+    [/\b(catalogue|catalog|matrix|table|sheet|roster|inventory|per vendor|per day|costs? dashboard|budget)\b/i, 'sheet'],
+    [/\b(dashboards?|metrics?|slis?|slos?|alerts?|observab\w*|latency|throughput|cost)\b/i, 'chart'],
+    [/\b(release|builds?|testflight|\.ipa|apk|store (submission|listing)|submission|eas)\b/i, 'build'],
+    [/\b(landing|website|site|newsletter|press|campaign|launch page)\b/i, 'listing'],
+    [/\b(screens?|ui|app|mobile|onboarding|chat|bubble|composer|settings|phone|android|ios)\b/i, 'screen'],
+    [/\b(docs?|adr|plan|spec|narrative|readme|reports?|audit|compliance|consent|dpia|lia|privacy|terms|policy text|glossary)\b/i, 'doc'],
+    [/\b(railway|deploy\w*|infra\w*|staging|ci|environment|docker|postgres|redis|nats|domain|dns|cert\w*|proxy|secrets?)\b/i, 'infra'],
+    [/\b(api|endpoints?|protocol|schema|migration|migrate|resolver|dispatcher|server|worker|gateway|sync|crypto|kms|outbox|adapter|lint|typecheck)\b/i, 'code'],
+  ]);
+  const VERB = /^(build|write|fix|measure|ship|harden|refactor|instrument|load-test|migrate|wire( up)?|launch|review|answer|prioriti[sz]e|decide|renew|close|file|triage|hire|translate|follow up on|add|update|create|design|draft|define|run|set up|implement|extend|document|prepare|test|verify|approve|unblock|merge|publish|record|rebuild|redraw|propose|escalate|provision|roll out|extract|evaluate|assess|audit|check|handle|investigate|diagnose|resolve|remove|replace|rename|move|split|introduce|enable|disable|configure|automate|generate|validate|confirm|align|clarify|describe|explain|list|map|plan|schedule|script|seed|stabili[sz]e|tune|upgrade|bump|pin|port|package|wrap|redo|make|keep|stop|start|finish|complete|re-?run|re-?check|wave \d+[a-z]?:?)\s+(the\s+|a\s+|an\s+|its\s+|our\s+)?/i;
+  const cap = (/** @type {string} */ x) => (x ? x[0].toUpperCase() + x.slice(1) : x);
+  for (const it of ds.items) {
+    let n = String(it.n || '');
+    // the real log's rows often open with the workstream code ("E1 / ui: …", "H with the lead: …"): the subject is what follows
+    { const m = /^([A-H][12]?|lead|owner|ui|docs)(\s*[\/·+,&]\s*([A-H][12]?|lead|owner|ui|docs|the lead))*(\s+with the lead)?\s*[:—–-]\s*/i.exec(n); if (m) n = n.slice(m[0].length); }
+    const head = n.split(/[:(—–]|,\s|\s-\s/)[0].trim();
+    const rest = n.slice(head.length).replace(/^[:(—–,\s]+/, '').replace(/[)]+$/, '').trim();
+    const sub = cap(head.replace(VERB, '').trim()) || head;
+    let kind = F2A[it.f] || 'doc';
+    if (it.k === 'decision') kind = 'decision'; else if (it.k === 'policy') kind = 'policy';
+    else if (ds.key === 'lucid' || it.k === 'chore') { for (const [re, k] of RULES) if (re.test(n)) { kind = k; break; } }
+    it.a = { kind, sub: sub.length > 34 ? sub.slice(0, 33).trimEnd() + '…' : sub, line: rest.length > 48 ? rest.slice(0, 47).trimEnd() + '…' : rest };
+  }
+
   // ---- policies: behavioural decisions on how things operate (docs/18) ----
   ds.policies = ds.key === 'lucid' ? [
     { id: 'POL-1', n: 'Every feature is walked through in the real interface before it is done', body: 'On the iOS simulator, the Android emulator and a real browser: every control clicked, every behaviour simulated, evidence attached. Not done without the walkthrough.', scope: 'development', applies: ['people', 'ai'], since: Date.parse('2026-10-19'), by: 'owner', enforce: 'gate', ref: 'docs/14 §5' },

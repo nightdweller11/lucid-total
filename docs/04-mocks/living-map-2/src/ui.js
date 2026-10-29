@@ -92,9 +92,9 @@ LM.fitAt = function fitAt(t) {
   if (!isFinite(minx)) { const e = w.extent; minx = e.minx; maxx = e.maxx; miny = e.miny; maxy = e.maxy; }
   const phone = LM.W <= 720;
   const panelW = LM.view.panel && (LM.W || window.innerWidth) > 1100 ? 350 : 0;
-  const W = (LM.W || window.innerWidth) - panelW, H = (LM.H || window.innerHeight) - (phone ? 420 : 250);
-  const k = Math.min((W - (phone ? 36 : 140)) / Math.max(10, maxx - minx + 10), H / Math.max(10, (maxy - miny + 12) * LM.YS));
-  return { x: (minx + maxx) / 2 + panelW / 2 / k, y: (miny + maxy) / 2 + (phone ? -60 : 30) / (k * LM.YS), k: Math.max(1.5, Math.min(LM.L1 - 0.5, k)) };
+  const W = (LM.W || window.innerWidth) - panelW, H = (LM.H || window.innerHeight) - (phone ? 420 : 235);
+  const k = Math.min((W - (phone ? 36 : 60)) / Math.max(10, maxx - minx + 16), H / Math.max(10, (maxy - miny + 16) * LM.YS));
+  return { x: (minx + maxx) / 2 + panelW / 2 / k, y: (miny + maxy) / 2 + (phone ? -60 : 48) / (k * LM.YS), k: Math.max(1.5, Math.min(LM.L1 - 0.5, k)) };
 };
 LM.fitWorld = function fitWorld(t) { LM.cam = LM.fitAt(t === undefined ? LM.ds.span[1] : t); LM.autoFit = false; };
 
@@ -255,12 +255,14 @@ function labMenu(e) {
     <span class="lbl2">Contrast</span><div class="seg"><button class="sg${r.dataset.hc !== 'high' ? ' on' : ''}" data-hc="std">${I('circle-dot')}<span>Standard</span></button><button class="sg${r.dataset.hc === 'high' ? ' on' : ''}" data-hc="high">${I('contrast')}<span>High</span></button></div>
     <span class="lbl2">Dataset</span><div class="seg dsw">${[['lucid', 'Lucid Chat', 'real'], ['example', 'Example company', 'generated']].map(([k, n, sub]) => `<button class="sg${LM.ds.key === k ? ' on' : ''}" data-ds="${k}"><span>${n}</span><small>${sub}</small></button>`).join('')}</div>
     <span class="lbl2">The task level</span><div class="seg"><button class="sg${LM.view.iso ? ' on' : ''}" data-iso="1">${I('box')}<span>Tilts in (isometric)</span></button><button class="sg${!LM.view.iso ? ' on' : ''}" data-iso="0">${I('square')}<span>Stays flat</span></button></div>
+    <span class="lbl2">Pictures</span><div class="seg">${[['off', 'Off', 'eye-off'], ['thumb', 'On the tile', 'image'], ['full', 'As the tile', 'layout-template']].map(([k, n, ic]) => `<button class="sg${(LM.view.pic || 'thumb') === k ? ' on' : ''}" data-pic="${k}">${I(ic)}<span>${n}</span></button>`).join('')}</div>
     <span class="lbl2">The past</span><div class="seg"><button class="sg${LM.view.quiet ? ' on' : ''}" data-q="1">${I('moon')}<span>Quiet</span></button><button class="sg${!LM.view.quiet ? ' on' : ''}" data-q="0">${I('sun')}<span>Full</span></button></div>
     <span class="lbl2">Motion</span><div class="seg"><button class="sg${!LM.view.reduce ? ' on' : ''}" data-mo="0">${I('activity')}<span>Full</span></button><button class="sg${LM.view.reduce ? ' on' : ''}" data-mo="1">${I('minus')}<span>Reduced</span></button></div>`);
   for (const b of p.querySelectorAll('[data-pt]')) b.onclick = () => { r.dataset.pt = b.dataset.pt; LM.readTheme(); LM.dirty(); writeUrl(); labMenu(e); };
   for (const b of p.querySelectorAll('[data-hc]')) b.onclick = () => { r.dataset.hc = b.dataset.hc; LM.view.hc = b.dataset.hc === 'high'; LM.readTheme(); LM.dirty(); writeUrl(); labMenu(e); };
   for (const b of p.querySelectorAll('[data-mo]')) b.onclick = () => { LM.view.reduce = b.dataset.mo === '1'; LM.dirty(); labMenu(e); };
   for (const b of p.querySelectorAll('[data-iso]')) b.onclick = () => { LM.view.iso = b.dataset.iso === '1'; LM.keyEl.dataset.state = ''; LM.dirty(); writeUrl(); labMenu(e); };
+  for (const b of p.querySelectorAll('[data-pic]')) b.onclick = () => { LM.view.pic = b.dataset.pic; LM.keyEl.dataset.state = ''; LM.dirty(); writeUrl(); labMenu(e); };
   for (const b of p.querySelectorAll('[data-q]')) b.onclick = () => { LM.view.quiet = b.dataset.q === '1'; LM.keyEl.dataset.state = ''; LM.dirty(); labMenu(e); };
   for (const b of p.querySelectorAll('[data-ds]')) b.onclick = () => { if (b.dataset.ds !== LM.ds.key) { LM.setDataset(b.dataset.ds); setTime(LM.ds.now); say(`${LM.ds.name}: ${LM.ds.sub}`); syncChrome(); } p.hidden = true; };
 }
@@ -396,6 +398,7 @@ function bindMap() {
   const up = (e) => { pts.delete(e.pointerId); if (pts.size < 2) pinch = null; if (pts.size === 0) { const wasDrag = drag; drag = null; if (!moved && wasDrag) click(e.clientX, e.clientY); writeUrl(); } };
   c.addEventListener('pointerup', up); c.addEventListener('pointercancel', up);
   c.addEventListener('wheel', (e) => { e.preventDefault(); const f = Math.exp(-e.deltaY * 0.0012); zoomAt(e.clientX, e.clientY, f); }, { passive: false });
+  LM.tilesEl.addEventListener('wheel', (e) => { e.preventDefault(); const f = Math.exp(-e.deltaY * 0.0012); zoomAt(e.clientX, e.clientY, f); }, { passive: false });
   c.addEventListener('dblclick', (e) => { const [wx, wy] = LM.toWorld(e.clientX, e.clientY); LM.flyTo(wx, wy, LM.cam.k * 2.2); });
 }
 function zoomAt(sx, sy, f, smooth) {
@@ -414,11 +417,11 @@ LM.flyTo = function flyTo(x, y, k, ms = 800) {
 };
 /** The extent of a place's cells in world units. */
 function extentOf(S) { let minx = Infinity, maxx = -Infinity, miny = Infinity, maxy = -Infinity; for (const c of S.cells) { const [q, r] = c.split(',').map(Number); const [x, y] = LM.hexXY(q, r); if (x < minx) minx = x; if (x > maxx) maxx = x; if (y < miny) miny = y; if (y > maxy) maxy = y; } return { minx, maxx, miny, maxy, w: maxx - minx + 2, h: maxy - miny + 2 }; }
-const avail = () => ({ W: LM.W - (LM.view.panel && LM.W > 1100 ? 382 : 0) - (LM.W <= 720 ? 24 : 120), H: LM.H - (LM.W <= 720 ? 380 : LM.view.time ? 300 : 230), ox: LM.view.panel && LM.W > 1100 ? -191 : 0 });
+const avail = () => ({ W: LM.W - (LM.view.panel && LM.W > 1100 ? 382 : 0) - (LM.W <= 720 ? 24 : 60), H: LM.H - (LM.W <= 720 ? 380 : LM.view.time ? 330 : 275), ox: LM.view.panel && LM.W > 1100 ? -191 : 0, oy: LM.W <= 720 ? -60 : LM.view.time ? 10 : 38 });
 /** Level 2: the land fills the view, its districts as cards. */
-function flyToLand(g) { const L = LM.vis && LM.vis.lands.get(g); if (!L) return; const e = extentOf(L), a = avail(); const k = Math.max(LM.L1 + 2, Math.min(LM.L3 - 10, Math.min(a.W / (e.w + 6), a.H / (e.h + 8)))); LM.flyTo((e.minx + e.maxx) / 2 - a.ox / k, (e.miny + e.maxy) / 2 + 20 / k, k); }
+function flyToLand(g) { const L = LM.vis && LM.vis.lands.get(g); if (!L) return; const e = extentOf(LM.shapeOf(L)), a = avail(); const k = Math.max(LM.L1 + 2, Math.min(LM.L3 - 10, Math.min(a.W / (e.w + 2), a.H / (e.h + 2)))); LM.flyTo((e.minx + e.maxx) / 2 - a.ox / k, (e.miny + e.maxy) / 2 + a.oy / k, k); }
 /** Level 3: the district fills the view, its tasks as tiles (never below the task level). */
-function flyToDistrict(d) { const D = LM.vis && LM.vis.districts.get(d); if (!D) return; const e = extentOf(D), a = avail(); const ys = LM.view.iso ? 0.55 : 1; const k = Math.max(LM.L3 + 14, Math.min(190, Math.min(a.W / (e.w + 4), a.H / ((e.h + 5) * ys + 0.6)))); LM.flyTo((e.minx + e.maxx) / 2 - a.ox / k, (e.miny + e.maxy) / 2 + 20 / (k * ys), k); }
+function flyToDistrict(d) { const D = LM.vis && LM.vis.districts.get(d); if (!D) return; const e = extentOf(D), a = avail(); const ys = LM.view.iso ? 0.55 : 1; const k = Math.max(LM.L3 + 4, Math.min(190, Math.min(a.W / (e.w + 2), a.H / ((e.h + 3) * ys + 0.6)))); LM.flyTo((e.minx + e.maxx) / 2 - a.ox / k, (e.miny + e.maxy) / 2 + a.oy / (k * ys), k); }
 /** A chip on a summary leads to what it counts: the panel scoped to the place with that filter, and the place in view. */
 LM.focusPanel = function focusPanel(filter, S, kind) { LM.panelState.filter = filter; LM.panelState.scope = 'here'; LM.togglePanel(true); if (kind === 'land') flyToLand(S.key); else flyToDistrict(S.key); say(`<b>${filter === 'ask' ? 'To decide' : filter === 'blocked' ? 'Stuck' : filter === 'review' ? 'In review' : 'Changed'}</b> in ${LM.esc(kind === 'land' ? LM.landInfo(LM.ds, LM.view.lens, S.key).name : LM.shortName(LM.distName(LM.ds, LM.view.lens, S.key)))}: listed in the panel, flagged on the map.`, 5000); };
 /** The zoom buttons step through the three levels: into the place under the camera, or back out of it. */
@@ -835,6 +838,7 @@ function applyParams(p) {
   if (p.get('time') === '1' || (p.get('t') && v.mode === 'then')) v.time = true;
   if (p.get('quiet') === '0') v.quiet = false;
   if (p.get('iso') === '0') v.iso = false; if (p.get('iso') === '1') v.iso = true;
+  if (['off', 'thumb', 'full'].includes(p.get('pic'))) v.pic = p.get('pic');
   if (p.get('filter')) LM.panelState.filter = p.get('filter');
   if (p.get('scope')) LM.panelState.scope = p.get('scope');
   LM.readTheme();
@@ -857,7 +861,7 @@ function writeUrl() {
     p.set('t', new Date(v.t).toISOString().slice(0, 16)); p.set('x', LM.cam.x.toFixed(1)); p.set('y', LM.cam.y.toFixed(1)); p.set('k', LM.cam.k.toFixed(2));
     if (v.sel && v.sel.id) p.set('sel', v.sel.id); if (v.trace && v.trace.dec) p.set('trace', v.trace.dec.id);
     if (v.sinceOn) p.set('since', new Date(v.since).toISOString().slice(0, 16));
-    if (!v.panel) p.set('panel', '0'); if (v.time) p.set('time', '1'); if (v.proj) p.set('proj', v.proj); if (!v.quiet) p.set('quiet', '0'); if (!v.iso) p.set('iso', '0');
+    if (!v.panel) p.set('panel', '0'); if (v.time) p.set('time', '1'); if (v.proj) p.set('proj', v.proj); if (!v.quiet) p.set('quiet', '0'); if (!v.iso) p.set('iso', '0'); if (v.pic && v.pic !== 'thumb') p.set('pic', v.pic);
     if (LM.panelState.filter !== 'all') p.set('filter', LM.panelState.filter); if (LM.panelState.scope !== 'here') p.set('scope', LM.panelState.scope);
     if (document.documentElement.dataset.pt !== 'deep') p.set('pt', document.documentElement.dataset.pt); if (v.hc) p.set('hc', '1');
     history.replaceState(null, '', '?' + p.toString());

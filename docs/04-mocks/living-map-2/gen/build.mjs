@@ -59,7 +59,7 @@ const VOCAB = `window.LM=window.LM||{};LM.ICONS=${JSON.stringify(ICONS)};LM.LAND
 const lucid = enrich(normaliseLucid(JSON.parse(read(path.join(V1, 'data/lucid-chat.json')))));
 const example = enrich(JSON.parse(read(path.join(V1, 'data/example-co.json'))));
 const data = JSON.stringify({ lucid, example }).replace(/<\/script/g, '<\\/script');
-const js = ['src/model.js', 'src/layout.js', 'src/render.js', 'src/panel.js', 'src/ui.js'].map((f) => `// ---- ${f} ----\n${read(path.join(ROOT, f))}`).join('\n');
+const js = ['src/model.js', 'src/layout.js', 'src/pics.js', 'src/render.js', 'src/panel.js', 'src/ui.js'].map((f) => `// ---- ${f} ----\n${read(path.join(ROOT, f))}`).join('\n');
 
 const html = `<!doctype html>
 <html lang="en" data-pt="deep" data-hc="std">

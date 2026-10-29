@@ -13,7 +13,7 @@
 LM.HUES = ['sky', 'violet', 'warm', 'lime', 'rules', 'gold', 'slate', 'ai', 'heat', 'sharp', 'drift'];
 LM.YS = 1; LM.targetYS = 1; // the y squash: 1 flat, 0.55 isometric; the map tilts on the way into the task level
 LM.cam = { x: 0, y: 0, k: 8 };
-LM.view = { lens: 'dept', overlays: new Set(), t: 0, playing: false, speed: 1, trace: null, sel: null, hover: null, hc: false, reduce: false, since: 0, sinceOn: false, panel: true, time: false, proj: null, quiet: true, mode: 'now', iso: true };
+LM.view = { lens: 'dept', overlays: new Set(), t: 0, playing: false, speed: 1, trace: null, sel: null, hover: null, hc: false, reduce: false, since: 0, sinceOn: false, panel: true, time: false, proj: null, quiet: true, mode: 'now', iso: true, pic: 'thumb' };
 LM.lensAnim = null;
 LM.flight = null;
 LM.L1 = 14; LM.L3 = 90;
@@ -85,6 +85,64 @@ LM.poleOf = function poleOf(world, S) {
   const pole = n ? { x: sx / n, y: sy / n, r: (bd + 0.6) * 1.5 } : { x: S.cx, y: S.cy, r: 1 };
   world.poleCache.set(key, pole);
   return pole;
+};
+
+/** The lands' display shapes: each land grows into the sea around it (never into a neighbour, a one-cell channel kept)
+ * until it has room for its summary; small lands grow more. The growth engine is untouched: this is the coast the land
+ * and area levels draw and lay their information inside (T39). */
+LM.landShapes = function landShapes(world, vis) {
+  const sig = [...vis.lands.values()].map((L) => L.key + ':' + L.n).join('|');
+  if (world.shapeCache && world.shapeCache.sig === sig) return world.shapeCache.map;
+  const owner = new Map(), src = new Map();
+  for (let q = -2; q <= 2; q++) for (let r = -2; r <= 2; r++) if ((Math.abs(q) + Math.abs(r) + Math.abs(q + r)) / 2 <= 2) owner.set(q + ',' + r, '#plaza');
+  for (const L of vis.lands.values()) for (const c of L.cells) { owner.set(c, L.key); src.set(c, c); }
+  const map = new Map(); let frontier = new Map(); const cap = new Map();
+  for (const L of vis.lands.values()) { map.set(L.key, { key: '~' + L.key, cells: new Set(L.cells), n: 0, land: L.key }); frontier.set(L.key, [...L.cells]); cap.set(L.key, Math.max(3, Math.min(9, Math.ceil(2 + 0.36 * Math.sqrt(L.n))))); }
+  const N2 = []; for (let dq = -2; dq <= 2; dq++) for (let dr = -2; dr <= 2; dr++) if (dq || dr) if ((Math.abs(dq) + Math.abs(dr) + Math.abs(dq + dr)) / 2 <= 2) N2.push([dq, dr]);
+  for (let ring = 0; ring < 9; ring++) {
+    const next = new Map();
+    for (const [lk, cells] of frontier) {
+      if (ring >= cap.get(lk)) continue;
+      const reach = cap.get(lk) * 1.56 + 0.4, out = [];
+      for (const c of cells) {
+        const [q, r] = c.split(',').map(Number); const s0 = src.get(c); const [sq, sr] = s0.split(',').map(Number); const [sx, sy] = LM.hexXY(sq, sr);
+        for (const [dq, dr] of LM.DIRS) {
+          const nq = q + dq, nr = r + dr, nk = nq + ',' + nr;
+          if (owner.has(nk)) continue;
+          const [x, y] = LM.hexXY(nq, nr); if (Math.hypot(x - sx, y - sy) > reach) continue;
+          let ok = true; for (const [a, b] of N2) { const o = owner.get((nq + a) + ',' + (nr + b)); if (o && o !== lk) { ok = false; break; } }
+          if (!ok) continue;
+          owner.set(nk, lk); src.set(nk, s0); map.get(lk).cells.add(nk); out.push(nk);
+        }
+      }
+      next.set(lk, out);
+    }
+    frontier = next;
+  }
+  for (const S of map.values()) S.n = S.cells.size;
+  world.shapeCache = { sig, map };
+  return map;
+};
+LM.shapeOf = (L) => (LM.shapes && LM.shapes.get(L.key)) || L;
+/** The largest box of the given aspect that fits inside a shape, near its pole (world units; cached). */
+LM.fitBox = function fitBox(world, S, aspect = 1.4) {
+  const ck = 'box|' + S.key + '|' + S.n + '|' + aspect;
+  const hit = world.poleCache.get(ck); if (hit) return hit;
+  const pole = LM.poleOf(world, S);
+  const inside = (x, y) => { const [q, r] = LM.xyHex(x, y); return S.cells.has(q + ',' + r); };
+  const fits = (cx, cy, w, h) => { for (let i = 0; i <= 6; i++) for (let j = 0; j <= 4; j++) { if (i > 0 && i < 6 && j > 0 && j < 4) continue; if (!inside(cx - w / 2 + (w * i) / 6, cy - h / 2 + (h * j) / 4)) return false; } return true; };
+  let best = { x: pole.x, y: pole.y, w: 0, h: 0 };
+  const cands = [[pole.x, pole.y]];
+  if (S.n <= 220) { let i = 0; for (const c of S.cells) { if (i++ % 2) continue; const [q, r] = c.split(',').map(Number); cands.push(LM.hexXY(q, r)); } }
+  else { const step = Math.max(1, pole.r * 0.45); for (let dx = -4; dx <= 4; dx++) for (let dy = -4; dy <= 4; dy++) if (dx || dy) cands.push([pole.x + dx * step, pole.y + dy * step]); }
+  for (const [cx, cy] of cands) {
+    if (!inside(cx, cy)) continue;
+    let lo = 0, hi = pole.r * 5 + 6;
+    for (let i = 0; i < 10; i++) { const mid = (lo + hi) / 2; if (fits(cx, cy, mid * aspect, mid)) lo = mid; else hi = mid; }
+    if (lo > best.h) best = { x: cx, y: cy, w: lo * aspect, h: lo };
+  }
+  world.poleCache.set(ck, best);
+  return best;
 };
 
 const pathRing = (ctx, ring, dz = 0) => {
@@ -208,13 +266,14 @@ LM.draw = function draw(now) {
   const lod = LM.lodOf(k);
   LM.lod = lod;
   // the tilt: flat at the land and area levels, isometric at the task level (the lab can keep it flat)
-  LM.targetYS = lod === 2 && view.iso ? 0.55 : 1;
+  LM.targetYS = lod === 2 && view.iso && (view.pic || 'thumb') !== 'full' ? 0.55 : 1;
   const dtF = Math.min(0.1, (now - (LM.lastFrame || now)) / 1000);
   if (Math.abs(LM.YS - LM.targetYS) > 0.002) { const a = view.reduce ? 1 : 1 - Math.exp(-dtF / 0.18); LM.YS += (LM.targetYS - LM.YS) * a; LM.needsFrame = true; } else LM.YS = LM.targetYS;
   ctx.clearRect(0, 0, W, H);
   const world = LM.worlds[view.lens];
   if (!world.poleCache) world.poleCache = new Map();
   const vis = (LM.vis = LM.visible(world, view.t));
+  LM.shapes = LM.landShapes(world, vis);
   const O = view.overlays;
   const layer = [...O].find((o) => o !== 'deps') || null;
   const stats = (LM.stats = overlayStats(ds, vis));
@@ -251,11 +310,12 @@ LM.draw = function draw(now) {
   const landsSorted = [...vis.lands.values()].sort((a, b) => a.cy - b.cy);
   for (const L of landsSorted) {
     const hue = hueOf(L.key);
-    const rings = LM.hullOf(world, L);
+    const shape = LM.shapeOf(L);
+    const rings = LM.hullOf(world, shape);
     const prog = L.size ? L.doneSize / L.size : 0;
     const dim = (traceLands && !traceLands.has(L.key) ? 0.35 : 1) * (projSet && !L.proj ? 0.4 : 1);
     const [cx, cy] = LM.toScreen(L.cx, L.cy);
-    const R = Math.max(30, Math.sqrt(L.n) * k * 1.7);
+    const R = Math.max(30, Math.sqrt(shape.n) * k * 1.7);
     const here = LM.hereLand && LM.hereLand.key === L.key;
     const focusDim = lod >= 1 && !here ? 0.5 : 1;
     ctx.save(); ctx.globalAlpha = hullAlpha * dim * focusDim;
@@ -301,6 +361,17 @@ LM.draw = function draw(now) {
       if (alpha > 0.005) { ctx.fillStyle = rgba(fill, Math.min(0.75, alpha)); ctx.fill('evenodd'); }
       ctx.lineWidth = here ? 1.8 : lod === 1 && inLand ? 1.4 : 1; ctx.strokeStyle = here ? rgba(T.acc, 0.8) : lod === 1 && inLand ? rgba(mix(hue, T.paper, 0.5), 0.55) : T.light ? `rgba(15,31,58,${lod >= 1 ? 0.14 : 0.07})` : T.ink(T.hc ? 0.35 : lod >= 1 ? 0.14 : 0.08); ctx.stroke();
       ctx.restore();
+    }
+  }
+
+  // ---- pictures on their plots (the setting "As the tile" at the land and area levels): what each plot made ----
+  if ((view.pic || 'thumb') === 'full' && lod <= 1 && k >= 4) {
+    const a = lod === 0 ? 0.6 : 0.78;
+    for (const v of vis.items) {
+      if (!v.it) continue;
+      const [sx, sy] = LM.toScreen(v.x, v.y); if (!onScreen(sx, sy, k * 2)) continue;
+      const here = !LM.hereLand || LM.hereLand.key === v.g;
+      LM.drawPic(ctx, v.it, v.st, sx - k * 0.78, sy - k * 0.62 * LM.YS, k * 1.56, k * 1.24 * LM.YS, a * (here ? 1 : 0.45));
     }
   }
 
@@ -470,15 +541,25 @@ function placeSummary(S, kind, tier, ctx) {
   const head = kind === 'land'
     ? `<div class="lh"><span class="disc h-${info.hue}"><svg class="lm" viewBox="0 0 48 48"><path d="${LM.LANDMARKS[LM.lmKey(info.lm)].d}"/></svg></span><span class="nm">${esc(name)}</span></div>`
     : `<div class="lh row"><span class="g f-${info.hue} sm">${Iw('map-pin')}</span><span class="nm">${esc(name)}</span></div>`;
-  if (tier === 'xs') return head + (kind === 'district' ? `<div class="ln"><b>${pv ? esc(pv.text) : Math.round(pct * 100) + ' %'}</b> · ${S.built}</div>` : '');
+  const nAsk0 = (S.askList || []).length;
+  const atl0 = [nAsk0 ? `<span class="rules" data-go="ask">${nAsk0} to decide</span>` : '', S.blocked ? `<span class="block" data-go="blocked">${S.blocked} blocked</span>` : '', S.stale && !S.blocked ? `<span class="hold" data-go="blocked">${S.stale} still</span>` : '', S.review0 ? `<span class="ai" data-go="review">${S.review0} in review</span>` : ''].filter(Boolean);
+  const rowHead0 = kind === 'land' ? `<div class="lh row"><span class="disc h-${info.hue}"><svg class="lm" viewBox="0 0 48 48"><path d="${LM.LANDMARKS[LM.lmKey(info.lm)].d}"/></svg></span><span class="nm">${esc(name)}</span></div>` : head;
+  if (tier === 'name') return rowHead0 + (atl0.length ? `<div class="atl">${atl0.join('<i>·</i>')}</div>` : '');
+  if (tier === 'xs') return rowHead0 + `<div class="ln"><b>${pv ? esc(pv.text) : Math.round(pct * 100) + ' %'}</b> · ${S.built} · ${(S.built || 0) - (S.done || 0) - (S.dropped || 0)} open</div>` + (atl0.length ? `<div class="atl">${atl0.join('<i>·</i>')}</div>` : '');
   const bar = pv ? `<span class="sbar lay" style="--lv:${pv.v.toFixed(2)};--lc:${LM.hueVar(LM.layerHue(layer))}"><i></i></span>` : stateBar(S);
   const line = `<div class="ln">${pv ? `<b>${esc(pv.text)}</b> ${LM.OV_INFO[layer][0].toLowerCase()} · ` : `<b>${Math.round(pct * 100)} %</b> done · `}${S.built} task${S.built === 1 ? '' : 's'} · ${open} open</div>`;
-  const flags = askFlags(S, tier === 'l' ? 3 : tier === 'm' ? 2 : 1);
+  const nAsk = (S.askList || []).length;
+  const atl = [nAsk ? `<span class="rules" data-go="ask">${nAsk} to decide</span>` : '', S.blocked ? `<span class="block" data-go="blocked">${S.blocked} blocked</span>` : '', S.stale && !S.blocked ? `<span class="hold" data-go="blocked">${S.stale} still</span>` : '', S.review0 ? `<span class="ai" data-go="review">${S.review0} in review</span>` : '', ch ? `<span class="heat" data-go="new">${ch.n} changed</span>` : ''].filter(Boolean);
+  const rowHead = kind === 'land' ? `<div class="lh row"><span class="disc h-${info.hue}"><svg class="lm" viewBox="0 0 48 48"><path d="${LM.LANDMARKS[LM.lmKey(info.lm)].d}"/></svg></span><span class="nm">${esc(name)}</span></div>` : head;
+  if (tier === 's') return `${rowHead}${bar}<div class="ln"><b>${pv ? esc(pv.text) : Math.round(pct * 100) + ' %'}</b> · ${S.built} · ${open} open</div>${atl.length ? `<div class="atl">${atl.join('<i>·</i>')}</div>` : ''}`;
+  const flags = askFlags(S, tier === 'l' ? 3 : 1);
   const chips = attnChips(S, ch, projSet);
-  const crew = tier === 'l' || tier === 'm' ? crewOf(S) : '';
+  const crew = tier === 'l' ? crewOf(S) : '';
+  const made = ctx.made && ctx.made.length ? `<div class="made">${ctx.made.map((v) => `<span class="mp" data-it="${v.it.id}" title="${esc(v.it.n)}">${LM.picSvg(v.it, v.st)}</span>`).join('')}</div>` : '';
   let tops = '';
   if (kind === 'land' && tier === 'l' && ctx.tops && ctx.tops.length) tops = `<div class="tops">${ctx.tops.map((D) => `<span class="chip sm" data-dist="${D.key}">${Iw('map-pin')}<span>${esc(LM.shortName(LM.distName(ds, lens, D.key)).slice(0, 22))}</span><em>${Math.round((D.size ? D.doneSize / D.size : 0) * 100)} %</em></span>`).join('')}</div>`;
-  return `${head}${bar}${tier !== 's' ? line : `<div class="ln">${pv ? esc(pv.text) : Math.round(pct * 100) + ' %'} · ${S.built} · ${open} open</div>`}${flags}${chips || crew ? `<div class="at">${chips}${crew}</div>` : ''}${tops}`;
+  if (tier === 'm') return `${rowHead}${bar}${line}${flags}${chips || crew ? `<div class="at">${chips}${crew}</div>` : ''}`;
+  return `${head}${bar}${line}${made}${flags}${chips || crew ? `<div class="at">${chips}${crew}</div>` : ''}${tops}`;
 }
 /** Push summaries apart so none overlaps; returns how far each moved. */
 function spread(items) {
@@ -500,6 +581,7 @@ LM.syncOverlays = function syncOverlays(vis, world, lod, stats, since, layer, no
   const root = LM.tilesEl; if (!root) return;
   const ds = LM.ds, view = LM.view, k = LM.cam.k;
   if (root.dataset.level !== String(lod)) { root.dataset.level = String(lod); root.innerHTML = ''; LM.overlays.clear(); }
+  root.dataset.pic = view.pic || 'thumb';
   const alive = new Set();
   LM.leaders = [];
   const want = (key, cls, html, x, y, w, h, extra) => {
@@ -516,7 +598,8 @@ LM.syncOverlays = function syncOverlays(vis, world, lod, stats, since, layer, no
   const bindPlace = (el, S, kind) => {
     el.addEventListener('click', (e) => {
       e.stopPropagation();
-      const ask = e.target.closest('[data-ask]'); const chip = e.target.closest('[data-go]'); const dist = e.target.closest('[data-dist]');
+      const ask = e.target.closest('[data-ask]'); const chip = e.target.closest('[data-go]'); const dist = e.target.closest('[data-dist]'); const mp = e.target.closest('[data-it]');
+      if (mp) { const it = ds.items.find((x) => x.id === mp.dataset.it); if (it) LM.select(it); return; }
       if (ask) { const a = ds.asks.find((x) => x.id === ask.dataset.ask); if (a) { const p = LM.askPlace(ds, a, view.lens, view.t); LM.select({ ask: a, it: p.it }); } return; }
       if (dist) { LM.flyToDistrict(dist.dataset.dist); return; }
       if (chip) { LM.focusPanel(chip.dataset.go, S, kind); return; }
@@ -526,61 +609,72 @@ LM.syncOverlays = function syncOverlays(vis, world, lod, stats, since, layer, no
   for (const S of [...vis.lands.values(), ...vis.districts.values()]) { S.review0 = 0; for (const v of S.items) if (v.it && v.st.s === 'review') S.review0++; }
   const base = { ds, lens: view.lens, layer, stats, since, projSet };
 
+  // ---- the territory is the card: each place's hull as a clipped element with its summary laid in the box that fits it;
+  //      the tier by that room; only places in (nearly) full view speak; a callout, with a leader, only where there is no
+  //      room and something waits (T39) ----
+  const TIERS = ['name', 'xs', 's', 'm', 'l'];
+  const NEED = { land: { l: [300, 250], m: [205, 150], s: [128, 82] }, district: { m: [200, 150], s: [128, 82] } };
+  const panelW = view.panel && LM.W > 1100 ? 382 : 0;
+  const free = { x0: 0, y0: LM.W <= 720 ? 150 : 175, x1: LM.W - panelW, y1: LM.H - (LM.W <= 720 ? 300 : 100) };
+  const fracIn = (bb) => { const ix = Math.max(0, Math.min(bb.x1, free.x1) - Math.max(bb.x0, free.x0)), iy = Math.max(0, Math.min(bb.y1, free.y1) - Math.max(bb.y0, free.y0)); return (ix * iy) / Math.max(1, (bb.x1 - bb.x0) * (bb.y1 - bb.y0)); };
+  const ys = LM.YS;
+  const screenBox = (rings) => { let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity; for (const ring of rings) for (const [x, y] of ring) { const [sx, sy] = LM.toScreen(x, y); if (sx < x0) x0 = sx; if (sx > x1) x1 = sx; if (sy < y0) y0 = sy; if (sy > y1) y1 = sy; } return { x0, y0, x1, y1 }; };
+  const clipPath = (rings, bx, by) => rings.map((ring) => { const P = ring.map(([x, y]) => { const [sx, sy] = LM.toScreen(x, y); return [sx - bx, sy - by]; }); const n = P.length; const mid = (p, q) => [(p[0] + q[0]) / 2, (p[1] + q[1]) / 2]; let d = 'M' + mid(P[0], P[1]).map((v) => v.toFixed(1)).join(' '); for (let i = 1; i <= n; i++) { const p = P[i % n], q = P[(i + 1) % n]; const m = mid(p, q); d += `Q${p[0].toFixed(1)} ${p[1].toFixed(1)} ${m[0].toFixed(1)} ${m[1].toFixed(1)}`; } return d + 'Z'; }).join('');
+  const tierFor = (kind, box) => { const w = box.w * k, h = box.h * k * ys; const N = NEED[kind]; for (const tn of Object.keys(N)) if (w >= N[tn][0] && h >= N[tn][1]) return tn; return null; };
+  const madeOf = (S, n) => S.items.filter((v) => v.it && !v.st.dropped && (v.st.done || v.st.s === 'doing' || v.st.s === 'review')).sort((p, q) => q.st.since - p.st.since).slice(0, n);
+  const terrs = [];
+  const territory = (S, kind, shape, info, name, o) => {
+    const rings = LM.hullOf(world, shape);
+    const bb = screenBox(rings);
+    if (bb.x1 < -40 || bb.x0 > LM.W + 40 || bb.y1 < -40 || bb.y0 > LM.H + 40) return null;
+    const frac = fracIn(bb);
+    const pole = LM.poleOf(world, shape); const [px, py] = LM.toScreen(pole.x, pole.y);
+    const wide = LM.fitBox(world, shape, 1.4), xsBox = LM.fitBox(world, shape, 2.6);
+    let tier = frac >= 0.6 ? tierFor(kind, wide) : null, box = wide;
+    if (!tier && frac >= 0.6 && xsBox.w * k >= 110 && xsBox.h * k * ys >= 40) { tier = 'xs'; box = xsBox; }
+    if (!tier) { tier = 'name'; box = xsBox; }
+    if (o.cap && TIERS.indexOf(tier) > TIERS.indexOf(o.cap)) { tier = o.cap; box = tier === 'xs' || tier === 'name' ? xsBox : wide; }
+    const made = view.pic !== 'off' && ((kind === 'land' && tier === 'l') || (kind === 'district' && tier === 'm')) ? madeOf(S, 3) : null;
+    const html = placeSummary(S, kind, tier, { ...base, info, name, tops: tier === 'l' ? o.tops : null, made });
+    const [bx, by] = LM.toScreen(box.x, box.y); const bw = Math.max(0, box.w * k), bh = Math.max(0, box.h * k * ys);
+    let m;
+    if (tier === 'name' || tier === 'xs') {
+      // too little room for a box inside the coast: the name (and the one line) stands free at the pole, unclipped
+      if (!(px > -120 && px < LM.W + 120 && py > -60 && py < LM.H + 60)) return null;
+      m = want(o.key, `plabel ${kind === 'land' ? 'lsum' : 'dsum'} ${tier} h-${info.hue} hl-${healthOf(S)}${o.cls || ''}`, html, tier === 'xs' ? bx : px, tier === 'xs' ? by : py, 0, 0, { bind: (el) => bindPlace(el, S, kind), op: o.dim === undefined ? 1 : o.dim });
+    } else {
+      const inner = `<div class="sum ${kind === 'land' ? 'lsum' : 'dsum'} ${tier}" style="left:${(bx - bb.x0 - bw / 2).toFixed(0)}px;top:${(by - bb.y0 - bh / 2).toFixed(0)}px;width:${bw.toFixed(0)}px;height:${bh.toFixed(0)}px">${html}</div>`;
+      const w = bb.x1 - bb.x0, h = bb.y1 - bb.y0;
+      m = want(o.key, `terr ${kind} t-${tier} h-${info.hue} hl-${healthOf(S)}${o.cls || ''}`, inner, (bb.x0 + bb.x1) / 2, (bb.y0 + bb.y1) / 2, w, h, { bind: (el) => bindPlace(el, S, kind), op: o.dim === undefined ? 1 : o.dim });
+      const ck = `${shape.key}|${shape.n}|${k.toFixed(2)}|${ys.toFixed(2)}`;
+      if (m.clipKey !== ck) { m.clipKey = ck; m.el.style.clipPath = `path(evenodd, "${clipPath(rings, bb.x0, bb.y0)}")`; }
+    }
+    m.el.title = o.title || '';
+    const T = { S, kind, tier, frac, px, py, bb, info, name, origin: o.origin };
+    terrs.push(T);
+    return T;
+  };
   if (lod <= 1) {
-    // ---- land summaries at the pole of each land (the land under the camera at the area level speaks through its districts) ----
-    const sums = [];
+    const here = lod === 1 ? LM.hereLand : null;
     for (const L of vis.lands.values()) {
+      if (here && here.key === L.key) continue;
       const info = LM.landInfo(ds, view.lens, L.key);
-      const pole = LM.poleOf(world, L);
-      const [sx, sy] = LM.toScreen(pole.x, pole.y);
-      const room = pole.r * k;
-      if (sx < -200 || sx > LM.W + 200 || sy < -200 || sy > LM.H + 200) continue;
-      const here = lod === 1 && LM.hereLand && LM.hereLand.key === L.key;
-      if (here) continue;
-      const far = lod === 1;
-      const tier = far ? 'xs' : room >= 140 ? 'l' : room >= 92 ? 'm' : room >= 55 ? 's' : 'xs';
       const tops = [...vis.districts.values()].filter((D) => D.land === L.key && D.built >= 2).sort((a, b) => (b.asks * 4 + b.blocked * 3 + b.working * 0.5 + b.n * 0.05) - (a.asks * 4 + a.blocked * 3 + a.working * 0.5 + a.n * 0.05)).slice(0, 3);
-      const html = placeSummary(L, 'land', tier, { ...base, info, name: info.name, tops });
-      const dim = (traceLands && !traceLands.has(L.key) ? 0.35 : 1) * (projSet && !L.proj ? 0.45 : 1) * (far ? 0.6 : 1);
-      const w = tier === 'l' ? Math.min(340, Math.max(260, room * 2.1)) : tier === 'm' ? Math.min(270, Math.max(220, room * 2.1)) : tier === 's' ? 200 : 0;
-      sums.push({ key: 'L:' + L.key, cls: `lsum ${tier} h-${info.hue} hl-${healthOf(L)}`, html, x: sx, y: sy, w: w || 120, h: tier === 'l' ? 230 : tier === 'm' ? 190 : tier === 's' ? 120 : 90, dim, L, info });
+      const dim = (traceLands && !traceLands.has(L.key) ? 0.35 : 1) * (projSet && !L.proj ? 0.45 : 1) * (lod === 1 ? 0.55 : 1);
+      territory(L, 'land', LM.shapeOf(L), info, info.name, { key: 'L:' + L.key, tops, dim: dim.toFixed(2), cap: lod === 1 ? 's' : null, title: `${info.name}${info.sub ? ': ' + info.sub : ''}`, origin: [0, 0] });
     }
-    if (lod === 0) spread(sums);
-    for (const o of sums) { const m = want(o.key, o.cls, o.html, o.x, o.y, o.w === 120 ? 0 : o.w, 0, { bind: (el) => bindPlace(el, o.L, 'land'), op: o.dim.toFixed(2) }); m.el.title = `${o.info.name}${o.info.sub ? ': ' + o.info.sub : ''}`; }
-  }
-  if (lod === 1 && LM.hereLand) {
-    // ---- the land's header; every district's summary anchored to its territory, pushed apart, with a leader when displaced ----
-    const L = LM.hereLand;
-    const info = LM.landInfo(ds, view.lens, L.key);
-    let bx0 = Infinity, bx1 = -Infinity, by0 = Infinity, by1 = -Infinity;
-    for (const c of L.cells) { const [q, r] = c.split(',').map(Number); const [x, y] = LM.hexXY(q, r); bx0 = Math.min(bx0, x); bx1 = Math.max(bx1, x); by0 = Math.min(by0, y); by1 = Math.max(by1, y); }
-    const [lx0, ly0] = LM.toScreen(bx0, by0), [lx1, ly1] = LM.toScreen(bx1, by1);
-    const pct = L.size ? L.doneSize / L.size : 0, open = (L.built || 0) - (L.done || 0) - (L.dropped || 0);
-    const pvL = layer ? LM.placeValue(L, layer, stats, true) : null, chL = since ? since.places.get(L.key) : null;
-    const Ds = [...vis.districts.values()].filter((D) => D.land === L.key && D.built);
-    const score = (D) => D.asks * 4 + D.blocked * 3 + (projSet ? D.proj * 3 : 0) + (since ? ((since.districts.get(D.key) || { n: 0 }).n) : 0) + D.working * 0.4 + D.n * 0.05;
-    Ds.sort((a, b) => score(b) - score(a));
-    const max = Math.max(4, Math.min(14, Math.floor(((lx1 - lx0) * (ly1 - ly0)) / (200 * 150))));
-    const shown = Ds.slice(0, max), rest = Ds.slice(max);
-    const hdr = `<div class="lh"><span class="disc h-${info.hue}"><svg class="lm" viewBox="0 0 48 48"><path d="${LM.LANDMARKS[LM.lmKey(info.lm)].d}"/></svg></span><span class="nm">${esc(info.name)}</span></div><div class="ln"><b>${pvL ? esc(pvL.text) + ' ' + LM.OV_INFO[layer][0].toLowerCase() : Math.round(pct * 100) + ' % done'}</b> · ${L.built} tasks · ${open} open${rest.length ? ` · ${rest.length} smaller areas` : ''}</div><div class="at">${L.asks ? `<span class="k rules" data-go="ask">${Iw('message-circle-question')}${L.asks} to decide</span>` : ''}${attnChips(L, chL, projSet)}${crewOf(L, 4)}</div>`;
-    want('H:' + L.key, `lsum hdr h-${info.hue} hl-${healthOf(L)}`, hdr, (lx0 + lx1) / 2, Math.max(LM.W <= 720 ? 300 : 215, ly0 - 54), 0, 0, { bind: (el) => bindPlace(el, L, 'land') });
-    const sums = [];
-    for (const D of shown) {
-      const pole = LM.poleOf(world, D);
-      const [sx, sy] = LM.toScreen(pole.x, pole.y);
-      const room = pole.r * k;
-      const name = LM.shortName(LM.distName(ds, view.lens, D.key));
-      const tier = room >= 90 || D.asks || D.blocked ? 'm' : room >= 50 || D.built >= 4 ? 's' : 'xs';
-      const html = placeSummary(D, 'district', tier, { ...base, info, name });
-      const w = tier === 'm' ? 236 : tier === 's' ? 190 : 130;
-      sums.push({ key: 'D:' + D.key, cls: `dsum ${tier} hl-${healthOf(D)}${projSet && !D.proj ? ' dimmed' : ''}`, html, x: sx, y: sy, ax: sx, ay: sy, w, h: tier === 'm' ? (D.asks ? 150 : 110) : tier === 's' ? 76 : 44, D });
+    if (here) {
+      // the land under the camera speaks through its areas; its name stands along its north coast
+      const L = here, info = LM.landInfo(ds, view.lens, L.key);
+      const shape = LM.shapeOf(L), bb = screenBox(LM.hullOf(world, shape));
+      want('R:' + L.key, `region h-${info.hue}`, `<span class="disc h-${info.hue}"><svg class="lm" viewBox="0 0 48 48"><path d="${LM.LANDMARKS[LM.lmKey(info.lm)].d}"/></svg></span><span>${esc(info.name)}</span>`, (bb.x0 + bb.x1) / 2, Math.max(free.y0 + 26, bb.y0 + 30), 0, 0, { bind: (el) => bindPlace(el, L, 'land') });
+      const pole = LM.poleOf(world, L); const [ox, oy] = LM.toScreen(pole.x, pole.y);
+      for (const D of vis.districts.values()) {
+        if (D.land !== L.key || !D.built) continue;
+        territory(D, 'district', D, info, LM.shortName(LM.distName(ds, view.lens, D.key)), { key: 'D:' + D.key, cls: projSet && !D.proj ? ' dimmed' : '', title: LM.distName(ds, view.lens, D.key), origin: [ox, oy] });
+      }
     }
-    const topY = Math.max(LM.W <= 720 ? 300 : 215, ly0 - 54) + 70;
-    for (let round = 0; round < 3; round++) { for (const o of sums) o.y = Math.max(topY + o.h / 2, o.y); spread(sums); }
-    for (const o of sums) {
-      want(o.key, o.cls, o.html, o.x, o.y, o.w, 0, { bind: (el) => bindPlace(el, o.D, 'district') });
-      if (Math.hypot(o.x - o.ax, o.y - o.ay) > 26) LM.leaders.push([o.x, o.y, o.ax, o.ay]);
-    }
+    // no callout cards: a place without room carries its name and its attention line, unclipped, at its pole
   }
   if (lod === 2) {
     // ---- hexagonal tiles: the task inside the shape ----
@@ -602,21 +696,23 @@ LM.syncOverlays = function syncOverlays(vis, world, lod, stats, since, layer, no
       const downs = ds.items.filter((o) => o.dep.includes(it.id)).length;
       const proj = it.projects.length ? ds.byProject.get(it.projects[0]) : null;
       const land = LM.landInfo(ds, view.lens, v.g);
-      const facade = tier !== 's' && !st.dropped ? `<span class="fc"><span class="fac">${LM.FACADES[LM.FACADES[it.f] ? it.f : 'doc']}</span></span>` : '';
+      const pic = view.pic || 'thumb';
+      const facade = pic === 'thumb' && tier !== 's' && !st.dropped ? `<span class="fc">${LM.picSvg(it, st)}</span>` : '';
+      const pbg = pic === 'full' ? LM.picSvg(it, st, 'pbg') : '';
       const banner = asks ? `<div class="askban${asks.some((a) => a.to === 'owner') ? ' you' : ''}" data-ask="${asks[0].id}" title="${esc(asks[0].n)}">${Iw(asks[0].kind === 'approve' ? 'badge-check' : asks[0].kind === 'unblock' ? 'construction' : 'message-circle-question')}<span>${esc(asks[0].n)}</span></div>` : '';
-      const why = tier === 'xl' ? `<div class="why">${Iw('target')}<span>Serves ${esc(land.name)}${proj ? ` · ${esc(proj.short)}` : ''}</span></div>` : '';
-      const html = `<div class="th"><span class="g f-${kind[0]} sm">${Iw(kind[1])}</span><span class="stw st-${st.dropped ? 'dropped' : st.s}">${stateWord}</span><span class="val">${val}</span>${prob && prob !== 'ask' ? `<span class="pb f-${PROBLEM[prob][1]}" title="${prob}">${Iw(PROBLEM[prob][0])}</span>` : ch ? `<span class="pb f-${badgeOf(ch.kind)[1]}" title="changed since you last looked">${Iw(badgeOf(ch.kind)[0])}</span>` : ''}</div>
+      const why = tier === 'xl' && (view.pic || 'thumb') !== 'full' ? `<div class="why">${Iw('target')}<span>Serves ${esc(land.name)}${proj ? ` · ${esc(proj.short)}` : ''}</span></div>` : '';
+      const html = `${pbg}<div class="th"><span class="g f-${kind[0]} sm">${Iw(kind[1])}</span><span class="stw st-${st.dropped ? 'dropped' : st.s}">${stateWord}</span><span class="val">${val}</span>${prob && prob !== 'ask' ? `<span class="pb f-${PROBLEM[prob][1]}" title="${prob}">${Iw(PROBLEM[prob][0])}</span>` : ch ? `<span class="pb f-${badgeOf(ch.kind)[1]}" title="changed since you last looked">${Iw(badgeOf(ch.kind)[0])}</span>` : ''}</div>
         ${banner}
         <div class="tb">${facade}<div class="tt">${esc(it.n)}</div></div>
         <div class="tm"><span class="cr" title="${met} of ${rooms.length} criteria">${segRingHtml(22, rooms.map((x) => x.st), 3.5)}<em>${met}/${rooms.length}</em></span>${sizeDots(it.s)}${it.dep.length || downs ? `<span class="x" title="waits on ${it.dep.length} · frees ${downs}">${Iw('route')}${it.dep.length}→${downs}</span>` : ''}${it.cost ? `<span class="x">${Iw('flame')}${LM.fmtMoney(st.cost)}</span>` : ''}${it.children.length ? `<span class="x">${Iw('git-branch')}${it.children.length}</span>` : ''}</div>
         <div class="tf"><span class="av ${who.agent ? 'ag' : who.cls}" title="${esc(who.name)}">${who.agent ? Iw('bot') : who.initial}</span><span class="tw">${tier === 's' ? '' : esc(who.name.length > 14 ? who.initial : who.name) + ' · '}${LM.rel(st.since, view.t)}</span>${proj && tier !== 's' ? `<span class="pt" title="${esc(proj.n)}">${Iw('kanban')}${esc(proj.short.length > 18 ? proj.short.slice(0, 16) + '…' : proj.short)}</span>` : ''}</div>${why}`;
       const quiet = nowMode && view.quiet && st.old && !ch && !projSet && !traceSet;
       const col = p.tv ? LM.hueVar(LM.layerHue(layer)) : '';
-      const cls = `hex ${tier}${view.sel === it ? ' sel' : ''}${st.dropped ? ' park' : ''}${quiet ? ' quiet' : ''} st-${st.dropped ? 'dropped' : st.s}${asks ? ' asked' : ''}${layer ? ' lay' : ''}`;
+      const cls = `hex ${tier}${view.sel === it ? ' sel' : ''}${st.dropped ? ' park' : ''}${quiet ? ' quiet' : ''} st-${st.dropped ? 'dropped' : st.s}${asks ? ' asked' : ''}${layer ? ' lay' : ''}${pic === 'full' ? ' pic' : ''}`;
       const m = want('T:' + id, cls, html, p.x, p.y, w, h, { bind: (el) => { el.addEventListener('click', (e) => { e.stopPropagation(); const ask = e.target.closest('[data-ask]'); if (ask) { const a = ds.asks.find((x) => x.id === ask.dataset.ask); if (a) { LM.select({ ask: a, it }); return; } } LM.select(it); }); el.addEventListener('pointerenter', (e) => { LM.view.hover = it; LM.renderTip({ it }, e.clientX, e.clientY); LM.dirty(); }); el.addEventListener('pointermove', (e) => LM.renderTip({ it }, e.clientX, e.clientY)); el.addEventListener('pointerleave', () => { LM.view.hover = null; LM.renderTip(null); LM.dirty(); }); }, op: p.dim.toFixed(2) });
       if (col) m.el.style.setProperty('--lc', col); else m.el.style.removeProperty('--lc');
       m.el.style.setProperty('--fill', p.fill.toFixed(2));
-      m.el.style.padding = `${(h * (tier === 's' ? 0.2 : 0.17)).toFixed(0)}px ${(w * 0.09).toFixed(0)}px ${(h * 0.22).toFixed(0)}px`;
+      m.el.style.padding = `${(h * (tier === 's' ? 0.18 : pic === 'full' ? 0.09 : 0.11)).toFixed(0)}px ${(w * 0.07).toFixed(0)}px ${(h * (pic === 'full' ? 0.1 : 0.13)).toFixed(0)}px`;
     }
     // ---- council tiles: the decisions decided on a square, the latest written out ----
     for (const S of (LM.squares || new Map()).values()) {
@@ -639,6 +735,6 @@ LM.hit = function hit(sx, sy) {
   const [wx, wy] = LM.toWorld(sx, sy);
   const [q, r] = LM.xyHex(wx, wy);
   for (const D of vis.districts.values()) if (D.cells.has(q + ',' + r)) return { district: D };
-  for (const L of vis.lands.values()) if (L.cells.has(q + ',' + r)) return { land: L };
+  for (const L of vis.lands.values()) if (LM.shapeOf(L).cells.has(q + ',' + r)) return { land: L };
   return null;
 };
