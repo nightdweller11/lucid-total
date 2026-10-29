@@ -1,6 +1,6 @@
 # Lucid Total — The Living Map (concept)
 
-> The company as a world that grows. Written 2026-10-28 by the lead from the owner's instructions of 2026-10-28 (T30, and the review and extension in T33), extended 2026-10-29 after the owner's review of the first simulation (T34: the layers must be visible, the map must track what is actually happening, and it must continue the v0.2 line), after the first map study (`docs/04-mocks/map-study/`) was rejected: it drew five static reliefs of one moment, with no live layers, nothing to zoom into, nothing to open, and no time. This document is the concept; `docs/17-living-map-product-plan.md` is the plan; `docs/04-mocks/living-map/` is the running simulation that shows it moving. It is subordinate to `docs/13-experience.md` (attention doctrine, the Stage, the dock) and replaces the world sections of `docs/03-map-and-views.md` where they differ.
+> The company as a world that grows. Written 2026-10-28 by the lead from the owner's instructions of 2026-10-28 (T30, and the review and extension in T33), extended 2026-10-29 after the owner's review of the first simulation (T34: the layers must be visible, the map must track what is actually happening, and it must continue the v0.2 line), and again the same day after the review of the second (T35: an isometric world, a designed hexagon, a Now view before the timeline, projects above tasks, zoom buttons, a key, and the two game studies in `docs/research/`), after the first map study (`docs/04-mocks/map-study/`) was rejected: it drew five static reliefs of one moment, with no live layers, nothing to zoom into, nothing to open, and no time. This document is the concept; `docs/17-living-map-product-plan.md` is the plan; `docs/04-mocks/living-map/` is the running simulation that shows it moving. It is subordinate to `docs/13-experience.md` (attention doctrine, the Stage, the dock) and replaces the world sections of `docs/03-map-and-views.md` where they differ.
 
 ---
 
@@ -240,6 +240,42 @@ The **Legend** opens a sheet that explains the map with live samples drawn by th
 ### 15.7 The lab
 
 Theme (Deep Blue, Aqua Dusk, Sky Glass), contrast (standard, high), motion (full, reduced) and the dataset are one popover; every still of the gallery can be reproduced in any of them from its URL.
+
+## 16. The second pass: the isometric world, the Now view, projects (T35)
+
+The second simulation (`docs/04-mocks/living-map-2/`) answers the owner's review of the first one. The first stays online as the reference point. What changed, and why.
+
+### 16.1 The world is isometric, and terrain is gone
+
+Relief meant nothing. The world is now seen from the south at an isometric tilt: lands are glass plates with a thickness, districts are tints on them, and every task is a **prism on its plot whose height is its progress**. A planned task is flat and dashed; a task in progress rises with its share; a blocked one is coral and frozen at the height it reached; a done one stands full in green. Height is the second quantity the eye reads without a key; colour is state; nothing else carries either meaning (`docs/research/2026-10-29-hex-tiles-and-isometric-layers.md`, lessons 1 and 14).
+
+### 16.2 The hexagon, designed
+
+One tile, one task, with fixed slots so the eye compares across tiles: the kind glyph top-left, the one number top-right (the laid layer's value; without a layer, the share or the state word), the title beneath, the criteria ring on the right, who and since at the street. Detail grows with depth: at the sky only colour survives; at the land, colour and glyph; at the district, glyph, number and a one-line title; at the street everything, and the product's facade on the prism's front face as a billboard. **Hover reads the tile in full** (state, since, criteria met, size and cost, what it waits on and frees, subtasks, projects, open asks); **click opens its management view**. Problems are never colour: they are **icons that float above the tile** (asked, blocked, nothing moved, waiting in review), and at the sky they gather per land into one icon with a count, so the view is never covered (`docs/research/2026-10-29-city-builder-info-layers.md`, lessons 11–16).
+
+### 16.3 Layers that mean something in a company
+
+Pipes and power were analogies nobody could read; they are gone. A layer now greys the city and **raises a translucent slab of its own colour on every tile, its height the value**, with the key beside it: Progress (the share, as number and slab), Problems, Dependencies (the roads between tasks, drawn as an underground view: tiles flatten so the roads read; dashed waits, flowing feeds, coral where the upstream is stuck), Cost, Revenue, People (agents against people), Recency, Growth (when each plot was claimed). One layer at a time, Dependencies apart. The key is always visible at the start corner: the state swatches and the marks, and while a layer is laid its scale with the end words and the three places that lead it.
+
+### 16.4 Now before Then
+
+The default is **Now**: the playhead at the present, the timeline closed, and the panel at the end edge listing what needs attention in the place under the camera, grouped: needs a decision (open asks, flagged on their tiles), stuck, nothing moved for a while, waiting in review, landmarks, policies, decided, new and done since the person last looked. Every row flies to its subject and opens it; every row can be dismissed, and the dismissed can be restored. Filters work. The past is quiet: tasks done long ago dim and desaturate so the open and the new stand out; "quiet the past" is a lab setting. The **Time** chip opens the rail; the moment the playhead is in the past the panel becomes the feed of what happened in the window, and a **Now** pill brings you back. The timeline is a tool; the present is the screen.
+
+### 16.5 A task over time
+
+A task's view carries its **moments**: a strip of its life coloured by status with every change, move, the decision that opened it, its subtasks' births and completions and its asks as ticks; each tick sets the map to that moment. When a task is selected and the rail is open, the rail shows its life instead of the company's beats, and the step buttons walk its moments.
+
+### 16.6 Projects: the divisible level above a task
+
+A **project** divides into tasks, a task into subtasks; a task can belong to several projects (a phase's workstream and the project a decision opened share tasks). A project's view says its state without the map: the done share by size, tasks, open, blocked, to decide, its health, the asks that wait on it, a Gantt of every task's life, the tasks by state, the projects it shares tasks with; and with the map: *Show on the map* keeps its tasks in full, dims the rest and draws its thread in birth order in gold across the company. The projects list is reached from the dock and sorted by what needs attention. In the real log the projects are the phase × workstream rows and the decisions' follow-up families; in the example company the projects and the decisions that opened them.
+
+### 16.7 Decisions without the flood
+
+Only an open ask or the owner's recent decision stands as a flag. Everything decided gathers on its district square into one plaque with a count; click lists them. A decision opened on the map still traces its effects.
+
+### 16.8 Zoom
+
+Buttons: in, out, frame the company, with the depth named between them (sky, land, district, street); the keys `+` `−` `0`; the wheel, a pinch and a double click.
 
 ## 14. Open questions for the owner
 

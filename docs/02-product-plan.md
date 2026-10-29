@@ -256,6 +256,10 @@ The meeting's subject centred on the Stage; its open forks and risks; the agenda
 
 ## 6. Decisions, propagation and what-if
 
+### 6.0 Policies (T35)
+
+A **policy** is a decision about behaviour, not a task: an instruction for people, for the AI or for both on how things operate (a gate, a check or a reminder), adopted and changed through the decision mechanism below, with its reach shown before it takes effect. The record, the enforcement and the first eight policies are in `docs/18-policies.md`.
+
 ### 6.1 Decision items
 
 A decision has a question, context, options with consequences, a recommendation (often by the AI), rights, materiality and a chosen option. A material decision card's **first line states cost and toil** in plain words ("cost: $0, toil: none"), following Lucid Chat's L425 rule, so the owner knows what is being asked before reading the context. Taking it produces a **change set**: the list of changes to apply (priorities, dates, assignees, groupings, budgets, notifications). The decision card shows the change set before confirmation.

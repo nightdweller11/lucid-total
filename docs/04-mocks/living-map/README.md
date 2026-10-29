@@ -1,4 +1,6 @@
-# The living map — simulation
+# The living map — simulation (first pass)
+
+> **Superseded on 2026-10-29 by the second pass, `../living-map-2/` (T35): isometric world, the designed hexagon, the Now view, projects, the key, zoom buttons. This first pass is kept as the reference point the owner asked for.**
 
 > The running model of `docs/16-living-map.md` (concept) and `docs/17-living-map-product-plan.md` (plan), on the v0.2 line of `docs/04-mocks/README.md`. One page, `index.html`, with two datasets inlined: the **real** event log of Lucid Chat's build and a **generated** three-year company. Online at https://totalmocks.belucid.chat/living-map/ . Built 2026-10-28 (T33) and rebuilt 2026-10-29 (T34) by the lead.
 

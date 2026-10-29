@@ -66,23 +66,24 @@
 | LM-L-4 | The AI chooses the lens that answers the question and says which; a person can switch with one tap or one word. |
 | LM-L-5 | Overlays apply to every lens unchanged. |
 
-### 2.5 Overlays (LM-O)
+### 2.5 Layers (LM-O)
+
+Rewritten in T35: a layer greys the city and raises a translucent slab of its colour on every tile, its height the value; one layer at a time (Dependencies apart); the key is always visible. Terrain, Pipes and Power are withdrawn (T35).
 
 | ID | Requirement |
 |---|---|
-| LM-O-1 | **Terrain:** district elevation is remaining work; off by default; a flat fallback in high contrast. |
-| LM-O-2 | **Progress:** a tide of light to the done share of each land and district; the forecast tide as a dotted line. |
-| LM-O-3 | **Cost:** ground heat by accumulated spend; AI spend as a cooler tint inside the warm; visible by role (T-O12). |
-| LM-O-4 | **Revenue:** golden yield by attributed revenue; brown where cost exceeds revenue; visible by role. |
-| LM-O-5 | **Issues:** haze (stale), cloud (issues), storm (breach), over the place hurt; severity by darkness; drift slow. |
-| LM-O-6 | **Pipes:** dependencies and hand-offs as lines; flow particles while the upstream delivers; a clog (dark pulsing knot) at a blocked upstream; dry dotted pipes downstream of a clog; aggregated as roads between lands at the sky view. |
-| LM-O-7 | **Power:** approval and decision flow; a district waiting on an open decision is dark with the open switch drawn at the monument it waits for. |
-| LM-O-8 | **Load:** window light warmth by people and agent load; overloaded buildings flicker. |
-| LM-O-9 | **Freshness:** lit where something moved today; dim after a fortnight of stillness. |
-| LM-O-10 | **AI:** teal tint by agent share of work; the trust ceiling per land as a faint ring. |
-| LM-O-11 | **Risk:** forecast weather over goals at risk. |
-| LM-O-12 | Overlays never add marks or counts. Overlays on different channels (ground, light, air, lines) may stack; two on the same channel cannot. |
-| LM-O-13 | Each overlay has a legend line in the legend chip and a one-sentence meaning the AI says when it lays it. |
+| LM-O-1 | **Progress:** the share per task as a number and a slab; the place's share as its plate tint; done tiles show a check, not a number. |
+| LM-O-2 | **Problems:** where something needs a person (asked, blocked, waiting in review, still too long); icons float above tiles; at the sky one icon per land with a count. |
+| LM-O-3 | **Cost:** accumulated spend per task and place; visible by role (T-O12). |
+| LM-O-4 | **Revenue:** attributed revenue per product spread over its places; visible by role. |
+| LM-O-5 | **Dependencies:** the roads between tasks as an underground view (tiles flatten and grey so the roads read): dashed waits, flowing feeds with particles, coral from a blocked upstream, a barrier at the clog; aggregated between lands at the sky. |
+| LM-O-6 | **People:** who holds the work; agents against people per place. |
+| LM-O-7 | **Recency:** how recently each task last moved. |
+| LM-O-8 | **Growth:** when each plot was claimed; regions shift as they grow. |
+| LM-O-9 | **Risk** (phase 2): forecast weather over goals at risk. |
+| LM-O-10 | The base steps back (greyed) while a layer is laid; every saturated pixel is data. Layers never add marks or counts; problems are icons and exist in every layer. |
+| LM-O-11 | The key shows the layer's name, one sentence, the scale with its end words, and the three places that lead; it opens and closes with the layer. |
+| LM-O-12 | Hold-to-peek (hold a key, release to return) beside sticky layers; a platform setting. |
 
 ### 2.6 Zoom and cutaways (LM-Z)
 
@@ -203,6 +204,45 @@
 | LM-V-4 | The grammar sheet draws its samples with the renderer; elements, depths, lenses, layers, badges, actions | Still `lucid-legend-sheet` |
 | LM-V-5 | The lab: three themes, two contrasts, motion, dataset; all URL state | Stills `lucid-sky-glass`, `lucid-aqua`, `lucid-hc` |
 
+### 2.18 The isometric world and the tile (LM-I)
+
+| ID | Requirement |
+|---|---|
+| LM-I-1 | The ground is seen from the south at an isometric tilt (y squashed to 0.55); lands are glass plates with a thickness; districts tints; no terrain. |
+| LM-I-2 | A task is a prism whose height is its progress: planned flat and dashed; in progress rising with its share; blocked coral and frozen; done full and green; set aside a park. Height and colour are the only carriers of progress and state. |
+| LM-I-3 | The top face has fixed slots: glyph top-left, the one number top-right, the title beneath, the criteria ring at the right, who and since at the street. Detail by depth: sky colour only; land colour and glyph; district glyph, number, one-line title; street everything plus the facade on the front face. |
+| LM-I-4 | Hover reads the tile in full in a fixed order (identity, state and since, the layer's value, place, who, criteria, size and cost, waits on and frees, subtasks, parent, projects, open asks); click opens the management view. |
+| LM-I-5 | Problems float as icons above tiles (asked, blocked, nothing moved, waiting in review); at the sky and when they would cover the view they gather per place into one icon with a count. |
+| LM-I-6 | Decided decisions gather on the square as one plaque with a count; a flag stands only for an open ask or the owner's recent decision. |
+| LM-I-7 | Zoom buttons (in, out, frame) with the depth named; keys `+` `−` `0`; wheel, pinch, double click. |
+
+### 2.19 The Now view (LM-N)
+
+| ID | Requirement |
+|---|---|
+| LM-N-1 | The default is Now: the playhead at the present, the timeline closed, the panel listing what needs attention in the place under the camera, grouped (needs a decision, stuck, nothing moved, waiting in review, landmarks, policies, decided, new, done since last looked). |
+| LM-N-2 | Rows fly to and open their subject; rows can be dismissed and restored (per person); filters narrow by kind and show counts; scope toggles between here and everywhere. |
+| LM-N-3 | The past is quiet: tasks done before the review window dim and desaturate (a lab and platform setting). |
+| LM-N-4 | Opening the timeline and moving into the past turns the panel into the feed of the window; a Now pill returns. |
+| LM-N-5 | The owner's open asks are flagged on their tiles and counted per land at the sky. |
+
+### 2.20 Projects (LM-J)
+
+| ID | Requirement |
+|---|---|
+| LM-J-1 | A project divides into tasks, a task into subtasks; a task can belong to several projects; a project can be opened by a decision. |
+| LM-J-2 | The project view without the map: done share by size, tasks, open, blocked, to decide, health; the asks that wait on it; a Gantt of every task's life; tasks by state; projects it shares tasks with; dependencies that reach outside it. |
+| LM-J-3 | With the map: *Show on the map* keeps the project's tasks in full, dims the rest and draws its thread in birth order; *Play from its start* plays its history. |
+| LM-J-4 | The projects list from the dock, sorted by what needs attention, each with a ring, counts and a strip of its tasks' states. |
+| LM-J-5 | Subtasks live where their parent lives and move with it; a parent's progress is the model's, not a roll-up, until the product has real criteria. |
+
+### 2.21 A task over time (LM-M)
+
+| ID | Requirement |
+|---|---|
+| LM-M-1 | A task's moments: born, every status change, every move, the decision that opened it, its subtasks' births and completions, its asks; shown as a strip coloured by status with ticks; each tick sets the map to that moment. |
+| LM-M-2 | With a task selected and the rail open, the rail shows that task's life and the step buttons walk its moments. |
+
 ## 3. How things move over time: the motion table
 
 | Event | Motion | Minimum visible duration | Sound of it in the ledger |
@@ -253,8 +293,8 @@ Outside playback only live flow, slow weather drift and the breath of buildings 
 
 | Phase | Deliverable | Gate |
 |---|---|---|
-| 0 | The simulation (`docs/04-mocks/living-map/`) as the reference; `packages/scene` world layout: plots, claiming, hulls, time derivation; the Departments lens; Progress and Pipes overlays; Z0–Z2 | The real Lucid Chat log grows the same world as the simulation |
-| 1 | Lenses (Projects, Products, People) with the walk; Cost, Issues, Freshness, Power, Growth; the product, place and decision views; the since layer; the feed and the in-place cards; the rail and playback; tracing | Acceptance §5 items 1–6 on real data; LM-H, LM-Y, LM-S, LM-F, LM-V |
+| 0 | The simulations (`docs/04-mocks/living-map-2/` as the reference; `living-map/` kept as the first pass) ; `packages/scene` world layout: plots, claiming, hulls, time derivation; the Departments lens; Progress and Pipes overlays; Z0–Z2 | The real Lucid Chat log grows the same world as the simulation |
+| 1 | Lenses (Projects, Products, People) with the walk; the layers of §2.5; the task (with moments), ask, project, place and decision views; the Now panel; the since layer; the feed and the in-place cards; the rail and playback; tracing; projects and policies | Acceptance §5 items 1–6 on real data; LM-H, LM-Y, LM-S, LM-F, LM-V, LM-I, LM-N, LM-J, LM-M |
 | 2 | Secession Forks; Refocus on the map; forecast ghost and Futures; Revenue, Load, AI, Risk; phone; accessibility; the mechanism library with oversight | Full §5; attention validator in CI |
 | 3 | Customers and Money lenses; generated landmark art; company-scale tuning at 20,000 buildings | LM-R-1 at scale |
 

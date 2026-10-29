@@ -48,10 +48,12 @@ const hasGallery = gallery(MOCKS, PUBLIC);
 gallery(path.join(MOCKS, 'v0.1'), path.join(PUBLIC, 'v0.1'));
 gallery(path.join(MOCKS, 'map-study'), path.join(PUBLIC, 'map-study'));
 gallery(path.join(MOCKS, 'living-map'), path.join(PUBLIC, 'living-map'));
+gallery(path.join(MOCKS, 'living-map-2'), path.join(PUBLIC, 'living-map-2'));
 
 const links = [
   hasGallery && '<li><a href="./index.html">Mocks v0.2</a> — the gallery (40 frames; lab bar for theme, contrast, direction, device)</li>',
-  existsSync(path.join(PUBLIC, 'living-map', 'index.html')) && '<li><a href="./living-map/">The living map</a> — the time-based simulation: the real log of Lucid Chat\'s build and a generated three-year company (<a href="./living-map/README.md">how to read it</a>)</li>',
+  existsSync(path.join(PUBLIC, 'living-map-2', 'index.html')) && '<li><a href="./living-map-2/">The living map, second pass</a> — isometric, the Now view, projects, the key (<a href="./living-map-2/README.md">how to read it</a>)</li>',
+  existsSync(path.join(PUBLIC, 'living-map', 'index.html')) && '<li><a href="./living-map/">The living map, first pass</a> — kept as the reference point (<a href="./living-map/README.md">how to read it</a>)</li>',
   existsSync(path.join(PUBLIC, 'map-study', 'index.html')) && '<li><a href="./map-study/">Map study (rejected, kept for the record)</a> — five static explorations (<a href="./map-study/STUDY.md">the study</a>)</li>',
   existsSync(path.join(PUBLIC, 'v0.1', 'index.html')) && '<li><a href="./v0.1/">Mocks v0.1</a> — the archived first wave, for comparison</li>',
   '<li><a href="./README.md">README</a> · <a href="./BRIEF-v0.2.md">Brief v0.2</a></li>',
